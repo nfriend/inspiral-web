@@ -35,11 +35,6 @@
 
     <script>
 
-        //The data for our line
-        //var lineData = [{ "x": 1, "y": 5 }, { "x": 20, "y": 20 },
-        //                 { "x": 40, "y": 10 }, { "x": 60, "y": 40 },
-        //                 { "x": 80, "y": 5 }, { "x": 100, "y": 60 }];
-
         var toRadians = function (degrees) {
             return (degrees * Math.PI) / 180;
         }
@@ -47,19 +42,21 @@
         var centerX = window.innerWidth / 2;
         var centerY = window.innerHeight / 2;
         var lineData = [];
+
         var radius = 100;
+        var largeRadius = 250;
+        var smallAngle = 0;
+        var resolution = 10; // lower the better.
+        var timeMultiplier = 10;
+        var smallToLargeRatio = .3;
 
-
-        var largeRadius = 300;
-        var largeAngle = 0;
-        for (var i = 90; i < 360 * 10; i++) {
+        for (var i = 0; i <= 360 * timeMultiplier; i = i + resolution) {
             var x = radius * Math.cos(toRadians(i)) + centerX;
             var y = radius * Math.sin(toRadians(i)) + centerY;
-            var largeXAdjustment = radius * Math.cos(toRadians(largeAngle));
-            var largeYAdjustment = radius * Math.sin(toRadians(largeAngle));
+            var largeXAdjustment = largeRadius * Math.cos(toRadians(i * smallToLargeRatio));
+            var largeYAdjustment = largeRadius * Math.sin(toRadians(i * smallToLargeRatio));
 
             lineData.push({ 'x': x + largeXAdjustment, 'y': y + largeYAdjustment });
-            largeAngle = (largeAngle + .3) % 360;
         }
 
         //This is the accessor function we talked about above
