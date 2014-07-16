@@ -8,14 +8,15 @@ module.exports = function (grunt) {
                 options: {
                     read: [
                       { selector: 'link', attribute: 'href', writeto: 'cssRefs', isPath: true },
-                      { selector: 'script', attribute: 'src', writeto: 'jsRefs', isPath: true },
+                      { selector: 'script:not(.ignored)', attribute: 'src', writeto: 'jsRefs', isPath: true },
                       { selector: 'link', attribute: 'href', writeto: 'cssRefsWithoutPath', isPath: false },
-                      { selector: 'script', attribute: 'src', writeto: 'jsRefsWithoutPath', isPath: false }
+                      { selector: 'script:not(.ignored)', attribute: 'src', writeto: 'jsRefsWithoutPath', isPath: false }
                     ],
                     remove: ['link', 'script'],
                     append: [
                       { selector: 'head', html: '<link href="application.min.css" rel="stylesheet" />' },
                       { selector: 'head', html: '<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />' },
+                      { selector: 'body', html: '<script src="bower_components/d3/d3.min.js"></script>' },
                       { selector: 'body', html: '<script src="application.min.js"></script>' }
                     ]
                 },
@@ -44,7 +45,7 @@ module.exports = function (grunt) {
         copy: {
             dist: {
                 cwd: 'app',
-                src: ['fonts/**', 'images/**', 'views/**', 'favicon.ico'],
+                src: ['fonts/**', 'images/**', 'views/**', 'favicon.ico', 'bower_components/d3/d3.min.js'],
                 dest: 'dist',
                 expand: true
             },
@@ -82,7 +83,7 @@ module.exports = function (grunt) {
                 src: ['dist/**/*.css', 'dist/**/*.less', 'dist/**/*.sass', 'dist/**/*.scss', '!dist/application.min.css']
             },
             distscripts: {
-                src: ['dist/**/*.js', '!dist/application.min.js']
+                src: ['dist/**/*.js', '!dist/application.min.js', '!dist/**/d3.min.js']
             }
         },
 
