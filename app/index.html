@@ -11,48 +11,7 @@
 </head>
 <body class="spirograph">
 
-    <canvas id="my-canvas" width="1000" height="800"></canvas>
-
     <div ng-view></div>
-
-    <script>
-        var toRadians = function (degrees) {
-            return (degrees * Math.PI) / 180;
-        }
-
-        var canvas = document.getElementById('my-canvas');
-        var context = canvas.getContext('2d');
-        var centerX = canvas.width / 2;
-        var centerY = canvas.height / 2;
-        var radius = 350;
-
-        context.beginPath();
-        //context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-        //context.fill();
-
-
-        var pointsHistory = [];
-        for (var i = 0; i < 5; i++) {
-            var newPointX = radius * Math.cos(i) + centerX;
-            var newPointY = radius * Math.sin(i) + centerY;
-
-            if (pointsHistory.length === 2) {
-                pointsHistory[1] = pointsHistory[0];
-                pointsHistory[0] = [newPointX, newPointY];
-
-                context.quadraticCurveTo(pointsHistory[0][0], pointsHistory[0][1], pointsHistory[1][0], pointsHistory[1][1]);
-
-            } else {
-                pointsHistory.splice(0, 0, [newPointX, newPointY]);
-            }
-
-        }
-        context.lineWidth = 1;
-        context.strokeStyle = '#003300';
-        context.fillStyle = 'green';
-        context.stroke();
-
-    </script>
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -62,6 +21,7 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
 
     <script src="scripts/app.js"></script>
     <script src="scripts/modules.js"></script>
@@ -72,5 +32,55 @@
     <!--Controllers-->
     <script src="scripts/controllers/MainController.js"></script>
     <!--/Controllers-->
+
+    <script>
+
+        //The data for our line
+        //var lineData = [{ "x": 1, "y": 5 }, { "x": 20, "y": 20 },
+        //                 { "x": 40, "y": 10 }, { "x": 60, "y": 40 },
+        //                 { "x": 80, "y": 5 }, { "x": 100, "y": 60 }];
+
+        var toRadians = function (degrees) {
+            return (degrees * Math.PI) / 180;
+        }
+
+        var centerX = window.innerWidth / 2;
+        var centerY = window.innerHeight / 2;
+        var lineData = [];
+        var radius = 100;
+
+
+        var largeRadius = 300;
+        var largeAngle = 0;
+        for (var i = 90; i < 360 * 10; i++) {
+            var x = radius * Math.cos(toRadians(i)) + centerX;
+            var y = radius * Math.sin(toRadians(i)) + centerY;
+            var largeXAdjustment = radius * Math.cos(toRadians(largeAngle));
+            var largeYAdjustment = radius * Math.sin(toRadians(largeAngle));
+
+            lineData.push({ 'x': x + largeXAdjustment, 'y': y + largeYAdjustment });
+            largeAngle = (largeAngle + .3) % 360;
+        }
+
+        //This is the accessor function we talked about above
+        var lineFunction = d3.svg.line()
+                                 .x(function (d) { return d.x; })
+                                 .y(function (d) { return d.y; })
+                                 .interpolate("cardinal");
+
+        //The SVG Container
+        var svgContainer = d3.select("body").append("svg")
+                                            .attr("width", window.innerWidth)
+                                            .attr("height", window.innerHeight);
+
+        //The line SVG Path we draw
+        var lineGraph = svgContainer.append("path")
+                                    .attr("d", lineFunction(lineData))
+                                    .attr("stroke", "blue")
+                                    .attr("stroke-width", 2)
+                                    .attr("fill", "none");
+
+    </script>
+
 </body>
 </html>
