@@ -43,12 +43,12 @@
         var centerY = window.innerHeight / 2;
         var lineData = [];
 
-        var radius = 100;
-        var largeRadius = 250;
+        var radius = 200;
+        var largeRadius = 150;
         var smallAngle = 0;
         var resolution = 10; // lower the better.
-        var timeMultiplier = 10;
-        var smallToLargeRatio = .3;
+        var timeMultiplier = 19;
+        var smallToLargeRatio = 1 / 19;
 
         for (var i = 0; i <= 360 * timeMultiplier; i = i + resolution) {
             var x = radius * Math.cos(toRadians(i)) + centerX;
@@ -71,11 +71,28 @@
                                             .attr("height", window.innerHeight);
 
         //The line SVG Path we draw
-        var lineGraph = svgContainer.append("path")
+        var path = svgContainer.append("path")
                                     .attr("d", lineFunction(lineData))
                                     .attr("stroke", "blue")
                                     .attr("stroke-width", 2)
                                     .attr("fill", "none");
+
+        var totalLength = path.node().getTotalLength();
+
+        var animationLength = 10000;
+
+        path.attr("stroke-dasharray", totalLength + " " + totalLength)
+              .attr("stroke-dashoffset", totalLength)
+              .transition().duration(animationLength)
+                .ease("linear")
+                .attr("stroke-dashoffset", 0);
+
+        svgContainer.on("click", function () {
+            path.transition()
+              .duration(animationLength)
+              .ease("linear")
+              .attr("stroke-dashoffset", totalLength);
+        })
 
     </script>
 
