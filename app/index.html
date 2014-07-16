@@ -1,0 +1,76 @@
+﻿<!doctype html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" ng-app="spirograph">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Spirograph</title>
+
+</head>
+<body class="spirograph">
+
+    <canvas id="my-canvas" width="1000" height="800"></canvas>
+
+    <div ng-view></div>
+
+    <script>
+        var toRadians = function (degrees) {
+            return (degrees * Math.PI) / 180;
+        }
+
+        var canvas = document.getElementById('my-canvas');
+        var context = canvas.getContext('2d');
+        var centerX = canvas.width / 2;
+        var centerY = canvas.height / 2;
+        var radius = 350;
+
+        context.beginPath();
+        //context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        //context.fill();
+
+
+        var pointsHistory = [];
+        for (var i = 0; i < 5; i++) {
+            var newPointX = radius * Math.cos(i) + centerX;
+            var newPointY = radius * Math.sin(i) + centerY;
+
+            if (pointsHistory.length === 2) {
+                pointsHistory[1] = pointsHistory[0];
+                pointsHistory[0] = [newPointX, newPointY];
+
+                context.quadraticCurveTo(pointsHistory[0][0], pointsHistory[0][1], pointsHistory[1][0], pointsHistory[1][1]);
+
+            } else {
+                pointsHistory.splice(0, 0, [newPointX, newPointY]);
+            }
+
+        }
+        context.lineWidth = 1;
+        context.strokeStyle = '#003300';
+        context.fillStyle = 'green';
+        context.stroke();
+
+    </script>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/modules.js"></script>
+    <script src="scripts/services/services.js"></script>
+    <script src="scripts/filters/filters.js"></script>
+    <script src="scripts/directives/directives.js"></script>
+
+    <!--Controllers-->
+    <script src="scripts/controllers/MainController.js"></script>
+    <!--/Controllers-->
+</body>
+</html>
