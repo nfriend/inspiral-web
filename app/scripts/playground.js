@@ -45,7 +45,9 @@ var svgContainer = d3.select("body").append("svg").attr("width", window.innerWid
 
 var circle = svgContainer.append("g")
     .attr("class", "gear")
-    .datum({teeth: 32, radius: 100})
+    .attr("fill", "red")
+    .attr("fill-opacity", "0.5")
+    .datum({teeth: 30, radius: 100})
     .append("path")
     .attr("d", gear);
 
@@ -58,7 +60,7 @@ var svgContainerMouseMove = function (d, i) {
     var newX = radius * Math.cos(mouseAngle) + centerX;
     var newY = -1 * radius * Math.sin(mouseAngle) + centerY;
 
-    circle.attr("transform", "translate(" + newX + "," + newY + ")");
+    circle.attr("transform", "translate(" + newX + "," + newY + ") rotate(" + toDegrees(mouseAngle) + ")");
     //circle.attr("cx", radius * Math.cos(mouseAngle) + centerX).attr("cy", -1 * radius * Math.sin(mouseAngle) + centerY);
 }
 
