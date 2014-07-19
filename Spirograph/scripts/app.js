@@ -9,7 +9,7 @@ var Spirograph;
         toothHeight: 10
     };
 
-    var gear = svgContainer.append("g").attr("class", "gear").attr("fill", "red").attr("fill-opacity", "0.5").attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(gearOptions).append("path").attr("d", Spirograph.Shapes.Gear);
+    var gear = svgContainer.append("g").attr("class", "gear").attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(gearOptions).append("path").attr("d", Spirograph.Shapes.Gear);
 
     var svgContainerMouseMove = function (d, i) {
         var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.event.clientX, y: d3.event.clientY }, { x: window.innerWidth, y: window.innerHeight });

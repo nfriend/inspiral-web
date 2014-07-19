@@ -13,13 +13,13 @@ module Spirograph.Shapes {
 
         pathBuilder.add(new SVG.MCommand(options.radius, 0));
         for (var i = 0; i < options.toothCount; i++) {
-            angle += delta;
             pathBuilder.add(new SVG.ACommand(options.radius, options.radius, 0, false, true, options.radius * Math.cos(Utility.toRadians(angle + delta * 1/3)), options.radius * Math.sin(Utility.toRadians(angle + delta * 1/3))));
             pathBuilder.add(new SVG.LCommand(outerRadius * Math.cos(Utility.toRadians(angle + delta * 1/2)), outerRadius * Math.sin(Utility.toRadians(angle + delta * 1/2))));
             pathBuilder.add(new SVG.ACommand(outerRadius, outerRadius, 0, false, true, outerRadius * Math.cos(Utility.toRadians(angle + delta * 5/6)), outerRadius * Math.sin(Utility.toRadians(angle + delta * 5/6))));
             pathBuilder.add(new SVG.LCommand(options.radius * Math.cos(Utility.toRadians(angle + delta)), options.radius * Math.sin(Utility.toRadians(angle + delta))));
+            angle += delta;
         }
-        //pathBuilder.add(new SVG.ZCommand());
+        pathBuilder.add(new SVG.ZCommand());
         console.log(pathBuilder.toString());
         return pathBuilder.toString();
     }

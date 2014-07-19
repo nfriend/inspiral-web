@@ -12,8 +12,6 @@ module Spirograph {
 
     var gear = svgContainer.append("g")
         .attr("class", "gear")
-        .attr("fill", "red")
-        .attr("fill-opacity", "0.5")
         .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
         .datum(gearOptions)
         .append("path")
