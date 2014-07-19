@@ -5,9 +5,11 @@ module Spirograph {
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
     var gearOptions: Shapes.GearOptions = {
-        radius: 150,
-        toothCount: 48,
-        toothHeight: 10
+        radius: 180,
+        toothCount: 84,
+        toothHeight: 10,
+        holeCount: 35,
+        holeSweepAngle: 720
     };
 
     var gear = svgContainer.append("g")

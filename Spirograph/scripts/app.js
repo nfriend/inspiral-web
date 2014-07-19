@@ -4,9 +4,11 @@ var Spirograph;
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
     var gearOptions = {
-        radius: 150,
-        toothCount: 48,
-        toothHeight: 10
+        radius: 180,
+        toothCount: 84,
+        toothHeight: 10,
+        holeCount: 35,
+        holeSweepAngle: 720
     };
 
     var gear = svgContainer.append("g").attr("class", "gear").attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(gearOptions).append("path").attr("d", Spirograph.Shapes.Gear);
