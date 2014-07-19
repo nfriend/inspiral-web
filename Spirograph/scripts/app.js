@@ -5,8 +5,8 @@ var Spirograph;
 
     var gearOptions = {
         radius: 150,
-        toothCount: 34,
-        toothHeight: 18
+        toothCount: 48,
+        toothHeight: 10
     };
 
     var gear = svgContainer.append("g").attr("class", "gear").attr("fill", "red").attr("fill-opacity", "0.5").attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(gearOptions).append("path").attr("d", Spirograph.Shapes.Gear);
@@ -19,7 +19,8 @@ var Spirograph;
         var newX = radius * Math.cos(mouseAngle) + Spirograph.Utility.getCenterX();
         var newY = -1 * radius * Math.sin(mouseAngle) + Spirograph.Utility.getCenterY();
 
-        gear.attr("transform", "translate(" + newX + "," + newY + ") rotate(" + Spirograph.Utility.toDegrees(mouseAngle) + ")");
+        //gear.attr("transform", "translate(" + newX + "," + newY + ") rotate(" + Utility.toDegrees(mouseAngle) + ")");
+        gear.attr("transform", "rotate(" + Spirograph.Utility.toDegrees(-1 * mouseAngle) + ")");
     };
 
     gear.on("mousedown", function (d, i) {

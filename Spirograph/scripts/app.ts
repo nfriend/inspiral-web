@@ -6,8 +6,8 @@ module Spirograph {
 
     var gearOptions: Shapes.GearOptions = {
         radius: 150,
-        toothCount: 34,
-        toothHeight: 18
+        toothCount: 48,
+        toothHeight: 10
     };
 
     var gear = svgContainer.append("g")
@@ -27,7 +27,8 @@ module Spirograph {
         var newX = radius * Math.cos(mouseAngle) + Utility.getCenterX();
         var newY = -1 * radius * Math.sin(mouseAngle) + Utility.getCenterY();
 
-        gear.attr("transform", "translate(" + newX + "," + newY + ") rotate(" + Utility.toDegrees(mouseAngle) + ")");
+        //gear.attr("transform", "translate(" + newX + "," + newY + ") rotate(" + Utility.toDegrees(mouseAngle) + ")");
+        gear.attr("transform", "rotate(" + Utility.toDegrees(-1 * mouseAngle) + ")");
     }
 
     gear.on("mousedown", function (d, i) {
