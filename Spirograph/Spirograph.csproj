@@ -39,6 +39,7 @@
     <TypeScriptCompile Include="scripts\Shapes\RingGear.ts" />
     <TypeScriptCompile Include="scripts\SvgCommands\A.ts" />
     <TypeScriptCompile Include="scripts\SvgCommands\M.ts" />
+    <TypeScriptCompile Include="scripts\utility.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower.json" />

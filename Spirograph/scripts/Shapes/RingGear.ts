@@ -1,6 +1,6 @@
 /// <reference path='../definitions/references.d.ts' />
 
-module Shapes {
+module Spirograph.Shapes {
     export function RingGear(options: RingGearOptions) {
         return "SDFSDF";
     }

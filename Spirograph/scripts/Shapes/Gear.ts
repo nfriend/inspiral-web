@@ -1,6 +1,6 @@
 /// <reference path='../definitions/references.d.ts' />
 
-module Shapes {
+module Spirograph.Shapes {
     export function Gear(options: GearOptions) {
         var n = options.toothCount,
             r2 = Math.abs(options.radius),

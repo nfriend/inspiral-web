@@ -1,6 +1,6 @@
 /// <reference path='../definitions/references.d.ts' />
 
-module SvgCommands {
+module Spirograph.SvgCommands {
     export interface A {
         elementName: string;
         radiusX: number;
