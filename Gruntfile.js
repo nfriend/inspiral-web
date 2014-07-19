@@ -39,7 +39,7 @@ module.exports = function (grunt) {
                 },
                 src: 'app/index.html',
                 dest: 'devbuild/index.html'
-            },
+            }
         },
 
         copy: {
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
                 src: ['images/**'],
                 dest: 'devbuild',
                 expand: true
-            },
+            }
         },
 
         clean: {
@@ -83,7 +83,12 @@ module.exports = function (grunt) {
                 src: ['dist/**/*.css', 'dist/**/*.less', 'dist/**/*.sass', 'dist/**/*.scss', '!dist/application.min.css']
             },
             distscripts: {
-                src: ['dist/**/*.js', '!dist/application.min.js', '!dist/**/d3.min.js']
+                force: true,
+                src: ['dist/**/*.js', 'dist-temp', '!dist/application.min.js', '!dist/**/d3.min.js']
+            },
+            test: {
+                force: true,
+                src: ['test-temp']
             }
         },
 
@@ -135,22 +140,9 @@ module.exports = function (grunt) {
             }
         },
 
-        jshint: {
-            dist: {
-                options: {
-                    jshintrc: '.jshintrc',
-                    reporter: require('jshint-stylish'),
-                    force: true
-                },
-                files: {
-                    src: ['app/scripts/**/*.js']
-                }
-            },
-        },
-
         uglify: {
             dist: {
-                src: '<%= dom_munger.data.jsRefs %>',
+                src: 'dist-temp/**/*.js',
                 dest: 'dist/application.min.js'
             }
         },
@@ -164,8 +156,8 @@ module.exports = function (grunt) {
                 tasks: ['dist']
             },
             devbuild: {
-                files: ['app/**/*.{html,htm,md,js,json,css,less,sass,scss,png,jpg,jpeg,gif,ico,webp,svg,woff,ttf,eot}', '!app/bower_components/**'],
-                tasks: ['dom_munger', 'less:devbuild', 'autoprefixer:devbuild', 'copy:fonts', 'copy:images', 'copy:devbuild']
+                files: ['app/**/*.{html,htm,md,js,ts,json,css,less,sass,scss,png,jpg,jpeg,gif,ico,webp,svg,woff,ttf,eot}', '!app/bower_components/**'],
+                tasks: ['dom_munger', 'less:devbuild', 'autoprefixer:devbuild', 'copy:fonts', 'copy:images', 'copy:devbuild', 'ts:devbuild']
             }
         },
 
@@ -196,31 +188,50 @@ module.exports = function (grunt) {
                     files: [
                         'app/bower_components/angular/angular.js',
                         'app/bower_components/angular-mocks/angular-mocks.js',
-                        'app/scripts/modules.js',
-                        'app/scripts/**/*.js',
-                        'test/**/*.js',
+                        'test-temp/app/scripts/modules.js',
+                        'test-temp/**/*.js'
                     ],
                     frameworks: ['jasmine'],
                     reporters: ['progress'],
                     color: true,
-                    browsers: ['PhantomJS']
+                    browsers: ['PhantomJS'],
+                    singleRun: true
                 }
+            }
+        },
+
+        ts: {
+            devbuild: {
+                src: ['app/scripts/**/*.ts', '!app/scripts/definitions/**/*.ts'],
+                outDir: 'devbuild/scripts'
+            },
+            test: {
+                src: ['app/scripts/**/*.ts', 'test/**/*.ts', '!app/scripts/definitions/**/*.ts'],
+                outDir: 'test-temp/'
+            },
+            dist: {
+                src: ['app/scripts/**/*.ts', '!app/scripts/definitions/**/*.ts'],
+                outDir: 'dist-temp/'
             }
         }
     });
 
-    grunt.registerTask('test', 'Runs all the unit tests for this project', ['karma']);
+    grunt.registerTask(
+            'test',
+            'Runs all the unit tests for this project',
+            ['ts:test', 'karma', 'clean:test']
+        );
 
     grunt.registerTask(
         'dist',
         'Compiles all of the assets and copies the files to the dist directory',
-        ['clean:dist', 'dom_munger:dist', 'copy:dist', 'less:dist', 'autoprefixer:dist', 'cssmin', 'jshint', 'test', 'uglify', 'htmlmin:dist', 'clean:diststylesheets', 'clean:distscripts']
+        ['clean:dist', 'dom_munger:dist', 'copy:dist', 'less:dist', 'autoprefixer:dist', 'cssmin', 'test', 'ts:dist', 'uglify', 'htmlmin:dist', 'clean:diststylesheets', 'clean:distscripts']
     );
 
     grunt.registerTask(
         'devbuild',
         'Compiles all of the assets and copies the files to the devbuild directory',
-        ['clean:devbuild', 'dom_munger:devbuild', 'copy:devbuild', 'less:devbuild', 'autoprefixer:devbuild', 'clean:devstylesheets']
+        ['clean:devbuild', 'dom_munger:devbuild', 'copy:devbuild', 'ts:devbuild', 'less:devbuild', 'autoprefixer:devbuild', 'clean:devstylesheets']
     );
 
     grunt.registerTask(
@@ -253,5 +264,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-dom-munger');
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-karma');
+    grunt.loadNpmTasks('grunt-ts');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
 };
