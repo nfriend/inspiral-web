@@ -1,0 +1,10 @@
+{
+  "name": "spirograph",
+  "version": "0.0.0",
+  "dependencies": {
+    "jquery": "~1.x",
+    "bootstrap": "~3.x",
+    "fontawesome": "4.x",
+    "d3": "~3.4.11"
+  }
+}

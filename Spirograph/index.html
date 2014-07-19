@@ -1,16 +1,30 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>TypeScript HTML App</title>
-    <link rel="stylesheet" href="StyleSheet1.css" type="text/css" />
-    <script src="app.js"></script>
-</head>
-<body>
-    <h1>TypeScript HTML App</h1>
-    <p class="myclass">hello</p>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <div id="content"></div>
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bower_components/fontawesome/css/font-awesome.css" rel="stylesheet" />
+
+    <title>Spirograph</title>
+
+</head>
+<body class="spirograph">
+    <button class="btn btn-success">Here's my button</button>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+
+    <script src="scripts/Shapes/Gear.js"></script>
+    <script src="scripts/Shapes/RingGear.js"></script>
+
+    <script src="scripts/SvgCommands/M.js"></script>
+    <script src="scripts/SvgCommands/A.js"></script>
+
+    <script src="scripts/app.js"></script>
+
 </body>
 </html>

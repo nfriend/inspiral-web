@@ -20,15 +20,37 @@
     <Content Include="favicon.ico" />
     <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
+    <Content Include="styles\app.css">
+      <DependentUpon>app.less</DependentUpon>
+    </Content>
+    <Content Include="styles\app.min.css">
+      <DependentUpon>app.css</DependentUpon>
+    </Content>
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app.ts" />
+    <TypeScriptCompile Include="scripts\app.ts" />
+    <TypeScriptCompile Include="scripts\definitions\d3\d3-tests.ts" />
+    <TypeScriptCompile Include="scripts\definitions\d3\d3.d.ts" />
+    <TypeScriptCompile Include="scripts\definitions\d3\plugins\d3.superformula-tests.ts" />
+    <TypeScriptCompile Include="scripts\definitions\d3\plugins\d3.superformula.d.ts" />
+    <TypeScriptCompile Include="scripts\definitions\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="scripts\definitions\references.d.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\Gear.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\RingGear.ts" />
+    <TypeScriptCompile Include="scripts\SvgCommands\A.ts" />
+    <TypeScriptCompile Include="scripts\SvgCommands\M.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower.json" />
     <Content Include=".bowerrc" />
     <Content Include="package.json" />
+    <Content Include="styles\app.less" />
+    <Content Include="styles\app.css.map">
+      <DependentUpon>app.css</DependentUpon>
+    </Content>
+    <Content Include="scripts\definitions\d3\d3-tests.ts.tscparams" />
+    <Content Include="scripts\definitions\d3\plugins\d3.superformula-tests.ts.tscparams" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -36,10 +58,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="scripts\" />
-    <Folder Include="styles\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
