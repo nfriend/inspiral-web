@@ -4,11 +4,12 @@ var Spirograph;
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
     var gearOptions = {
-        radius: 100,
-        toothCount: 24
+        radius: 150,
+        toothCount: 34,
+        toothHeight: 18
     };
 
-    var gear = svgContainer.append("g").attr("class", "gear").attr("fill", "red").attr("fill-opacity", "0.5").datum(gearOptions).append("path").attr("d", Spirograph.Shapes.Gear);
+    var gear = svgContainer.append("g").attr("class", "gear").attr("fill", "red").attr("fill-opacity", "0.5").attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(gearOptions).append("path").attr("d", Spirograph.Shapes.Gear);
 
     var svgContainerMouseMove = function (d, i) {
         var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.event.clientX, y: d3.event.clientY }, { x: window.innerWidth, y: window.innerHeight });

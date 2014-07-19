@@ -5,14 +5,16 @@ module Spirograph {
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
     var gearOptions: Shapes.GearOptions = {
-        radius: 100,
-        toothCount: 24
+        radius: 150,
+        toothCount: 34,
+        toothHeight: 18
     };
 
     var gear = svgContainer.append("g")
         .attr("class", "gear")
         .attr("fill", "red")
         .attr("fill-opacity", "0.5")
+        .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
         .datum(gearOptions)
         .append("path")
         .attr("d", Shapes.Gear);
