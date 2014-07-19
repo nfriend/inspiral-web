@@ -17,29 +17,28 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="favicon.ico" />
+    <Content Include="Gruntfile.js" />
     <Content Include="index.html" />
-    <Content Include="StyleSheet1.css">
-      <DependentUpon>StyleSheet1.less</DependentUpon>
-    </Content>
-    <Content Include="StyleSheet1.min.css">
-      <DependentUpon>StyleSheet1.css</DependentUpon>
-    </Content>
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app.ts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="StyleSheet1.less" />
-    <Content Include="StyleSheet1.css.map">
-      <DependentUpon>StyleSheet1.css</DependentUpon>
-    </Content>
+    <Content Include="bower.json" />
+    <Content Include=".bowerrc" />
+    <Content Include="package.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
     <None Include="web.Release.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="scripts\" />
+    <Folder Include="styles\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
