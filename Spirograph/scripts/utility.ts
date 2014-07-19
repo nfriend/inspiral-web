@@ -1,4 +1,5 @@
 ﻿/// <reference path='definitions/references.d.ts' />
+'use strict';
 
 module Spirograph.Utility {
     export function toRadians(degrees: number) {
@@ -22,5 +23,13 @@ module Spirograph.Utility {
    
     export function getCenterX() {
         return window.innerWidth / 2;
+    }
+
+    export function getAverage(values: Array<number>) {
+        var total = 0;
+        values.forEach(v => {
+            total += v;
+        });
+        return total / values.length;
     }
 } 

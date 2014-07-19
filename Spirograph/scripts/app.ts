@@ -1,4 +1,5 @@
 /// <reference path='definitions/references.d.ts' />
+'use strict';
 
 module Spirograph {
 
@@ -9,7 +10,7 @@ module Spirograph {
         toothCount: 84,
         toothHeight: 10,
         holeCount: 35,
-        holeSweepAngle: 720
+        holeSweepAngle: 360
     };
 
     var gear = svgContainer.append("g")

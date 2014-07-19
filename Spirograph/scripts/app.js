@@ -1,4 +1,5 @@
 /// <reference path='definitions/references.d.ts' />
+'use strict';
 var Spirograph;
 (function (Spirograph) {
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
@@ -8,7 +9,7 @@ var Spirograph;
         toothCount: 84,
         toothHeight: 10,
         holeCount: 35,
-        holeSweepAngle: 720
+        holeSweepAngle: 360
     };
 
     var gear = svgContainer.append("g").attr("class", "gear").attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(gearOptions).append("path").attr("d", Spirograph.Shapes.Gear);

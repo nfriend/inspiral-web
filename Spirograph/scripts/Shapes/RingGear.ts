@@ -1,4 +1,5 @@
 /// <reference path='../definitions/references.d.ts' />
+'use strict';
 
 module Spirograph.Shapes {
     export function RingGear(options: RingGearOptions) {

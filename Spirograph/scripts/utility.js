@@ -1,4 +1,5 @@
 ﻿/// <reference path='definitions/references.d.ts' />
+'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (Utility) {
@@ -29,6 +30,15 @@ var Spirograph;
             return window.innerWidth / 2;
         }
         Utility.getCenterX = getCenterX;
+
+        function getAverage(values) {
+            var total = 0;
+            values.forEach(function (v) {
+                total += v;
+            });
+            return total / values.length;
+        }
+        Utility.getAverage = getAverage;
     })(Spirograph.Utility || (Spirograph.Utility = {}));
     var Utility = Spirograph.Utility;
 })(Spirograph || (Spirograph = {}));

@@ -47,6 +47,20 @@ module Spirograph.Shapes {
         // average the smallest and largest arc lengths
         var holeArcLengthDelta = (smallestArcLength + largestArcLength) / 2;
 
+        // alternate way to calculate holeArcLengthDelta - similar result
+        // average all the arc lengths between the holes
+        //var lengths: Array<number> = [];
+        //for (var i = 0; i < options.holeCount; i++) {
+        //    var currentRadius = (options.radius - holePositionRadiusBuffer) - (i * holePositionRadiusDelta);
+        //    var arcLength = Math.PI * 2 * currentRadius * ((options.holeSweepAngle / options.holeCount) / 360);
+        //    lengths.push(arcLength);
+        //    console.log(arcLength);
+        //}
+
+        //console.log('delta before: ' + holeArcLengthDelta);
+        //holeArcLengthDelta = Utility.getAverage(lengths);
+        //console.log('delta before: ' + holeArcLengthDelta);
+
         // cut out the holes
         for (var i = 0; i < options.holeCount; i++) {
             var holePosition = { x: holePositionRadius * Math.cos(Utility.toRadians(holeAngle)), y: holePositionRadius * Math.sin(Utility.toRadians(holeAngle)) };
