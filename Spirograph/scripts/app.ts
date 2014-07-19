@@ -10,7 +10,7 @@ module Spirograph {
         toothCount: 84,
         toothHeight: 10,
         holeCount: 35,
-        holeSweepAngle: 360
+        holeSweepAngle: 720
     };
 
     var gear = svgContainer.append("g")

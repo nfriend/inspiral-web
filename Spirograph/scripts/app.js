@@ -9,7 +9,7 @@ var Spirograph;
         toothCount: 84,
         toothHeight: 10,
         holeCount: 35,
-        holeSweepAngle: 360
+        holeSweepAngle: 720
     };
 
     var gear = svgContainer.append("g").attr("class", "gear").attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(gearOptions).append("path").attr("d", Spirograph.Shapes.Gear);

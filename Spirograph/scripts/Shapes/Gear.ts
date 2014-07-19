@@ -13,9 +13,6 @@ module Spirograph.Shapes {
             options.holeSweepAngle = 720;
         }
 
-        // fudge factor, because something is wrong with my algorithm for determining how far apart each hole should be
-        options.holeSweepAngle *= .78
-
         var outerRadius = options.radius + options.toothHeight,
             pathBuilder = new SVG.PathBuilder(),
             angle = 0,
@@ -40,31 +37,32 @@ module Spirograph.Shapes {
 
         // finds the average change in arc length that will be needed to evenly space the hole
         // a purely angle-based change results in the hole being wide apart at the edges of the gear and
-        // scruntched near the center.
-        // this assumes that the arc length decreases linearly, which is probably not right.  See the fudge factor above.
+        // scrunched near the center.
+        // this assumes that the arc length decreases linearly, which is probably not right.  See the fudge factor below.
         var smallestArcLength = Math.PI * (2 * holePositionRadiusBuffer) * ((options.holeSweepAngle / options.holeCount) / 360);
-        var largestArcLength = Math.PI * (2 *(options.radius - holePositionRadiusBuffer)) * ((options.holeSweepAngle / options.holeCount) / 360);
+        var largestArcLength = Math.PI * (2 * (options.radius - holePositionRadiusBuffer)) * ((options.holeSweepAngle / options.holeCount) / 360);
         // average the smallest and largest arc lengths
         var holeArcLengthDelta = (smallestArcLength + largestArcLength) / 2;
 
-        // alternate way to calculate holeArcLengthDelta - similar result
-        // average all the arc lengths between the holes
-        //var lengths: Array<number> = [];
-        //for (var i = 0; i < options.holeCount; i++) {
-        //    var currentRadius = (options.radius - holePositionRadiusBuffer) - (i * holePositionRadiusDelta);
-        //    var arcLength = Math.PI * 2 * currentRadius * ((options.holeSweepAngle / options.holeCount) / 360);
-        //    lengths.push(arcLength);
-        //    console.log(arcLength);
-        //}
+        // run through the algorithm, see how far we are off, and adjust the holeArcLengthDelta accordingly.
+        // not the best way to correct this, but it works fairly well.
+        for (var i = 0; i < options.holeCount; i++) {
+            holePositionRadius -= holePositionRadiusDelta;
+            holeAngle += 360 * (holeArcLengthDelta / (Math.PI * 2 * holePositionRadius));
+        }
 
-        //console.log('delta before: ' + holeArcLengthDelta);
-        //holeArcLengthDelta = Utility.getAverage(lengths);
-        //console.log('delta before: ' + holeArcLengthDelta);
+        var fudgeFactor = options.holeSweepAngle / holeAngle;
+        holeArcLengthDelta *= fudgeFactor;
+        console.log("fudge factor: " + options.holeSweepAngle / holeAngle);
+
+        // reset the variables before we run through the algorithm for real
+        holeAngle = 0;
+        holePositionRadius = options.radius - holePositionRadiusBuffer;
 
         // cut out the holes
         for (var i = 0; i < options.holeCount; i++) {
             var holePosition = { x: holePositionRadius * Math.cos(Utility.toRadians(holeAngle)), y: holePositionRadius * Math.sin(Utility.toRadians(holeAngle)) };
-            
+
             pathBuilder.add(new SVG.MCommand(holePosition.x + options.holeRadius, holePosition.y));
             pathBuilder.add(new SVG.ACommand(options.holeRadius, options.holeRadius, 0, true, false, holePosition.x - options.holeRadius, holePosition.y));
             pathBuilder.add(new SVG.ACommand(options.holeRadius, options.holeRadius, 0, true, false, holePosition.x + options.holeRadius, holePosition.y));

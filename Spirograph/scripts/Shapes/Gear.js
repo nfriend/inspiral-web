@@ -1,4 +1,4 @@
-/// <reference path='../definitions/references.d.ts' />
+﻿/// <reference path='../definitions/references.d.ts' />
 'use strict';
 var Spirograph;
 (function (Spirograph) {
@@ -13,9 +13,6 @@ var Spirograph;
             if (!options.holeSweepAngle) {
                 options.holeSweepAngle = 720;
             }
-
-            // fudge factor, because something is wrong with my algorithm for determining how far apart each hole should be
-            options.holeSweepAngle *= .78;
 
             var outerRadius = options.radius + options.toothHeight, pathBuilder = new Spirograph.SVG.PathBuilder(), angle = 0, delta = 360 / options.toothCount;
 
@@ -35,13 +32,26 @@ var Spirograph;
 
             // finds the average change in arc length that will be needed to evenly space the hole
             // a purely angle-based change results in the hole being wide apart at the edges of the gear and
-            // scruntched near the center.
-            // this assumes that the arc length decreases linearly, which is probably not right.  See the fudge factor above.
+            // scrunched near the center.
+            // this assumes that the arc length decreases linearly, which is probably not right.  See the fudge factor below.
             var smallestArcLength = Math.PI * (2 * holePositionRadiusBuffer) * ((options.holeSweepAngle / options.holeCount) / 360);
             var largestArcLength = Math.PI * (2 * (options.radius - holePositionRadiusBuffer)) * ((options.holeSweepAngle / options.holeCount) / 360);
 
             // average the smallest and largest arc lengths
             var holeArcLengthDelta = (smallestArcLength + largestArcLength) / 2;
+
+            for (var i = 0; i < options.holeCount; i++) {
+                holePositionRadius -= holePositionRadiusDelta;
+                holeAngle += 360 * (holeArcLengthDelta / (Math.PI * 2 * holePositionRadius));
+            }
+
+            var fudgeFactor = options.holeSweepAngle / holeAngle;
+            holeArcLengthDelta *= fudgeFactor;
+            console.log("fudge factor: " + options.holeSweepAngle / holeAngle);
+
+            // reset the variables before we run through the algorithm for real
+            holeAngle = 0;
+            holePositionRadius = options.radius - holePositionRadiusBuffer;
 
             for (var i = 0; i < options.holeCount; i++) {
                 var holePosition = { x: holePositionRadius * Math.cos(Spirograph.Utility.toRadians(holeAngle)), y: holePositionRadius * Math.sin(Spirograph.Utility.toRadians(holeAngle)) };
