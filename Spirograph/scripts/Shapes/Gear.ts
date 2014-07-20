@@ -2,6 +2,7 @@
 'use strict';
 
 module Spirograph.Shapes {
+
     export function Gear(options: GearOptions) {
         if (!options.toothHeight) {
             options.toothHeight = 10;
@@ -76,22 +77,5 @@ module Spirograph.Shapes {
         pathBuilder.add(new SVG.ZCommand());
 
         return pathBuilder.toString();
-    }
-
-    export interface GearOptions {
-        // the radius of gear, NOT including the additional height of the teeth
-        radius: number;
-        // how tall each tooth should be
-        toothHeight?: number;
-        // how many teeth to draw on the gear
-        toothCount: number;
-        // how large each hole should be
-        holeRadius?: number;
-        // how many degrees to rotate while positioning the holes
-        holeSweepAngle?: number;
-        // how much space leave at the tip and center of the circle
-        holePositionBuffer?: number;
-        // how many holes to cut out of the gear
-        holeCount: number;
     }
 }

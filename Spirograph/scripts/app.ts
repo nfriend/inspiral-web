@@ -5,41 +5,7 @@ module Spirograph {
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions: Shapes.GearOptions = {
-        radius: 64,
-        toothCount: 32,
-        toothHeight: 10,
-        holeCount: 9,
-        holeSweepAngle: 540,
-        holePositionBuffer: 8
-    };
-
-    //var gearOptions: Shapes.GearOptions = {
-    //    radius: 120,
-    //    toothCount: 60,
-    //    toothHeight: 10,
-    //    holeCount: 23,
-    //    holeSweepAngle: 720,
-    //    holePositionBuffer: 15
-    //};
-
-    //var gearOptions: Shapes.GearOptions = {
-    //    radius: 168,
-    //    toothCount: 84,
-    //    toothHeight: 10,
-    //    holeCount: 35,
-    //    holeSweepAngle: 900,
-    //    holePositionBuffer: 15
-    //};
-
-    //var gearOptions: Shapes.GearOptions = {
-    //    radius: 48,
-    //    toothCount: 24,
-    //    toothHeight: 10,
-    //    holeCount: 5,
-    //    holeSweepAngle: 520,
-    //    holePositionBuffer: 8
-    //};
+    var gearOptions = (new Shapes.GearOptionsFactory()).Create(60);
 
     var ringGearOptions: Shapes.RingGearOptions = {
         innerRadius: 192,
