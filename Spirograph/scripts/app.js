@@ -21,6 +21,22 @@ var Spirograph;
     //    holeSweepAngle: 720,
     //    holePositionBuffer: 15
     //};
+    //var gearOptions: Shapes.GearOptions = {
+    //    radius: 168,
+    //    toothCount: 84,
+    //    toothHeight: 10,
+    //    holeCount: 35,
+    //    holeSweepAngle: 900,
+    //    holePositionBuffer: 15
+    //};
+    //var gearOptions: Shapes.GearOptions = {
+    //    radius: 48,
+    //    toothCount: 24,
+    //    toothHeight: 10,
+    //    holeCount: 5,
+    //    holeSweepAngle: 520,
+    //    holePositionBuffer: 8
+    //};
     var ringGearOptions = {
         innerRadius: 192,
         innerToothCount: 96,
