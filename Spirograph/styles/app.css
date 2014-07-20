@@ -14,4 +14,8 @@
   -ms-user-select: none;
   user-select: none;
 }
+.spirograph svg,
+.spirograph canvas {
+  position: absolute;
+}
 /*# sourceMappingURL=app.css.map */
