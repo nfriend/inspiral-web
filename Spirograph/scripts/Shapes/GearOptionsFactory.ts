@@ -12,7 +12,7 @@ module Spirograph.Shapes {
             this._radiusMultiplier = radiusMultiplier;
         }
 
-        Create(toothCount: number): GearOptions {
+        create(toothCount: number): GearOptions {
             if (! (toothCount in gearDefinitions)) {
                 throw "No gear defined for tooth count of " + toothCount;
             }

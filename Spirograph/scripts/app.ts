@@ -8,21 +8,17 @@ module Spirograph {
         .attr("height", window.innerHeight);
 
     var ctx = (<HTMLCanvasElement> canvas.node()).getContext('2d');
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = "rgba(255,0,0,0.2)";
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions = (new Shapes.GearOptionsFactory()).Create(60);
+    var gearOptions = (new Shapes.GearOptionsFactory()).create(60);
+    var ringGearOptions = (new Shapes.RingGearOptionsFactory()).create(144, 96);
 
-    var ringGearOptions: Shapes.RingGearOptions = {
-        innerRadius: 192,
-        innerToothCount: 96,
-        innerToothHeight: 10,
-        outerRadius: 288,
-        outerToothCount: 144,
-        outerToothHeight: 10
+    var holeOptions = {
+        holeAngle: 0, holeRadius: 38
     };
 
     var ringGear = svgContainer.append("g")
@@ -32,43 +28,45 @@ module Spirograph {
         .append("path")
         .attr("d", Shapes.RingGear);
 
-
     var gear = svgContainer.append("g")
         .attr("class", "gear")
         .datum(gearOptions)
         .append("path")
         .attr("d", Shapes.Gear);
 
-    var previousCoords = {
-        x: (ringGearOptions.innerRadius - gearOptions.radius - 2 + Utility.getCenterX()),
-        y: Utility.getCenterY()
-    }
+    var previousTransformInfo: Shapes.TransformInfo;
+    var rotater = new Shapes.RingGearRotater(ringGearOptions);
+    var lastMouseAngle = null;
+    var rotationOffset = 0;
 
     var svgContainerMouseMove = function (d, i) {
         var mouseCoords = Utility.toStandardCoords({ x: d3.event.clientX, y: d3.event.clientY }, { x: window.innerWidth, y: window.innerHeight });
-        var radius = ringGearOptions.innerRadius - gearOptions.radius - 2;
-        var mouseAngle = Math.atan2(mouseCoords.y, mouseCoords.x);
+        var mouseAngle = Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
-        var newX = radius * Math.cos(mouseAngle) + Utility.getCenterX();
-        var newY = -1 * radius * Math.sin(mouseAngle) + Utility.getCenterY();
+        if (lastMouseAngle != null) {
+            if (lastMouseAngle < -90 && mouseAngle > 90) {
+                rotationOffset--;
+            } else if (lastMouseAngle > 90 && mouseAngle < -90) {
+                rotationOffset++;
+            }
+        }
 
-        var gearRotation = 360 * (((Utility.toDegrees(mouseAngle) / 360) * 2 * Math.PI * ringGearOptions.innerRadius) / (2 * Math.PI * gearOptions.radius));
-        gearRotation -= Utility.toDegrees(mouseAngle);
+        lastMouseAngle = mouseAngle;
+        mouseAngle += (rotationOffset * 360);
 
-        $('#output').html('<p>Mouse angle: ' + Utility.toDegrees(mouseAngle) + '</p><p>Gear angle: ' + gearRotation + '</p>');
+        var transformInfo = rotater.rotate(gearOptions, mouseAngle, holeOptions);
 
-        gear.attr("transform", "translate(" + newX + "," + newY + ") rotate(" + gearRotation + ")");
+        //$('#output').html('<p>Mouse angle: ' + mouseAngle + '</p><p>Gear angle: ' + transformInfo.angle + '</p>');
+
+        gear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
 
         ctx.beginPath();
-        ctx.moveTo(previousCoords.x, previousCoords.y);
-        ctx.lineTo(newX, newY);
+        ctx.moveTo(previousTransformInfo.penX, previousTransformInfo.penY);
+        ctx.lineTo(transformInfo.penX, transformInfo.penY);
         ctx.stroke();
         ctx.closePath();
 
-        previousCoords = {
-            x: newX,
-            y: newY
-        };
+        previousTransformInfo = transformInfo;
     }
 
     gear.on("mousedown", function (d, i) {
@@ -76,5 +74,9 @@ module Spirograph {
         svgContainer.on("mouseup", function () { svgContainer.on("mousemove", null); });
     });
 
-    gear.attr("transform", "translate(" + (ringGearOptions.innerRadius - gearOptions.radius - 2 + Utility.getCenterX()) + "," + Utility.getCenterY() + ") rotate(" + 0 + ")");
+    // initialize positions of gear and pen
+    (() => {
+        previousTransformInfo = rotater.rotate(gearOptions, 0, holeOptions);
+        gear.attr("transform", "translate(" + previousTransformInfo.x + "," + Utility.getCenterY() + ") rotate(" + 0 + ")");
+    })();
 }

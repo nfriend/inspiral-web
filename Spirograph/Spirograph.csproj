@@ -37,7 +37,10 @@
     <TypeScriptCompile Include="scripts\definitions\references.d.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Gear.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearOptions.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\RingGearOptionsFactory.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearOptionsFactory.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\HoleOptions.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\RingGearRotater.ts" />
     <TypeScriptCompile Include="scripts\Shapes\RingGear.ts" />
     <TypeScriptCompile Include="scripts\SVG\ZCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\LCommand.ts" />

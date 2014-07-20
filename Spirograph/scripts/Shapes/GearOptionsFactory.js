@@ -10,7 +10,7 @@ var Spirograph;
                 if (typeof radiusMultiplier === "undefined") { radiusMultiplier = 2; }
                 this._radiusMultiplier = radiusMultiplier;
             }
-            GearOptionsFactory.prototype.Create = function (toothCount) {
+            GearOptionsFactory.prototype.create = function (toothCount) {
                 if (!(toothCount in gearDefinitions)) {
                     throw "No gear defined for tooth count of " + toothCount;
                 }
