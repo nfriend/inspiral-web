@@ -13,6 +13,9 @@ var Spirograph;
             if (!options.holeSweepAngle) {
                 options.holeSweepAngle = 720;
             }
+            if (!options.holePositionBuffer) {
+                options.holePositionBuffer = 20;
+            }
 
             var outerRadius = options.radius + options.toothHeight, pathBuilder = new Spirograph.SVG.PathBuilder(), angle = 0, delta = 360 / options.toothCount;
 
@@ -28,14 +31,14 @@ var Spirograph;
 
             pathBuilder.add(new Spirograph.SVG.ZCommand());
 
-            var holePositionRadiusBuffer = 20, holePositionRadiusDelta = (options.radius - 2 * holePositionRadiusBuffer) / options.holeCount, holeAngle = 0, holePositionRadius = options.radius - holePositionRadiusBuffer;
+            var holePositionRadiusDelta = (options.radius - 2 * options.holePositionBuffer) / options.holeCount, holeAngle = 0, holePositionRadius = options.radius - options.holePositionBuffer;
 
             // finds the average change in arc length that will be needed to evenly space the hole
             // a purely angle-based change results in the hole being wide apart at the edges of the gear and
             // scrunched near the center.
             // this assumes that the arc length decreases linearly, which is probably not right.  See the fudge factor below.
-            var smallestArcLength = Math.PI * (2 * holePositionRadiusBuffer) * ((options.holeSweepAngle / options.holeCount) / 360);
-            var largestArcLength = Math.PI * (2 * (options.radius - holePositionRadiusBuffer)) * ((options.holeSweepAngle / options.holeCount) / 360);
+            var smallestArcLength = Math.PI * (2 * options.holePositionBuffer) * ((options.holeSweepAngle / options.holeCount) / 360);
+            var largestArcLength = Math.PI * (2 * (options.radius - options.holePositionBuffer)) * ((options.holeSweepAngle / options.holeCount) / 360);
 
             // average the smallest and largest arc lengths
             var holeArcLengthDelta = (smallestArcLength + largestArcLength) / 2;
@@ -51,7 +54,7 @@ var Spirograph;
 
             // reset the variables before we run through the algorithm for real
             holeAngle = 0;
-            holePositionRadius = options.radius - holePositionRadiusBuffer;
+            holePositionRadius = options.radius - options.holePositionBuffer;
 
             for (var i = 0; i < options.holeCount; i++) {
                 var holePosition = { x: holePositionRadius * Math.cos(Spirograph.Utility.toRadians(holeAngle)), y: holePositionRadius * Math.sin(Spirograph.Utility.toRadians(holeAngle)) };

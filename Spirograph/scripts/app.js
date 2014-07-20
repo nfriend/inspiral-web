@@ -5,19 +5,29 @@ var Spirograph;
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
     var gearOptions = {
-        radius: 120,
-        toothCount: 60,
-        toothHeight: 10,
-        holeCount: 35,
-        holeSweepAngle: 720
+        radius: 64,
+        toothCount: 32,
+        toothHeight: 5,
+        holeCount: 9,
+        holeSweepAngle: 540,
+        holePositionBuffer: 8
     };
 
+    //var gearOptions: Shapes.GearOptions = {
+    //    radius: 120,
+    //    toothCount: 60,
+    //    toothHeight: 10,
+    //    holeCount: 23,
+    //    holeSweepAngle: 720,
+    //    holePositionBuffer: 15
+    //};
     var ringGearOptions = {
         innerRadius: 192,
         innerToothCount: 96,
-        innerToothHeight: 10,
+        innerToothHeight: 5,
         outerRadius: 288,
-        outerToothCount: 144
+        outerToothCount: 144,
+        outerToothHeight: 5
     };
 
     var ringGear = svgContainer.append("g").attr("class", "gear ring-gear").attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(ringGearOptions).append("path").attr("d", Spirograph.Shapes.RingGear);
@@ -32,9 +42,12 @@ var Spirograph;
         var newX = radius * Math.cos(mouseAngle) + Spirograph.Utility.getCenterX();
         var newY = -1 * radius * Math.sin(mouseAngle) + Spirograph.Utility.getCenterY();
 
-        $('#output').html('<p>' + Spirograph.Utility.toDegrees(mouseAngle) + '</p><p>' + Spirograph.Utility.toDegrees(mouseAngle * (gearOptions.radius / ringGearOptions.innerRadius)) + '</p>');
+        var gearRotation = 360 * (((Spirograph.Utility.toDegrees(mouseAngle) / 360) * 2 * Math.PI * ringGearOptions.innerRadius) / (2 * Math.PI * gearOptions.radius));
+        gearRotation -= Spirograph.Utility.toDegrees(mouseAngle);
 
-        gear.attr("transform", "translate(" + newX + "," + newY + ") rotate(" + Spirograph.Utility.toDegrees(mouseAngle * (gearOptions.radius / ringGearOptions.innerRadius)) + ")");
+        $('#output').html('<p>' + Spirograph.Utility.toDegrees(mouseAngle) + '</p><p>' + gearRotation + '</p>');
+
+        gear.attr("transform", "translate(" + newX + "," + newY + ") rotate(" + gearRotation + ")");
         //gear.attr("transform", "rotate(" + Utility.toDegrees(-1 * mouseAngle) + ")");
     };
 
@@ -44,5 +57,7 @@ var Spirograph;
             svgContainer.on("mousemove", null);
         });
     });
+
+    gear.attr("transform", "translate(" + (ringGearOptions.innerRadius - gearOptions.radius - 2 + Spirograph.Utility.getCenterX()) + "," + Spirograph.Utility.getCenterY() + ") rotate(" + 0 + ")");
 })(Spirograph || (Spirograph = {}));
 //# sourceMappingURL=app.js.map
