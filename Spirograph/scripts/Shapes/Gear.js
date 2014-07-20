@@ -31,41 +31,15 @@ var Spirograph;
 
             pathBuilder.add(new Spirograph.SVG.ZCommand());
 
-            var holePositionRadiusDelta = (options.radius - 2 * options.holePositionBuffer) / options.holeCount, holeAngle = 0, holePositionRadius = options.radius - options.holePositionBuffer;
-
-            // finds the average change in arc length that will be needed to evenly space the hole
-            // a purely angle-based change results in the hole being wide apart at the edges of the gear and
-            // scrunched near the center.
-            // this assumes that the arc length decreases linearly, which is probably not right.  See the fudge factor below.
-            var smallestArcLength = Math.PI * (2 * options.holePositionBuffer) * ((options.holeSweepAngle / options.holeCount) / 360);
-            var largestArcLength = Math.PI * (2 * (options.radius - options.holePositionBuffer)) * ((options.holeSweepAngle / options.holeCount) / 360);
-
-            // average the smallest and largest arc lengths
-            var holeArcLengthDelta = (smallestArcLength + largestArcLength) / 2;
-
-            for (var i = 0; i < options.holeCount; i++) {
-                holePositionRadius -= holePositionRadiusDelta;
-                holeAngle += 360 * (holeArcLengthDelta / (Math.PI * 2 * holePositionRadius));
-            }
-
-            var fudgeFactor = options.holeSweepAngle / holeAngle;
-            holeArcLengthDelta *= fudgeFactor;
-            console.log("fudge factor: " + options.holeSweepAngle / holeAngle);
-
-            // reset the variables before we run through the algorithm for real
-            holeAngle = 0;
-            holePositionRadius = options.radius - options.holePositionBuffer;
-
-            for (var i = 0; i < options.holeCount; i++) {
-                var holePosition = { x: holePositionRadius * Math.cos(Spirograph.Utility.toRadians(holeAngle)), y: holePositionRadius * Math.sin(Spirograph.Utility.toRadians(holeAngle)) };
+            // cut out the holes
+            var holes = (new Shapes.GearHoleGenerator()).generate(options);
+            holes.forEach(function (hole) {
+                var holePosition = { x: hole.holeRadius * Math.cos(Spirograph.Utility.toRadians(hole.holeAngle)), y: hole.holeRadius * Math.sin(Spirograph.Utility.toRadians(hole.holeAngle)) };
 
                 pathBuilder.add(new Spirograph.SVG.MCommand(holePosition.x + options.holeRadius, holePosition.y));
                 pathBuilder.add(new Spirograph.SVG.ACommand(options.holeRadius, options.holeRadius, 0, true, false, holePosition.x - options.holeRadius, holePosition.y));
                 pathBuilder.add(new Spirograph.SVG.ACommand(options.holeRadius, options.holeRadius, 0, true, false, holePosition.x + options.holeRadius, holePosition.y));
-
-                holePositionRadius -= holePositionRadiusDelta;
-                holeAngle += 360 * (holeArcLengthDelta / (Math.PI * 2 * holePositionRadius));
-            }
+            });
 
             pathBuilder.add(new Spirograph.SVG.ZCommand());
 

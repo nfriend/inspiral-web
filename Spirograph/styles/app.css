@@ -18,4 +18,31 @@
 .spirograph canvas {
   position: absolute;
 }
+.spirograph #download-link {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+  cursor: pointer;
+}
+.spirograph a {
+  color: lightgray;
+}
+.spirograph a:link,
+.spirograph a:visited {
+  text-decoration: none;
+  color: #d3d3d3;
+}
+.spirograph a:hover,
+.spirograph a:active {
+  text-decoration: none;
+  color: gray;
+}
+.spirograph .testing {
+  fill: transparent;
+  stroke: red;
+}
+.spirograph .testing:hover {
+  fill: blue;
+}
 /*# sourceMappingURL=app.css.map */

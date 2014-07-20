@@ -20,4 +20,35 @@
     svg, canvas {
         position: absolute;
     }
+
+    #download-link {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        z-index: 10;
+        cursor: pointer;
+    }
+
+    a {
+        color: lightgray;
+
+        &:link, &:visited {
+            text-decoration: none;
+            color: lightgray
+        }
+
+        &:hover, &:active {
+            text-decoration: none;
+            color: gray;
+        }
+    }
+
+    .testing {
+        fill: transparent;
+        stroke: red;
+
+        &:hover {
+            fill: blue;
+        }
+    }
 }

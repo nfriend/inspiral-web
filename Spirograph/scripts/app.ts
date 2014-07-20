@@ -4,6 +4,7 @@
 module Spirograph {
     var canvas = d3.select("body")
         .append("canvas")
+        .attr('id', 'spirograph-canvas')
         .attr("width", window.innerWidth)
         .attr("height", window.innerHeight);
 
@@ -14,11 +15,11 @@ module Spirograph {
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions = (new Shapes.GearOptionsFactory()).create(60);
+    var gearOptions = (new Shapes.GearOptionsFactory()).create(84);
     var ringGearOptions = (new Shapes.RingGearOptionsFactory()).create(144, 96);
 
     var holeOptions = {
-        holeAngle: 0, holeRadius: 38
+        holeAngle: 0, holeRadius: 80
     };
 
     var ringGear = svgContainer.append("g")
@@ -30,9 +31,16 @@ module Spirograph {
 
     var gear = svgContainer.append("g")
         .attr("class", "gear")
-        .datum(gearOptions)
-        .append("path")
+        .datum(gearOptions);
+
+    gear.append("path")
         .attr("d", Shapes.Gear);
+
+    //gear.append('path')
+    //    .attr('class', 'testing')
+    //    .attr('d', () => {
+    //    return "M10 10 H 90 V 90 H 10 L 10 10 Z";
+    //});
 
     var previousTransformInfo: Shapes.TransformInfo;
     var rotater = new Shapes.RingGearRotater(ringGearOptions);
@@ -80,3 +88,10 @@ module Spirograph {
         gear.attr("transform", "translate(" + previousTransformInfo.x + "," + Utility.getCenterY() + ") rotate(" + 0 + ")");
     })();
 }
+
+// download canvas as image functionality
+document.getElementById('download-link').addEventListener('click', () => {
+    this.href = (<HTMLCanvasElement> document.getElementById('spirograph-canvas')).toDataURL();
+    this.download = 'spirograph.png';
+
+}, false);
