@@ -117,9 +117,11 @@ var Spirograph;
     initializeGearAndPen();
 })(Spirograph || (Spirograph = {}));
 
-// download canvas as image functionality
+// download canvas as image functionality... not fully working yet
 document.getElementById('download-link').addEventListener('click', function () {
-    _this.href = document.getElementById('spirograph-canvas').toDataURL();
+    var link = _this;
+    var data = document.getElementById('spirograph-canvas').toDataURL();
     _this.download = 'spirograph.png';
+    window.location.href = data;
 }, false);
 //# sourceMappingURL=app.js.map

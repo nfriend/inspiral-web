@@ -131,9 +131,11 @@ module Spirograph {
     initializeGearAndPen();
 }
 
-// download canvas as image functionality
+// download canvas as image functionality... not fully working yet
 document.getElementById('download-link').addEventListener('click', () => {
-    this.href = (<HTMLCanvasElement> document.getElementById('spirograph-canvas')).toDataURL();
+    var link = this;
+    var data = (<HTMLCanvasElement> document.getElementById('spirograph-canvas')).toDataURL();
     this.download = 'spirograph.png';
+    window.location.href = data;
 
 }, false);
