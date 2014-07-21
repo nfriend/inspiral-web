@@ -14,14 +14,8 @@ module Spirograph {
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions = (new Shapes.GearOptionsFactory()).create(84);
+    var gearOptions = (new Shapes.GearOptionsFactory()).create(60);
     var ringGearOptions = (new Shapes.RingGearOptionsFactory()).create(144, 96);
-
-    var holeOptions: Shapes.HoleOptions = {
-        angle: 0,
-        positionRadius: 80,
-        radius: gearOptions.holeRadius
-    };
 
     var ringGear = svgContainer.append("g")
         .attr("class", "gear ring-gear")
@@ -46,7 +40,17 @@ module Spirograph {
         Utility.changePenColor(red, green, blue, alpha);
     });
 
-    (new Shapes.GearHoleGenerator()).generate(gearOptions).forEach((hole) => {
+    $('#hide-gears-button').mousedown(() => {
+        gear.style('visibility', 'hidden');
+        ringGear.style('visibility', 'hidden');
+    }).mouseup(() => {
+            gear.style('visibility', 'visible');
+            ringGear.style('visibility', 'visible');
+        });
+
+    var allHoleOptions = (new Shapes.GearHoleGenerator()).generate(gearOptions);
+    var holeOptions;
+    allHoleOptions.forEach((hole, index) => {
         var holeObject = gear.append('path')
             .attr('class', 'gear-hole')
             .datum(hole)
@@ -57,10 +61,16 @@ module Spirograph {
             holeObject.classed('selected', true);
 
             holeOptions = hole;
+
+            initializeGearAndPen(false);
         });
+
+        if (index === 0) {
+            holeObject.on('click')(null, null);
+        }
     });
 
-    var previousTransformInfo: Shapes.TransformInfo;
+    var previousTransformInfo: Shapes.TransformInfo = null;
     var rotater = new Shapes.RingGearRotater(ringGearOptions);
     var lastMouseAngle = null;
     var rotationOffset = 0;
@@ -86,11 +96,13 @@ module Spirograph {
 
         gear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
 
-        ctx.beginPath();
-        ctx.moveTo(previousTransformInfo.penX, previousTransformInfo.penY);
-        ctx.lineTo(transformInfo.penX, transformInfo.penY);
-        ctx.stroke();
-        ctx.closePath();
+        if (previousTransformInfo !== null) {
+            ctx.beginPath();
+            ctx.moveTo(previousTransformInfo.penX, previousTransformInfo.penY);
+            ctx.lineTo(transformInfo.penX, transformInfo.penY);
+            ctx.stroke();
+            ctx.closePath();
+        }
 
         previousTransformInfo = transformInfo;
     };
@@ -106,11 +118,17 @@ module Spirograph {
         });
     });
 
-    // initialize positions of gear and pen
-    (() => {
-        previousTransformInfo = rotater.rotate(gearOptions, 0, holeOptions);
-        gear.attr("transform", "translate(" + previousTransformInfo.x + "," + Utility.getCenterY() + ") rotate(" + 0 + ")");
-    })();
+    function initializeGearAndPen(resetGear: boolean = true) {
+        //previousTransformInfo = rotater.rotate(gearOptions, 0, holeOptions);
+        previousTransformInfo = null;
+
+        if (resetGear) {
+            previousTransformInfo = rotater.rotate(gearOptions, 0, holeOptions);
+            gear.attr("transform", "translate(" + previousTransformInfo.x + "," + Utility.getCenterY() + ") rotate(" + 0 + ")");
+        }
+    }
+
+    initializeGearAndPen();
 }
 
 // download canvas as image functionality
