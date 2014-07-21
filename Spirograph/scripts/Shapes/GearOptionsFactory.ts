@@ -8,7 +8,7 @@ module Spirograph.Shapes {
     export class GearOptionsFactory {
         private _radiusMultiplier: number;
 
-        constructor(radiusMultiplier: number = 2) {
+        constructor(radiusMultiplier: number = 1) {
             this._radiusMultiplier = radiusMultiplier;
         }
 
@@ -23,17 +23,17 @@ module Spirograph.Shapes {
             return {
                 holeCount: gearOptions.holeCount,
                 holePositionBuffer: gearOptions.holePositionBuffer,
-                holeRadius: gearOptions.holeRadius,
+                holeRadius: gearOptions.holeRadius * this._radiusMultiplier,
                 holeSweepAngle: gearOptions.holeSweepAngle,
                 radius: gearOptions.radius * this._radiusMultiplier,
                 toothCount: gearOptions.toothCount,
-                toothHeight: gearOptions.toothHeight
+                toothHeight: gearOptions.toothHeight * this._radiusMultiplier,
             }
         }
     }
 
     gearDefinitions[24] = {
-        radius: 24,
+        radius: 48,
         toothCount: 24,
         toothHeight: 10,
         holeCount: 5,
@@ -43,7 +43,7 @@ module Spirograph.Shapes {
     };
 
     gearDefinitions[32] = {
-        radius: 32,
+        radius: 64,
         toothCount: 32,
         toothHeight: 10,
         holeCount: 9,
@@ -53,7 +53,7 @@ module Spirograph.Shapes {
     };
 
     gearDefinitions[60] = {
-        radius: 60,
+        radius: 120,
         toothCount: 60,
         toothHeight: 10,
         holeCount: 23,
@@ -63,7 +63,7 @@ module Spirograph.Shapes {
     };
 
     gearDefinitions[84] = {
-        radius: 84,
+        radius: 168,
         toothCount: 84,
         toothHeight: 10,
         holeCount: 35,

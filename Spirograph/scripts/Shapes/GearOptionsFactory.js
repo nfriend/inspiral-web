@@ -7,7 +7,7 @@ var Spirograph;
 
         var GearOptionsFactory = (function () {
             function GearOptionsFactory(radiusMultiplier) {
-                if (typeof radiusMultiplier === "undefined") { radiusMultiplier = 2; }
+                if (typeof radiusMultiplier === "undefined") { radiusMultiplier = 1; }
                 this._radiusMultiplier = radiusMultiplier;
             }
             GearOptionsFactory.prototype.create = function (toothCount) {
@@ -21,11 +21,11 @@ var Spirograph;
                 return {
                     holeCount: gearOptions.holeCount,
                     holePositionBuffer: gearOptions.holePositionBuffer,
-                    holeRadius: gearOptions.holeRadius,
+                    holeRadius: gearOptions.holeRadius * this._radiusMultiplier,
                     holeSweepAngle: gearOptions.holeSweepAngle,
                     radius: gearOptions.radius * this._radiusMultiplier,
                     toothCount: gearOptions.toothCount,
-                    toothHeight: gearOptions.toothHeight
+                    toothHeight: gearOptions.toothHeight * this._radiusMultiplier
                 };
             };
             return GearOptionsFactory;
@@ -33,7 +33,7 @@ var Spirograph;
         Shapes.GearOptionsFactory = GearOptionsFactory;
 
         gearDefinitions[24] = {
-            radius: 24,
+            radius: 48,
             toothCount: 24,
             toothHeight: 10,
             holeCount: 5,
@@ -43,7 +43,7 @@ var Spirograph;
         };
 
         gearDefinitions[32] = {
-            radius: 32,
+            radius: 64,
             toothCount: 32,
             toothHeight: 10,
             holeCount: 9,
@@ -53,7 +53,7 @@ var Spirograph;
         };
 
         gearDefinitions[60] = {
-            radius: 60,
+            radius: 120,
             toothCount: 60,
             toothHeight: 10,
             holeCount: 23,
@@ -63,7 +63,7 @@ var Spirograph;
         };
 
         gearDefinitions[84] = {
-            radius: 84,
+            radius: 168,
             toothCount: 84,
             toothHeight: 10,
             holeCount: 35,

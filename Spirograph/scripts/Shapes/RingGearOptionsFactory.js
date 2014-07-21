@@ -11,7 +11,7 @@ var Spirograph;
 
         var RingGearOptionsFactory = (function () {
             function RingGearOptionsFactory(radiusMultiplier) {
-                if (typeof radiusMultiplier === "undefined") { radiusMultiplier = 2; }
+                if (typeof radiusMultiplier === "undefined") { radiusMultiplier = 1; }
                 this._radiusMultiplier = radiusMultiplier;
             }
             RingGearOptionsFactory.prototype.create = function (outerToothCount, innerToothCount) {
@@ -25,10 +25,10 @@ var Spirograph;
                 return {
                     innerRadius: ringGearOptions.innerRadius * this._radiusMultiplier,
                     innerToothCount: ringGearOptions.innerToothCount,
-                    innerToothHeight: ringGearOptions.innerToothHeight,
+                    innerToothHeight: ringGearOptions.innerToothHeight * this._radiusMultiplier,
                     outerRadius: ringGearOptions.outerRadius * this._radiusMultiplier,
                     outerToothCount: ringGearOptions.outerToothCount,
-                    outerToothHeight: ringGearOptions.outerToothHeight
+                    outerToothHeight: ringGearOptions.outerToothHeight * this._radiusMultiplier
                 };
             };
             return RingGearOptionsFactory;
@@ -36,20 +36,20 @@ var Spirograph;
         Shapes.RingGearOptionsFactory = RingGearOptionsFactory;
 
         _ringGearDefinitions["144|96"] = {
-            innerRadius: 96,
+            innerRadius: 192,
             innerToothCount: 96,
             innerToothHeight: 10,
-            outerRadius: 144,
+            outerRadius: 288,
             outerToothCount: 144,
             outerToothHeight: 10
         };
 
         _ringGearDefinitions["150|105"] = {
-            innerRadius: 96,
-            innerToothCount: 96,
+            innerRadius: 210,
+            innerToothCount: 105,
             innerToothHeight: 10,
-            outerRadius: 144,
-            outerToothCount: 144,
+            outerRadius: 300,
+            outerToothCount: 150,
             outerToothHeight: 10
         };
     })(Spirograph.Shapes || (Spirograph.Shapes = {}));
