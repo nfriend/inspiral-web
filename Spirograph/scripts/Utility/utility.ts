@@ -1,4 +1,4 @@
-﻿/// <reference path='definitions/references.d.ts' />
+﻿/// <reference path='../definitions/references.d.ts' />
 'use strict';
 
 module Spirograph.Utility {

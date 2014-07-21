@@ -4,6 +4,27 @@
         fill-opacity: 0.05;
         stroke: #2b2b2b;
         fill-rule: evenodd;
+
+        .gear-hole {
+            fill: transparent;
+            stroke: transparent;
+            stroke-width: 3px;
+            fill-opacity: 1;
+
+            &:hover {
+                /*fill: red;*/
+                stroke: #3e3e3e;
+            }
+        }
+
+        &.dragging {
+            .gear-hole {
+                &:hover {
+                    fill: transparent;
+                    stroke: transparent;
+                }
+            }
+        }
     }
 
     #output {
@@ -34,21 +55,12 @@
 
         &:link, &:visited {
             text-decoration: none;
-            color: lightgray
+            color: lightgray;
         }
 
         &:hover, &:active {
             text-decoration: none;
             color: gray;
-        }
-    }
-
-    .testing {
-        fill: transparent;
-        stroke: red;
-
-        &:hover {
-            fill: blue;
         }
     }
 }

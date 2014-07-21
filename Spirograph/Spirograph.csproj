@@ -36,6 +36,7 @@
     <TypeScriptCompile Include="scripts\definitions\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\references.d.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Gear.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\GearHole.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearHoleGenerator.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearOptions.ts" />
     <TypeScriptCompile Include="scripts\Shapes\RingGearOptionsFactory.ts" />
@@ -49,7 +50,8 @@
     <TypeScriptCompile Include="scripts\SVG\MCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\PathCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\PathBuilder.ts" />
-    <TypeScriptCompile Include="scripts\utility.ts" />
+    <TypeScriptCompile Include="scripts\Utility\changePenColorStyle.ts" />
+    <TypeScriptCompile Include="scripts\Utility\utility.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower.json" />

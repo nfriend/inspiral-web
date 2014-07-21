@@ -16,6 +16,7 @@
 <body class="spirograph">
     <a id="download-link">download image</a>
     <p style="" id="output"></p>
+    <button id="test-button" style="position: absolute; z-index: 10">Click me</button>
 
     <!--<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>-->
 
@@ -23,7 +24,8 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/d3/d3.js"></script>
 
-    <script src="scripts/utility.js"></script>
+    <script src="scripts/Utility/utility.js"></script>
+    <script src="scripts/Utility/changePenColorStyle.js"></script>
 
     <script src="scripts/SVG/PathBuilder.js"></script>
     <script src="scripts/SVG/PathCommand.js"></script>
@@ -33,6 +35,7 @@
     <script src="scripts/SVG/ZCommand.js"></script>
 
     <script src="scripts/Shapes/HoleOptions.js"></script>
+    <script src="scripts/Shapes/GearHole.js"></script>
     <script src="scripts/Shapes/GearHoleGenerator.js"></script>
     <script src="scripts/Shapes/GearOptions.js"></script>
     <script src="scripts/Shapes/GearOptionsFactory.js"></script>

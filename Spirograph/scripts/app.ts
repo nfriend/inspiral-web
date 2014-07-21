@@ -18,8 +18,10 @@ module Spirograph {
     var gearOptions = (new Shapes.GearOptionsFactory()).create(84);
     var ringGearOptions = (new Shapes.RingGearOptionsFactory()).create(144, 96);
 
-    var holeOptions = {
-        holeAngle: 0, holeRadius: 80
+    var holeOptions: Shapes.HoleOptions = {
+        angle: 0,
+        positionRadius: 80,
+        radius: gearOptions.holeRadius
     };
 
     var ringGear = svgContainer.append("g")
@@ -36,18 +38,27 @@ module Spirograph {
     gear.append("path")
         .attr("d", Shapes.Gear);
 
-    //gear.append('path')
-    //    .attr('class', 'testing')
-    //    .attr('d', () => {
-    //    return "M10 10 H 90 V 90 H 10 L 10 10 Z";
-    //});
+    Utility.changePenColorStyle('green');
+    $('#test-button').click(() => {
+        Utility.changePenColorStyle('red');
+    });
+
+    (new Shapes.GearHoleGenerator()).generate(gearOptions).forEach((hole) => {
+
+        hole.radius *= 2;
+
+        var holeObject = gear.append('path')
+            .attr('class', 'gear-hole')
+            .datum(hole)
+            .attr('d', Shapes.GearHole);
+    });
 
     var previousTransformInfo: Shapes.TransformInfo;
     var rotater = new Shapes.RingGearRotater(ringGearOptions);
     var lastMouseAngle = null;
     var rotationOffset = 0;
 
-    var svgContainerMouseMove = function (d, i) {
+    var svgContainerMouseMove = (d, i) => {
         var mouseCoords = Utility.toStandardCoords({ x: d3.event.clientX, y: d3.event.clientY }, { x: window.innerWidth, y: window.innerHeight });
         var mouseAngle = Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
@@ -75,11 +86,17 @@ module Spirograph {
         ctx.closePath();
 
         previousTransformInfo = transformInfo;
-    }
+    };
 
     gear.on("mousedown", function (d, i) {
+        gear.classed('dragging', true);
+
         svgContainer.on("mousemove", svgContainerMouseMove);
-        svgContainer.on("mouseup", function () { svgContainer.on("mousemove", null); });
+
+        svgContainer.on("mouseup", () => {
+            svgContainer.on("mousemove", null);
+            gear.classed('dragging', false);
+        });
     });
 
     // initialize positions of gear and pen

@@ -16,7 +16,9 @@ var Spirograph;
     var ringGearOptions = (new Spirograph.Shapes.RingGearOptionsFactory()).create(144, 96);
 
     var holeOptions = {
-        holeAngle: 0, holeRadius: 80
+        angle: 0,
+        positionRadius: 80,
+        radius: gearOptions.holeRadius
     };
 
     var ringGear = svgContainer.append("g").attr("class", "gear ring-gear").attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(ringGearOptions).append("path").attr("d", Spirograph.Shapes.RingGear);
@@ -25,11 +27,17 @@ var Spirograph;
 
     gear.append("path").attr("d", Spirograph.Shapes.Gear);
 
-    //gear.append('path')
-    //    .attr('class', 'testing')
-    //    .attr('d', () => {
-    //    return "M10 10 H 90 V 90 H 10 L 10 10 Z";
-    //});
+    Spirograph.Utility.changePenColorStyle('green');
+    $('#test-button').click(function () {
+        Spirograph.Utility.changePenColorStyle('red');
+    });
+
+    (new Spirograph.Shapes.GearHoleGenerator()).generate(gearOptions).forEach(function (hole) {
+        hole.radius *= 2;
+
+        var holeObject = gear.append('path').attr('class', 'gear-hole').datum(hole).attr('d', Spirograph.Shapes.GearHole);
+    });
+
     var previousTransformInfo;
     var rotater = new Spirograph.Shapes.RingGearRotater(ringGearOptions);
     var lastMouseAngle = null;
@@ -65,9 +73,13 @@ var Spirograph;
     };
 
     gear.on("mousedown", function (d, i) {
+        gear.classed('dragging', true);
+
         svgContainer.on("mousemove", svgContainerMouseMove);
+
         svgContainer.on("mouseup", function () {
             svgContainer.on("mousemove", null);
+            gear.classed('dragging', false);
         });
     });
 

@@ -4,13 +4,17 @@
 module Spirograph.SVG {
     export class PathBuilder {
 
-        private paths: Array<PathCommand>;
+        private paths: any[];
 
         constructor() {
             this.paths = [];
         }
 
-        add(command: PathCommand) {
+        addCommand(command: PathCommand) {
+            this.paths.push(command);
+        }
+
+        addCommandString(command: string) {
             this.paths.push(command);
         }
 

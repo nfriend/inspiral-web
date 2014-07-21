@@ -7,7 +7,11 @@ var Spirograph;
             function PathBuilder() {
                 this.paths = [];
             }
-            PathBuilder.prototype.add = function (command) {
+            PathBuilder.prototype.addCommand = function (command) {
+                this.paths.push(command);
+            };
+
+            PathBuilder.prototype.addCommandString = function (command) {
                 this.paths.push(command);
             };
 

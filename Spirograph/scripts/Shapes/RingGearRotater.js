@@ -15,8 +15,8 @@ var Spirograph;
                 var gearRotation = 360 * (((mouseAngleAsDegrees / 360) * 2 * Math.PI * this._ringGearOptions.innerRadius) / (2 * Math.PI * gearOptions.radius));
                 gearRotation -= mouseAngleAsDegrees;
 
-                var penXModifer = holeOptions.holeRadius * Math.cos(Spirograph.Utility.toRadians(holeOptions.holeAngle) + Spirograph.Utility.toRadians(gearRotation));
-                var penYModifier = holeOptions.holeRadius * Math.sin(Spirograph.Utility.toRadians(holeOptions.holeAngle) + Spirograph.Utility.toRadians(gearRotation));
+                var penXModifer = holeOptions.positionRadius * Math.cos(Spirograph.Utility.toRadians(holeOptions.angle) + Spirograph.Utility.toRadians(gearRotation));
+                var penYModifier = holeOptions.positionRadius * Math.sin(Spirograph.Utility.toRadians(holeOptions.angle) + Spirograph.Utility.toRadians(gearRotation));
 
                 return {
                     x: gearX,

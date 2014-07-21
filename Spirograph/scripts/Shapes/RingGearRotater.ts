@@ -28,8 +28,8 @@ module Spirograph.Shapes {
             var gearRotation = 360 * (((mouseAngleAsDegrees / 360) * 2 * Math.PI * this._ringGearOptions.innerRadius) / (2 * Math.PI * gearOptions.radius));
             gearRotation -= mouseAngleAsDegrees;
 
-            var penXModifer = holeOptions.holeRadius * Math.cos(Utility.toRadians(holeOptions.holeAngle) + Utility.toRadians(gearRotation));
-            var penYModifier = holeOptions.holeRadius * Math.sin(Utility.toRadians(holeOptions.holeAngle) + Utility.toRadians(gearRotation));
+            var penXModifer = holeOptions.positionRadius * Math.cos(Utility.toRadians(holeOptions.angle) + Utility.toRadians(gearRotation));
+            var penYModifier = holeOptions.positionRadius * Math.sin(Utility.toRadians(holeOptions.angle) + Utility.toRadians(gearRotation));
 
             return {
                 x: gearX,

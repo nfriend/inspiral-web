@@ -35,8 +35,9 @@ var Spirograph;
 
                 for (var i = 0; i < options.holeCount; i++) {
                     returnHoleOptions.push({
-                        holeAngle: holeAngle,
-                        holeRadius: holePositionRadius
+                        angle: holeAngle,
+                        positionRadius: holePositionRadius,
+                        radius: options.holeRadius
                     });
                     holePositionRadius -= holePositionRadiusDelta;
                     holeAngle += 360 * (holeArcLengthDelta / (Math.PI * 2 * holePositionRadius));
