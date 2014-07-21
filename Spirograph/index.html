@@ -16,7 +16,40 @@
 <body class="spirograph">
     <a id="download-link">download image</a>
     <p style="" id="output"></p>
-    <button id="test-button" style="position: absolute; z-index: 10">Click me</button>
+    
+    <div style="position: absolute; z-index: 10; width: 300px; margin-top:20px;">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Red</label>
+                <div class="col-sm-3">
+                    <input class="form-control" id="red-input" value="0">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Green</label>
+                <div class="col-sm-3">
+                    <input class="form-control" id="green-input" value="0">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Blue</label>
+                <div class="col-sm-3">
+                    <input class="form-control" id="blue-input" value="255">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Alpha</label>
+                <div class="col-sm-3">
+                    <input class="form-control" id="alpha-input" value=".5">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-1 col-sm-3">
+                    <div id="change-color-button" class="btn btn-default">Change color</div>
+                </div>
+            </div>
+        </form>
+    </div>
 
     <!--<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;"></canvas>-->
 

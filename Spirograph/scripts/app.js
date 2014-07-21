@@ -6,7 +6,6 @@ var Spirograph;
     var canvas = d3.select("body").append("canvas").attr('id', 'spirograph-canvas').attr("width", window.innerWidth).attr("height", window.innerHeight);
 
     var ctx = canvas.node().getContext('2d');
-    ctx.strokeStyle = "rgba(255,0,0,0.2)";
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
 
@@ -27,15 +26,24 @@ var Spirograph;
 
     gear.append("path").attr("d", Spirograph.Shapes.Gear);
 
-    Spirograph.Utility.changePenColorStyle('green');
-    $('#test-button').click(function () {
-        Spirograph.Utility.changePenColorStyle('red');
+    Spirograph.Utility.changePenColor(0, 128, 0, .3);
+    $('#change-color-button').click(function () {
+        var red = parseInt($('#red-input').val(), 10);
+        var green = parseInt($('#green-input').val(), 10);
+        var blue = parseInt($('#blue-input').val(), 10);
+        var alpha = parseFloat($('#alpha-input').val());
+        Spirograph.Utility.changePenColor(red, green, blue, alpha);
     });
 
     (new Spirograph.Shapes.GearHoleGenerator()).generate(gearOptions).forEach(function (hole) {
-        hole.radius *= 2;
-
         var holeObject = gear.append('path').attr('class', 'gear-hole').datum(hole).attr('d', Spirograph.Shapes.GearHole);
+
+        holeObject.on('click', function () {
+            d3.selectAll('.selected').classed('selected', false);
+            holeObject.classed('selected', true);
+
+            holeOptions = hole;
+        });
     });
 
     var previousTransformInfo;

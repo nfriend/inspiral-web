@@ -8,12 +8,20 @@
         .gear-hole {
             fill: transparent;
             stroke: transparent;
-            stroke-width: 3px;
+            stroke-width: 10px;
             fill-opacity: 1;
 
+            &.selected {
+                stroke-width: 0;
+
+                &:hover {
+                    fill-opacity: 1;
+                }
+            }
+
             &:hover {
-                /*fill: red;*/
-                stroke: #3e3e3e;
+                fill-opacity: .9;
+                stroke-opacity: .9;
             }
         }
 

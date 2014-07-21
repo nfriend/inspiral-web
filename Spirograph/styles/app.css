@@ -7,12 +7,18 @@
 .spirograph .gear .gear-hole {
   fill: transparent;
   stroke: transparent;
-  stroke-width: 3px;
+  stroke-width: 10px;
+  fill-opacity: 1;
+}
+.spirograph .gear .gear-hole.selected {
+  stroke-width: 0;
+}
+.spirograph .gear .gear-hole.selected:hover {
   fill-opacity: 1;
 }
 .spirograph .gear .gear-hole:hover {
-  /*fill: red;*/
-  stroke: #3e3e3e;
+  fill-opacity: .9;
+  stroke-opacity: .9;
 }
 .spirograph .gear.dragging .gear-hole:hover {
   fill: transparent;

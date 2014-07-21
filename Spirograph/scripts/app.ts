@@ -9,7 +9,6 @@ module Spirograph {
         .attr("height", window.innerHeight);
 
     var ctx = (<HTMLCanvasElement> canvas.node()).getContext('2d');
-    ctx.strokeStyle = "rgba(255,0,0,0.2)";
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
 
@@ -38,19 +37,27 @@ module Spirograph {
     gear.append("path")
         .attr("d", Shapes.Gear);
 
-    Utility.changePenColorStyle('green');
-    $('#test-button').click(() => {
-        Utility.changePenColorStyle('red');
+    Utility.changePenColor(0, 128, 0, .3);
+    $('#change-color-button').click(() => {
+        var red = parseInt($('#red-input').val(), 10);
+        var green = parseInt($('#green-input').val(), 10);
+        var blue = parseInt($('#blue-input').val(), 10);
+        var alpha = parseFloat($('#alpha-input').val());
+        Utility.changePenColor(red, green, blue, alpha);
     });
 
     (new Shapes.GearHoleGenerator()).generate(gearOptions).forEach((hole) => {
-
-        hole.radius *= 2;
-
         var holeObject = gear.append('path')
             .attr('class', 'gear-hole')
             .datum(hole)
             .attr('d', Shapes.GearHole);
+
+        holeObject.on('click', () => {
+            d3.selectAll('.selected').classed('selected', false);
+            holeObject.classed('selected', true);
+
+            holeOptions = hole;
+        });
     });
 
     var previousTransformInfo: Shapes.TransformInfo;
