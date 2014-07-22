@@ -14,8 +14,21 @@ module Spirograph {
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions = (new Shapes.GearOptionsFactory()).create(60);
-    var ringGearOptions = (new Shapes.RingGearOptionsFactory()).create(144, 96);
+    var gearOptions = (new Shapes.GearOptionsFactory(1)).create(60);
+    var ringGearOptions = (new Shapes.RingGearOptionsFactory(1)).create(144, 96);
+
+    var beamOptions: Shapes.BeamOptions = {
+        endCapsToothCount: 20,
+        toothHeight: 10,
+        totalToothCount: 144
+    }
+
+    var beam = svgContainer.append('g')
+        .attr('class', 'gear beam')
+        .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
+        .datum(beamOptions)
+        .append("path")
+        .attr("d", Shapes.Beam);
 
     var ringGear = svgContainer.append("g")
         .attr("class", "gear ring-gear")
@@ -48,6 +61,8 @@ module Spirograph {
             ringGear.style('visibility', 'visible');
         });
 
+    ringGear.style('visibility', 'hidden');
+
     var allHoleOptions = (new Shapes.GearHoleGenerator()).generate(gearOptions);
     var holeOptions;
     allHoleOptions.forEach((hole, index) => {
@@ -71,7 +86,10 @@ module Spirograph {
     });
 
     var previousTransformInfo: Shapes.TransformInfo = null;
-    var rotater = new Shapes.RingGearRotater(ringGearOptions);
+    //var rotater = new Shapes.RingGearRotater(ringGearOptions);
+    var rotater = new Shapes.BeamRotater(beamOptions);
+    console.log(JSON.stringify(rotater.rotate(gearOptions, 0, holeOptions)));
+
     var lastMouseAngle = null;
     var rotationOffset = 0;
 

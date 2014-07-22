@@ -35,6 +35,8 @@
     <TypeScriptCompile Include="scripts\definitions\d3\plugins\d3.superformula.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\references.d.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\BeamRotater.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Gear.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearHole.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearHoleGenerator.ts" />
@@ -44,6 +46,7 @@
     <TypeScriptCompile Include="scripts\Shapes\HoleOptions.ts" />
     <TypeScriptCompile Include="scripts\Shapes\RingGearRotater.ts" />
     <TypeScriptCompile Include="scripts\Shapes\RingGear.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\TransformInfo.ts" />
     <TypeScriptCompile Include="scripts\SVG\ZCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\LCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\ACommand.ts" />

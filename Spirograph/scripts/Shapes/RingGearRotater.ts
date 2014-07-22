@@ -3,14 +3,6 @@
 
 module Spirograph.Shapes {
 
-    export interface TransformInfo {
-        x: number;
-        y: number;
-        angle: number;
-        penX: number;
-        penY: number;
-    }
-
     export class RingGearRotater {
 
         private _ringGearOptions: RingGearOptions;
