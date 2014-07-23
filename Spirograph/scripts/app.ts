@@ -14,13 +14,13 @@ module Spirograph {
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions = (new Shapes.GearOptionsFactory(1)).create(60);
+    var gearOptions = (new Shapes.GearOptionsFactory(1)).create(32);
     var ringGearOptions = (new Shapes.RingGearOptionsFactory(1)).create(144, 96);
 
     var beamOptions: Shapes.BeamOptions = {
         endCapsToothCount: 20,
         toothHeight: 10,
-        totalToothCount: 144
+        totalToothCount: 150
     }
 
     var beam = svgContainer.append('g')

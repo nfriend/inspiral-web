@@ -24,14 +24,6 @@ module Spirograph.Shapes {
 
         pathBuilder.addCommand(new SVG.MCommand(offsetX, -1 * radius));
 
-        // draw the top of the beam
-        //for (var i = 0; i < beamToothCount / 2; i++) {
-        //    pathBuilder.addCommand(new SVG.LCommand((i + 1 / 6) * toothWidth + offsetX, -1 * radius));
-        //    pathBuilder.addCommand(new SVG.LCommand((i + 1 / 2) * toothWidth + offsetX, (-1 * radius) + options.toothHeight));
-        //    pathBuilder.addCommand(new SVG.LCommand((i + 4 / 6) * toothWidth + offsetX, (-1 * radius) + options.toothHeight));
-        //    pathBuilder.addCommand(new SVG.LCommand((i + 1) * toothWidth + offsetX, -1 * radius));
-        //}
-
         for (var i = 0; i < beamToothCount / 2; i++) {
             pathBuilder.addCommand(new SVG.LCommand((i + 2 / 6) * toothWidth + offsetX, (-1 * radius) + options.toothHeight));
             pathBuilder.addCommand(new SVG.LCommand((i + 3 / 6) * toothWidth + offsetX, (-1 * radius) + options.toothHeight));

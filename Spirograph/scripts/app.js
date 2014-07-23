@@ -11,13 +11,13 @@ var Spirograph;
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(60);
+    var gearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(32);
     var ringGearOptions = (new Spirograph.Shapes.RingGearOptionsFactory(1)).create(144, 96);
 
     var beamOptions = {
         endCapsToothCount: 20,
         toothHeight: 10,
-        totalToothCount: 144
+        totalToothCount: 150
     };
 
     var beam = svgContainer.append('g').attr('class', 'gear beam').attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(beamOptions).append("path").attr("d", Spirograph.Shapes.Beam);
