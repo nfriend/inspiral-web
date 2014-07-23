@@ -25,38 +25,45 @@ module Spirograph.Shapes {
         pathBuilder.addCommand(new SVG.MCommand(offsetX, -1 * radius));
 
         // draw the top of the beam
+        //for (var i = 0; i < beamToothCount / 2; i++) {
+        //    pathBuilder.addCommand(new SVG.LCommand((i + 1 / 6) * toothWidth + offsetX, -1 * radius));
+        //    pathBuilder.addCommand(new SVG.LCommand((i + 1 / 2) * toothWidth + offsetX, (-1 * radius) + options.toothHeight));
+        //    pathBuilder.addCommand(new SVG.LCommand((i + 4 / 6) * toothWidth + offsetX, (-1 * radius) + options.toothHeight));
+        //    pathBuilder.addCommand(new SVG.LCommand((i + 1) * toothWidth + offsetX, -1 * radius));
+        //}
+
         for (var i = 0; i < beamToothCount / 2; i++) {
-            pathBuilder.addCommand(new SVG.LCommand((i + 1 / 6) * toothWidth + offsetX, -1 * radius));
-            pathBuilder.addCommand(new SVG.LCommand((i + 1 / 2) * toothWidth + offsetX, (-1 * radius) + options.toothHeight));
-            pathBuilder.addCommand(new SVG.LCommand((i + 4 / 6) * toothWidth + offsetX, (-1 * radius) + options.toothHeight));
-            pathBuilder.addCommand(new SVG.LCommand((i + 1) * toothWidth + offsetX, -1 * radius));
+            pathBuilder.addCommand(new SVG.LCommand((i + 2 / 6) * toothWidth + offsetX, (-1 * radius) + options.toothHeight));
+            pathBuilder.addCommand(new SVG.LCommand((i + 3 / 6) * toothWidth + offsetX, (-1 * radius) + options.toothHeight));
+            pathBuilder.addCommand(new SVG.LCommand((i + 5 / 6) * toothWidth + offsetX, -1 * radius));
+            pathBuilder.addCommand(new SVG.LCommand((i + 6 / 6) * toothWidth + offsetX, -1 * radius));
         }
 
         // draw the right endcap
         var endCapOffsetX = offsetX *= -1;
         for (var i = 0; i < options.endCapsToothCount / 2; i++) {
-            pathBuilder.addCommand(new SVG.ACommand(radius, radius, 0, false, true, radius * Math.cos(Utility.toRadians(90 - (i + 1 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * radius * Math.sin(Utility.toRadians(90 - (i + 1 / 6) * toothAngleDelta))));
-            pathBuilder.addCommand(new SVG.LCommand((radius - options.toothHeight) * Math.cos(Utility.toRadians(90 - (i + 1 / 2) * toothAngleDelta)) + endCapOffsetX, -1 * (radius - options.toothHeight) * Math.sin(Utility.toRadians(90 - (i + 1 / 2) * toothAngleDelta))));
-            pathBuilder.addCommand(new SVG.ACommand(radius, radius, 0, false, true, (radius - options.toothHeight) * Math.cos(Utility.toRadians(90 - (i + 4 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * (radius - options.toothHeight) * Math.sin(Utility.toRadians(90 - (i + 4 / 6) * toothAngleDelta))));
-            pathBuilder.addCommand(new SVG.LCommand(radius * Math.cos(Utility.toRadians(90 - (i + 1) * toothAngleDelta)) + endCapOffsetX, -1 * radius * Math.sin(Utility.toRadians(90 - (i + 1) * toothAngleDelta))));
+            pathBuilder.addCommand(new SVG.LCommand((radius - options.toothHeight) * Math.cos(Utility.toRadians(90 - (i + 2 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * (radius - options.toothHeight) * Math.sin(Utility.toRadians(90 - (i + 2 / 6) * toothAngleDelta))));
+            pathBuilder.addCommand(new SVG.ACommand(radius, radius, 0, false, true, (radius - options.toothHeight) * Math.cos(Utility.toRadians(90 - (i + 3 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * (radius - options.toothHeight) * Math.sin(Utility.toRadians(90 - (i + 3 / 6) * toothAngleDelta))));
+            pathBuilder.addCommand(new SVG.LCommand(radius * Math.cos(Utility.toRadians(90 - (i + 5 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * radius * Math.sin(Utility.toRadians(90 - (i + 5 / 6) * toothAngleDelta))));
+            pathBuilder.addCommand(new SVG.ACommand(radius, radius, 0, false, true, radius * Math.cos(Utility.toRadians(90 - (i + 6 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * radius * Math.sin(Utility.toRadians(90 - (i + 6 / 6) * toothAngleDelta))));
         }
 
         // draw the bottom of the beam
         offsetX *= -1;
         for (var i = (beamToothCount / 2); i > 0; i--) {
-            pathBuilder.addCommand(new SVG.LCommand((i - 1 / 6) * toothWidth + offsetX, radius));
-            pathBuilder.addCommand(new SVG.LCommand((i - 1 / 2) * toothWidth + offsetX, radius - options.toothHeight));
-            pathBuilder.addCommand(new SVG.LCommand((i - 4 / 6) * toothWidth + offsetX, radius - options.toothHeight));
-            pathBuilder.addCommand(new SVG.LCommand((i - 1) * toothWidth + offsetX, radius));
+            pathBuilder.addCommand(new SVG.LCommand((i - 2 / 6) * toothWidth + offsetX, radius - options.toothHeight));
+            pathBuilder.addCommand(new SVG.LCommand((i - 3 / 6) * toothWidth + offsetX, radius - options.toothHeight));
+            pathBuilder.addCommand(new SVG.LCommand((i - 5 / 6) * toothWidth + offsetX, radius));
+            pathBuilder.addCommand(new SVG.LCommand((i - 6 / 6) * toothWidth + offsetX, radius));
         }
 
         // draw the left endcap
         var endCapOffsetX = offsetX;
         for (var i = 0; i < options.endCapsToothCount / 2; i++) {
-            pathBuilder.addCommand(new SVG.ACommand(radius, radius, 0, false, true, radius * Math.cos(Utility.toRadians(-90 - (i + 1 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * radius * Math.sin(Utility.toRadians(-90 - (i + 1 / 6) * toothAngleDelta))));
-            pathBuilder.addCommand(new SVG.LCommand((radius - options.toothHeight) * Math.cos(Utility.toRadians(-90 - (i + 1 / 2) * toothAngleDelta)) + endCapOffsetX, -1 * (radius - options.toothHeight) * Math.sin(Utility.toRadians(-90 - (i + 1 / 2) * toothAngleDelta))));
-            pathBuilder.addCommand(new SVG.ACommand(radius, radius, 0, false, true, (radius - options.toothHeight) * Math.cos(Utility.toRadians(-90 - (i + 4 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * (radius - options.toothHeight) * Math.sin(Utility.toRadians(-90 - (i + 4 / 6) * toothAngleDelta))));
-            pathBuilder.addCommand(new SVG.LCommand(radius * Math.cos(Utility.toRadians(-90 - (i + 1) * toothAngleDelta)) + endCapOffsetX, -1 * radius * Math.sin(Utility.toRadians(-90 - (i + 1) * toothAngleDelta))));
+            pathBuilder.addCommand(new SVG.LCommand((radius - options.toothHeight) * Math.cos(Utility.toRadians(-90 - (i + 2 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * (radius - options.toothHeight) * Math.sin(Utility.toRadians(-90 - (i + 2 / 6) * toothAngleDelta))));
+            pathBuilder.addCommand(new SVG.ACommand(radius, radius, 0, false, true, (radius - options.toothHeight) * Math.cos(Utility.toRadians(-90 - (i + 3 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * (radius - options.toothHeight) * Math.sin(Utility.toRadians(-90 - (i + 3 / 6) * toothAngleDelta))));
+            pathBuilder.addCommand(new SVG.LCommand(radius * Math.cos(Utility.toRadians(-90 - (i + 5 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * radius * Math.sin(Utility.toRadians(-90 - (i + 5 / 6) * toothAngleDelta))));
+            pathBuilder.addCommand(new SVG.ACommand(radius, radius, 0, false, true, radius * Math.cos(Utility.toRadians(-90 - (i + 6 / 6) * toothAngleDelta)) + endCapOffsetX, -1 * radius * Math.sin(Utility.toRadians(-90 - (i + 6 / 6) * toothAngleDelta))));
         }
 
         pathBuilder.addCommand(new SVG.ZCommand());
