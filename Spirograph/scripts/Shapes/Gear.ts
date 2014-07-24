@@ -25,10 +25,11 @@ module Spirograph.Shapes {
         // draw the circle with teeth
         pathBuilder.addCommand(new SVG.MCommand(options.radius, 0));
         for (var i = 0; i < options.toothCount; i++) {
-            pathBuilder.addCommand(new SVG.ACommand(options.radius, options.radius, 0, false, true, options.radius * Math.cos(Utility.toRadians(angle + delta * 1 / 6)), options.radius * Math.sin(Utility.toRadians(angle + delta * 1 / 6))));
-            pathBuilder.addCommand(new SVG.LCommand(outerRadius * Math.cos(Utility.toRadians(angle + delta * 1 / 2)), outerRadius * Math.sin(Utility.toRadians(angle + delta * 1 / 2))));
-            pathBuilder.addCommand(new SVG.ACommand(outerRadius, outerRadius, 0, false, true, outerRadius * Math.cos(Utility.toRadians(angle + delta * 4 / 6)), outerRadius * Math.sin(Utility.toRadians(angle + delta * 4 / 6))));
-            pathBuilder.addCommand(new SVG.LCommand(options.radius * Math.cos(Utility.toRadians(angle + delta)), options.radius * Math.sin(Utility.toRadians(angle + delta))));
+            pathBuilder.addCommand(new SVG.ACommand(options.radius, options.radius, 0, false, true, options.radius * Math.cos(Utility.toRadians(angle + delta * 1 / 12)), options.radius * Math.sin(Utility.toRadians(angle + delta * 1 / 12))));
+            pathBuilder.addCommand(new SVG.LCommand(outerRadius * Math.cos(Utility.toRadians(angle + delta * 5 / 12)), outerRadius * Math.sin(Utility.toRadians(angle + delta * 5 / 12))));
+            pathBuilder.addCommand(new SVG.ACommand(outerRadius, outerRadius, 0, false, true, outerRadius * Math.cos(Utility.toRadians(angle + delta * 7 / 12)), outerRadius * Math.sin(Utility.toRadians(angle + delta * 7 / 12))));
+            pathBuilder.addCommand(new SVG.LCommand(options.radius * Math.cos(Utility.toRadians(angle + delta * 11 / 12)), options.radius * Math.sin(Utility.toRadians(angle + delta * 11 / 12))));
+            pathBuilder.addCommand(new SVG.ACommand(options.radius, options.radius, 0, false, true, options.radius * Math.cos(Utility.toRadians(angle + delta * 12 / 12)), options.radius * Math.sin(Utility.toRadians(angle + delta * 12 / 12))));
             angle += delta;
         }
 

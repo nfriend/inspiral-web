@@ -14,8 +14,9 @@ module Spirograph {
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions = (new Shapes.GearOptionsFactory(1)).create(84);
+    var gearOptions = (new Shapes.GearOptionsFactory(1)).create(30);
     var ringGearOptions = (new Shapes.RingGearOptionsFactory(1)).create(144, 96);
+    var fixedGearOptions = (new Shapes.GearOptionsFactory(1)).create(24);
 
     var beamOptions: Shapes.BeamOptions = {
         endCapsToothCount: 20,
@@ -23,15 +24,22 @@ module Spirograph {
         totalToothCount: 146
     }
 
+    var fixedGear = svgContainer.append('g')
+        .attr('class', 'gear fixed')
+        .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
+        .datum(fixedGearOptions)
+        .append("path")
+        .attr("d", Shapes.Gear);
+
     var beam = svgContainer.append('g')
-        .attr('class', 'gear beam')
+        .attr('class', 'gear beam fixed')
         .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
         .datum(beamOptions)
         .append("path")
         .attr("d", Shapes.Beam);
 
     var ringGear = svgContainer.append("g")
-        .attr("class", "gear ring-gear")
+        .attr("class", "gear ring-gear fixed")
         .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
         .datum(ringGearOptions)
         .append("path")
@@ -62,6 +70,7 @@ module Spirograph {
         });
 
     ringGear.style('visibility', 'hidden');
+    beam.style('visibility', 'hidden');
 
     var allHoleOptions = (new Shapes.GearHoleGenerator()).generate(gearOptions);
     var holeOptions;
@@ -87,7 +96,8 @@ module Spirograph {
 
     var previousTransformInfo: Shapes.TransformInfo = null;
     //var rotater = new Shapes.RingGearRotater(ringGearOptions);
-    var rotater = new Shapes.BeamRotater(beamOptions);
+    //var rotater = new Shapes.BeamRotater(beamOptions);
+    var rotater = new Shapes.GearRotater(fixedGearOptions);
     console.log(JSON.stringify(rotater.rotate(gearOptions, 0, holeOptions)));
 
     var lastMouseAngle = null;

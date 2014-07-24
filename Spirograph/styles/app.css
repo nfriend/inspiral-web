@@ -4,6 +4,9 @@
   stroke: #2b2b2b;
   fill-rule: evenodd;
 }
+.spirograph .gear.fixed {
+  fill-opacity: 0.2;
+}
 .spirograph .gear .gear-hole {
   fill: transparent;
   stroke: transparent;

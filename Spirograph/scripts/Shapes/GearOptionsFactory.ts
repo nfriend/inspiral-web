@@ -42,6 +42,16 @@ module Spirograph.Shapes {
         holeRadius: 5
     };
 
+    gearDefinitions[30] = {
+        radius: 60,
+        toothCount: 30,
+        toothHeight: 10,
+        holeCount: 9,
+        holeSweepAngle: 520,
+        holePositionBuffer: 8,
+        holeRadius: 5
+    };
+
     gearDefinitions[32] = {
         radius: 64,
         toothCount: 32,

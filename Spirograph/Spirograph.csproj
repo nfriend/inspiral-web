@@ -41,6 +41,7 @@
     <TypeScriptCompile Include="scripts\Shapes\GearHole.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearHoleGenerator.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearOptions.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\GearRotater.ts" />
     <TypeScriptCompile Include="scripts\Shapes\RingGearOptionsFactory.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearOptionsFactory.ts" />
     <TypeScriptCompile Include="scripts\Shapes\HoleOptions.ts" />
