@@ -54,7 +54,7 @@
     <TypeScriptCompile Include="scripts\SVG\MCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\PathCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\PathBuilder.ts" />
-    <TypeScriptCompile Include="scripts\UI\KeyboardShortcutManager.ts" />
+    <TypeScriptCompile Include="scripts\Interaction\KeyboardShortcutManager.ts" />
     <TypeScriptCompile Include="scripts\Utility\changePenColorStyle.ts" />
     <TypeScriptCompile Include="scripts\Utility\utility.ts" />
   </ItemGroup>
@@ -74,7 +74,9 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="scripts\UI\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

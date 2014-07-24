@@ -14,7 +14,7 @@ module Spirograph {
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions = (new Shapes.GearOptionsFactory(1)).create(30);
+    var gearOptions = (new Shapes.GearOptionsFactory(1)).create(60);
     var ringGearOptions = (new Shapes.RingGearOptionsFactory(1)).create(144, 96);
     var fixedGearOptions = (new Shapes.GearOptionsFactory(1)).create(24);
 
@@ -158,7 +158,7 @@ module Spirograph {
 
     initializeGearAndPen();
 
-    UI.KeyboardShortcutManager.add(UI.KeyboardShortcutManager.Key.RightArrow, () => {
+    Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.RightArrow, () => {
         // add shortcut here
     });
 }
