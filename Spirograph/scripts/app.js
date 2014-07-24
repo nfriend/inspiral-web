@@ -11,13 +11,13 @@ var Spirograph;
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(32);
+    var gearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(84);
     var ringGearOptions = (new Spirograph.Shapes.RingGearOptionsFactory(1)).create(144, 96);
 
     var beamOptions = {
         endCapsToothCount: 20,
         toothHeight: 10,
-        totalToothCount: 150
+        totalToothCount: 146
     };
 
     var beam = svgContainer.append('g').attr('class', 'gear beam').attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(beamOptions).append("path").attr("d", Spirograph.Shapes.Beam);
@@ -129,6 +129,10 @@ var Spirograph;
     }
 
     initializeGearAndPen();
+
+    Spirograph.UI.KeyboardShortcutManager.add(39 /* RightArrow */, function () {
+        // add shortcut here
+    });
 })(Spirograph || (Spirograph = {}));
 
 // download canvas as image functionality... not fully working yet
@@ -138,4 +142,8 @@ document.getElementById('download-link').addEventListener('click', function () {
     _this.download = 'spirograph.png';
     window.location.href = data;
 }, false);
+
+var myCallback = function () {
+    alert('escape was pushed!!');
+};
 //# sourceMappingURL=app.js.map

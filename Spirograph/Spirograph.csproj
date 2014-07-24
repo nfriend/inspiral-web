@@ -53,6 +53,7 @@
     <TypeScriptCompile Include="scripts\SVG\MCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\PathCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\PathBuilder.ts" />
+    <TypeScriptCompile Include="scripts\UI\KeyboardShortcutManager.ts" />
     <TypeScriptCompile Include="scripts\Utility\changePenColorStyle.ts" />
     <TypeScriptCompile Include="scripts\Utility\utility.ts" />
   </ItemGroup>

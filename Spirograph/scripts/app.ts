@@ -14,13 +14,13 @@ module Spirograph {
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions = (new Shapes.GearOptionsFactory(1)).create(32);
+    var gearOptions = (new Shapes.GearOptionsFactory(1)).create(84);
     var ringGearOptions = (new Shapes.RingGearOptionsFactory(1)).create(144, 96);
 
     var beamOptions: Shapes.BeamOptions = {
         endCapsToothCount: 20,
         toothHeight: 10,
-        totalToothCount: 150
+        totalToothCount: 146
     }
 
     var beam = svgContainer.append('g')
@@ -147,6 +147,10 @@ module Spirograph {
     }
 
     initializeGearAndPen();
+
+    UI.KeyboardShortcutManager.add(UI.KeyboardShortcutManager.Key.RightArrow, () => {
+        // add shortcut here
+    });
 }
 
 // download canvas as image functionality... not fully working yet
@@ -157,3 +161,7 @@ document.getElementById('download-link').addEventListener('click', () => {
     window.location.href = data;
 
 }, false);
+
+var myCallback = function () {
+    alert('escape was pushed!!');
+}

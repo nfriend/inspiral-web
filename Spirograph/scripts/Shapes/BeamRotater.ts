@@ -62,15 +62,6 @@ module Spirograph.Shapes {
                 positionAngleOffset = 180;
             }
 
-            var outputString = "<p>";
-            outputString += "<p>normalizedMouseAngleAsDegrees: " + normalizedMouseAngleAsDegrees + "</p>";
-            outputString += "<p>positionAngleOffset: " + positionAngleOffset.toString() + "</p>";
-            outputString += "<p>rotations: " + rotations + "</p>";
-            outputString += "<p>mouseAngleAsDegrees: " + mouseAngleAsDegrees + "</p>";
-            outputString += "<p>distanceTravelled / perimeter: " + (distanceTravelled / perimeter)+ "</p>";
-
-            $('#output').html(outputString);
-
             var gearRotation = -360 * (((rotations / 360) * perimeter) / (2 * Math.PI * gearOptions.radius));
             gearRotation -= positionAngleOffset;
 
