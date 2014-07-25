@@ -19,7 +19,7 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="index.html" />
-    <Content Include="scripts\lib\jquery-ui.js" />
+    <Content Include="scripts\lib\linq.js" />
     <Content Include="styles\app.css">
       <DependentUpon>app.less</DependentUpon>
     </Content>
@@ -53,8 +53,10 @@
     <TypeScriptCompile Include="scripts\definitions\d3\plugins\d3.superformula-tests.ts" />
     <TypeScriptCompile Include="scripts\definitions\d3\plugins\d3.superformula.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="scripts\definitions\linq\linq.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\references.d.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\BeamOptions.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamRotater.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Gear.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearHole.ts" />
@@ -95,6 +97,9 @@
     <Content Include="styles\color-selector.less" />
     <Content Include="styles\color-selector.css.map">
       <DependentUpon>color-selector.css</DependentUpon>
+    </Content>
+    <Content Include="styles\base.css.map">
+      <DependentUpon>base.css</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>

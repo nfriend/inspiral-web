@@ -152,7 +152,7 @@ module Spirograph {
 
         if (resetGear) {
             previousTransformInfo = rotater.rotate(gearOptions, 0, holeOptions);
-            gear.attr("transform", "translate(" + previousTransformInfo.x + "," + Utility.getCenterY() + ") rotate(" + 0 + ")");
+            gear.attr("transform", "translate(" + previousTransformInfo.x + "," + previousTransformInfo.y + ") rotate(" + previousTransformInfo.angle + ")");
         }
     }
 

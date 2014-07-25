@@ -16,8 +16,15 @@
 <body class="spirograph">
     <a id="download-link" target="_blank">download image</a>
     <p style="" id="output"></p>
-    <div class="gear-options-selector"></div>
-    <div class="color-selector"></div>
+    <div id="gear-options-selector">
+        <div class="fixed-container">
+            <p>fixed</p>
+        </div>
+        <div class="rotating-container">
+            <p>rotating</p>
+        </div>
+    </div>
+    <div id="color-selector"></div>
 
     <!--<div style="position: absolute; z-index: 10; width: 300px; margin-top:20px;">
         <form class="form-horizontal" role="form">
@@ -60,7 +67,7 @@
 
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="scripts/lib/jquery-ui.js"></script>
+    <script src="scripts/lib/linq.js"></script>
     <script src="bower_components/d3/d3.js"></script>
 
     <script src="scripts/Utility/utility.js"></script>
@@ -89,6 +96,8 @@
     <script src="scripts/Shapes/BeamOptions.js"></script>
     <script src="scripts/Shapes/BeamRotater.js"></script>
     <script src="scripts/Shapes/Beam.js"></script>
+
+    <script src="scripts/UI/gear-options-selector.js"></script>
 
     <script src="scripts/app.js"></script>
 
