@@ -3,20 +3,20 @@
 
 module Spirograph.EventAggregator {
 
-    var subscribers: { [event: string]: Array<(...param: any[]) => void>; };
+    var subscribers: { [event: string]: Array<(...params: any[]) => void>; } = {};
 
-    export function subscribe(eventName: string, callback: (...param: any[]) => void) {
+    export function subscribe(eventName: string, callback: (...params: any[]) => void) {
         if (!(eventName in subscribers)) {
-            subscribers[eventName] = new Array<(...param: any[]) => void>();
+            subscribers[eventName] = new Array<(...params: any[]) => void>();
         }
         subscribers[eventName].push(callback);
     }
 
-    export function publish(eventName: string, parameter?: any) {
+    export function publish(eventName: string, ...params: any[]) {
         if (eventName in subscribers) {
             subscribers[eventName].forEach((subscriber) => {
-                if (parameter) {
-                    subscriber(parameter);
+                if (params.length > 0) {
+                    subscriber.apply(this, params);
                 } else {
                     subscriber();
                 }

@@ -20,8 +20,6 @@ var Spirograph;
             var callbacks = {};
 
             function add(key, callback) {
-                console.log(key);
-                console.log(key);
                 if (!(key in callbacks)) {
                     callbacks[key] = new Array();
                 }

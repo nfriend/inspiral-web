@@ -138,6 +138,12 @@ var Spirograph;
     Spirograph.Interaction.KeyboardShortcutManager.add(39 /* RightArrow */, function () {
         // add shortcut here
     });
+
+    Spirograph.EventAggregator.subscribe('gearSelected', function (gearSize, fixedOrRotating) {
+        //alert(fixedOrRotating + ": " + gearSize.toString());
+        //gearOptions = (new Shapes.GearOptionsFactory()).create(gearSize);
+        console.log(fixedOrRotating + ' gear selected: ' + gearSize);
+    });
 })(Spirograph || (Spirograph = {}));
 
 // download canvas as image functionality... not fully working yet

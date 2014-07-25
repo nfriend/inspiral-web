@@ -3,7 +3,7 @@
 var Spirograph;
 (function (Spirograph) {
     (function (EventAggregator) {
-        var subscribers;
+        var subscribers = {};
 
         function subscribe(eventName, callback) {
             if (!(eventName in subscribers)) {
@@ -13,11 +13,16 @@ var Spirograph;
         }
         EventAggregator.subscribe = subscribe;
 
-        function publish(eventName, parameter) {
+        function publish(eventName) {
+            var _this = this;
+            var params = [];
+            for (var _i = 0; _i < (arguments.length - 1); _i++) {
+                params[_i] = arguments[_i + 1];
+            }
             if (eventName in subscribers) {
                 subscribers[eventName].forEach(function (subscriber) {
-                    if (parameter) {
-                        subscriber(parameter);
+                    if (params.length > 0) {
+                        subscriber.apply(_this, params);
                     } else {
                         subscriber();
                     }

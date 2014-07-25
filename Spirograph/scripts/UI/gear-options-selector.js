@@ -22,7 +22,10 @@ var Spirograph;
             return { originalGear: x, modifiedGear: gearOption };
         }).forEach(function (gear) {
             ['#gear-options-selector .fixed-container', '#gear-options-selector .rotating-container'].forEach(function (container) {
-                var gearContainer = d3.select(container).append('div').attr('class', 'gear-container');
+                var gearContainer = d3.select(container).append('div').attr({
+                    'class': 'gear-container',
+                    'data-tooth-count': gear.originalGear.toothCount
+                });
 
                 var svgContainer = gearContainer.append("svg").attr({
                     width: containerSize,
@@ -36,8 +39,12 @@ var Spirograph;
         });
 
         $('.gear-container').on('click', function (ev) {
-            $(ev.delegateTarget).addClass('selected');
-            $(ev.delegateTarget).siblings().removeClass('selected');
+            var $target = $(ev.delegateTarget);
+            $target.addClass('selected');
+            $target.siblings().removeClass('selected');
+            var fixedOrRotating = $target.parent('.fixed-container').length !== 0 ? 'fixed' : 'rotating';
+
+            Spirograph.EventAggregator.publish('gearSelected', $target.attr('data-tooth-count'), fixedOrRotating);
         });
     })(Spirograph.UI || (Spirograph.UI = {}));
     var UI = Spirograph.UI;

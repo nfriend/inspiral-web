@@ -41,18 +41,19 @@
                 width: 100%;
                 height: 100%;
                 text-align: center;
-                margin-top: 6px;
+                margin-top: -1px;
                 position: absolute;
-                font-size: 15px;
+                font-size: 25px;
                 font-weight: bold;
-                opacity: 0;
+                display: none;
             }
 
             &:hover {
                 cursor: pointer;
 
                 .gear-label {
-                    opacity: 1;
+                    display: inline;
+                    color: #555;
                 }
 
                 .gear {
@@ -63,12 +64,13 @@
 
             &.selected {
                 .gear-label {
-                    opacity: 1;
+                    display: inline;
+                    color: black;
                 }
 
                 .gear {
-                    fill: green;
-                    fill-opacity: 0.5;
+                    fill: @brand-success;
+                    fill-opacity: 0.6;
                     stroke-opacity: 0.2;
                 }
             }

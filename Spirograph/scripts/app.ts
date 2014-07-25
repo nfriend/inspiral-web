@@ -161,6 +161,13 @@ module Spirograph {
     Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.RightArrow, () => {
         // add shortcut here
     });
+
+    EventAggregator.subscribe('gearSelected', (gearSize: number, fixedOrRotating: string) => {
+        //alert(fixedOrRotating + ": " + gearSize.toString());
+        //gearOptions = (new Shapes.GearOptionsFactory()).create(gearSize);
+
+        console.log(fixedOrRotating + ' gear selected: ' + gearSize);
+    });
 }
 
 // download canvas as image functionality... not fully working yet
