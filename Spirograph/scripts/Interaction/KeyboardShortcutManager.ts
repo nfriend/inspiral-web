@@ -17,8 +17,6 @@ module Spirograph.Interaction.KeyboardShortcutManager {
     var callbacks: { [key: number]: Array<() => any>; } = {};
 
     export function add(key: Key, callback: () => any) {
-        console.log(key);
-        console.log(<number>key);
         if (!(<number>key in callbacks)) {
             callbacks[key] = new Array<() => any>();
         }
