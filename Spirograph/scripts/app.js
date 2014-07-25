@@ -11,7 +11,7 @@ var Spirograph;
 
     var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
 
-    var gearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(60);
+    var gearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(64);
     var ringGearOptions = (new Spirograph.Shapes.RingGearOptionsFactory(1)).create(144, 96);
     var fixedGearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(24);
 

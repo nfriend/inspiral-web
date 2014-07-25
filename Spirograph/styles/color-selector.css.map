@@ -1,0 +1,9 @@
+{
+  "version": 3,
+  "file": "color-selector.css",
+  "sources": [
+    "color-selector.less"
+  ],
+  "names": [],
+  "mappings": "AAAA;EACI,kBAAA;EACA,WAAA;EACA,OAAA;EACA,WAAA;EACA,WAAA;EACA,gBAAA"
+}

@@ -1,4 +1,20 @@
-﻿.spirograph .gear {
+﻿.gear-options-selector {
+  position: absolute;
+  left: 50px;
+  top: 5%;
+  height: 90%;
+  width: 50px;
+  background: red;
+}
+.color-selector {
+  position: absolute;
+  right: 50px;
+  top: 5%;
+  height: 90%;
+  width: 50px;
+  background: blue;
+}
+.spirograph .gear {
   fill: black;
   fill-opacity: 0.1;
   stroke: #2b2b2b;

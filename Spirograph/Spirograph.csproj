@@ -19,11 +19,30 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="index.html" />
+    <Content Include="scripts\lib\jquery-ui.js" />
     <Content Include="styles\app.css">
       <DependentUpon>app.less</DependentUpon>
     </Content>
     <Content Include="styles\app.min.css">
       <DependentUpon>app.css</DependentUpon>
+    </Content>
+    <Content Include="styles\base.css">
+      <DependentUpon>base.less</DependentUpon>
+    </Content>
+    <Content Include="styles\base.min.css">
+      <DependentUpon>base.css</DependentUpon>
+    </Content>
+    <Content Include="styles\color-selector.css">
+      <DependentUpon>color-selector.less</DependentUpon>
+    </Content>
+    <Content Include="styles\color-selector.min.css">
+      <DependentUpon>color-selector.css</DependentUpon>
+    </Content>
+    <Content Include="styles\gear-options-selector.css">
+      <DependentUpon>gear-options-selector.less</DependentUpon>
+    </Content>
+    <Content Include="styles\gear-options-selector.min.css">
+      <DependentUpon>gear-options-selector.css</DependentUpon>
     </Content>
     <Content Include="web.config" />
   </ItemGroup>
@@ -55,6 +74,7 @@
     <TypeScriptCompile Include="scripts\SVG\PathCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\PathBuilder.ts" />
     <TypeScriptCompile Include="scripts\Interaction\KeyboardShortcutManager.ts" />
+    <TypeScriptCompile Include="scripts\UI\gear-options-selector.ts" />
     <TypeScriptCompile Include="scripts\Utility\changePenColorStyle.ts" />
     <TypeScriptCompile Include="scripts\Utility\utility.ts" />
   </ItemGroup>
@@ -67,6 +87,15 @@
     </Content>
     <Content Include="scripts\definitions\d3\d3-tests.ts.tscparams" />
     <Content Include="scripts\definitions\d3\plugins\d3.superformula-tests.ts.tscparams" />
+    <Content Include="styles\gear-options-selector.less" />
+    <Content Include="styles\base.less" />
+    <Content Include="styles\gear-options-selector.css.map">
+      <DependentUpon>gear-options-selector.css</DependentUpon>
+    </Content>
+    <Content Include="styles\color-selector.less" />
+    <Content Include="styles\color-selector.css.map">
+      <DependentUpon>color-selector.css</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
@@ -74,9 +103,7 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="scripts\UI\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
