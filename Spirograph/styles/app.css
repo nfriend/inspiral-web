@@ -62,7 +62,7 @@ body {
 }
 #gear-options-selector .fixed-container .gear-container:hover .gear-label.dark,
 #gear-options-selector .rotating-container .gear-container:hover .gear-label.dark {
-  color: #AAA;
+  color: #CCC;
 }
 #gear-options-selector .fixed-container .gear-container:hover .gear,
 #gear-options-selector .rotating-container .gear-container:hover .gear {
