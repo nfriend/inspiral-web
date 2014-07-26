@@ -1,1 +1,1 @@
-{"version":3,"file":"BeamOptions.js","sourceRoot":"","sources":["BeamOptions.ts"],"names":[],"mappings":"AAAA,uDAAuD;AACvD,YAAY"}
+{"version":3,"file":"BeamOptions.js","sourceRoot":"","sources":["BeamOptions.ts"],"names":["Spirograph","Spirograph.Shapes"],"mappings":"AAAA,uDAAuD;AAEvD,IAAO,UAAU;AAWhB,CAXD,UAAO,UAAU;KAAjBA,UAAkBA,MAAMA;QACpBC,YAAYA;IAUhBA,CAACA,iDAAAD;mCAAAA;AAADA,CAACA,mCAAA"}

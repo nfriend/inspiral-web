@@ -1,8 +1,9 @@
 /// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (SVG) {
+        'use strict';
+
         var LCommand = (function () {
             function LCommand(x, y) {
                 this.x = x;

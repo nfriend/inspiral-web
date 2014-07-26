@@ -1,8 +1,9 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (Shapes) {
+        'use strict';
+
         function GearHole(holeOptions) {
             var pathBuilder = new Spirograph.SVG.PathBuilder();
 

@@ -1,9 +1,10 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (Interaction) {
         (function (KeyboardShortcutManager) {
+            'use strict';
+
             (function (Key) {
                 Key[Key["Enter"] = 13] = "Enter";
                 Key[Key["Shift"] = 16] = "Shift";

@@ -1,1 +1,1 @@
-{"version":3,"file":"PathCommand.js","sourceRoot":"","sources":["PathCommand.ts"],"names":[],"mappings":"AAAA,uDAAuD;AACvD,YAAY"}
+{"version":3,"file":"PathCommand.js","sourceRoot":"","sources":["PathCommand.ts"],"names":["Spirograph","Spirograph.SVG"],"mappings":"AAAA,uDAAuD;AAEvD,IAAO,UAAU;AAKhB,CALD,UAAO,UAAU;KAAjBA,UAAkBA,GAAGA;QACjBC,YAAYA;IAIhBA,CAACA,2CAAAD;6BAAAA;AAADA,CAACA,mCAAA"}

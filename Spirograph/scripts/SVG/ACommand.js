@@ -1,8 +1,9 @@
 /// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (SVG) {
+        'use strict';
+
         var ACommand = (function () {
             function ACommand(radiusX, radiusY, xAxisRotation, largeArc, sweep, x, y) {
                 this.radiusX = radiusX;

@@ -1,8 +1,9 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (Shapes) {
+        'use strict';
+
         function Beam(options) {
             if (options.endCapsToothCount % 2 !== 0) {
                 throw 'Spirograph.Shapes.BeamOptions.endCapToothCount must be an even number';

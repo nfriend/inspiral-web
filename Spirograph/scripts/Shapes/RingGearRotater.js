@@ -1,8 +1,9 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (Shapes) {
+        'use strict';
+
         var RingGearRotater = (function () {
             function RingGearRotater(ringGearOptions) {
                 this._teethBuffer = 2;

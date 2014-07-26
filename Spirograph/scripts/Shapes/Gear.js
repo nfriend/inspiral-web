@@ -1,8 +1,9 @@
 /// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (Shapes) {
+        'use strict';
+
         function Gear(options) {
             if (!options.toothHeight) {
                 options.toothHeight = 10;

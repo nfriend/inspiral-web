@@ -1,8 +1,9 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (SVG) {
+        'use strict';
+
         var PathBuilder = (function () {
             function PathBuilder() {
                 this.paths = [];

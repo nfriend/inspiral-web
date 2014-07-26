@@ -1,8 +1,9 @@
 /// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (Shapes) {
+        'use strict';
+
         function RingGear(options) {
             if (!options.innerToothHeight) {
                 options.innerToothHeight = 10;

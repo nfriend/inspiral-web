@@ -1,3 +1,9 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
+var Spirograph;
+(function (Spirograph) {
+    (function (Shapes) {
+        'use strict';
+    })(Spirograph.Shapes || (Spirograph.Shapes = {}));
+    var Shapes = Spirograph.Shapes;
+})(Spirograph || (Spirograph = {}));
 //# sourceMappingURL=TransformInfo.js.map

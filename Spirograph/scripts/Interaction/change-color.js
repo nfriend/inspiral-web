@@ -1,8 +1,9 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (Interaction) {
+        'use strict';
+
         function changePenColor(r, g, b, a) {
             if (typeof a === "undefined") { a = 1; }
             var color = Spirograph.Utility.getRgbaString(r, g, b, a);
