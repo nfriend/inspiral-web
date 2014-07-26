@@ -1,4 +1,5 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+@import '../bower_components/bootstrap/dist/css/bootstrap.min.css';
 body {
   font-family: 'Open Sans', sans-serif;
   overflow: hidden;
@@ -139,6 +140,7 @@ body {
 #color-selector .background-container .color-container.selected .color {
   border: 3px solid white;
 }
+/*@import (css) '../bower_components/fontawesome/css/font-awesome.css';*/
 .spirograph .dark {
   color: lightgray;
 }
