@@ -1,7 +1,8 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.Shapes {
+    'use strict';
+
     export class GearHoleGenerator {
 
         generate(options: GearOptions): Array<HoleOptions> {

@@ -1,7 +1,7 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.Shapes {
+    'use strict';
 
     export function Beam(options: BeamOptions) {
 

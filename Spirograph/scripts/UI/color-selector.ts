@@ -1,7 +1,7 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.UI {
+    'use strict';
 
     interface Color {
         r: number;

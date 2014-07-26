@@ -1,7 +1,8 @@
 /// <reference path='definitions/references.d.ts' />
-'use strict';
 
 module Spirograph {
+    'use strict';
+
     var canvas = d3.select("body")
         .append("canvas")
         .attr('id', 'spirograph-canvas')

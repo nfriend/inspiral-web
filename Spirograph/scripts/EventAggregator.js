@@ -1,8 +1,9 @@
 ﻿/// <reference path='definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (EventAggregator) {
+        'use strict';
+
         var subscribers = {};
 
         function subscribe(eventName, callback) {

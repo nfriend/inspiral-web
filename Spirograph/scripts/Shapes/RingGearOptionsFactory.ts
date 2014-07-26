@@ -1,7 +1,7 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.Shapes {
+    'use strict';
 
     var _ringGearDefinitions: { [gearSizes: string]: RingGearOptions; } = {};
 

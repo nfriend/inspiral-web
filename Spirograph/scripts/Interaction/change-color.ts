@@ -1,7 +1,8 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.Interaction {
+    'use strict';
+
     function changePenColor(r: number, g: number, b: number, a: number = 1) {
         var color = Utility.getRgbaString(r, g, b, a);
         injectPenColorStyleSheetChanges(color);

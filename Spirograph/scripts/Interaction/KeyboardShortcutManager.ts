@@ -1,7 +1,7 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.Interaction.KeyboardShortcutManager {
+    'use strict';
 
     export enum Key {
         Enter = 13,

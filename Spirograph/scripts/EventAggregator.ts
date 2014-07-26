@@ -1,7 +1,7 @@
 ﻿/// <reference path='definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.EventAggregator {
+    'use strict';
 
     var subscribers: { [event: string]: Array<(...params: any[]) => void>; } = {};
 

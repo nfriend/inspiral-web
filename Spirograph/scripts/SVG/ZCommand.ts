@@ -1,7 +1,8 @@
 /// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.SVG {
+    'use strict';
+
     export class ZCommand implements PathCommand {
         toString() {
             return "Z";

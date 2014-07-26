@@ -1,7 +1,8 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict'; 
 
 module Spirograph.Utility {
+    'use strict'; 
+
     export function toRadians(degrees: number) {
         return (degrees * Math.PI) / 180;
     }

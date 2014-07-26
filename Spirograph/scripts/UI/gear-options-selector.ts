@@ -1,7 +1,7 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.UI {
+    'use strict';
 
     var containerSize = 35;
     var gearSize = 5;

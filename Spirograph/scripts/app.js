@@ -1,8 +1,9 @@
 /// <reference path='definitions/references.d.ts' />
-'use strict';
 var _this = this;
 var Spirograph;
 (function (Spirograph) {
+    'use strict';
+
     var canvas = d3.select("body").append("canvas").attr('id', 'spirograph-canvas').attr("width", window.innerWidth).attr("height", window.innerHeight);
 
     var ctx = canvas.node().getContext('2d');

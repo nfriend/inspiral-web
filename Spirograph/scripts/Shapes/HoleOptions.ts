@@ -1,7 +1,8 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.Shapes {
+    'use strict';
+
     export interface HoleOptions {
         // the distance from the center of the gear to this hole
         positionRadius: number;

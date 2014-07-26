@@ -1,7 +1,8 @@
 /// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.Shapes {
+    'use strict';
+
     export function RingGear(options: RingGearOptions) {
         if (!options.innerToothHeight) {
             options.innerToothHeight = 10;

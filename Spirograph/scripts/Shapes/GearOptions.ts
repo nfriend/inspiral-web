@@ -1,7 +1,7 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.Shapes {
+    'use strict';
 
     export interface GearOptions {
         // the radius of gear, NOT including the additional height of the teeth

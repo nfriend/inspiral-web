@@ -1,8 +1,9 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (Utility) {
+        'use strict';
+
         function toRadians(degrees) {
             return (degrees * Math.PI) / 180;
         }

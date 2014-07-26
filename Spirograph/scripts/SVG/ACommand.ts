@@ -1,7 +1,8 @@
 /// <reference path='../definitions/references.d.ts' />
-'use strict';
 
 module Spirograph.SVG {
+    'use strict';
+
     export class ACommand implements PathCommand {
         radiusX: number;
         radiusY: number;

@@ -1,8 +1,9 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
-'use strict';
 var Spirograph;
 (function (Spirograph) {
     (function (UI) {
+        'use strict';
+
         var containerSize = 35;
 
         var penColors = [
