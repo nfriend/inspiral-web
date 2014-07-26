@@ -14,33 +14,49 @@ module.exports = function (grunt) {
                     ],
                     remove: ['link:not(.dom_munger-ignore)', 'script:not(.dom_munger-ignore)'],
                     append: [
-                      { selector: 'head', html: '<link href="application.min.css" rel="stylesheet">' },
-                      { selector: 'body', html: '<script src="application.min.js"></script>' }
+                      { selector: 'head', html: '<link href="app.min.css" rel="stylesheet">' },
+                      { selector: 'body', html: '<script src="app.min.js"></script>' }
                     ]
                 },
+                cwd: '.',
                 src: 'index.html',
                 dest: '../dist/index.html'
             }
         },
 
         copy: {
-            dist: {
-                src: ['fonts/**', 'images/**', 'views/**', 'favicon.ico'],
-                dest: '../dist',
+            favicon: {
+                cwd: '.',
+                src: ['favicon.ico'],
+                dest: '../dist/',
+                expand: false
+            },
+            css: {
+                cwd: '.',
+                src: ['styles/app.min.css'],
+                dest: '../dist/app.min.css',
+                expand: false
+            },
+            scripts: {
+                cwd: '.',
+                src: ['scripts/**'],
+                dest: '../dist/',
                 expand: true
             }
         },
 
         clean: {
-            dist: {
+            options: {
+                force: true
+            },
+            cwd: '.',
+            everything: {
+                force: true,
                 src: ['../dist']
             },
-            diststylesheets: {
-                src: ['../dist/**/*.css', '../dist/**/*.less', '../dist/**/*.sass', '../dist/**/*.scss', '!../dist/application.min.css']
-            },
-            distscripts: {
+            dist: {
                 force: true,
-                src: ['../dist/**/*.js', '../dist-temp', '!../dist/application.min.js']
+                src: ['../dist/scripts']
             }
         },
 
@@ -51,23 +67,17 @@ module.exports = function (grunt) {
                     collapseWhitespace: true
                 },
                 expand: true,
-                cwd: '../dist',
-                src: ['**/*.html'],
+                cwd: '.',
+                src: ['../dist/index.html'],
                 dest: '../dist/'
-            }
-        },
-
-        cssmin: {
-            dist: {
-                src: '../dist/application.css',
-                dest: '../dist/application.min.css'
             }
         },
 
         uglify: {
             dist: {
-                src: '../dist-temp/**/*.js',
-                dest: '../dist/application.min.js'
+                cwd: '.',
+                src: '<%= dom_munger.data.jsRefsWithoutPath %>',
+                dest: '../dist/app.min.js'
             }
         }
     });
@@ -75,7 +85,7 @@ module.exports = function (grunt) {
     grunt.registerTask(
         'dist',
         'Compiles all of the assets and copies the files to the dist directory',
-        ['clean:dist', 'dom_munger:dist', 'copy:dist', 'cssmin', 'uglify', 'htmlmin:dist', 'clean:diststylesheets', 'clean:distscripts']
+        ['clean:everything', 'dom_munger:dist', 'copy:favicon', 'copy:css', 'copy:scripts', 'uglify', 'htmlmin:dist', 'clean:dist']
     );
     grunt.registerTask(
         'default',
@@ -85,9 +95,7 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
-    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-dom-munger');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
 };
