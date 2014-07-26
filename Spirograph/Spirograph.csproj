@@ -56,7 +56,7 @@
     <TypeScriptCompile Include="scripts\definitions\linq\linq.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\references.d.ts" />
     <TypeScriptCompile Include="scripts\EventAggregator.ts" />
-    <TypeScriptCompile Include="scripts\Interaction\change-pen-color.ts" />
+    <TypeScriptCompile Include="scripts\Interaction\change-color.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamOptions.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamRotater.ts" />

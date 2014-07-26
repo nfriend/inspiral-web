@@ -21,13 +21,13 @@ var Spirograph;
         totalToothCount: 146
     };
 
-    var fixedGear = svgContainer.append('g').attr('class', 'gear fixed').attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(fixedGearOptions).append("path").attr("d", Spirograph.Shapes.Gear);
+    var fixedGear = svgContainer.append('g').attr('class', 'gear fixed color-changing').attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(fixedGearOptions).append("path").attr("d", Spirograph.Shapes.Gear);
 
-    var beam = svgContainer.append('g').attr('class', 'gear beam fixed').attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(beamOptions).append("path").attr("d", Spirograph.Shapes.Beam);
+    var beam = svgContainer.append('g').attr('class', 'gear beam fixed color-changing').attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(beamOptions).append("path").attr("d", Spirograph.Shapes.Beam);
 
-    var ringGear = svgContainer.append("g").attr("class", "gear ring-gear fixed").attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(ringGearOptions).append("path").attr("d", Spirograph.Shapes.RingGear);
+    var ringGear = svgContainer.append("g").attr("class", "gear ring-gear fixed color-changing").attr("transform", "translate(" + Spirograph.Utility.getCenterX() + "," + Spirograph.Utility.getCenterY() + ")").datum(ringGearOptions).append("path").attr("d", Spirograph.Shapes.RingGear);
 
-    var gear = svgContainer.append("g").attr("class", "gear").datum(gearOptions);
+    var gear = svgContainer.append("g").attr("class", "gear color-changing").datum(gearOptions);
 
     gear.append("path").attr("d", Spirograph.Shapes.Gear);
 

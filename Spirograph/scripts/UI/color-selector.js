@@ -5,7 +5,7 @@ var Spirograph;
     (function (UI) {
         var containerSize = 35;
 
-        var initialColors = [
+        var penColors = [
             { r: 255, g: 0, b: 0, a: .4 },
             { r: 255, g: 150, b: 0, a: .7 },
             { r: 255, g: 255, b: 0, a: .7 },
@@ -17,19 +17,37 @@ var Spirograph;
             { r: 100, g: 100, b: 100, a: .8 }
         ];
 
-        initialColors.forEach(function (color) {
-            ['#color-selector .foreground-container', '#color-selector .background-container'].forEach(function (container) {
-                var colorContainer = $('<div>').addClass('color-container').attr({
-                    'data-r': color.r,
-                    'data-g': color.g,
-                    'data-b': color.b,
-                    'data-a': color.a
-                });
+        var backgroundColors = [
+            { r: 255, g: 255, b: 255, a: 1, showborder: true },
+            { r: 240, g: 240, b: 240, a: 1, showborder: true },
+            { r: 227, g: 227, b: 227, a: 1, showborder: true },
+            { r: 51, g: 51, b: 51, a: 1, showborder: true },
+            { r: 18, g: 18, b: 18, a: 1, showborder: true }
+        ];
 
-                $('<div>').addClass('color').css('background-color', Spirograph.Utility.getRgbaString(color.r, color.g, color.b, color.a)).appendTo(colorContainer);
-
-                colorContainer.appendTo(container);
+        function addColorToContainer(color, container) {
+            var colorContainer = $('<div>').addClass('color-container').attr({
+                'data-r': color.r,
+                'data-g': color.g,
+                'data-b': color.b,
+                'data-a': color.a
             });
+
+            var colorDiv = $('<div>').addClass('color').css('background-color', Spirograph.Utility.getRgbaString(color.r, color.g, color.b, color.a)).appendTo(colorContainer);
+
+            if (color.showborder) {
+                colorDiv.addClass('bordered');
+            }
+
+            colorContainer.appendTo(container);
+        }
+
+        penColors.forEach(function (color) {
+            addColorToContainer(color, '#color-selector .foreground-container');
+        });
+
+        backgroundColors.forEach(function (color) {
+            addColorToContainer(color, '#color-selector .background-container');
         });
 
         $('#color-selector').on('click', '.color-container', function (ev) {

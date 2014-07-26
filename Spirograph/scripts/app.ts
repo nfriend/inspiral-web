@@ -25,28 +25,28 @@ module Spirograph {
     }
 
     var fixedGear = svgContainer.append('g')
-        .attr('class', 'gear fixed')
+        .attr('class', 'gear fixed color-changing')
         .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
         .datum(fixedGearOptions)
         .append("path")
         .attr("d", Shapes.Gear);
 
     var beam = svgContainer.append('g')
-        .attr('class', 'gear beam fixed')
+        .attr('class', 'gear beam fixed color-changing')
         .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
         .datum(beamOptions)
         .append("path")
         .attr("d", Shapes.Beam);
 
     var ringGear = svgContainer.append("g")
-        .attr("class", "gear ring-gear fixed")
+        .attr("class", "gear ring-gear fixed color-changing")
         .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
         .datum(ringGearOptions)
         .append("path")
         .attr("d", Shapes.RingGear);
 
     var gear = svgContainer.append("g")
-        .attr("class", "gear")
+        .attr("class", "gear color-changing")
         .datum(gearOptions);
 
     gear.append("path")

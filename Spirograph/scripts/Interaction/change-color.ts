@@ -4,11 +4,21 @@
 module Spirograph.Interaction {
     function changePenColor(r: number, g: number, b: number, a: number = 1) {
         var color = Utility.getRgbaString(r, g, b, a);
-        injectStyleSheetChanges(color);
+        injectPenColorStyleSheetChanges(color);
         changeContextStrokeStyle(color);
     }
 
-    function injectStyleSheetChanges(color: string) {
+    function changeBackgroundColor(r: number, g: number, b: number, a: number = 1) {
+        $('body').css('background-color', Utility.getRgbaString(r, g, b, a));
+
+        if (r < 100 && g < 100 && b < 100) {
+            d3.selectAll('.color-changing').classed('dark', true);
+        } else {
+            d3.selectAll('.color-changing').classed('dark', false);
+        }
+    }
+
+    function injectPenColorStyleSheetChanges(color: string) {
         $('.injected-style').remove();
 
         var htmlString = new Array<string>();
@@ -30,7 +40,7 @@ module Spirograph.Interaction {
         if (foregroundOrBackground === 'foreground') {
             changePenColor(r, g, b, a);
         } else {
-
+            changeBackgroundColor(r, b, g, a);
         }
     });
 } 

@@ -1,6 +1,7 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
 body {
   font-family: 'Open Sans', sans-serif;
+  overflow: hidden;
 }
 #gear-options-selector {
   position: absolute;
@@ -59,6 +60,10 @@ body {
   display: inline;
   color: #555;
 }
+#gear-options-selector .fixed-container .gear-container:hover .gear-label.dark,
+#gear-options-selector .rotating-container .gear-container:hover .gear-label.dark {
+  color: #AAA;
+}
 #gear-options-selector .fixed-container .gear-container:hover .gear,
 #gear-options-selector .rotating-container .gear-container:hover .gear {
   fill-opacity: 0.1;
@@ -68,6 +73,10 @@ body {
 #gear-options-selector .rotating-container .gear-container.selected .gear-label {
   display: inline;
   color: black;
+}
+#gear-options-selector .fixed-container .gear-container.selected .gear-label.dark,
+#gear-options-selector .rotating-container .gear-container.selected .gear-label.dark {
+  color: #FFF;
 }
 #gear-options-selector .fixed-container .gear-container.selected .gear,
 #gear-options-selector .rotating-container .gear-container.selected .gear {
@@ -105,6 +114,10 @@ body {
   width: 100%;
   height: 100%;
 }
+#color-selector .foreground-container .color-container .color.bordered,
+#color-selector .background-container .color-container .color.bordered {
+  border: 2px solid gray;
+}
 #color-selector .foreground-container .color-container:hover,
 #color-selector .background-container .color-container:hover {
   cursor: pointer;
@@ -112,7 +125,11 @@ body {
 }
 #color-selector .foreground-container .color-container:hover .color,
 #color-selector .background-container .color-container:hover .color {
-  border: 3px solid white;
+  border: 2px solid white;
+}
+#color-selector .foreground-container .color-container:hover .color.bordered,
+#color-selector .background-container .color-container:hover .color.bordered {
+  border: 2px solid gray;
 }
 #color-selector .foreground-container .color-container.selected,
 #color-selector .background-container .color-container.selected {
@@ -122,14 +139,26 @@ body {
 #color-selector .background-container .color-container.selected .color {
   border: 3px solid white;
 }
+.spirograph .dark {
+  color: lightgray;
+}
 .spirograph .gear {
   fill: black;
-  fill-opacity: 0.1;
+  fill-opacity: 0.2;
   stroke: #2b2b2b;
   fill-rule: evenodd;
 }
+.spirograph .gear.dark {
+  stroke: #d5d5d5;
+  fill-rule: evenodd;
+  fill: white;
+  fill-opacity: .3;
+}
 .spirograph .gear.fixed {
-  fill-opacity: 0.2;
+  fill-opacity: 0.3;
+}
+.spirograph .gear.fixed.dark {
+  fill-opacity: 0.5;
 }
 .spirograph .gear .gear-hole {
   fill: transparent;

@@ -36,10 +36,10 @@ module Spirograph.UI {
                     height: containerSize
                 });
 
-                gearContainer.append('div').attr('class', 'gear-label').html(gear.originalGear.toothCount);
+                gearContainer.append('div').attr('class', 'gear-label color-changing').html(gear.originalGear.toothCount);
 
                 svgContainer.append('g')
-                    .attr('class', 'gear fixed')
+                    .attr('class', 'gear fixed color-changing')
                     .attr("transform", "translate(" + containerSize / 2 + "," + containerSize / 2 + ")")
                     .datum(gear.modifiedGear)
                     .append("path")
