@@ -1,9 +1,1 @@
-{
-  "version": 3,
-  "file": "color-selector.css",
-  "sources": [
-    "color-selector.less"
-  ],
-  "names": [],
-  "mappings": "AAAA;EACI,kBAAA;EACA,WAAA;EACA,OAAA;EACA,WAAA;EACA,WAAA"
-}
+{"version":3,"file":"E:\\Documents\\GitHub\\spirograph\\Spirograph\\styles\\color-selector.css","sources":["color-selector.less"],"names":[],"mappings":"AAAA;EACI,kBAAA;EACA,WAAA;EACA,OAAA;EACA,WAAA;EACA,WAAA;EACA,WAAA;;AANJ,eAQI;EACI,kBAAA;EACA,UAAA;EACA,YAAA;;AAXR,eAcI;EACI,kBAAA;EACA,UAAA;EACA,YAAA;EACA,QAAA;;AAlBR,eAqBI,sBAEI;AAvBR,eAqB2B,sBAEnB;EACI,YAAA;EACA,WAAA;EACA,YAAA;;AA1BZ,eAqBI,sBAEI,iBAKI;AA5BZ,eAqB2B,sBAEnB,iBAKI;EACI,WAAA;EACA,YAAA;;AAGJ,eAZR,sBAEI,iBAUK;AAAD,eAZe,sBAEnB,iBAUK;EACG,eAAA;EACA,sBAAA;;AAFJ,eAZR,sBAEI,iBAUK,MAIG;AAJJ,eAZe,sBAEnB,iBAUK,MAIG;EACI,uBAAA;;AAIR,eArBR,sBAEI,iBAmBK;AAAD,eArBe,sBAEnB,iBAmBK;EACG,sBAAA;;AADJ,eArBR,sBAEI,iBAmBK,SAGG;AAHJ,eArBe,sBAEnB,iBAmBK,SAGG;EACI,uBAAA"}

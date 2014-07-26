@@ -31,14 +31,7 @@ var Spirograph;
 
     gear.append("path").attr("d", Spirograph.Shapes.Gear);
 
-    Spirograph.Utility.changePenColor(0, 128, 0, .3);
-    $('#change-color-button').click(function () {
-        var red = parseInt($('#red-input').val(), 10);
-        var green = parseInt($('#green-input').val(), 10);
-        var blue = parseInt($('#blue-input').val(), 10);
-        var alpha = parseFloat($('#alpha-input').val());
-        Spirograph.Utility.changePenColor(red, green, blue, alpha);
-    });
+    Spirograph.EventAggregator.publish('colorSelected', 255, 0, 0, .4, 'foreground');
 
     $('#hide-gears-button').mousedown(function () {
         gear.style('visibility', 'hidden');

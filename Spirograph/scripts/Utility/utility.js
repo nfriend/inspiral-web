@@ -39,6 +39,11 @@ var Spirograph;
             return total / values.length;
         }
         Utility.getAverage = getAverage;
+
+        function getRgbaString(r, g, b, a) {
+            return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+        }
+        Utility.getRgbaString = getRgbaString;
     })(Spirograph.Utility || (Spirograph.Utility = {}));
     var Utility = Spirograph.Utility;
 })(Spirograph || (Spirograph = {}));

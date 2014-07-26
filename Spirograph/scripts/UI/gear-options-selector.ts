@@ -47,10 +47,9 @@ module Spirograph.UI {
             });
         });
 
-    $('.gear-container').on('click', (ev) => {
-        var $target = $(ev.delegateTarget);
-        $target.addClass('selected');
-        $target.siblings().removeClass('selected');
+    $('#gear-options-selector').on('click', '.gear-container', (ev) => {
+        var $target = $(ev.currentTarget);
+        $target.addClass('selected').siblings().removeClass('selected');
         var fixedOrRotating = $target.parent('.fixed-container').length !== 0 ? 'fixed' : 'rotating';
 
         EventAggregator.publish('gearSelected', $target.attr('data-tooth-count'), fixedOrRotating);

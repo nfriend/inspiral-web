@@ -1,9 +1,9 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
 'use strict';
 
-module Spirograph.Utility {
-    export function changePenColor(r: number, g: number, b: number, a: number = 1) {
-        var color = getRGBAString(r, g, b, a);
+module Spirograph.Interaction {
+    function changePenColor(r: number, g: number, b: number, a: number = 1) {
+        var color = Utility.getRgbaString(r, g, b, a);
         injectStyleSheetChanges(color);
         changeContextStrokeStyle(color);
     }
@@ -26,7 +26,11 @@ module Spirograph.Utility {
         ctx.strokeStyle = color;
     }
 
-    function getRGBAString(r: number, g: number, b: number, a: number) {
-        return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
-    }
+    EventAggregator.subscribe('colorSelected', (r: number, g: number, b: number, a: number, foregroundOrBackground: string) => {
+        if (foregroundOrBackground === 'foreground') {
+            changePenColor(r, g, b, a);
+        } else {
+
+        }
+    });
 } 

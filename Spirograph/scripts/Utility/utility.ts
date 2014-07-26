@@ -32,4 +32,8 @@ module Spirograph.Utility {
         });
         return total / values.length;
     }
+
+    export function getRgbaString(r: number, g: number, b: number, a: number) {
+        return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
+    }
 } 

@@ -2,14 +2,13 @@
 'use strict';
 var Spirograph;
 (function (Spirograph) {
-    (function (Utility) {
+    (function (Interaction) {
         function changePenColor(r, g, b, a) {
             if (typeof a === "undefined") { a = 1; }
-            var color = getRgbaString(r, g, b, a);
+            var color = Spirograph.Utility.getRgbaString(r, g, b, a);
             injectStyleSheetChanges(color);
             changeContextStrokeStyle(color);
         }
-        Utility.changePenColor = changePenColor;
 
         function injectStyleSheetChanges(color) {
             $('.injected-style').remove();
@@ -29,11 +28,13 @@ var Spirograph;
             ctx.strokeStyle = color;
         }
 
-        function getRgbaString(r, g, b, a) {
-            return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
-        }
-        Utility.getRgbaString = getRgbaString;
-    })(Spirograph.Utility || (Spirograph.Utility = {}));
-    var Utility = Spirograph.Utility;
+        Spirograph.EventAggregator.subscribe('colorSelected', function (r, g, b, a, foregroundOrBackground) {
+            if (foregroundOrBackground === 'foreground') {
+                changePenColor(r, g, b, a);
+            } else {
+            }
+        });
+    })(Spirograph.Interaction || (Spirograph.Interaction = {}));
+    var Interaction = Spirograph.Interaction;
 })(Spirograph || (Spirograph = {}));
-//# sourceMappingURL=changePenColorStyle.js.map
+//# sourceMappingURL=change-pen-color.js.map

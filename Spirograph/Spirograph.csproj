@@ -56,6 +56,7 @@
     <TypeScriptCompile Include="scripts\definitions\linq\linq.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\references.d.ts" />
     <TypeScriptCompile Include="scripts\EventAggregator.ts" />
+    <TypeScriptCompile Include="scripts\Interaction\change-pen-color.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamOptions.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamRotater.ts" />
@@ -77,8 +78,8 @@
     <TypeScriptCompile Include="scripts\SVG\PathCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\PathBuilder.ts" />
     <TypeScriptCompile Include="scripts\Interaction\KeyboardShortcutManager.ts" />
+    <TypeScriptCompile Include="scripts\UI\color-selector.ts" />
     <TypeScriptCompile Include="scripts\UI\gear-options-selector.ts" />
-    <TypeScriptCompile Include="scripts\Utility\changePenColorStyle.ts" />
     <TypeScriptCompile Include="scripts\Utility\utility.ts" />
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,7 @@
 <body class="spirograph">
     <a id="download-link" target="_blank">download image</a>
     <p style="" id="output"></p>
+
     <div id="gear-options-selector">
         <div class="fixed-container">
             <p>fixed</p>
@@ -24,47 +25,15 @@
             <p>rotating</p>
         </div>
     </div>
-    <div id="color-selector"></div>
 
-    <!--<div style="position: absolute; z-index: 10; width: 300px; margin-top:20px;">
-        <form class="form-horizontal" role="form">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Red</label>
-                <div class="col-sm-3">
-                    <input class="form-control" id="red-input" value="0">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Green</label>
-                <div class="col-sm-3">
-                    <input class="form-control" id="green-input" value="0">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Blue</label>
-                <div class="col-sm-3">
-                    <input class="form-control" id="blue-input" value="255">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">Alpha</label>
-                <div class="col-sm-3">
-                    <input class="form-control" id="alpha-input" value=".5">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-1 col-sm-3">
-                    <div id="change-color-button" class="btn btn-default">Change Color</div>
-                </div>
-            </div>
-            <div class="form-group" style="margin-top: 30px;">
-                <div class="col-sm-offset-1 col-sm-3">
-                    <div id="hide-gears-button" class="btn btn-default">Hide Gears</div>
-                </div>
-            </div>
-        </form>
-    </div>-->
-
+    <div id="color-selector">
+        <div class="foreground-container">
+            <p>pen</p>
+        </div>
+        <div class="background-container">
+            <p>background</p>
+        </div>
+    </div>
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="scripts/lib/linq.js"></script>
@@ -73,9 +42,9 @@
     <script src="scripts/EventAggregator.js"></script>
 
     <script src="scripts/Utility/utility.js"></script>
-    <script src="scripts/Utility/changePenColorStyle.js"></script>
 
     <script src="scripts/Interaction/KeyboardShortcutManager.js"></script>
+    <script src="scripts/Interaction/change-pen-color.js"></script>
 
     <script src="scripts/SVG/PathBuilder.js"></script>
     <script src="scripts/SVG/PathCommand.js"></script>
@@ -100,6 +69,7 @@
     <script src="scripts/Shapes/Beam.js"></script>
 
     <script src="scripts/UI/gear-options-selector.js"></script>
+    <script src="scripts/UI/color-selector.js"></script>
 
     <script src="scripts/app.js"></script>
 

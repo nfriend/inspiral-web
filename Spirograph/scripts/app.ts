@@ -52,14 +52,7 @@ module Spirograph {
     gear.append("path")
         .attr("d", Shapes.Gear);
 
-    Utility.changePenColor(0, 128, 0, .3);
-    $('#change-color-button').click(() => {
-        var red = parseInt($('#red-input').val(), 10);
-        var green = parseInt($('#green-input').val(), 10);
-        var blue = parseInt($('#blue-input').val(), 10);
-        var alpha = parseFloat($('#alpha-input').val());
-        Utility.changePenColor(red, green, blue, alpha);
-    });
+    EventAggregator.publish('colorSelected', 255, 0, 0, .4, 'foreground');
 
     $('#hide-gears-button').mousedown(() => {
         gear.style('visibility', 'hidden');
