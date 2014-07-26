@@ -104,7 +104,6 @@
     <Content Include="styles\base.css.map">
       <DependentUpon>base.css</DependentUpon>
     </Content>
-    <Content Include=".deployment" />
     <Content Include="package.json" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
