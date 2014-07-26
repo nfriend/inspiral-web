@@ -40,7 +40,7 @@ module Spirograph.Interaction {
         if (foregroundOrBackground === 'foreground') {
             changePenColor(r, g, b, a);
         } else {
-            changeBackgroundColor(r, b, g, a);
+            changeBackgroundColor(r, g, b, a);
         }
     });
 } 

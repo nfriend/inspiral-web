@@ -12,17 +12,21 @@ var Spirograph;
             { r: 0, g: 150, b: 0, a: .5 },
             { r: 0, g: 0, b: 255, a: .4 },
             { r: 150, g: 0, b: 150, a: .5 },
+            { r: 255, g: 255, b: 255, a: .8, bordered: true },
             { r: 200, g: 200, b: 200, a: .8 },
             { r: 150, g: 150, b: 150, a: .8 },
             { r: 100, g: 100, b: 100, a: .8 }
         ];
 
         var backgroundColors = [
-            { r: 255, g: 255, b: 255, a: 1, showborder: true },
-            { r: 240, g: 240, b: 240, a: 1, showborder: true },
-            { r: 227, g: 227, b: 227, a: 1, showborder: true },
-            { r: 51, g: 51, b: 51, a: 1, showborder: true },
-            { r: 18, g: 18, b: 18, a: 1, showborder: true }
+            { r: 255, g: 255, b: 255, a: 1, bordered: true },
+            { r: 240, g: 240, b: 240, a: 1, bordered: true },
+            { r: 227, g: 227, b: 227, a: 1, bordered: true },
+            { r: 247, g: 239, b: 218, a: 1, bordered: true },
+            { r: 59, g: 37, b: 7, a: 1, bordered: true },
+            { r: 14, g: 18, b: 71, a: 1, bordered: true },
+            { r: 51, g: 51, b: 51, a: 1, bordered: true },
+            { r: 18, g: 18, b: 18, a: 1, bordered: true }
         ];
 
         function addColorToContainer(color, container) {
@@ -35,7 +39,7 @@ var Spirograph;
 
             var colorDiv = $('<div>').addClass('color').css('background-color', Spirograph.Utility.getRgbaString(color.r, color.g, color.b, color.a)).appendTo(colorContainer);
 
-            if (color.showborder) {
+            if (color.bordered) {
                 colorDiv.addClass('bordered');
             }
 
