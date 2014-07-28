@@ -59,7 +59,6 @@ module Spirograph.Shapes {
         }
 
         pathBuilder.addCommand(new SVG.ZCommand());
-        console.log(pathBuilder.toString());
         return pathBuilder.toString();
     }
 }

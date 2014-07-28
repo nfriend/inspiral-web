@@ -45,6 +45,4 @@ module Spirograph {
         }
     }
 
-    console.log(browser);
-
 }   

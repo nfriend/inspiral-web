@@ -59,8 +59,13 @@
     <TypeScriptCompile Include="scripts\definitions\references.d.ts" />
     <TypeScriptCompile Include="scripts\dimensions.ts" />
     <TypeScriptCompile Include="scripts\EventAggregator.ts" />
+    <TypeScriptCompile Include="scripts\Initialization\initialize-canvas.ts" />
+    <TypeScriptCompile Include="scripts\Initialization\initialize-fixed-gear.ts" />
+    <TypeScriptCompile Include="scripts\Initialization\initialize-holes.ts" />
+    <TypeScriptCompile Include="scripts\Initialization\initialize-rotating-gear.ts" />
+    <TypeScriptCompile Include="scripts\Initialization\initialize-svg.ts" />
     <TypeScriptCompile Include="scripts\Interaction\change-color.ts" />
-    <TypeScriptCompile Include="scripts\Interaction\zooming.ts" />
+    <TypeScriptCompile Include="scripts\Initialization\initialize-zoom.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamOptions.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamRotater.ts" />
@@ -69,6 +74,7 @@
     <TypeScriptCompile Include="scripts\Shapes\GearHoleGenerator.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearOptions.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearRotater.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\BeamOptionsFactory.ts" />
     <TypeScriptCompile Include="scripts\Shapes\RingGearOptionsFactory.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearOptionsFactory.ts" />
     <TypeScriptCompile Include="scripts\Shapes\HoleOptions.ts" />

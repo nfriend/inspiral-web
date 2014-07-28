@@ -1,13 +1,15 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
 
-module Spirograph.Interaction {
+module Spirograph {
+    export var scaleFactor: number = 1;
+}
+
+module Spirograph.Initialization {
     'use strict';
 
     var minZoom = .3;
     var maxZoom = 4;
     var zoomMultiplier = 1.2;
-
-    export var scaleFactor: number = 1;
 
     export function initializeZoom(canvas: HTMLCanvasElement, svg: SVGElement) {
 

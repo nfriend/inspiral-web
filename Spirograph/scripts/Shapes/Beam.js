@@ -51,7 +51,6 @@ var Spirograph;
             }
 
             pathBuilder.addCommand(new Spirograph.SVG.ZCommand());
-            console.log(pathBuilder.toString());
             return pathBuilder.toString();
         }
         Shapes.Beam = Beam;

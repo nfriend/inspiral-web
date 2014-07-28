@@ -49,7 +49,5 @@ var Spirograph;
             version: versionNumber
         };
     }
-
-    console.log(Spirograph.browser);
 })(Spirograph || (Spirograph = {}));
 //# sourceMappingURL=browser-specific.js.map
