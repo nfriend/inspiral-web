@@ -15,13 +15,23 @@ module Spirograph {
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
 
-    var svgContainer = d3.select("body")
+    var svgRootElement = d3.select("body")
         .append("svg")
         .attr({
             width: svgWidth,
             height: svgHeight,
             id: 'spirograph-svg'
-        });
+        })
+
+    var svgContainer = svgRootElement
+        .call((<any> d3.behavior.zoom()
+            .scaleExtent([.2, 8])
+            ).center([svgWidth / 2, svgHeight / 2])
+            .on('zoom', () => {
+                svgContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+            }))
+        .on('mousedown.zoom', null)
+        .append('g');
 
 
     var gearOptions = (new Shapes.GearOptionsFactory(1)).create(64);
@@ -108,7 +118,7 @@ module Spirograph {
     var rotationOffset = 0;
 
     var svgContainerMouseMove = (d, i) => {
-        var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: svgWidth, y: svgHeight });
+        var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(document.getElementById('spirograph-svg'))[0], y: d3.mouse(document.getElementById('spirograph-svg'))[1] }, { x: svgWidth, y: svgHeight });
         var mouseAngle = Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
         if (lastMouseAngle != null) {
@@ -145,10 +155,10 @@ module Spirograph {
     gear.on("mousedown", function (d, i) {
         gear.classed('dragging', true);
 
-        svgContainer.on("mousemove", svgContainerMouseMove);
+        svgRootElement.on("mousemove", svgContainerMouseMove);
 
-        svgContainer.on("mouseup", () => {
-            svgContainer.on("mousemove", null);
+        svgRootElement.on("mouseup", () => {
+            svgRootElement.on("mousemove", null);
             gear.classed('dragging', false);
         });
     });
@@ -174,18 +184,6 @@ module Spirograph {
         //gearOptions = (new Shapes.GearOptionsFactory()).create(gearSize);
 
         console.log(fixedOrRotating + ' gear selected: ' + gearSize);
-    });
-
-    var scale = 1;
-
-    $('#zoom-in').click(() => {
-        scale = scale + .5;
-        svgContainer.attr('transform', 'scale(' + scale + ')');
-    });
-
-    $('#zoom-out').click(() => {
-        scale = scale - .5;
-        svgContainer.attr('transform', 'scale(' + scale + ')');
     });
 }
 

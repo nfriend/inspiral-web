@@ -14,11 +14,15 @@ var Spirograph;
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
 
-    var svgContainer = d3.select("body").append("svg").attr({
+    var svgRootElement = d3.select("body").append("svg").attr({
         width: Spirograph.svgWidth,
         height: Spirograph.svgHeight,
         id: 'spirograph-svg'
     });
+
+    var svgContainer = svgRootElement.call(d3.behavior.zoom().scaleExtent([.2, 8]).center([Spirograph.svgWidth / 2, Spirograph.svgHeight / 2]).on('zoom', function () {
+        svgContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    })).on('mousedown.zoom', null).append('g');
 
     var gearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(64);
     var ringGearOptions = (new Spirograph.Shapes.RingGearOptionsFactory(1)).create(144, 96);
@@ -86,7 +90,7 @@ var Spirograph;
     var rotationOffset = 0;
 
     var svgContainerMouseMove = function (d, i) {
-        var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight });
+        var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(document.getElementById('spirograph-svg'))[0], y: d3.mouse(document.getElementById('spirograph-svg'))[1] }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight });
         var mouseAngle = Spirograph.Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
         if (lastMouseAngle != null) {
@@ -122,10 +126,10 @@ var Spirograph;
     gear.on("mousedown", function (d, i) {
         gear.classed('dragging', true);
 
-        svgContainer.on("mousemove", svgContainerMouseMove);
+        svgRootElement.on("mousemove", svgContainerMouseMove);
 
-        svgContainer.on("mouseup", function () {
-            svgContainer.on("mousemove", null);
+        svgRootElement.on("mouseup", function () {
+            svgRootElement.on("mousemove", null);
             gear.classed('dragging', false);
         });
     });
@@ -151,18 +155,6 @@ var Spirograph;
         //alert(fixedOrRotating + ": " + gearSize.toString());
         //gearOptions = (new Shapes.GearOptionsFactory()).create(gearSize);
         console.log(fixedOrRotating + ' gear selected: ' + gearSize);
-    });
-
-    var scale = 1;
-
-    $('#zoom-in').click(function () {
-        scale = scale + .5;
-        svgContainer.attr('transform', 'scale(' + scale + ')');
-    });
-
-    $('#zoom-out').click(function () {
-        scale = scale - .5;
-        svgContainer.attr('transform', 'scale(' + scale + ')');
     });
 })(Spirograph || (Spirograph = {}));
 
