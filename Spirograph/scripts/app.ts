@@ -3,17 +3,34 @@
 module Spirograph {
     'use strict';
 
+    var x = d3.scale.linear()
+        .domain([0, canvasWidth])
+        .range([0, canvasWidth]);
+
+    var y = d3.scale.linear()
+        .domain([0, canvasHeight])
+        .range([canvasHeight, 0]);
+
     var canvas = d3.select("body")
         .append("canvas")
         .attr({
             id: 'spirograph-canvas',
             width: canvasWidth,
             height: canvasHeight
-        });
+        })
+        //.call(d3.behavior.zoom().x(x).y(y).scaleExtent([.2, 8]).on("zoom", zoom))
+        //.on('mousedown.zoom', null)
 
     var ctx = (<HTMLCanvasElement> canvas.node()).getContext('2d');
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
+
+    function zoom() {
+        console.log(d3.event.scale);
+        $(canvas.node()).css({
+            transform: 'scale(' + d3.event.scale + ',' + d3.event.scale + ')'
+        });
+    }
 
     var svgRootElement = d3.select("body")
         .append("svg")
@@ -29,6 +46,8 @@ module Spirograph {
             ).center([svgWidth / 2, svgHeight / 2])
             .on('zoom', () => {
                 svgContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+
+                zoom();
             }))
         .on('mousedown.zoom', null)
         .append('g');
@@ -118,7 +137,7 @@ module Spirograph {
     var rotationOffset = 0;
 
     var svgContainerMouseMove = (d, i) => {
-        var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(document.getElementById('spirograph-svg'))[0], y: d3.mouse(document.getElementById('spirograph-svg'))[1] }, { x: svgWidth, y: svgHeight });
+        var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgRootElement.node())[0], y: d3.mouse(svgRootElement.node())[1] }, { x: svgWidth, y: svgHeight });
         var mouseAngle = Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
         if (lastMouseAngle != null) {

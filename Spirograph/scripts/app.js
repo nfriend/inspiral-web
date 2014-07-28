@@ -4,15 +4,28 @@ var Spirograph;
 (function (Spirograph) {
     'use strict';
 
+    var x = d3.scale.linear().domain([0, Spirograph.canvasWidth]).range([0, Spirograph.canvasWidth]);
+
+    var y = d3.scale.linear().domain([0, Spirograph.canvasHeight]).range([Spirograph.canvasHeight, 0]);
+
     var canvas = d3.select("body").append("canvas").attr({
         id: 'spirograph-canvas',
         width: Spirograph.canvasWidth,
         height: Spirograph.canvasHeight
     });
 
+    //.call(d3.behavior.zoom().x(x).y(y).scaleExtent([.2, 8]).on("zoom", zoom))
+    //.on('mousedown.zoom', null)
     var ctx = canvas.node().getContext('2d');
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
+
+    function zoom() {
+        console.log(d3.event.scale);
+        $(canvas.node()).css({
+            transform: 'scale(' + d3.event.scale + ',' + d3.event.scale + ')'
+        });
+    }
 
     var svgRootElement = d3.select("body").append("svg").attr({
         width: Spirograph.svgWidth,
@@ -22,6 +35,8 @@ var Spirograph;
 
     var svgContainer = svgRootElement.call(d3.behavior.zoom().scaleExtent([.2, 8]).center([Spirograph.svgWidth / 2, Spirograph.svgHeight / 2]).on('zoom', function () {
         svgContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+
+        zoom();
     })).on('mousedown.zoom', null).append('g');
 
     var gearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(64);
@@ -90,7 +105,7 @@ var Spirograph;
     var rotationOffset = 0;
 
     var svgContainerMouseMove = function (d, i) {
-        var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(document.getElementById('spirograph-svg'))[0], y: d3.mouse(document.getElementById('spirograph-svg'))[1] }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight });
+        var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgRootElement.node())[0], y: d3.mouse(svgRootElement.node())[1] }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight });
         var mouseAngle = Spirograph.Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
         if (lastMouseAngle != null) {
