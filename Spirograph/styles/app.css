@@ -47,6 +47,10 @@ body {
   height: 35px;
   width: 35px;
 }
+#gear-options-selector .fixed-container .gear-container svg,
+#gear-options-selector .rotating-container .gear-container svg {
+  position: absolute;
+}
 #gear-options-selector .fixed-container .gear-container .gear-label,
 #gear-options-selector .rotating-container .gear-container .gear-label {
   width: 100%;
