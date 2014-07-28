@@ -111,7 +111,15 @@ module Spirograph {
     var rotationOffset = 0;
 
     var svgContainerMouseMove = (d, i) => {
-        var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgRootElement.node())[0], y: d3.mouse(svgRootElement.node())[1] }, { x: svgWidth, y: svgHeight });
+
+        // chrome handles CSS3 transformed SVG elementes differently - to get
+        // accurate mouse coordinates, we need to multiple by the current scale factor
+        if (browser.browser === Browser.Chrome) {
+            var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgRootElement.node())[0] / Interaction.scaleFactor, y: d3.mouse(svgRootElement.node())[1] / Interaction.scaleFactor }, { x: svgWidth, y: svgHeight });
+        } else {
+            var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgRootElement.node())[0], y: d3.mouse(svgRootElement.node())[1] }, { x: svgWidth, y: svgHeight });
+        }
+
         var mouseAngle = Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
         if (lastMouseAngle != null) {
@@ -143,6 +151,9 @@ module Spirograph {
         }
 
         previousTransformInfo = transformInfo;
+
+        d3.event.preventDefault()
+        return false;
     };
 
     gear.on("mousedown", function (d, i) {
@@ -153,7 +164,13 @@ module Spirograph {
         svgRootElement.on("mouseup", () => {
             svgRootElement.on("mousemove", null);
             gear.classed('dragging', false);
+
+            d3.event.preventDefault()
+            return false;
         });
+
+        d3.event.preventDefault()
+        return false;
     });
 
     function initializeGearAndPen(resetGear: boolean = true) {

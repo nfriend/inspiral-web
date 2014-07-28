@@ -90,7 +90,14 @@ var Spirograph;
     var rotationOffset = 0;
 
     var svgContainerMouseMove = function (d, i) {
-        var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgRootElement.node())[0], y: d3.mouse(svgRootElement.node())[1] }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight });
+        // chrome handles CSS3 transformed SVG elementes differently - to get
+        // accurate mouse coordinates, we need to multiple by the current scale factor
+        if (Spirograph.browser.browser === 0 /* Chrome */) {
+            var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgRootElement.node())[0] / Spirograph.Interaction.scaleFactor, y: d3.mouse(svgRootElement.node())[1] / Spirograph.Interaction.scaleFactor }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight });
+        } else {
+            var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgRootElement.node())[0], y: d3.mouse(svgRootElement.node())[1] }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight });
+        }
+
         var mouseAngle = Spirograph.Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
         if (lastMouseAngle != null) {
@@ -121,6 +128,9 @@ var Spirograph;
         }
 
         previousTransformInfo = transformInfo;
+
+        d3.event.preventDefault();
+        return false;
     };
 
     gear.on("mousedown", function (d, i) {
@@ -131,7 +141,13 @@ var Spirograph;
         svgRootElement.on("mouseup", function () {
             svgRootElement.on("mousemove", null);
             gear.classed('dragging', false);
+
+            d3.event.preventDefault();
+            return false;
         });
+
+        d3.event.preventDefault();
+        return false;
     });
 
     function initializeGearAndPen(resetGear) {

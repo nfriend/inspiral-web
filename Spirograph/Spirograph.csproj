@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="scripts\app.ts" />
+    <TypeScriptCompile Include="scripts\browser-specific.ts" />
     <TypeScriptCompile Include="scripts\definitions\d3\d3-tests.ts" />
     <TypeScriptCompile Include="scripts\definitions\d3\d3.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\d3\plugins\d3.superformula-tests.ts" />

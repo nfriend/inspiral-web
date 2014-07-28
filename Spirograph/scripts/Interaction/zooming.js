@@ -8,24 +8,24 @@ var Spirograph;
         var maxZoom = 4;
         var zoomMultiplier = 1.2;
 
-        var scale = 1;
+        Interaction.scaleFactor = 1;
 
         function initializeZoom(canvas, svg) {
             $(window).on('mousewheel', function (ev) {
                 if (ev.deltaY > 0) {
                     // if we're zooming in
-                    if (!(scale * zoomMultiplier > maxZoom)) {
-                        scale *= zoomMultiplier;
+                    if (!(Interaction.scaleFactor * zoomMultiplier > maxZoom)) {
+                        Interaction.scaleFactor *= zoomMultiplier;
                     }
                 } else {
                     // if we're zooming out
-                    if (!(scale / zoomMultiplier < minZoom)) {
-                        scale /= zoomMultiplier;
+                    if (!(Interaction.scaleFactor / zoomMultiplier < minZoom)) {
+                        Interaction.scaleFactor /= zoomMultiplier;
                     }
                 }
 
                 $(canvas).add(svg).css({
-                    transform: 'scale(' + scale + ')'
+                    transform: 'scale(' + Interaction.scaleFactor + ')'
                 });
             });
         }
