@@ -148,12 +148,6 @@ body {
 }
 /*@import (less) '../bower_components/bootstrap/dist/css/bootstrap.min.css';*/
 /*@import (less) '../bower_components/fontawesome/css/font-awesome.css';*/
-.spirograph svg {
-  border: 1px solid red;
-}
-.spirograph canvas {
-  border: 1px solid blue;
-}
 .spirograph #spirograph-svg {
   margin-left: -1280px;
   margin-top: -720px;

@@ -4,28 +4,15 @@ var Spirograph;
 (function (Spirograph) {
     'use strict';
 
-    var x = d3.scale.linear().domain([0, Spirograph.canvasWidth]).range([0, Spirograph.canvasWidth]);
-
-    var y = d3.scale.linear().domain([0, Spirograph.canvasHeight]).range([Spirograph.canvasHeight, 0]);
-
     var canvas = d3.select("body").append("canvas").attr({
         id: 'spirograph-canvas',
         width: Spirograph.canvasWidth,
         height: Spirograph.canvasHeight
     });
 
-    //.call(d3.behavior.zoom().x(x).y(y).scaleExtent([.2, 8]).on("zoom", zoom))
-    //.on('mousedown.zoom', null)
     var ctx = canvas.node().getContext('2d');
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
-
-    function zoom() {
-        console.log(d3.event.scale);
-        $(canvas.node()).css({
-            transform: 'scale(' + d3.event.scale + ',' + d3.event.scale + ')'
-        });
-    }
 
     var svgRootElement = d3.select("body").append("svg").attr({
         width: Spirograph.svgWidth,
@@ -33,11 +20,9 @@ var Spirograph;
         id: 'spirograph-svg'
     });
 
-    var svgContainer = svgRootElement.call(d3.behavior.zoom().scaleExtent([.2, 8]).center([Spirograph.svgWidth / 2, Spirograph.svgHeight / 2]).on('zoom', function () {
-        svgContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    var svgContainer = svgRootElement.append('g');
 
-        zoom();
-    })).on('mousedown.zoom', null).append('g');
+    Spirograph.Interaction.initializeZoom(canvas.node(), svgRootElement.node());
 
     var gearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(64);
     var ringGearOptions = (new Spirograph.Shapes.RingGearOptionsFactory(1)).create(144, 96);
@@ -124,10 +109,10 @@ var Spirograph;
         //$('#output').html('<p>Mouse angle: ' + mouseAngle + '</p><p>Gear angle: ' + transformInfo.angle + '</p>');
         gear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
 
-        var previousCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
-        var currentCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
-
         if (previousTransformInfo !== null) {
+            var previousCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
+            var currentCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
+
             ctx.beginPath();
             ctx.moveTo(previousCanvasPenCoords.x, previousCanvasPenCoords.y);
             ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);

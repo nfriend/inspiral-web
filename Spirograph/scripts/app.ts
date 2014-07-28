@@ -3,14 +3,6 @@
 module Spirograph {
     'use strict';
 
-    var x = d3.scale.linear()
-        .domain([0, canvasWidth])
-        .range([0, canvasWidth]);
-
-    var y = d3.scale.linear()
-        .domain([0, canvasHeight])
-        .range([canvasHeight, 0]);
-
     var canvas = d3.select("body")
         .append("canvas")
         .attr({
@@ -18,19 +10,10 @@ module Spirograph {
             width: canvasWidth,
             height: canvasHeight
         })
-        //.call(d3.behavior.zoom().x(x).y(y).scaleExtent([.2, 8]).on("zoom", zoom))
-        //.on('mousedown.zoom', null)
 
     var ctx = (<HTMLCanvasElement> canvas.node()).getContext('2d');
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
-
-    function zoom() {
-        console.log(d3.event.scale);
-        $(canvas.node()).css({
-            transform: 'scale(' + d3.event.scale + ',' + d3.event.scale + ')'
-        });
-    }
 
     var svgRootElement = d3.select("body")
         .append("svg")
@@ -40,18 +23,9 @@ module Spirograph {
             id: 'spirograph-svg'
         })
 
-    var svgContainer = svgRootElement
-        .call((<any> d3.behavior.zoom()
-            .scaleExtent([.2, 8])
-            ).center([svgWidth / 2, svgHeight / 2])
-            .on('zoom', () => {
-                svgContainer.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+    var svgContainer = svgRootElement.append('g');
 
-                zoom();
-            }))
-        .on('mousedown.zoom', null)
-        .append('g');
-
+    Interaction.initializeZoom(<HTMLCanvasElement>canvas.node(), <SVGElement>svgRootElement.node());
 
     var gearOptions = (new Shapes.GearOptionsFactory(1)).create(64);
     var ringGearOptions = (new Shapes.RingGearOptionsFactory(1)).create(144, 96);
@@ -157,10 +131,10 @@ module Spirograph {
 
         gear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
 
-        var previousCanvasPenCoords = Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
-        var currentCanvasPenCoords = Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
-
         if (previousTransformInfo !== null) {
+            var previousCanvasPenCoords = Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
+            var currentCanvasPenCoords = Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
+
             ctx.beginPath();
             ctx.moveTo(previousCanvasPenCoords.x, previousCanvasPenCoords.y);
             ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
