@@ -7,6 +7,38 @@
 
 .spirograph {
 
+    svg {
+        border: 1px solid red;
+    }
+
+    canvas {
+        border: 1px solid blue;
+    }
+
+    #spirograph-svg {
+        margin-left: 2560px / -2;
+        margin-top: 1440px / -2;
+        width: 2560px;
+        height: 1440px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
+
+    #spirograph-canvas {
+        margin-left: 1568px / -2;
+        margin-top: 712px / -2;
+        width: 1568px;
+        height: 712px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
+
+    #canvas-svg {
+        margin-left: -1 * (1568 / 2) + 'px';
+    }
+
     .dark {
         color: lightgray;
     }
@@ -71,10 +103,6 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-    }
-
-    svg, canvas {
-        position: absolute;
     }
 
     #download-link {

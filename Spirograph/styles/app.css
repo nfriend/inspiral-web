@@ -148,6 +148,33 @@ body {
 }
 /*@import (less) '../bower_components/bootstrap/dist/css/bootstrap.min.css';*/
 /*@import (less) '../bower_components/fontawesome/css/font-awesome.css';*/
+.spirograph svg {
+  border: 1px solid red;
+}
+.spirograph canvas {
+  border: 1px solid blue;
+}
+.spirograph #spirograph-svg {
+  margin-left: -1280px;
+  margin-top: -720px;
+  width: 2560px;
+  height: 1440px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+.spirograph #spirograph-canvas {
+  margin-left: -784px;
+  margin-top: -356px;
+  width: 1568px;
+  height: 712px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+.spirograph #canvas-svg {
+  margin-left: -784 'px';
+}
 .spirograph .dark {
   color: lightgray;
 }
@@ -198,10 +225,6 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-.spirograph svg,
-.spirograph canvas {
-  position: absolute;
 }
 .spirograph #download-link {
   position: absolute;

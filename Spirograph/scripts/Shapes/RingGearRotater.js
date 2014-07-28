@@ -11,8 +11,8 @@ var Spirograph;
             }
             RingGearRotater.prototype.rotate = function (gearOptions, mouseAngleAsDegrees, holeOptions) {
                 var radius = this._ringGearOptions.innerRadius - gearOptions.radius - this._teethBuffer;
-                var gearX = radius * Math.cos(Spirograph.Utility.toRadians(mouseAngleAsDegrees)) + Spirograph.Utility.getCenterX();
-                var gearY = -1 * radius * Math.sin(Spirograph.Utility.toRadians(mouseAngleAsDegrees)) + Spirograph.Utility.getCenterY();
+                var gearX = radius * Math.cos(Spirograph.Utility.toRadians(mouseAngleAsDegrees)) + Spirograph.getSvgCenterX();
+                var gearY = -1 * radius * Math.sin(Spirograph.Utility.toRadians(mouseAngleAsDegrees)) + Spirograph.getSvgCenterY();
                 var gearRotation = 360 * (((mouseAngleAsDegrees / 360) * 2 * Math.PI * this._ringGearOptions.innerRadius) / (2 * Math.PI * gearOptions.radius));
                 gearRotation -= mouseAngleAsDegrees;
 

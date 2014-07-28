@@ -22,15 +22,13 @@ var Spirograph;
         }
         Utility.toStandardCoords = toStandardCoords;
 
-        function getCenterY() {
-            return window.innerHeight / 2;
+        function svgToCanvasCoords(coords) {
+            return {
+                x: coords.x - (Spirograph.svgWidth - Spirograph.canvasWidth) / 2,
+                y: coords.y - (Spirograph.svgHeight - Spirograph.canvasHeight) / 2
+            };
         }
-        Utility.getCenterY = getCenterY;
-
-        function getCenterX() {
-            return window.innerWidth / 2;
-        }
-        Utility.getCenterX = getCenterX;
+        Utility.svgToCanvasCoords = svgToCanvasCoords;
 
         function getAverage(values) {
             var total = 0;

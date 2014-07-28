@@ -18,8 +18,8 @@ module Spirograph.Shapes {
             //TODO: normalize tooth height handling
             radius += this._fixedGearOptions.toothHeight;
 
-            var gearX = radius * Math.cos(Utility.toRadians(mouseAngleAsDegrees)) + Utility.getCenterX();
-            var gearY = -1 * radius * Math.sin(Utility.toRadians(mouseAngleAsDegrees)) + Utility.getCenterY();
+            var gearX = radius * Math.cos(Utility.toRadians(mouseAngleAsDegrees)) + getSvgCenterX();
+            var gearY = -1 * radius * Math.sin(Utility.toRadians(mouseAngleAsDegrees)) + getSvgCenterY();
 
             //TODO: normalize tooth height handling
             var gearRotation = -360 * (((mouseAngleAsDegrees / 360) * 2 * Math.PI * (this._fixedGearOptions.radius)) / (2 * Math.PI * rotatingGearOptions.radius));

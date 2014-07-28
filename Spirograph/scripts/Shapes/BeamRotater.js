@@ -19,8 +19,8 @@ var Spirograph;
                 var gearX, gearY, gearRotation, penX, penY, rotations, positionAngleOffset = 0;
 
                 if (normalizedMouseAngleAsDegrees >= -30 && normalizedMouseAngleAsDegrees <= 30) {
-                    gearX = (radius + gearOptions.radius + this._teethBuffer) * Math.cos(Spirograph.Utility.toRadians(normalizedMouseAngleAsDegrees * 3)) + (beamWidth / 2) + Spirograph.Utility.getCenterX();
-                    gearY = -1 * (radius + gearOptions.radius + this._teethBuffer) * Math.sin(Spirograph.Utility.toRadians(normalizedMouseAngleAsDegrees * 3)) + Spirograph.Utility.getCenterY();
+                    gearX = (radius + gearOptions.radius + this._teethBuffer) * Math.cos(Spirograph.Utility.toRadians(normalizedMouseAngleAsDegrees * 3)) + (beamWidth / 2) + Spirograph.getSvgCenterX();
+                    gearY = -1 * (radius + gearOptions.radius + this._teethBuffer) * Math.sin(Spirograph.Utility.toRadians(normalizedMouseAngleAsDegrees * 3)) + Spirograph.getSvgCenterY();
                     if (normalizedMouseAngleAsDegrees >= 0) {
                         var distanceTravelled = (normalizedMouseAngleAsDegrees / 30) * (2 * Math.PI * radius / 4);
                     } else {
@@ -29,25 +29,25 @@ var Spirograph;
                     rotations = (Math.floor(mouseAngleAsDegrees / 360) * 360) + (distanceTravelled / perimeter) * 360;
                     positionAngleOffset = (normalizedMouseAngleAsDegrees / 30) * 90 - 90;
                 } else if (normalizedMouseAngleAsDegrees > 30 && normalizedMouseAngleAsDegrees < 150) {
-                    gearX = -1 * ((normalizedMouseAngleAsDegrees - 90) / 60) * (beamWidth / 2) + Spirograph.Utility.getCenterX();
-                    gearY = -1 * (radius + gearOptions.radius + this._teethBuffer) + Spirograph.Utility.getCenterY();
+                    gearX = -1 * ((normalizedMouseAngleAsDegrees - 90) / 60) * (beamWidth / 2) + Spirograph.getSvgCenterX();
+                    gearY = -1 * (radius + gearOptions.radius + this._teethBuffer) + Spirograph.getSvgCenterY();
                     var distanceTravelled = (((normalizedMouseAngleAsDegrees - 30) / 120) * beamWidth + (2 * Math.PI * radius / 4));
                     rotations = (Math.floor(mouseAngleAsDegrees / 360) * 360) + (distanceTravelled / perimeter) * 360;
                 } else if (normalizedMouseAngleAsDegrees >= 150) {
-                    gearX = -1 * (radius + gearOptions.radius + this._teethBuffer) * Math.cos(Spirograph.Utility.toRadians((180 - normalizedMouseAngleAsDegrees) * 3)) - (beamWidth / 2) + Spirograph.Utility.getCenterX();
-                    gearY = -1 * (radius + gearOptions.radius + this._teethBuffer) * Math.sin(Spirograph.Utility.toRadians((180 - normalizedMouseAngleAsDegrees) * 3)) + Spirograph.Utility.getCenterY();
+                    gearX = -1 * (radius + gearOptions.radius + this._teethBuffer) * Math.cos(Spirograph.Utility.toRadians((180 - normalizedMouseAngleAsDegrees) * 3)) - (beamWidth / 2) + Spirograph.getSvgCenterX();
+                    gearY = -1 * (radius + gearOptions.radius + this._teethBuffer) * Math.sin(Spirograph.Utility.toRadians((180 - normalizedMouseAngleAsDegrees) * 3)) + Spirograph.getSvgCenterY();
                     var distanceTravelled = (2 * Math.PI * radius / 4) * ((normalizedMouseAngleAsDegrees - 150) / 30) + (beamWidth + (2 * Math.PI * radius / 4));
                     rotations = (Math.floor(mouseAngleAsDegrees / 360) * 360) + (distanceTravelled / perimeter) * 360;
                     positionAngleOffset = ((normalizedMouseAngleAsDegrees - 150) / 30) * 90;
                 } else if (normalizedMouseAngleAsDegrees <= -150) {
-                    gearX = -1 * (radius + gearOptions.radius + this._teethBuffer) * Math.cos(Spirograph.Utility.toRadians((-180 + normalizedMouseAngleAsDegrees) * 3)) - (beamWidth / 2) + Spirograph.Utility.getCenterX();
-                    gearY = (radius + gearOptions.radius + this._teethBuffer) * Math.sin(Spirograph.Utility.toRadians((-180 + normalizedMouseAngleAsDegrees) * 3)) + Spirograph.Utility.getCenterY();
+                    gearX = -1 * (radius + gearOptions.radius + this._teethBuffer) * Math.cos(Spirograph.Utility.toRadians((-180 + normalizedMouseAngleAsDegrees) * 3)) - (beamWidth / 2) + Spirograph.getSvgCenterX();
+                    gearY = (radius + gearOptions.radius + this._teethBuffer) * Math.sin(Spirograph.Utility.toRadians((-180 + normalizedMouseAngleAsDegrees) * 3)) + Spirograph.getSvgCenterY();
                     var distanceTravelled = (2 * Math.PI * radius / 4) * (1 - ((normalizedMouseAngleAsDegrees + 150) / -30)) + (beamWidth + (2 * Math.PI * radius / 2));
                     rotations = (Math.floor(mouseAngleAsDegrees / 360) * 360) + (distanceTravelled / perimeter) * 360;
                     positionAngleOffset = ((normalizedMouseAngleAsDegrees + 150) / 30) * 90 + 180;
                 } else if (normalizedMouseAngleAsDegrees < -30 && normalizedMouseAngleAsDegrees > -150) {
-                    gearX = ((normalizedMouseAngleAsDegrees + 90) / 60) * (beamWidth / 2) + Spirograph.Utility.getCenterX();
-                    gearY = radius + gearOptions.radius + this._teethBuffer + Spirograph.Utility.getCenterY();
+                    gearX = ((normalizedMouseAngleAsDegrees + 90) / 60) * (beamWidth / 2) + Spirograph.getSvgCenterX();
+                    gearY = radius + gearOptions.radius + this._teethBuffer + Spirograph.getSvgCenterY();
                     var distanceTravelled = (1 - (normalizedMouseAngleAsDegrees + 30) / -120) * beamWidth + beamWidth + (2 * Math.PI * radius * .75);
                     rotations = (Math.floor(mouseAngleAsDegrees / 360) * 360) + (distanceTravelled / perimeter) * 360;
                     positionAngleOffset = 180;

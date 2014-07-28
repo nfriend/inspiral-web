@@ -18,12 +18,11 @@ module Spirograph.Utility {
         };
     }
 
-    export function getCenterY() {
-        return window.innerHeight / 2;
-    }
-   
-    export function getCenterX() {
-        return window.innerWidth / 2;
+    export function svgToCanvasCoords(coords: { x: number; y: number }) {
+        return {
+            x: coords.x - (svgWidth - canvasWidth) / 2,
+            y: coords.y - (svgHeight - canvasHeight) / 2
+        }
     }
 
     export function getAverage(values: Array<number>) {

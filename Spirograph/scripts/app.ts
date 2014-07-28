@@ -5,15 +5,24 @@ module Spirograph {
 
     var canvas = d3.select("body")
         .append("canvas")
-        .attr('id', 'spirograph-canvas')
-        .attr("width", window.innerWidth)
-        .attr("height", window.innerHeight);
+        .attr({
+            id: 'spirograph-canvas',
+            width: canvasWidth,
+            height: canvasHeight
+        });
 
     var ctx = (<HTMLCanvasElement> canvas.node()).getContext('2d');
     ctx.lineWidth = 2;
     ctx.lineCap = 'round';
 
-    var svgContainer = d3.select("body").append("svg").attr("width", window.innerWidth).attr("height", window.innerHeight);
+    var svgContainer = d3.select("body")
+        .append("svg")
+        .attr({
+            width: svgWidth,
+            height: svgHeight,
+            id: 'spirograph-svg'
+        });
+
 
     var gearOptions = (new Shapes.GearOptionsFactory(1)).create(64);
     var ringGearOptions = (new Shapes.RingGearOptionsFactory(1)).create(144, 96);
@@ -22,26 +31,26 @@ module Spirograph {
     var beamOptions: Shapes.BeamOptions = {
         endCapsToothCount: 20,
         toothHeight: 10,
-        totalToothCount: 146
+        totalToothCount: 150
     }
 
     var fixedGear = svgContainer.append('g')
         .attr('class', 'gear fixed color-changing')
-        .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
+        .attr("transform", "translate(" + getSvgCenterX() + "," + getSvgCenterY() + ")")
         .datum(fixedGearOptions)
         .append("path")
         .attr("d", Shapes.Gear);
 
     var beam = svgContainer.append('g')
         .attr('class', 'gear beam fixed color-changing')
-        .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
+        .attr("transform", "translate(" + getSvgCenterX() + "," + getSvgCenterY() + ")")
         .datum(beamOptions)
         .append("path")
         .attr("d", Shapes.Beam);
 
     var ringGear = svgContainer.append("g")
         .attr("class", "gear ring-gear fixed color-changing")
-        .attr("transform", "translate(" + Utility.getCenterX() + "," + Utility.getCenterY() + ")")
+        .attr("transform", "translate(" + getSvgCenterX() + "," + getSvgCenterY() + ")")
         .datum(ringGearOptions)
         .append("path")
         .attr("d", Shapes.RingGear);
@@ -64,7 +73,8 @@ module Spirograph {
         });
 
     ringGear.style('visibility', 'hidden');
-    beam.style('visibility', 'hidden');
+    //beam.style('visibility', 'hidden');
+    fixedGear.style('visibility', 'hidden');
 
     var allHoleOptions = (new Shapes.GearHoleGenerator()).generate(gearOptions);
     var holeOptions;
@@ -90,15 +100,15 @@ module Spirograph {
 
     var previousTransformInfo: Shapes.TransformInfo = null;
     //var rotater = new Shapes.RingGearRotater(ringGearOptions);
-    //var rotater = new Shapes.BeamRotater(beamOptions);
-    var rotater = new Shapes.GearRotater(fixedGearOptions);
+    var rotater = new Shapes.BeamRotater(beamOptions);
+    //var rotater = new Shapes.GearRotater(fixedGearOptions);
     console.log(JSON.stringify(rotater.rotate(gearOptions, 0, holeOptions)));
 
     var lastMouseAngle = null;
     var rotationOffset = 0;
 
     var svgContainerMouseMove = (d, i) => {
-        var mouseCoords = Utility.toStandardCoords({ x: d3.event.clientX, y: d3.event.clientY }, { x: window.innerWidth, y: window.innerHeight });
+        var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: svgWidth, y: svgHeight });
         var mouseAngle = Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
         if (lastMouseAngle != null) {
@@ -118,10 +128,13 @@ module Spirograph {
 
         gear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
 
+        var previousCanvasPenCoords = Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
+        var currentCanvasPenCoords = Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
+
         if (previousTransformInfo !== null) {
             ctx.beginPath();
-            ctx.moveTo(previousTransformInfo.penX, previousTransformInfo.penY);
-            ctx.lineTo(transformInfo.penX, transformInfo.penY);
+            ctx.moveTo(previousCanvasPenCoords.x, previousCanvasPenCoords.y);
+            ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
             ctx.stroke();
             ctx.closePath();
         }
@@ -161,6 +174,18 @@ module Spirograph {
         //gearOptions = (new Shapes.GearOptionsFactory()).create(gearSize);
 
         console.log(fixedOrRotating + ' gear selected: ' + gearSize);
+    });
+
+    var scale = 1;
+
+    $('#zoom-in').click(() => {
+        scale = scale + .5;
+        svgContainer.attr('transform', 'scale(' + scale + ')');
+    });
+
+    $('#zoom-out').click(() => {
+        scale = scale - .5;
+        svgContainer.attr('transform', 'scale(' + scale + ')');
     });
 }
 
