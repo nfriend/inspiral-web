@@ -50,6 +50,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="scripts\app.ts" />
     <TypeScriptCompile Include="scripts\browser-specific.ts" />
+    <TypeScriptCompile Include="scripts\defaults.ts" />
     <TypeScriptCompile Include="scripts\definitions\d3\d3-tests.ts" />
     <TypeScriptCompile Include="scripts\definitions\d3\d3.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\d3\plugins\d3.superformula-tests.ts" />
@@ -59,13 +60,17 @@
     <TypeScriptCompile Include="scripts\definitions\references.d.ts" />
     <TypeScriptCompile Include="scripts\dimensions.ts" />
     <TypeScriptCompile Include="scripts\EventAggregator.ts" />
+    <TypeScriptCompile Include="scripts\fixed-gear-types.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-canvas.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-fixed-gear.ts" />
+    <TypeScriptCompile Include="scripts\Initialization\initialize-gear-selections.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-holes.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-rotating-gear.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-svg.ts" />
+    <TypeScriptCompile Include="scripts\Initialization\initialize-color-selections.ts" />
     <TypeScriptCompile Include="scripts\Interaction\change-color.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-zoom.ts" />
+    <TypeScriptCompile Include="scripts\Interaction\gear-drag.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamOptions.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamRotater.ts" />
@@ -80,6 +85,7 @@
     <TypeScriptCompile Include="scripts\Shapes\HoleOptions.ts" />
     <TypeScriptCompile Include="scripts\Shapes\RingGearRotater.ts" />
     <TypeScriptCompile Include="scripts\Shapes\RingGear.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\Rotater.ts" />
     <TypeScriptCompile Include="scripts\Shapes\TransformInfo.ts" />
     <TypeScriptCompile Include="scripts\SVG\ZCommand.ts" />
     <TypeScriptCompile Include="scripts\SVG\LCommand.ts" />
@@ -89,6 +95,7 @@
     <TypeScriptCompile Include="scripts\SVG\PathBuilder.ts" />
     <TypeScriptCompile Include="scripts\Interaction\KeyboardShortcutManager.ts" />
     <TypeScriptCompile Include="scripts\UI\color-selector.ts" />
+    <TypeScriptCompile Include="scripts\UI\download-image.ts" />
     <TypeScriptCompile Include="scripts\UI\gear-options-selector.ts" />
     <TypeScriptCompile Include="scripts\Utility\utility.ts" />
   </ItemGroup>

@@ -3,7 +3,7 @@
 module Spirograph.Shapes {
     'use strict';
 
-    export class GearRotater {
+    export class GearRotater implements Rotater {
 
         private _fixedGearOptions: GearOptions;
         private _teethBuffer = 2;

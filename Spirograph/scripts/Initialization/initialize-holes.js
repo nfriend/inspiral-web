@@ -4,6 +4,8 @@ var Spirograph;
     (function (Initialization) {
         'use strict';
 
+        var initiallySelectedHoleObject = null;
+
         function initializeHoles(gear, gearOptions) {
             var allHoleOptions = (new Spirograph.Shapes.GearHoleGenerator()).generate(gearOptions);
             var holeOptions;
@@ -14,16 +16,30 @@ var Spirograph;
                     d3.selectAll('.selected').classed('selected', false);
                     holeObject.classed('selected', true);
 
-                    holeOptions = hole;
-
                     Spirograph.EventAggregator.publish('holeSelected', hole);
-                    //initializeGearAndPen(false);
                 });
+
+                if (index === Spirograph.defaults.holeIndex) {
+                    // store this for later, when we need it to set it as the default
+                    initiallySelectedHoleObject = holeObject;
+
+                    // also return the hole to be selected right now, so that we can perform initialization calculations on it
+                    holeOptions = hole;
+                }
             });
 
             return holeOptions;
         }
         Initialization.initializeHoles = initializeHoles;
+
+        function initializeHoleSelection() {
+            if (initiallySelectedHoleObject === null) {
+                throw 'initializeHoleSelection must be called after a call to initializeHoles';
+            }
+
+            initiallySelectedHoleObject.on('click')();
+        }
+        Initialization.initializeHoleSelection = initializeHoleSelection;
     })(Spirograph.Initialization || (Spirograph.Initialization = {}));
     var Initialization = Spirograph.Initialization;
 })(Spirograph || (Spirograph = {}));

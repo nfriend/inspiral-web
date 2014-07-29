@@ -1,0 +1,92 @@
+﻿/// <reference path='../definitions/references.d.ts' />
+var Spirograph;
+(function (Spirograph) {
+    (function (Interaction) {
+        'use strict';
+
+        var lastMouseAngle = null, rotationOffset = 0, previousTransformInfo = null;
+
+        function attachDragHandlers(svgContainer, rotatingGear, canvas, rotater, rotatingGearOptions, holeOptions) {
+            var ctx = canvas.getContext('2d');
+
+            rotatingGear.on("mousedown", function (d, i) {
+                rotatingGear.classed('dragging', true);
+
+                svgContainer.on("mousemove", moveGear);
+
+                svgContainer.on("mouseup", function () {
+                    svgContainer.on("mousemove", null);
+                    rotatingGear.classed('dragging', false);
+
+                    d3.event.preventDefault();
+                    return false;
+                });
+
+                d3.event.preventDefault();
+                return false;
+            });
+
+            function moveGear(angle) {
+                // if an angle is passed in, we use that to position the gear
+                // otherwise we use the mouse coordinates from the d3 event
+                if (typeof angle !== 'undefined') {
+                    var mouseAngle = angle;
+                } else {
+                    // chrome handles CSS3 transformed SVG elementes differently - to get
+                    // accurate mouse coordinates, we need to multiple by the current scale factor
+                    if (Spirograph.browser.browser === 0 /* Chrome */) {
+                        var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0] / Spirograph.scaleFactor, y: d3.mouse(svgContainer.node())[1] / Spirograph.scaleFactor }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight });
+                    } else {
+                        var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight });
+                    }
+
+                    var mouseAngle = Spirograph.Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
+
+                    d3.event.preventDefault();
+                }
+
+                if (lastMouseAngle != null) {
+                    if (lastMouseAngle < -90 && mouseAngle > 90) {
+                        rotationOffset--;
+                    } else if (lastMouseAngle > 90 && mouseAngle < -90) {
+                        rotationOffset++;
+                    }
+                }
+
+                lastMouseAngle = mouseAngle;
+                mouseAngle += (rotationOffset * 360);
+
+                var transformInfo = rotater.rotate(rotatingGearOptions, mouseAngle, holeOptions);
+
+                rotatingGear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
+
+                if (previousTransformInfo !== null) {
+                    var previousCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
+                    var currentCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
+
+                    ctx.beginPath();
+                    ctx.moveTo(previousCanvasPenCoords.x, previousCanvasPenCoords.y);
+                    ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+
+                previousTransformInfo = transformInfo;
+
+                return false;
+            }
+            ;
+
+            Spirograph.EventAggregator.subscribe('holeSelected', function (hole) {
+                previousTransformInfo = null;
+                holeOptions = hole;
+            });
+
+            // initialize the posiiton of the gear
+            moveGear(0);
+        }
+        Interaction.attachDragHandlers = attachDragHandlers;
+    })(Spirograph.Interaction || (Spirograph.Interaction = {}));
+    var Interaction = Spirograph.Interaction;
+})(Spirograph || (Spirograph = {}));
+//# sourceMappingURL=gear-drag.js.map
