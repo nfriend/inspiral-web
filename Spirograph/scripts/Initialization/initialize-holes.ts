@@ -15,7 +15,7 @@ module Spirograph.Initialization {
                 .attr('d', Shapes.GearHole);
 
             holeObject.on('click', () => {
-                d3.selectAll('.selected').classed('selected', false);
+                d3.selectAll('.gear-hole.selected').classed('selected', false);
                 holeObject.classed('selected', true);
 
                 EventAggregator.publish('holeSelected', hole);

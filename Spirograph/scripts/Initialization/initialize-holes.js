@@ -13,7 +13,7 @@ var Spirograph;
                 var holeObject = gear.append('path').attr('class', 'gear-hole').datum(hole).attr('d', Spirograph.Shapes.GearHole);
 
                 holeObject.on('click', function () {
-                    d3.selectAll('.selected').classed('selected', false);
+                    d3.selectAll('.gear-hole.selected').classed('selected', false);
                     holeObject.classed('selected', true);
 
                     Spirograph.EventAggregator.publish('holeSelected', hole);
