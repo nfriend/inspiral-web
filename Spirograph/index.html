@@ -19,18 +19,28 @@
     <div id="gear-options-selector">
         <div class="fixed-container">
             <p class="color-changing selector-header selector-header-left">fixed</p>
+            <div class="scroll-container scrollbar-left">
+                <p></p>
+            </div>
         </div>
         <div class="rotating-container">
             <p class="color-changing selector-header selector-header-left">rotating</p>
+            <div class="scroll-container">
+                <p></p>
+            </div>
         </div>
     </div>
 
     <div id="color-selector">
         <div class="foreground-container">
             <p class="color-changing selector-header selector-header-right">pen</p>
+            <p class="scroll-container"></p>
         </div>
         <div class="background-container">
             <p class="color-changing selector-header selector-header-right">background</p>
+            <div class="scroll-container">
+                <p></p>
+            </div>
         </div>
     </div>
 
@@ -38,6 +48,7 @@
     <script src="scripts/lib/linq.js"></script>
     <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="bower_components/jscrollpane/script/jquery.jscrollpane.js"></script>
 
     <script src="scripts/EventAggregator.js"></script>
     <script src="scripts/dimensions.js"></script>
@@ -78,6 +89,7 @@
     <script src="scripts/UI/gear-options-selector.js"></script>
     <script src="scripts/UI/color-selector.js"></script>
     <script src="scripts/UI/download-image.js"></script>
+    <script src="scripts/UI/initialize-jscrollpane.js"></script>
 
     <script src="scripts/Initialization/initialize-canvas.js"></script>
     <script src="scripts/Initialization/initialize-color-selections.js"></script>

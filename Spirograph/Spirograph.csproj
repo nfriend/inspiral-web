@@ -45,6 +45,12 @@
     <Content Include="styles\gear-options-selector.min.css">
       <DependentUpon>gear-options-selector.css</DependentUpon>
     </Content>
+    <Content Include="styles\jsscrollpane-modifications.css">
+      <DependentUpon>jsscrollpane-modifications.less</DependentUpon>
+    </Content>
+    <Content Include="styles\jsscrollpane-modifications.min.css">
+      <DependentUpon>jsscrollpane-modifications.css</DependentUpon>
+    </Content>
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +62,7 @@
     <TypeScriptCompile Include="scripts\definitions\d3\plugins\d3.superformula-tests.ts" />
     <TypeScriptCompile Include="scripts\definitions\d3\plugins\d3.superformula.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="scripts\definitions\jscrollpane\jscrollpane.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\linq\linq.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\references.d.ts" />
     <TypeScriptCompile Include="scripts\dimensions.ts" />
@@ -97,7 +104,12 @@
     <TypeScriptCompile Include="scripts\UI\color-selector.ts" />
     <TypeScriptCompile Include="scripts\UI\download-image.ts" />
     <TypeScriptCompile Include="scripts\UI\gear-options-selector.ts" />
+    <TypeScriptCompile Include="scripts\UI\initialize-jscrollpane.ts" />
     <TypeScriptCompile Include="scripts\Utility\utility.ts" />
+    <Content Include="styles\jsscrollpane-modifications.css.map">
+      <DependentUpon>jsscrollpane-modifications.css</DependentUpon>
+    </Content>
+    <None Include="styles\jsscrollpane-modifications.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower.json" />
@@ -121,6 +133,7 @@
       <DependentUpon>base.css</DependentUpon>
     </Content>
     <Content Include="package.json" />
+    <Content Include="scripts\definitions\jscrollpane\jscrollpane.d.ts.tscparams" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

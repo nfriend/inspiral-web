@@ -61,57 +61,62 @@ body {
   -webkit-transform-origin: 0 50%;
   transform-origin: 0 50%;
 }
-#gear-options-selector .fixed-container .gear-container,
-#gear-options-selector .rotating-container .gear-container {
+#gear-options-selector .fixed-container .scroll-container,
+#gear-options-selector .rotating-container .scroll-container {
+  height: 100%;
+  overflow: scroll;
+}
+#gear-options-selector .fixed-container .scroll-container .gear-container,
+#gear-options-selector .rotating-container .scroll-container .gear-container {
   z-index: 10;
   height: 35px;
   width: 35px;
+  position: relative;
 }
-#gear-options-selector .fixed-container .gear-container svg,
-#gear-options-selector .rotating-container .gear-container svg {
+#gear-options-selector .fixed-container .scroll-container .gear-container svg,
+#gear-options-selector .rotating-container .scroll-container .gear-container svg {
   position: absolute;
 }
-#gear-options-selector .fixed-container .gear-container .gear-label,
-#gear-options-selector .rotating-container .gear-container .gear-label {
+#gear-options-selector .fixed-container .scroll-container .gear-container .gear-label,
+#gear-options-selector .rotating-container .scroll-container .gear-container .gear-label {
   width: 100%;
   height: 100%;
   text-align: center;
   margin-top: -1px;
-  margin-left: -3px;
   position: absolute;
   font-size: 25px;
   font-weight: bold;
   display: none;
 }
-#gear-options-selector .fixed-container .gear-container:hover,
-#gear-options-selector .rotating-container .gear-container:hover {
+#gear-options-selector .fixed-container .scroll-container .gear-container:hover,
+#gear-options-selector .rotating-container .scroll-container .gear-container:hover {
   cursor: pointer;
 }
-#gear-options-selector .fixed-container .gear-container:hover .gear-label,
-#gear-options-selector .rotating-container .gear-container:hover .gear-label {
+#gear-options-selector .fixed-container .scroll-container .gear-container:hover .gear-label,
+#gear-options-selector .rotating-container .scroll-container .gear-container:hover .gear-label {
   display: inline;
   color: #555;
 }
-#gear-options-selector .fixed-container .gear-container:hover .gear-label.dark,
-#gear-options-selector .rotating-container .gear-container:hover .gear-label.dark {
+#gear-options-selector .fixed-container .scroll-container .gear-container:hover .gear-label.dark,
+#gear-options-selector .rotating-container .scroll-container .gear-container:hover .gear-label.dark {
   color: #CCC;
 }
-#gear-options-selector .fixed-container .gear-container:hover .gear,
-#gear-options-selector .rotating-container .gear-container:hover .gear {
+#gear-options-selector .fixed-container .scroll-container .gear-container:hover .gear,
+#gear-options-selector .rotating-container .scroll-container .gear-container:hover .gear {
   fill-opacity: 0.1;
   stroke-opacity: 0.2;
 }
-#gear-options-selector .fixed-container .gear-container.selected .gear-label,
-#gear-options-selector .rotating-container .gear-container.selected .gear-label {
+#gear-options-selector .fixed-container .scroll-container .gear-container.selected .gear-label,
+#gear-options-selector .rotating-container .scroll-container .gear-container.selected .gear-label {
   display: inline;
   color: black;
 }
-#gear-options-selector .fixed-container .gear-container.selected .gear-label.dark,
-#gear-options-selector .rotating-container .gear-container.selected .gear-label.dark {
+#gear-options-selector .fixed-container .scroll-container .gear-container.selected .gear-label.dark,
+#gear-options-selector .rotating-container .scroll-container .gear-container.selected .gear-label.dark {
   color: #FFF;
 }
-#gear-options-selector .fixed-container .gear-container.selected .gear,
-#gear-options-selector .rotating-container .gear-container.selected .gear {
+#gear-options-selector .fixed-container .scroll-container .gear-container.selected .gear,
+#gear-options-selector .rotating-container .scroll-container .gear-container.selected .gear {
   fill: #5cb85c;
   fill-opacity: 0.6;
   stroke-opacity: 0.2;
@@ -164,42 +169,163 @@ body {
   text-align: right;
   right: 0;
 }
-#color-selector .foreground-container .color-container,
-#color-selector .background-container .color-container {
+#color-selector .foreground-container .scroll-container,
+#color-selector .background-container .scroll-container {
+  height: 100%;
+  overflow: scroll;
+}
+#color-selector .foreground-container .scroll-container .color-container,
+#color-selector .background-container .scroll-container .color-container {
   z-index: 10;
   height: 35px;
   width: 35px;
   padding: 3px;
 }
-#color-selector .foreground-container .color-container .color,
-#color-selector .background-container .color-container .color {
+#color-selector .foreground-container .scroll-container .color-container .color,
+#color-selector .background-container .scroll-container .color-container .color {
   width: 100%;
   height: 100%;
 }
-#color-selector .foreground-container .color-container .color.bordered,
-#color-selector .background-container .color-container .color.bordered {
+#color-selector .foreground-container .scroll-container .color-container .color.bordered,
+#color-selector .background-container .scroll-container .color-container .color.bordered {
   border: 2px solid gray;
 }
-#color-selector .foreground-container .color-container:hover,
-#color-selector .background-container .color-container:hover {
+#color-selector .foreground-container .scroll-container .color-container:hover,
+#color-selector .background-container .scroll-container .color-container:hover {
   cursor: pointer;
   border: 3px solid gray;
 }
-#color-selector .foreground-container .color-container:hover .color,
-#color-selector .background-container .color-container:hover .color {
-  border: 2px solid white;
+#color-selector .foreground-container .scroll-container .color-container:hover .color,
+#color-selector .background-container .scroll-container .color-container:hover .color {
+  border: 2px solid transparent;
 }
-#color-selector .foreground-container .color-container:hover .color.bordered,
-#color-selector .background-container .color-container:hover .color.bordered {
+#color-selector .foreground-container .scroll-container .color-container:hover .color.bordered,
+#color-selector .background-container .scroll-container .color-container:hover .color.bordered {
   border: 2px solid gray;
 }
-#color-selector .foreground-container .color-container.selected,
-#color-selector .background-container .color-container.selected {
+#color-selector .foreground-container .scroll-container .color-container.selected,
+#color-selector .background-container .scroll-container .color-container.selected {
   border: 3px solid #555;
 }
-#color-selector .foreground-container .color-container.selected .color,
-#color-selector .background-container .color-container.selected .color {
-  border: 3px solid white;
+#color-selector .foreground-container .scroll-container .color-container.selected .color,
+#color-selector .background-container .scroll-container .color-container.selected .color {
+  border: 3px solid transparent;
+}
+.scroll-container {
+  /*&.scrollbar-left {
+        .jspContainer {
+            .jspPane {
+                margin-left: 0 !important;
+            }
+
+            .jspVerticalBar {
+                left: 0;
+
+                .jspDrag {
+                    border-left: 2px solid rgba(128, 128, 128, .5);
+                    border-right: none;
+                    margin-left: 2px;
+                }
+            }
+        }
+    }*/
+}
+.scroll-container .jspVerticalBar {
+  background: transparent;
+}
+.scroll-container .jspVerticalBar .jspTrack {
+  background: transparent;
+}
+.scroll-container .jspVerticalBar .jspTrack .jspDrag {
+  background: transparent;
+  border-right: 2px solid rgba(128, 128, 128, 0.5);
+  margin-right: 4px;
+}
+/*
+ * CSS Styles that are needed by jScrollPane for it to operate correctly.
+ *
+ * Include this stylesheet in your site or copy and paste the styles below into your stylesheet - jScrollPane
+ * may not operate correctly without them.
+ */
+.jspContainer {
+  overflow: hidden;
+  position: relative;
+}
+.jspPane {
+  position: absolute;
+}
+.jspVerticalBar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 16px;
+  height: 100%;
+  background: red;
+}
+.jspHorizontalBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 16px;
+  background: red;
+}
+.jspVerticalBar *,
+.jspHorizontalBar * {
+  margin: 0;
+  padding: 0;
+}
+.jspCap {
+  display: none;
+}
+.jspHorizontalBar .jspCap {
+  float: left;
+}
+.jspTrack {
+  background: #dde;
+  position: relative;
+}
+.jspDrag {
+  background: #bbd;
+  position: relative;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+.jspHorizontalBar .jspTrack,
+.jspHorizontalBar .jspDrag {
+  float: left;
+  height: 100%;
+}
+.jspArrow {
+  background: #50506d;
+  text-indent: -20000px;
+  display: block;
+  cursor: pointer;
+}
+.jspArrow.jspDisabled {
+  cursor: default;
+  background: #80808d;
+}
+.jspVerticalBar .jspArrow {
+  height: 16px;
+}
+.jspHorizontalBar .jspArrow {
+  width: 16px;
+  float: left;
+  height: 100%;
+}
+.jspVerticalBar .jspArrow:focus {
+  outline: none;
+}
+.jspCorner {
+  background: #eeeef4;
+  float: left;
+  height: 100%;
+}
+/* Yuk! CSS Hack for IE6 3 pixel bug :( */
+* html .jspCorner {
+  margin: 0 -3px 0 0;
 }
 /*@import (less) '../bower_components/bootstrap/dist/css/bootstrap.min.css';*/
 /*@import (less) '../bower_components/fontawesome/css/font-awesome.css';*/

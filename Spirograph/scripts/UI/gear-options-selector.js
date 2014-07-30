@@ -18,11 +18,11 @@ var Spirograph;
                 toothHeight: 3
             };
 
-            gearSize += .5;
+            gearSize += .4;
 
             return { originalGear: x, modifiedGear: gearOption };
         }).forEach(function (gear) {
-            ['#gear-options-selector .fixed-container', '#gear-options-selector .rotating-container'].forEach(function (container) {
+            ['#gear-options-selector .fixed-container .scroll-container p', '#gear-options-selector .rotating-container .scroll-container p'].forEach(function (container) {
                 var gearContainer = d3.select(container).append('div').attr({
                     'class': 'gear-container',
                     'data-tooth-count': gear.originalGear.toothCount

@@ -48,11 +48,11 @@ var Spirograph;
         }
 
         penColors.forEach(function (color) {
-            addColorToContainer(color, '#color-selector .foreground-container');
+            addColorToContainer(color, '#color-selector .foreground-container .scroll-container');
         });
 
         backgroundColors.forEach(function (color) {
-            addColorToContainer(color, '#color-selector .background-container');
+            addColorToContainer(color, '#color-selector .background-container .scroll-container');
         });
 
         $('#color-selector').on('click', '.color-container', function (ev) {

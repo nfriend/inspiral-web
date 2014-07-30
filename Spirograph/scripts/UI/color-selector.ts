@@ -57,11 +57,11 @@ module Spirograph.UI {
     }
 
     penColors.forEach((color) => {
-        addColorToContainer(color, '#color-selector .foreground-container');
+        addColorToContainer(color, '#color-selector .foreground-container .scroll-container');
     });
 
     backgroundColors.forEach((color) => {
-        addColorToContainer(color, '#color-selector .background-container');
+        addColorToContainer(color, '#color-selector .background-container .scroll-container');
     });
 
     $('#color-selector').on('click', '.color-container', (ev) => {

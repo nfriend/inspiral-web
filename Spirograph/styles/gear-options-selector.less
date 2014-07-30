@@ -52,59 +52,64 @@
             transform-origin: 0 50%;
         }
 
-        .gear-container {
-            z-index: 10;
-            height: 35px;
-            width: 35px;
+        .scroll-container {
+            height: 100%;
+            overflow: scroll;
 
-            svg {
-                position: absolute;
-            }
+            .gear-container {
+                z-index: 10;
+                height: 35px;
+                width: 35px;
+                position: relative;
 
-            .gear-label {
-                width: 100%;
-                height: 100%;
-                text-align: center;
-                margin-top: -1px;
-                margin-left: -3px;
-                position: absolute;
-                font-size: 25px;
-                font-weight: bold;
-                display: none;
-            }
-
-            &:hover {
-                cursor: pointer;
+                svg {
+                    position: absolute;
+                }
 
                 .gear-label {
-                    display: inline;
-                    color: #555;
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                    margin-top: -1px;
+                    position: absolute;
+                    font-size: 25px;
+                    font-weight: bold;
+                    display: none;
+                }
 
-                    &.dark {
-                        color: #CCC;
+                &:hover {
+                    cursor: pointer;
+
+                    .gear-label {
+                        display: inline;
+                        color: #555;
+
+                        &.dark {
+                            color: #CCC;
+                        }
+                    }
+
+                    .gear {
+                        fill-opacity: 0.1;
+                        stroke-opacity: 0.2;
                     }
                 }
 
-                .gear {
-                    fill-opacity: 0.1;
-                    stroke-opacity: 0.2;
-                }
-            }
+                &.selected {
+                    .gear-label {
+                        display: inline;
+                        color: black;
 
-            &.selected {
-                .gear-label {
-                    display: inline;
-                    color: black;
-
-                    &.dark {
-                        color: #FFF;
+                        &.dark {
+                            color: #FFF;
+                        }
                     }
-                }
 
-                .gear {
-                    fill: @brand-success;
-                    fill-opacity: 0.6;
-                    stroke-opacity: 0.2;
+                    .gear {
+                        fill: @brand-success;
+                        fill-opacity: 0.6;
+                        stroke-opacity: 0.2;
+                    }
                 }
             }
         }

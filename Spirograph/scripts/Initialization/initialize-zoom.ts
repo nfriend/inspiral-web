@@ -14,6 +14,7 @@ module Spirograph.Initialization {
     export function initializeZoom(canvas: HTMLCanvasElement, svg: SVGElement) {
 
         $(window).on('mousewheel', (ev) => {
+
             if ((<any>ev).deltaY > 0) {
                 // if we're zooming in
                 if (!(scaleFactor * zoomMultiplier > maxZoom)) {

@@ -19,13 +19,13 @@ module Spirograph.UI {
                 toothHeight: 3
             };
 
-            gearSize += .5;
+            gearSize += .4;
 
             return { originalGear: x, modifiedGear: gearOption };
         })
         .forEach((gear) => {
 
-            ['#gear-options-selector .fixed-container', '#gear-options-selector .rotating-container'].forEach((container) => {
+            ['#gear-options-selector .fixed-container .scroll-container p', '#gear-options-selector .rotating-container .scroll-container p'].forEach((container) => {
                 var gearContainer = d3.select(container).append('div').attr({
                     'class': 'gear-container',
                     'data-tooth-count': gear.originalGear.toothCount
