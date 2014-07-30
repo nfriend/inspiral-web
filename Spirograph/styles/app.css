@@ -12,11 +12,13 @@ body {
 }
 #gear-options-selector {
   position: absolute;
-  left: 25px;
-  top: 5%;
-  height: 90%;
-  width: 70px;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 80px;
   z-index: 10;
+  background: rgba(128, 128, 128, 0.3);
+  padding-left: 5px;
 }
 #gear-options-selector .fixed-container {
   position: absolute;
@@ -41,9 +43,27 @@ body {
   -ms-user-select: none;
   -webkit-user-select: none;
   user-select: none;
+  padding-top: 108px;
+}
+#gear-options-selector .fixed-container .selector-header,
+#gear-options-selector .rotating-container .selector-header {
+  position: absolute;
+  margin-left: 16px;
+  margin-top: -20px;
+  -moz-transform: rotate(-90deg) translate3d(0, 0, 0);
+  -ms-transform: rotate(-90deg) translate3d(0, 0, 0);
+  -o-transform: rotate(-90deg) translate3d(0, 0, 0);
+  -webkit-transform: rotate(-90deg) translate3d(0, 0, 0);
+  transform: rotate(-90deg) translate3d(0, 0, 0);
+  -moz-transform-origin: 0 50%;
+  -ms-transform-origin: 0 50%;
+  -o-transform-origin: 0 50%;
+  -webkit-transform-origin: 0 50%;
+  transform-origin: 0 50%;
 }
 #gear-options-selector .fixed-container .gear-container,
 #gear-options-selector .rotating-container .gear-container {
+  z-index: 10;
   height: 35px;
   width: 35px;
 }
@@ -57,6 +77,7 @@ body {
   height: 100%;
   text-align: center;
   margin-top: -1px;
+  margin-left: -3px;
   position: absolute;
   font-size: 25px;
   font-weight: bold;
@@ -97,11 +118,13 @@ body {
 }
 #color-selector {
   position: absolute;
-  right: 25px;
-  top: 5%;
-  height: 90%;
-  width: 70px;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 80px;
   z-index: 10;
+  background-color: rgba(128, 128, 128, 0.3);
+  padding-right: 5px;
 }
 #color-selector .foreground-container {
   position: absolute;
@@ -114,8 +137,36 @@ body {
   height: 100%;
   right: 0;
 }
+#color-selector .foreground-container,
+#color-selector .background-container {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  padding-top: 108px;
+  margin-left: 3px;
+}
+#color-selector .foreground-container .selector-header,
+#color-selector .background-container .selector-header {
+  position: absolute;
+  margin-right: 21px;
+  margin-top: -20px;
+  -moz-transform: rotate(90deg) translate3d(0, 0, 0);
+  -ms-transform: rotate(90deg) translate3d(0, 0, 0);
+  -o-transform: rotate(90deg) translate3d(0, 0, 0);
+  -webkit-transform: rotate(90deg) translate3d(0, 0, 0);
+  transform: rotate(90deg) translate3d(0, 0, 0);
+  -moz-transform-origin: 100% 50%;
+  -ms-transform-origin: 100% 50%;
+  -o-transform-origin: 100% 50%;
+  -webkit-transform-origin: 100% 50%;
+  transform-origin: 100% 50%;
+  text-align: right;
+  right: 0;
+}
 #color-selector .foreground-container .color-container,
 #color-selector .background-container .color-container {
+  z-index: 10;
   height: 35px;
   width: 35px;
   padding: 3px;
