@@ -25,7 +25,7 @@ module Spirograph.UI {
         })
         .forEach((gear) => {
 
-            ['#gear-options-selector .fixed-container .scroll-container p', '#gear-options-selector .rotating-container .scroll-container p'].forEach((container) => {
+            ['#gear-options-selector .fixed-container .scroll-container', '#gear-options-selector .rotating-container .scroll-container'].forEach((container) => {
                 var gearContainer = d3.select(container).append('div').attr({
                     'class': 'gear-container',
                     'data-tooth-count': gear.originalGear.toothCount
@@ -50,7 +50,7 @@ module Spirograph.UI {
     $('#gear-options-selector').on('click', '.gear-container', (ev) => {
         var $target = $(ev.currentTarget);
         $target.addClass('selected').siblings().removeClass('selected');
-        var fixedOrRotating = $target.parent('.fixed-container').length !== 0 ? 'fixed' : 'rotating';
+        var fixedOrRotating = $target.parents('.fixed-container').length !== 0 ? 'fixed' : 'rotating';
 
         EventAggregator.publish('gearSelected', $target.attr('data-tooth-count'), fixedOrRotating);
     });

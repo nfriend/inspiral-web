@@ -58,7 +58,7 @@ var Spirograph;
         $('#color-selector').on('click', '.color-container', function (ev) {
             var $target = $(ev.currentTarget);
             $target.addClass('selected').siblings().removeClass('selected');
-            var fixedOrRotating = $target.parent('.foreground-container').length !== 0 ? 'foreground' : 'background';
+            var fixedOrRotating = $target.parents('.foreground-container').length !== 0 ? 'foreground' : 'background';
 
             Spirograph.EventAggregator.publish('colorSelected', $target.attr('data-r'), $target.attr('data-g'), $target.attr('data-b'), $target.attr('data-a'), fixedOrRotating);
         });
