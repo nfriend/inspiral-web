@@ -3,14 +3,13 @@
     left: 0;
     top: 0;
     height: 100%;
-    width: 80px;
+    width: 90px;
     z-index: 10;
-    background: @toolbar-background;
     padding-left: 5px;
 
     .fixed-container {
         position: absolute;
-        width: 50%;
+        width: 40px;
         height: 100%;
 
         > p {
@@ -20,9 +19,9 @@
 
     .rotating-container {
         position: absolute;
-        width: 50%;
+        width: 50px;
         height: 100%;
-        right: 0;
+        left: 40px;
 
         > p {
             margin-left: 10px;
@@ -55,6 +54,10 @@
         .scroll-container {
             height: 100%;
             overflow: scroll;
+
+            &:focus {
+                outline: 0;
+            }
 
             .gear-container {
                 z-index: 10;
@@ -100,6 +103,12 @@
                     }
                 }
 
+                &.placeholder {
+                    &:hover {
+                        cursor: default;
+                    }
+                }
+
                 &.selected {
                     .gear-label {
                         display: inline;
@@ -119,4 +128,14 @@
             }
         }
     }
+}
+
+#gear-options-background-color {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 80px;
+    z-index: 10;
+    background: @toolbar-background;
 }

@@ -18,22 +18,7 @@ var Spirograph;
             //    .datum(beamOptions)
             //    .append("path")
             //    .attr("d", Shapes.Beam);
-            /*
-            var fixedGear = svgContainer.append("g")
-            .attr("class", "gear ring-gear fixed color-changing")
-            .attr("transform", "translate(" + getSvgCenterX() + "," + getSvgCenterY() + ")")
-            .datum(gearOptions)
-            .append("path")
-            .attr("d", Shapes.RingGear);
-            */
-            var beamOptions = {
-                totalToothCount: 20,
-                endCapsToothCount: 8,
-                toothHeight: 3,
-                toothWidth: 4
-            };
-
-            var fixedGear = svgContainer.append("g").attr("class", "gear ring-gear fixed color-changing").attr("transform", "translate(" + Spirograph.getSvgCenterX() + "," + Spirograph.getSvgCenterY() + ")").datum(beamOptions).append("path").attr("d", Spirograph.Shapes.Beam);
+            var fixedGear = svgContainer.append("g").attr("class", "gear ring-gear fixed color-changing").attr("transform", "translate(" + Spirograph.getSvgCenterX() + "," + Spirograph.getSvgCenterY() + ")").datum(gearOptions).append("path").attr("d", Spirograph.Shapes.RingGear);
 
             return fixedGear;
         }

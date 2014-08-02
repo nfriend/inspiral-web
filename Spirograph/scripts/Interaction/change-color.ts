@@ -13,9 +13,9 @@ module Spirograph.Interaction {
         $('body').css('background-color', Utility.getRgbaString(r, g, b, a));
 
         if (r < 100 && g < 100 && b < 100) {
-            d3.selectAll('.color-changing').classed('dark', true);
+            d3.selectAll('.color-changing, body').classed('dark', true);
         } else {
-            d3.selectAll('.color-changing').classed('dark', false);
+            d3.selectAll('.color-changing, body').classed('dark', false);
         }
     }
 

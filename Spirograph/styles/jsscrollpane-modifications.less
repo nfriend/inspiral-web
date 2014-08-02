@@ -1,4 +1,5 @@
-﻿.scroll-container {
+﻿
+.scroll-container {
     .jspVerticalBar {
         background: transparent;
 
@@ -7,8 +8,8 @@
 
             .jspDrag {
                 background: transparent;
-                border-right: 2px solid rgba(128, 128, 128, .5);
-                margin-right: 4px;
+                border-right: 8px solid rgba(150,150,150,.8);
+                margin-right: 0;
             }
         }
     }
@@ -18,6 +19,28 @@
             .jspTrack {
                 .jspDrag {
                     border: none;
+                }
+            }
+        }
+    }
+}
+
+.dark {
+    .scroll-container {
+        .jspVerticalBar {
+            .jspTrack {
+                .jspDrag {
+                    border-right: 8px solid rgba(200,200,200,.6);
+                }
+            }
+        }
+
+        &.invisible-scrollbar {
+            .jspVerticalBar {
+                .jspTrack {
+                    .jspDrag {
+                        border: none;
+                    }
                 }
             }
         }

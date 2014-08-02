@@ -15,14 +15,13 @@ body {
   left: 0;
   top: 0;
   height: 100%;
-  width: 80px;
+  width: 90px;
   z-index: 10;
-  background: rgba(128, 128, 128, 0.3);
   padding-left: 5px;
 }
 #gear-options-selector .fixed-container {
   position: absolute;
-  width: 50%;
+  width: 40px;
   height: 100%;
 }
 #gear-options-selector .fixed-container > p {
@@ -30,9 +29,9 @@ body {
 }
 #gear-options-selector .rotating-container {
   position: absolute;
-  width: 50%;
+  width: 50px;
   height: 100%;
-  right: 0;
+  left: 40px;
 }
 #gear-options-selector .rotating-container > p {
   margin-left: 10px;
@@ -65,6 +64,10 @@ body {
 #gear-options-selector .rotating-container .scroll-container {
   height: 100%;
   overflow: scroll;
+}
+#gear-options-selector .fixed-container .scroll-container:focus,
+#gear-options-selector .rotating-container .scroll-container:focus {
+  outline: 0;
 }
 #gear-options-selector .fixed-container .scroll-container .gear-container,
 #gear-options-selector .rotating-container .scroll-container .gear-container {
@@ -111,6 +114,10 @@ body {
   fill-opacity: 0.1;
   stroke-opacity: 0.2;
 }
+#gear-options-selector .fixed-container .scroll-container .gear-container.placeholder:hover,
+#gear-options-selector .rotating-container .scroll-container .gear-container.placeholder:hover {
+  cursor: default;
+}
 #gear-options-selector .fixed-container .scroll-container .gear-container.selected .gear-label,
 #gear-options-selector .rotating-container .scroll-container .gear-container.selected .gear-label {
   display: inline;
@@ -125,6 +132,15 @@ body {
   fill: #5cb85c;
   fill-opacity: 0.6;
   stroke-opacity: 0.2;
+}
+#gear-options-background-color {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 80px;
+  z-index: 10;
+  background: rgba(128, 128, 128, 0.3);
 }
 #color-selector {
   position: absolute;
@@ -224,10 +240,16 @@ body {
 }
 .scroll-container .jspVerticalBar .jspTrack .jspDrag {
   background: transparent;
-  border-right: 2px solid rgba(128, 128, 128, 0.5);
-  margin-right: 4px;
+  border-right: 8px solid rgba(150, 150, 150, 0.8);
+  margin-right: 0;
 }
 .scroll-container.invisible-scrollbar .jspVerticalBar .jspTrack .jspDrag {
+  border: none;
+}
+.dark .scroll-container .jspVerticalBar .jspTrack .jspDrag {
+  border-right: 8px solid rgba(200, 200, 200, 0.6);
+}
+.dark .scroll-container.invisible-scrollbar .jspVerticalBar .jspTrack .jspDrag {
   border: none;
 }
 /*

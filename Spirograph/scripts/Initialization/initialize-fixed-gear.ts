@@ -19,28 +19,12 @@ module Spirograph.Initialization {
         //    .append("path")
         //    .attr("d", Shapes.Beam);
 
-        /*
         var fixedGear = svgContainer.append("g")
             .attr("class", "gear ring-gear fixed color-changing")
             .attr("transform", "translate(" + getSvgCenterX() + "," + getSvgCenterY() + ")")
             .datum(gearOptions)
             .append("path")
             .attr("d", Shapes.RingGear);
-        */
-
-        var beamOptions: Shapes.BeamOptions = {
-            totalToothCount: 20,
-            endCapsToothCount: 8,
-            toothHeight: 3,
-            toothWidth: 4
-        };
-
-        var fixedGear = svgContainer.append("g")
-            .attr("class", "gear ring-gear fixed color-changing")
-            .attr("transform", "translate(" + getSvgCenterX() + "," + getSvgCenterY() + ")")
-            .datum(beamOptions)
-            .append("path")
-            .attr("d", Shapes.Beam);
 
         return fixedGear;
     }

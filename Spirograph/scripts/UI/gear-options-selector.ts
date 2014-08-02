@@ -26,6 +26,7 @@ module Spirograph.UI {
 
             return { originalGear: x, modifiedGear: gearOption };
         })
+        .orderBy((x) => x.originalGear.toothCount)
         .forEach((gear) => {
 
             [fixedContainer, rotatingContainer].forEach((container) => {
@@ -67,6 +68,7 @@ module Spirograph.UI {
 
             return { originalGear: x, modifiedGear: beamOption };
         })
+        .orderBy((x) => x.originalGear.totalToothCount)
         .forEach((beam) => {
             var gearContainer = d3.select(fixedContainer).append('div').attr({
                 'class': 'gear-container',
@@ -86,13 +88,23 @@ module Spirograph.UI {
                 .datum(beam.modifiedGear)
                 .append("path")
                 .attr("d", Shapes.Beam);
+
+            // append a placeholder to the rotating gear list to keep the lists the same length visually
+            var placeholderGearContainer = d3.select(rotatingContainer).append('div').attr({
+                'class': 'gear-container placeholder',
+                'data-tooth-count': 'placeholder'
+            });
         });
 
     $('#gear-options-selector').on('click', '.gear-container', (ev) => {
         var $target = $(ev.currentTarget);
-        $target.addClass('selected').siblings().removeClass('selected');
-        var fixedOrRotating = $target.parents('.fixed-container').length !== 0 ? 'fixed' : 'rotating';
+        var targetToothCount = $target.attr('data-tooth-count');
 
-        EventAggregator.publish('gearSelected', $target.attr('data-tooth-count'), fixedOrRotating);
+        if (targetToothCount !== 'placeholder') {
+            $target.addClass('selected').siblings().removeClass('selected');
+            var fixedOrRotating = $target.parents('.fixed-container').length !== 0 ? 'fixed' : 'rotating';
+
+            EventAggregator.publish('gearSelected', targetToothCount, fixedOrRotating);
+        }
     });
 }
