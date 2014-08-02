@@ -56,6 +56,16 @@ var Spirograph;
                 var gearRotation = -360 * (((rotations / 360) * perimeter) / (2 * Math.PI * gearOptions.radius));
                 gearRotation -= positionAngleOffset;
 
+                // move the gear's rotation by half a tooth width, so the teeth visually mesh
+                // what's the general pattern here?  Don't feel like figuring it out right now, I'll just hardcode.
+                if (gearOptions.toothCount === 63 || gearOptions.toothCount === 75) {
+                    gearRotation += (360 / gearOptions.toothCount) * 3 / 4;
+                } else if (gearOptions.toothCount === 45) {
+                    gearRotation += (360 / gearOptions.toothCount) / 4;
+                } else if (gearOptions.toothCount === 50 || gearOptions.toothCount == 30) {
+                    gearRotation += (360 / gearOptions.toothCount) / 2;
+                }
+
                 var penXModifer = holeOptions.positionRadius * Math.cos(Spirograph.Utility.toRadians(holeOptions.angle) + Spirograph.Utility.toRadians(gearRotation));
                 var penYModifier = holeOptions.positionRadius * Math.sin(Spirograph.Utility.toRadians(holeOptions.angle) + Spirograph.Utility.toRadians(gearRotation));
 
