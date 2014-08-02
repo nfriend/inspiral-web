@@ -3,20 +3,20 @@
     right: 0;
     top: 0;
     height: 100%;
-    width: 80px;
+    width: 90px;
     z-index: 10;
-    background-color: @toolbar-background;
     padding-right: 5px;
 
     .foreground-container {
         position: absolute;
-        width: 50%;
+        width: 50px;
         height: 100%;
+        right: 40px;
     }
 
     .background-container {
         position: absolute;
-        width: 50%;
+        width: 40px;
         height: 100%;
         right: 0;
     }
@@ -51,6 +51,10 @@
             height: 100%;
             overflow: scroll;
 
+            &:focus {
+                outline: 0;
+            }
+
             .color-container {
                 z-index: 10;
                 height: 35px;
@@ -79,6 +83,21 @@
                     }
                 }
 
+                &.placeholder {
+                    &:hover {
+                        cursor: default;
+                        border: none;
+
+                        .color {
+                            border: none;
+
+                            &.bordered {
+                                border: none;
+                            }
+                        }
+                    }
+                }
+
                 &.selected {
                     border: 3px solid #555;
 
@@ -89,4 +108,21 @@
             }
         }
     }
+}
+
+#color-options-background-color {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 80px;
+    z-index: 10;
+    background: @toolbar-background;
+}
+
+
+/* a hack to ensure that the appearance of this control is the same 
+    whether the scrollbar is visible initially or not */
+#color-selector .foreground-container .scroll-container .jspPane {
+    margin-left: 16px;
 }

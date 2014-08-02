@@ -11,7 +11,9 @@ module Spirograph.UI {
         bordered?: boolean;
     }
 
-    var containerSize = 35;
+    var containerSize = 35,
+        foregroundContainer = '#color-selector .foreground-container .scroll-container',
+        backgroundContainer = '#color-selector .background-container .scroll-container';
 
     var penColors: Array<Color> = [
         { r: 255, g: 0, b: 0, a: .4 },
@@ -57,18 +59,33 @@ module Spirograph.UI {
     }
 
     penColors.forEach((color) => {
-        addColorToContainer(color, '#color-selector .foreground-container .scroll-container');
+        addColorToContainer(color, foregroundContainer);
     });
 
     backgroundColors.forEach((color) => {
-        addColorToContainer(color, '#color-selector .background-container .scroll-container');
+        addColorToContainer(color, backgroundContainer);
     });
+
+    // add placeholders to the smaller list to ensure that the lists keep the same visual height
+    if (penColors.length > backgroundColors.length) {
+        for (var i = 0; i < penColors.length - backgroundColors.length; i++) {
+            $('<div>').addClass('color-container placeholder').attr('placeholder', 'true').appendTo(backgroundContainer);
+        }
+    } else if (penColors.length < backgroundColors.length) {
+        for (var i = 0; i < backgroundColors.length - penColors.length; i++) {
+            $('<div>').addClass('color-container placeholder').attr('placeholder', 'true').appendTo(foregroundContainer);
+        }
+    }
 
     $('#color-selector').on('click', '.color-container', (ev) => {
         var $target = $(ev.currentTarget);
-        $target.addClass('selected').siblings().removeClass('selected');
-        var fixedOrRotating = $target.parents('.foreground-container').length !== 0 ? 'foreground' : 'background';
+        var isPlaceholder = $target.is('[placeholder]');
 
-        EventAggregator.publish('colorSelected', $target.attr('data-r'), $target.attr('data-g'), $target.attr('data-b'), $target.attr('data-a'), fixedOrRotating);
+        if (!isPlaceholder) {
+            $target.addClass('selected').siblings().removeClass('selected');
+            var fixedOrRotating = $target.parents('.foreground-container').length !== 0 ? 'foreground' : 'background';
+
+            EventAggregator.publish('colorSelected', $target.attr('data-r'), $target.attr('data-g'), $target.attr('data-b'), $target.attr('data-a'), fixedOrRotating);
+        }
     });
 }

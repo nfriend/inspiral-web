@@ -9,7 +9,6 @@
             .jspDrag {
                 background: transparent;
                 border-right: 8px solid rgba(150,150,150,.8);
-                margin-right: 0;
             }
         }
     }
@@ -19,6 +18,19 @@
             .jspTrack {
                 .jspDrag {
                     border: none;
+                }
+            }
+        }
+    }
+
+    &.scroll-bar-left {
+        .jspVerticalBar {
+            left: 0;
+
+            .jspTrack {
+                .jspDrag {
+                    border-left: 8px solid rgba(150,150,150,.8);
+                    border-right: none;
                 }
             }
         }
@@ -40,6 +52,19 @@
                 .jspTrack {
                     .jspDrag {
                         border: none;
+                    }
+                }
+            }
+        }
+
+        &.scroll-bar-left {
+            .jspVerticalBar {
+                left: 0;
+
+                .jspTrack {
+                    .jspDrag {
+                        border-left: 8px solid rgba(150,150,150,.8);
+                        border-right: none;
                     }
                 }
             }

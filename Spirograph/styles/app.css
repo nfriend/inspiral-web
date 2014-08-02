@@ -147,19 +147,19 @@ body {
   right: 0;
   top: 0;
   height: 100%;
-  width: 80px;
+  width: 90px;
   z-index: 10;
-  background-color: rgba(128, 128, 128, 0.3);
   padding-right: 5px;
 }
 #color-selector .foreground-container {
   position: absolute;
-  width: 50%;
+  width: 50px;
   height: 100%;
+  right: 40px;
 }
 #color-selector .background-container {
   position: absolute;
-  width: 50%;
+  width: 40px;
   height: 100%;
   right: 0;
 }
@@ -195,6 +195,10 @@ body {
   height: 100%;
   overflow: scroll;
 }
+#color-selector .foreground-container .scroll-container:focus,
+#color-selector .background-container .scroll-container:focus {
+  outline: 0;
+}
 #color-selector .foreground-container .scroll-container .color-container,
 #color-selector .background-container .scroll-container .color-container {
   z-index: 10;
@@ -224,6 +228,19 @@ body {
 #color-selector .background-container .scroll-container .color-container:hover .color.bordered {
   border: 2px solid gray;
 }
+#color-selector .foreground-container .scroll-container .color-container.placeholder:hover,
+#color-selector .background-container .scroll-container .color-container.placeholder:hover {
+  cursor: default;
+  border: none;
+}
+#color-selector .foreground-container .scroll-container .color-container.placeholder:hover .color,
+#color-selector .background-container .scroll-container .color-container.placeholder:hover .color {
+  border: none;
+}
+#color-selector .foreground-container .scroll-container .color-container.placeholder:hover .color.bordered,
+#color-selector .background-container .scroll-container .color-container.placeholder:hover .color.bordered {
+  border: none;
+}
 #color-selector .foreground-container .scroll-container .color-container.selected,
 #color-selector .background-container .scroll-container .color-container.selected {
   border: 3px solid #555;
@@ -231,6 +248,20 @@ body {
 #color-selector .foreground-container .scroll-container .color-container.selected .color,
 #color-selector .background-container .scroll-container .color-container.selected .color {
   border: 3px solid transparent;
+}
+#color-options-background-color {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 80px;
+  z-index: 10;
+  background: rgba(128, 128, 128, 0.3);
+}
+/* a hack to ensure that the appearance of this control is the same 
+    whether the scrollbar is visible initially or not */
+#color-selector .foreground-container .scroll-container .jspPane {
+  margin-left: 16px;
 }
 .scroll-container .jspVerticalBar {
   background: transparent;
@@ -241,16 +272,29 @@ body {
 .scroll-container .jspVerticalBar .jspTrack .jspDrag {
   background: transparent;
   border-right: 8px solid rgba(150, 150, 150, 0.8);
-  margin-right: 0;
 }
 .scroll-container.invisible-scrollbar .jspVerticalBar .jspTrack .jspDrag {
   border: none;
+}
+.scroll-container.scroll-bar-left .jspVerticalBar {
+  left: 0;
+}
+.scroll-container.scroll-bar-left .jspVerticalBar .jspTrack .jspDrag {
+  border-left: 8px solid rgba(150, 150, 150, 0.8);
+  border-right: none;
 }
 .dark .scroll-container .jspVerticalBar .jspTrack .jspDrag {
   border-right: 8px solid rgba(200, 200, 200, 0.6);
 }
 .dark .scroll-container.invisible-scrollbar .jspVerticalBar .jspTrack .jspDrag {
   border: none;
+}
+.dark .scroll-container.scroll-bar-left .jspVerticalBar {
+  left: 0;
+}
+.dark .scroll-container.scroll-bar-left .jspVerticalBar .jspTrack .jspDrag {
+  border-left: 8px solid rgba(150, 150, 150, 0.8);
+  border-right: none;
 }
 /*
  * CSS Styles that are needed by jScrollPane for it to operate correctly.
