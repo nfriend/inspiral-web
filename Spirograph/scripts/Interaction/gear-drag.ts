@@ -12,22 +12,26 @@ module Spirograph.Interaction {
 
         var ctx = canvas.getContext('2d');
 
-        rotatingGear.on("mousedown", function (d, i) {
-            rotatingGear.classed('dragging', true);
+        function attachHandlersToRotatingGear() {
+            rotatingGear.on("mousedown", function (d, i) {
+                rotatingGear.classed('dragging', true);
 
-            svgContainer.on("mousemove", moveGear);
+                svgContainer.on("mousemove", moveGear);
 
-            svgContainer.on("mouseup", () => {
-                svgContainer.on("mousemove", null);
-                rotatingGear.classed('dragging', false);
+                svgContainer.on("mouseup", () => {
+                    svgContainer.on("mousemove", null);
+                    rotatingGear.classed('dragging', false);
+
+                    d3.event.preventDefault()
+                    return false;
+                });
 
                 d3.event.preventDefault()
                 return false;
             });
+        }
 
-            d3.event.preventDefault()
-            return false;
-        });
+        attachHandlersToRotatingGear();
 
         function moveGear(angle?: number) {
 
@@ -86,23 +90,25 @@ module Spirograph.Interaction {
         });
 
         EventAggregator.subscribe('gearSelected', (fixedOrRotating: Shapes.GearRole, gearType: Shapes.GearType, ...gearSizes: number[]) => {
-            console.log(fixedOrRotating.toString() + ' gear selected: ' + gearSizes + (gearSizes[0] ? '|' + gearSizes[1] : '') + ', type of: ' + gearType.toString());
 
             if (fixedOrRotating === Shapes.GearRole.Fixed) {
                 if (gearType === Shapes.GearType.Beam) {
-                    var newGearOptions: any = (new Shapes.BeamOptionsFactory()).create(gearSizes[0], gearSizes[1]);
-                    rotater = new Shapes.BeamRotater(newGearOptions);
+                    var newFixedOptions: any = (new Shapes.BeamOptionsFactory()).create(gearSizes[0], gearSizes[1]);
+                    rotater = new Shapes.BeamRotater(newFixedOptions);
                 } else if (gearType === Shapes.GearType.Gear) {
-                    var newGearOptions: any = (new Shapes.GearOptionsFactory()).create(gearSizes[0]);
-                    rotater = new Shapes.GearRotater(newGearOptions);
+                    var newFixedOptions: any = (new Shapes.GearOptionsFactory()).create(gearSizes[0]);
+                    rotater = new Shapes.GearRotater(newFixedOptions);
                 } else if (gearType === Shapes.GearType.RingGear) {
-                    var newGearOptions: any = (new Shapes.RingGearOptionsFactory()).create(gearSizes[0], gearSizes[1]);
-                    rotater = new Shapes.RingGearRotater(newGearOptions);
+                    var newFixedOptions: any = (new Shapes.RingGearOptionsFactory()).create(gearSizes[0], gearSizes[1]);
+                    rotater = new Shapes.RingGearRotater(newFixedOptions);
                 }
-
-                Interaction.changeFixedGear(svgContainer, gearType, newGearOptions);
-            } else {
-
+                Interaction.changeFixedGear(svgContainer, gearType, newFixedOptions);
+            } else if (fixedOrRotating === Shapes.GearRole.Rotating) {
+                rotatingGearOptions = (new Shapes.GearOptionsFactory()).create(gearSizes[0]);
+                rotatingGear = Interaction.changeRotatingGear(svgContainer, rotatingGearOptions);
+                attachHandlersToRotatingGear();
+                holeOptions = Initialization.initializeHoles(rotatingGear, rotatingGearOptions, 3);
+                Initialization.initializeHoleSelection();
             }
 
             previousTransformInfo = null;

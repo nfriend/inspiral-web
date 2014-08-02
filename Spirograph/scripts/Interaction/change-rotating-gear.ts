@@ -1,16 +1,19 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
 
-module Spirograph.Initialization {
+module Spirograph.Interaction {
     'use strict';
 
-    export function initializeRotatingGear(svgContainer: D3.Selection, gearOptions: Shapes.GearOptions) {
+    export function changeRotatingGear(svgContainer: D3.Selection, newGearOptions: Shapes.GearOptions) {
+
+        d3.selectAll('.gear.rotating').remove();
+
         var rotatingGear = svgContainer.append("g")
             .attr("class", "gear rotating color-changing")
-            .datum(gearOptions);
+            .datum(newGearOptions);
 
         rotatingGear.append("path")
             .attr("d", Shapes.Gear);
 
         return rotatingGear;
     }
-} 
+}

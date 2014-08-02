@@ -26,7 +26,9 @@ module Spirograph.Shapes {
             gearRotation -= (mouseAngleAsDegrees);
 
             // move the gear's rotation by half a tooth width, so the teeth visually mesh
-            gearRotation += (360 / rotatingGearOptions.toothCount) / 2;
+            if (rotatingGearOptions.toothCount % 2 === 0) {
+                gearRotation += (360 / rotatingGearOptions.toothCount) / 2;
+            }
 
             var penXModifer = holeOptions.positionRadius * Math.cos(Utility.toRadians(holeOptions.angle) + Utility.toRadians(gearRotation));
             var penYModifier = holeOptions.positionRadius * Math.sin(Utility.toRadians(holeOptions.angle) + Utility.toRadians(gearRotation));

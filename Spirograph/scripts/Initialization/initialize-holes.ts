@@ -5,7 +5,7 @@ module Spirograph.Initialization {
 
     var initiallySelectedHoleObject: D3.Selection = null;
 
-    export function initializeHoles(gear: D3.Selection, gearOptions: Shapes.GearOptions) {
+    export function initializeHoles(gear: D3.Selection, gearOptions: Shapes.GearOptions, selectedIndex: number) {
         var allHoleOptions = (new Shapes.GearHoleGenerator()).generate(gearOptions);
         var holeOptions: Shapes.HoleOptions;
         allHoleOptions.forEach((hole, index) => {
@@ -21,7 +21,7 @@ module Spirograph.Initialization {
                 EventAggregator.publish('holeSelected', hole);
             });
 
-            if (index === defaults.holeIndex) {
+            if (index === selectedIndex) {
                 // store this for later, when we need it to set it as the default
                 initiallySelectedHoleObject = holeObject;
                 // also return the hole to be selected right now, so that we can perform initialization calculations on it

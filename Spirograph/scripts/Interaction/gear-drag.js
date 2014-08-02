@@ -9,22 +9,26 @@ var Spirograph;
         function attachDragHandlers(svgContainer, rotatingGear, canvas, rotater, rotatingGearOptions, holeOptions) {
             var ctx = canvas.getContext('2d');
 
-            rotatingGear.on("mousedown", function (d, i) {
-                rotatingGear.classed('dragging', true);
+            function attachHandlersToRotatingGear() {
+                rotatingGear.on("mousedown", function (d, i) {
+                    rotatingGear.classed('dragging', true);
 
-                svgContainer.on("mousemove", moveGear);
+                    svgContainer.on("mousemove", moveGear);
 
-                svgContainer.on("mouseup", function () {
-                    svgContainer.on("mousemove", null);
-                    rotatingGear.classed('dragging', false);
+                    svgContainer.on("mouseup", function () {
+                        svgContainer.on("mousemove", null);
+                        rotatingGear.classed('dragging', false);
+
+                        d3.event.preventDefault();
+                        return false;
+                    });
 
                     d3.event.preventDefault();
                     return false;
                 });
+            }
 
-                d3.event.preventDefault();
-                return false;
-            });
+            attachHandlersToRotatingGear();
 
             function moveGear(angle) {
                 // if an angle is passed in, we use that to position the gear
@@ -87,22 +91,24 @@ var Spirograph;
                 for (var _i = 0; _i < (arguments.length - 2); _i++) {
                     gearSizes[_i] = arguments[_i + 2];
                 }
-                console.log(fixedOrRotating.toString() + ' gear selected: ' + gearSizes + (gearSizes[0] ? '|' + gearSizes[1] : '') + ', type of: ' + gearType.toString());
-
                 if (fixedOrRotating === 0 /* Fixed */) {
                     if (gearType === 2 /* Beam */) {
-                        var newGearOptions = (new Spirograph.Shapes.BeamOptionsFactory()).create(gearSizes[0], gearSizes[1]);
-                        rotater = new Spirograph.Shapes.BeamRotater(newGearOptions);
+                        var newFixedOptions = (new Spirograph.Shapes.BeamOptionsFactory()).create(gearSizes[0], gearSizes[1]);
+                        rotater = new Spirograph.Shapes.BeamRotater(newFixedOptions);
                     } else if (gearType === 0 /* Gear */) {
-                        var newGearOptions = (new Spirograph.Shapes.GearOptionsFactory()).create(gearSizes[0]);
-                        rotater = new Spirograph.Shapes.GearRotater(newGearOptions);
+                        var newFixedOptions = (new Spirograph.Shapes.GearOptionsFactory()).create(gearSizes[0]);
+                        rotater = new Spirograph.Shapes.GearRotater(newFixedOptions);
                     } else if (gearType === 1 /* RingGear */) {
-                        var newGearOptions = (new Spirograph.Shapes.RingGearOptionsFactory()).create(gearSizes[0], gearSizes[1]);
-                        rotater = new Spirograph.Shapes.RingGearRotater(newGearOptions);
+                        var newFixedOptions = (new Spirograph.Shapes.RingGearOptionsFactory()).create(gearSizes[0], gearSizes[1]);
+                        rotater = new Spirograph.Shapes.RingGearRotater(newFixedOptions);
                     }
-
-                    Interaction.changeFixedGear(svgContainer, gearType, newGearOptions);
-                } else {
+                    Interaction.changeFixedGear(svgContainer, gearType, newFixedOptions);
+                } else if (fixedOrRotating === 1 /* Rotating */) {
+                    rotatingGearOptions = (new Spirograph.Shapes.GearOptionsFactory()).create(gearSizes[0]);
+                    rotatingGear = Interaction.changeRotatingGear(svgContainer, rotatingGearOptions);
+                    attachHandlersToRotatingGear();
+                    holeOptions = Spirograph.Initialization.initializeHoles(rotatingGear, rotatingGearOptions, 3);
+                    Spirograph.Initialization.initializeHoleSelection();
                 }
 
                 previousTransformInfo = null;

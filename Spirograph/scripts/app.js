@@ -11,7 +11,7 @@ var Spirograph;
     var fixedGearOptions = (new Spirograph.Shapes.RingGearOptionsFactory(1)).create(144, 96);
     var fixedGear = Spirograph.Initialization.initializeFixedGear(svgContainer, fixedGearOptions);
     var rotatingGear = Spirograph.Initialization.initializeRotatingGear(svgContainer, rotatingGearOptions);
-    var holeOptions = Spirograph.Initialization.initializeHoles(rotatingGear, rotatingGearOptions);
+    var holeOptions = Spirograph.Initialization.initializeHoles(rotatingGear, rotatingGearOptions, Spirograph.defaults.holeIndex);
     var rotater = new Spirograph.Shapes.RingGearRotater(fixedGearOptions);
 
     //var rotater: Shapes.Rotater = new Shapes.BeamRotater(beamOptions);

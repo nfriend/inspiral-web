@@ -78,6 +78,7 @@
     <TypeScriptCompile Include="scripts\Interaction\change-color.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-zoom.ts" />
     <TypeScriptCompile Include="scripts\Interaction\change-fixed-gear.ts" />
+    <TypeScriptCompile Include="scripts\Interaction\change-rotating-gear.ts" />
     <TypeScriptCompile Include="scripts\Interaction\gear-drag.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamOptions.ts" />

@@ -6,7 +6,7 @@ var Spirograph;
 
         var initiallySelectedHoleObject = null;
 
-        function initializeHoles(gear, gearOptions) {
+        function initializeHoles(gear, gearOptions, selectedIndex) {
             var allHoleOptions = (new Spirograph.Shapes.GearHoleGenerator()).generate(gearOptions);
             var holeOptions;
             allHoleOptions.forEach(function (hole, index) {
@@ -19,7 +19,7 @@ var Spirograph;
                     Spirograph.EventAggregator.publish('holeSelected', hole);
                 });
 
-                if (index === Spirograph.defaults.holeIndex) {
+                if (index === selectedIndex) {
                     // store this for later, when we need it to set it as the default
                     initiallySelectedHoleObject = holeObject;
 

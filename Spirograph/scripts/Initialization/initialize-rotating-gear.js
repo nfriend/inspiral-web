@@ -5,7 +5,7 @@ var Spirograph;
         'use strict';
 
         function initializeRotatingGear(svgContainer, gearOptions) {
-            var rotatingGear = svgContainer.append("g").attr("class", "gear color-changing").datum(gearOptions);
+            var rotatingGear = svgContainer.append("g").attr("class", "gear rotating color-changing").datum(gearOptions);
 
             rotatingGear.append("path").attr("d", Spirograph.Shapes.Gear);
 
