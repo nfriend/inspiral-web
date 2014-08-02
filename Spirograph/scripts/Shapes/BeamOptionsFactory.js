@@ -29,6 +29,15 @@ var Spirograph;
                     totalToothCount: beamOptions.totalToothCount
                 };
             };
+
+            BeamOptionsFactory.prototype.createAllOptions = function () {
+                var allGears = Array();
+                for (var i in _beamDefinitions) {
+                    allGears.push(_beamDefinitions[i]);
+                }
+
+                return allGears;
+            };
             return BeamOptionsFactory;
         })();
         Shapes.BeamOptionsFactory = BeamOptionsFactory;

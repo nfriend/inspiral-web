@@ -4,7 +4,7 @@ var Spirograph;
     (function (Shapes) {
         'use strict';
 
-        function Beam(options) {
+        function DisplayBeam(options) {
             if (options.endCapsToothCount % 2 !== 0) {
                 throw 'Spirograph.Shapes.BeamOptions.endCapToothCount must be an even number';
             }
@@ -13,13 +13,6 @@ var Spirograph;
             }
 
             var pathBuilder = new Spirograph.SVG.PathBuilder(), radius = 2 * options.endCapsToothCount, beamToothCount = options.totalToothCount - options.endCapsToothCount, toothWidth = 2 * Math.PI * radius / options.endCapsToothCount, totalWidth = 2 * radius + toothWidth * (beamToothCount / 2), totalHeight = 2 * radius, offsetX = -1 * totalWidth / 2 + radius, toothAngleDelta = 360 / options.endCapsToothCount;
-
-            // if we're passed a toothWidth, we calculate some things differently
-            if (options.toothWidth) {
-                toothWidth = options.toothWidth;
-                radius = ((options.totalToothCount - options.endCapsToothCount) * toothWidth) / (2 * Math.PI);
-                totalWidth = 2 * radius + toothWidth * (beamToothCount / 2), totalHeight = 2 * radius, offsetX = -1 * totalWidth / 2 + radius, toothAngleDelta = 360 / options.endCapsToothCount;
-            }
 
             pathBuilder.addCommand(new Spirograph.SVG.MCommand(offsetX, -1 * radius));
 
@@ -60,8 +53,8 @@ var Spirograph;
             pathBuilder.addCommand(new Spirograph.SVG.ZCommand());
             return pathBuilder.toString();
         }
-        Shapes.Beam = Beam;
+        Shapes.DisplayBeam = DisplayBeam;
     })(Spirograph.Shapes || (Spirograph.Shapes = {}));
     var Shapes = Spirograph.Shapes;
 })(Spirograph || (Spirograph = {}));
-//# sourceMappingURL=Beam.js.map
+//# sourceMappingURL=DisplayBeam.js.map

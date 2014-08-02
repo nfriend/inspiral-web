@@ -3,9 +3,12 @@
 module Spirograph.UI {
     'use strict';
 
-    var containerSize = 35;
-    var gearSize = 5;
+    var containerSize = 35,
+        fixedContainer = '#gear-options-selector .fixed-container .scroll-container',
+        rotatingContainer = '#gear-options-selector .rotating-container .scroll-container';
 
+    // add all the gear sizes to both lists
+    var gearSize = 5;
     Enumerable.from((new Shapes.GearOptionsFactory()).createAllOptions())
         .select(x => {
 
@@ -25,7 +28,7 @@ module Spirograph.UI {
         })
         .forEach((gear) => {
 
-            ['#gear-options-selector .fixed-container .scroll-container', '#gear-options-selector .rotating-container .scroll-container'].forEach((container) => {
+            [fixedContainer, rotatingContainer].forEach((container) => {
                 var gearContainer = d3.select(container).append('div').attr({
                     'class': 'gear-container',
                     'data-tooth-count': gear.originalGear.toothCount
@@ -45,6 +48,44 @@ module Spirograph.UI {
                     .append("path")
                     .attr("d", Shapes.Gear);
             });
+        });
+
+    // add all the beam options to the list of fixed gears
+    var endCapsToothCount = 8,
+        totalToothCount = 16
+    Enumerable.from((new Shapes.BeamOptionsFactory()).createAllOptions())
+        .select(x => {
+            var beamOption: Shapes.BeamOptions = {
+                endCapsToothCount: endCapsToothCount,
+                toothHeight: 2,
+                totalToothCount: totalToothCount,
+                toothWidth: 4
+            };
+
+            endCapsToothCount += 2;
+            totalToothCount += 2;
+
+            return { originalGear: x, modifiedGear: beamOption };
+        })
+        .forEach((beam) => {
+            var gearContainer = d3.select(fixedContainer).append('div').attr({
+                'class': 'gear-container',
+                'data-tooth-count': beam.originalGear.totalToothCount
+            });
+
+            var svgContainer = gearContainer.append("svg").attr({
+                width: containerSize,
+                height: containerSize
+            });
+
+            gearContainer.append('div').attr('class', 'gear-label color-changing' + (beam.originalGear.totalToothCount > 99 ? ' small-label' : '')).html(beam.originalGear.totalToothCount);
+
+            svgContainer.append('g')
+                .attr('class', 'gear fixed color-changing')
+                .attr("transform", "translate(" + containerSize / 2 + "," + containerSize / 2 + ")")
+                .datum(beam.modifiedGear)
+                .append("path")
+                .attr("d", Shapes.Beam);
         });
 
     $('#gear-options-selector').on('click', '.gear-container', (ev) => {

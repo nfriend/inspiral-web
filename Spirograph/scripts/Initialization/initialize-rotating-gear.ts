@@ -11,6 +11,8 @@ module Spirograph.Initialization {
         rotatingGear.append("path")
             .attr("d", Shapes.Gear);
 
+        rotatingGear.attr('style', 'display:none;');
+
         return rotatingGear;
     }
 } 

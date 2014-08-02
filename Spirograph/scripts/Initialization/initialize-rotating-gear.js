@@ -9,6 +9,8 @@ var Spirograph;
 
             rotatingGear.append("path").attr("d", Spirograph.Shapes.Gear);
 
+            rotatingGear.attr('style', 'display:none;');
+
             return rotatingGear;
         }
         Initialization.initializeRotatingGear = initializeRotatingGear;

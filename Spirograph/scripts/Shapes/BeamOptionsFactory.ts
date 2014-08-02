@@ -30,6 +30,15 @@ module Spirograph.Shapes {
                 totalToothCount: beamOptions.totalToothCount
             }
         }
+
+        createAllOptions(): Array<BeamOptions> {
+            var allGears = Array<BeamOptions>();
+            for (var i in _beamDefinitions) {
+                allGears.push(_beamDefinitions[i]);
+            }
+
+            return allGears;
+        }
     }
 
     _beamDefinitions['150|20'] = {

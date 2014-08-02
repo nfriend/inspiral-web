@@ -10,5 +10,8 @@ module Spirograph.Shapes {
         totalToothCount: number;
         // how many teeth to draw on the end caps; must be an even number.
         endCapsToothCount: number;
+
+        // only used when generating beams for display - using this parameter will mess with ratios otherwise
+        toothWidth?: number;
     }
 } 

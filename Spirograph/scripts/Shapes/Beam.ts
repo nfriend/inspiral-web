@@ -21,6 +21,15 @@ module Spirograph.Shapes {
             offsetX = -1 * totalWidth / 2 + radius,
             toothAngleDelta = 360 / options.endCapsToothCount;
 
+        // if we're passed a toothWidth, we calculate some things differently
+        if (options.toothWidth) {
+            toothWidth = options.toothWidth;
+            radius = ((options.totalToothCount - options.endCapsToothCount) * toothWidth) / (2 * Math.PI);
+            totalWidth = 2 * radius + toothWidth * (beamToothCount / 2),
+            totalHeight = 2 * radius,
+            offsetX = -1 * totalWidth / 2 + radius,
+            toothAngleDelta = 360 / options.endCapsToothCount;
+        }
 
         pathBuilder.addCommand(new SVG.MCommand(offsetX, -1 * radius));
 
