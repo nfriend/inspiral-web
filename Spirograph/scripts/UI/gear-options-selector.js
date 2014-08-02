@@ -80,6 +80,57 @@ var Spirograph;
             });
         });
 
+        // add all the ring gear options to the list of fixed gears
+        var innerToothCount = 11, innerRadius = 5, outerToothCount = 16, outerRadius = 13;
+        Enumerable.from((new Spirograph.Shapes.RingGearOptionsFactory()).createAllOptions()).select(function (x) {
+            var ringGearOption = {
+                innerRadius: innerRadius,
+                innerToothCount: innerToothCount,
+                innerToothHeight: 3,
+                outerRadius: outerRadius,
+                outerToothCount: outerToothCount,
+                outerToothHeight: 3
+            };
+
+            innerToothCount += 2;
+            innerRadius += 2;
+            outerToothCount += 2;
+            outerRadius += 2;
+
+            return { originalGear: x, modifiedGear: ringGearOption };
+        }).orderBy(function (x) {
+            return x.originalGear.innerToothCount;
+        }).forEach(function (ringGear) {
+            var gearContainer = d3.select(fixedContainer).append('div').attr({
+                'class': 'gear-container',
+                'data-tooth-count': ringGear.originalGear.outerToothCount + '|' + ringGear.originalGear.innerToothCount
+            });
+
+            var svgContainer = gearContainer.append("svg").attr({
+                width: containerSize,
+                height: containerSize
+            });
+
+            gearContainer.append('div').attr('class', 'gear-label color-changing ring-gear-label').html('<div>' + ringGear.originalGear.outerToothCount + '</div><hr /><div>' + ringGear.originalGear.innerToothCount + '</div>');
+
+            svgContainer.append('g').attr('class', 'gear fixed color-changing').attr("transform", "translate(" + containerSize / 2 + "," + containerSize / 2 + ")").datum(ringGear.modifiedGear).append("path").attr("d", Spirograph.Shapes.RingGear);
+
+            // append a placeholder to the rotating gear list to keep the lists the same length visually
+            var placeholderGearContainer = d3.select(rotatingContainer).append('div').attr({
+                'class': 'gear-container placeholder',
+                'data-tooth-count': 'placeholder'
+            });
+        });
+
+        // add an extra placeholder onto the bottom of each container for breathing room
+        [fixedContainer, rotatingContainer].forEach(function (container) {
+            d3.select(container).append('div').attr({
+                'class': 'gear-container placeholder',
+                'data-tooth-count': 'placeholder'
+            });
+        });
+
+        // add click events for all gear options
         $('#gear-options-selector').on('click', '.gear-container', function (ev) {
             var $target = $(ev.currentTarget);
             var targetToothCount = $target.attr('data-tooth-count');

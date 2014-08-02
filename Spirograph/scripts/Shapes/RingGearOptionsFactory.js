@@ -32,6 +32,15 @@ var Spirograph;
                     outerToothHeight: ringGearOptions.outerToothHeight * this._radiusMultiplier
                 };
             };
+
+            RingGearOptionsFactory.prototype.createAllOptions = function () {
+                var allRingGears = Array();
+                for (var i in _ringGearDefinitions) {
+                    allRingGears.push(_ringGearDefinitions[i]);
+                }
+
+                return allRingGears;
+            };
             return RingGearOptionsFactory;
         })();
         Shapes.RingGearOptionsFactory = RingGearOptionsFactory;

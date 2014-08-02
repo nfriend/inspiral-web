@@ -96,6 +96,21 @@ body {
   font-size: 20px;
   margin-top: 3px;
 }
+#gear-options-selector .fixed-container .scroll-container .gear-container .gear-label.ring-gear-label,
+#gear-options-selector .rotating-container .scroll-container .gear-container .gear-label.ring-gear-label {
+  font-size: 15px;
+  margin-top: 2px;
+}
+#gear-options-selector .fixed-container .scroll-container .gear-container .gear-label.ring-gear-label div,
+#gear-options-selector .rotating-container .scroll-container .gear-container .gear-label.ring-gear-label div {
+  margin-top: -2px;
+  margin-bottom: -2px;
+}
+#gear-options-selector .fixed-container .scroll-container .gear-container .gear-label.ring-gear-label hr,
+#gear-options-selector .rotating-container .scroll-container .gear-container .gear-label.ring-gear-label hr {
+  margin: 0 3px 0 3px;
+  border-color: #555;
+}
 #gear-options-selector .fixed-container .scroll-container .gear-container:hover,
 #gear-options-selector .rotating-container .scroll-container .gear-container:hover {
   cursor: pointer;

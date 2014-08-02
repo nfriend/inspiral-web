@@ -77,6 +77,15 @@ module Spirograph.UI {
         }
     }
 
+    // add an extra placeholder onto the bottom of each container for breathing room
+    [backgroundContainer, foregroundContainer].forEach((container) => {
+        d3.select(container).append('div').attr({
+            'class': 'color-container placeholder',
+            'placeholder': 'true'
+        });
+    });
+
+    // add click events for all color options
     $('#color-selector').on('click', '.color-container', (ev) => {
         var $target = $(ev.currentTarget);
         var isPlaceholder = $target.is('[placeholder]');

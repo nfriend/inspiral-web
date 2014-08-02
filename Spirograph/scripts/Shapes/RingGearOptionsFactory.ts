@@ -33,6 +33,15 @@ module Spirograph.Shapes {
                 outerToothHeight: ringGearOptions.outerToothHeight * this._radiusMultiplier
             }
         }
+
+        createAllOptions(): Array<RingGearOptions> {
+            var allRingGears = Array<RingGearOptions>();
+            for (var i in _ringGearDefinitions) {
+                allRingGears.push(_ringGearDefinitions[i]);
+            }
+
+            return allRingGears;
+        }
     }
 
     _ringGearDefinitions["144|96"] = {
