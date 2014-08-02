@@ -5,7 +5,7 @@ module Spirograph {
 
     export var defaults = {
         rotatingGearToothCount: 64,
-        holeIndex: 5,
+        holeIndex: 3,
         fixedGearType: FixedGearType.Ring,
         fixedGearInnerToothCount: 96,
         fixedGearOuterToothCount: 144,

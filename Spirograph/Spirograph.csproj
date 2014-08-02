@@ -80,6 +80,7 @@
     <TypeScriptCompile Include="scripts\Interaction\change-fixed-gear.ts" />
     <TypeScriptCompile Include="scripts\Interaction\change-rotating-gear.ts" />
     <TypeScriptCompile Include="scripts\Interaction\gear-drag.ts" />
+    <TypeScriptCompile Include="scripts\Interaction\remember-last-hole-selection.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamOptions.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamRotater.ts" />

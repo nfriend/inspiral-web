@@ -19,6 +19,7 @@ module Spirograph.Initialization {
                 holeObject.classed('selected', true);
 
                 EventAggregator.publish('holeSelected', hole);
+                Interaction.saveHoleSelection(index, gearOptions.toothCount);
             });
 
             if (index === selectedIndex) {

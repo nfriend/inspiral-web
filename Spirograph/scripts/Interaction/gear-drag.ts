@@ -107,7 +107,7 @@ module Spirograph.Interaction {
                 rotatingGearOptions = (new Shapes.GearOptionsFactory()).create(gearSizes[0]);
                 rotatingGear = Interaction.changeRotatingGear(svgContainer, rotatingGearOptions);
                 attachHandlersToRotatingGear();
-                holeOptions = Initialization.initializeHoles(rotatingGear, rotatingGearOptions, 3);
+                holeOptions = Initialization.initializeHoles(rotatingGear, rotatingGearOptions, Interaction.getHoleSelection(gearSizes[0]));
                 Initialization.initializeHoleSelection();
             }
 

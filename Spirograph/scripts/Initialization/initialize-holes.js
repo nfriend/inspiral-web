@@ -17,6 +17,7 @@ var Spirograph;
                     holeObject.classed('selected', true);
 
                     Spirograph.EventAggregator.publish('holeSelected', hole);
+                    Spirograph.Interaction.saveHoleSelection(index, gearOptions.toothCount);
                 });
 
                 if (index === selectedIndex) {

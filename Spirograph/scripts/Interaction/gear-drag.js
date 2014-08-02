@@ -107,7 +107,7 @@ var Spirograph;
                     rotatingGearOptions = (new Spirograph.Shapes.GearOptionsFactory()).create(gearSizes[0]);
                     rotatingGear = Interaction.changeRotatingGear(svgContainer, rotatingGearOptions);
                     attachHandlersToRotatingGear();
-                    holeOptions = Spirograph.Initialization.initializeHoles(rotatingGear, rotatingGearOptions, 3);
+                    holeOptions = Spirograph.Initialization.initializeHoles(rotatingGear, rotatingGearOptions, Interaction.getHoleSelection(gearSizes[0]));
                     Spirograph.Initialization.initializeHoleSelection();
                 }
 

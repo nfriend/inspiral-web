@@ -5,7 +5,7 @@ var Spirograph;
 
     Spirograph.defaults = {
         rotatingGearToothCount: 64,
-        holeIndex: 5,
+        holeIndex: 3,
         fixedGearType: 0 /* Ring */,
         fixedGearInnerToothCount: 96,
         fixedGearOuterToothCount: 144,
