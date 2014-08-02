@@ -7,7 +7,7 @@ var Spirograph;
         var _beamDefinitions = {};
 
         function _getKey(totalToothCount, endcapToothCount) {
-            return endcapToothCount + "|" + totalToothCount;
+            return totalToothCount + "|" + endcapToothCount;
         }
 
         var BeamOptionsFactory = (function () {

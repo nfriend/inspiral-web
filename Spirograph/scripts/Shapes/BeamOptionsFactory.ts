@@ -6,7 +6,7 @@ module Spirograph.Shapes {
     var _beamDefinitions: { [gearSizes: string]: BeamOptions; } = {};
 
     function _getKey(totalToothCount, endcapToothCount) {
-        return endcapToothCount + "|" + totalToothCount;
+        return totalToothCount + "|" + endcapToothCount;
     }
 
     export class BeamOptionsFactory {

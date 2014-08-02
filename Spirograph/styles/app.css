@@ -410,9 +410,9 @@ body {
 }
 .spirograph #spirograph-canvas {
   margin-left: -784px;
-  margin-top: -356px;
+  margin-top: -504px;
   width: 1568px;
-  height: 712px;
+  height: 1008px;
   position: absolute;
   left: 50%;
   top: 50%;

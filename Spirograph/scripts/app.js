@@ -22,12 +22,6 @@ var Spirograph;
         // add shortcut here
     });
 
-    Spirograph.EventAggregator.subscribe('gearSelected', function (gearSize, fixedOrRotating) {
-        //alert(fixedOrRotating + ": " + gearSize.toString());
-        //gearOptions = (new Shapes.GearOptionsFactory()).create(gearSize);
-        console.log(fixedOrRotating + ' gear selected: ' + gearSize);
-    });
-
     Spirograph.Initialization.initializeGearSelections();
     Spirograph.Initialization.initializeColorSelections();
     Spirograph.Initialization.initializeHoleSelection();

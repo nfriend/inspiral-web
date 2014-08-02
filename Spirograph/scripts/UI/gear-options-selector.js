@@ -28,7 +28,8 @@ var Spirograph;
             [fixedContainer, rotatingContainer].forEach(function (container) {
                 var gearContainer = d3.select(container).append('div').attr({
                     'class': 'gear-container',
-                    'data-tooth-count': gear.originalGear.toothCount
+                    'data-tooth-count-1': gear.originalGear.toothCount,
+                    'gear-type': 'gear'
                 });
 
                 var svgContainer = gearContainer.append("svg").attr({
@@ -38,7 +39,7 @@ var Spirograph;
 
                 gearContainer.append('div').attr('class', 'gear-label color-changing').html(gear.originalGear.toothCount);
 
-                svgContainer.append('g').attr('class', 'gear fixed color-changing').attr("transform", "translate(" + containerSize / 2 + "," + containerSize / 2 + ")").datum(gear.modifiedGear).append("path").attr("d", Spirograph.Shapes.Gear);
+                svgContainer.append('g').attr('class', 'gear color-changing').attr("transform", "translate(" + containerSize / 2 + "," + containerSize / 2 + ")").datum(gear.modifiedGear).append("path").attr("d", Spirograph.Shapes.Gear);
             });
         });
 
@@ -61,7 +62,9 @@ var Spirograph;
         }).forEach(function (beam) {
             var gearContainer = d3.select(fixedContainer).append('div').attr({
                 'class': 'gear-container',
-                'data-tooth-count': beam.originalGear.totalToothCount
+                'data-tooth-count-1': beam.originalGear.totalToothCount,
+                'data-tooth-count-2': beam.originalGear.endCapsToothCount,
+                'gear-type': 'beam'
             });
 
             var svgContainer = gearContainer.append("svg").attr({
@@ -71,12 +74,12 @@ var Spirograph;
 
             gearContainer.append('div').attr('class', 'gear-label color-changing' + (beam.originalGear.totalToothCount > 99 ? ' small-label' : '')).html(beam.originalGear.totalToothCount);
 
-            svgContainer.append('g').attr('class', 'gear fixed color-changing').attr("transform", "translate(" + containerSize / 2 + "," + containerSize / 2 + ")").datum(beam.modifiedGear).append("path").attr("d", Spirograph.Shapes.Beam);
+            svgContainer.append('g').attr('class', 'gear color-changing').attr("transform", "translate(" + containerSize / 2 + "," + containerSize / 2 + ")").datum(beam.modifiedGear).append("path").attr("d", Spirograph.Shapes.Beam);
 
             // append a placeholder to the rotating gear list to keep the lists the same length visually
             var placeholderGearContainer = d3.select(rotatingContainer).append('div').attr({
                 'class': 'gear-container placeholder',
-                'data-tooth-count': 'placeholder'
+                'placeholder': 'true'
             });
         });
 
@@ -103,7 +106,9 @@ var Spirograph;
         }).forEach(function (ringGear) {
             var gearContainer = d3.select(fixedContainer).append('div').attr({
                 'class': 'gear-container',
-                'data-tooth-count': ringGear.originalGear.outerToothCount + '|' + ringGear.originalGear.innerToothCount
+                'data-tooth-count-1': ringGear.originalGear.outerToothCount,
+                'data-tooth-count-2': ringGear.originalGear.innerToothCount,
+                'gear-type': 'ring-gear'
             });
 
             var svgContainer = gearContainer.append("svg").attr({
@@ -113,12 +118,12 @@ var Spirograph;
 
             gearContainer.append('div').attr('class', 'gear-label color-changing ring-gear-label').html('<div>' + ringGear.originalGear.outerToothCount + '</div><hr /><div>' + ringGear.originalGear.innerToothCount + '</div>');
 
-            svgContainer.append('g').attr('class', 'gear fixed color-changing').attr("transform", "translate(" + containerSize / 2 + "," + containerSize / 2 + ")").datum(ringGear.modifiedGear).append("path").attr("d", Spirograph.Shapes.RingGear);
+            svgContainer.append('g').attr('class', 'gear color-changing').attr("transform", "translate(" + containerSize / 2 + "," + containerSize / 2 + ")").datum(ringGear.modifiedGear).append("path").attr("d", Spirograph.Shapes.RingGear);
 
             // append a placeholder to the rotating gear list to keep the lists the same length visually
             var placeholderGearContainer = d3.select(rotatingContainer).append('div').attr({
                 'class': 'gear-container placeholder',
-                'data-tooth-count': 'placeholder'
+                'placeholder': 'true'
             });
         });
 
@@ -126,20 +131,35 @@ var Spirograph;
         [fixedContainer, rotatingContainer].forEach(function (container) {
             d3.select(container).append('div').attr({
                 'class': 'gear-container placeholder',
-                'data-tooth-count': 'placeholder'
+                'placeholder': 'true'
             });
         });
 
         // add click events for all gear options
         $('#gear-options-selector').on('click', '.gear-container', function (ev) {
             var $target = $(ev.currentTarget);
-            var targetToothCount = $target.attr('data-tooth-count');
+            var gearSizes = [parseInt($target.attr('data-tooth-count-1'), 10), parseInt($target.attr('data-tooth-count-2'), 10)];
+            var isPlaceholder = $target.is('[placeholder]');
 
-            if (targetToothCount !== 'placeholder') {
+            if (!isPlaceholder) {
+                switch ($target.attr('gear-type')) {
+                    case 'gear':
+                        var gearType = 0 /* Gear */;
+                        break;
+                    case 'beam':
+                        var gearType = 2 /* Beam */;
+                        break;
+                    case 'ring-gear':
+                        var gearType = 1 /* RingGear */;
+                        break;
+                    default:
+                        throw 'Unknown type on gear-type attribute: ' + $target.attr('gear-type');
+                }
+
                 $target.addClass('selected').siblings().removeClass('selected');
-                var fixedOrRotating = $target.parents('.fixed-container').length !== 0 ? 'fixed' : 'rotating';
+                var fixedOrRotating = $target.parents('.fixed-container').length !== 0 ? 0 /* Fixed */ : 1 /* Rotating */;
 
-                Spirograph.EventAggregator.publish('gearSelected', targetToothCount, fixedOrRotating);
+                Spirograph.EventAggregator.publish('gearSelected', fixedOrRotating, gearType, gearSizes[0], gearSizes[1]);
             }
         });
     })(Spirograph.UI || (Spirograph.UI = {}));

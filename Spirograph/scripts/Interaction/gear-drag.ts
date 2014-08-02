@@ -85,6 +85,30 @@ module Spirograph.Interaction {
             holeOptions = hole;
         });
 
+        EventAggregator.subscribe('gearSelected', (fixedOrRotating: Shapes.GearRole, gearType: Shapes.GearType, ...gearSizes: number[]) => {
+            console.log(fixedOrRotating.toString() + ' gear selected: ' + gearSizes + (gearSizes[0] ? '|' + gearSizes[1] : '') + ', type of: ' + gearType.toString());
+
+            if (fixedOrRotating === Shapes.GearRole.Fixed) {
+                if (gearType === Shapes.GearType.Beam) {
+                    var newGearOptions: any = (new Shapes.BeamOptionsFactory()).create(gearSizes[0], gearSizes[1]);
+                    rotater = new Shapes.BeamRotater(newGearOptions);
+                } else if (gearType === Shapes.GearType.Gear) {
+                    var newGearOptions: any = (new Shapes.GearOptionsFactory()).create(gearSizes[0]);
+                    rotater = new Shapes.GearRotater(newGearOptions);
+                } else if (gearType === Shapes.GearType.RingGear) {
+                    var newGearOptions: any = (new Shapes.RingGearOptionsFactory()).create(gearSizes[0], gearSizes[1]);
+                    rotater = new Shapes.RingGearRotater(newGearOptions);
+                }
+
+                Interaction.changeFixedGear(svgContainer, gearType, newGearOptions);
+            } else {
+
+            }
+
+            previousTransformInfo = null;
+            moveGear(lastMouseAngle);
+        });
+
         // initialize the posiiton of the gear
         moveGear(0);
     }

@@ -22,10 +22,8 @@ var Spirograph;
                 var gearRotation = -360 * (((mouseAngleAsDegrees / 360) * 2 * Math.PI * (this._fixedGearOptions.radius)) / (2 * Math.PI * rotatingGearOptions.radius));
                 gearRotation -= (mouseAngleAsDegrees);
 
-                if ((this._fixedGearOptions.toothCount + rotatingGearOptions.toothCount) % 2 === 0) {
-                    // move the gear's rotation by half a tooth width, so the teeth visually mesh
-                    gearRotation += (360 / rotatingGearOptions.toothCount) / 2;
-                }
+                // move the gear's rotation by half a tooth width, so the teeth visually mesh
+                gearRotation += (360 / rotatingGearOptions.toothCount) / 2;
 
                 var penXModifer = holeOptions.positionRadius * Math.cos(Spirograph.Utility.toRadians(holeOptions.angle) + Spirograph.Utility.toRadians(gearRotation));
                 var penYModifier = holeOptions.positionRadius * Math.sin(Spirograph.Utility.toRadians(holeOptions.angle) + Spirograph.Utility.toRadians(gearRotation));

@@ -6,7 +6,7 @@ var Spirograph;
     // when changing these variables, make sure to change
     // the element's corresponding margin in the stylesheet
     Spirograph.canvasWidth = 1568;
-    Spirograph.canvasHeight = 712;
+    Spirograph.canvasHeight = 1008;
     Spirograph.svgWidth = 2560;
     Spirograph.svgHeight = 1440;
 

@@ -77,6 +77,7 @@
     <TypeScriptCompile Include="scripts\Initialization\initialize-color-selections.ts" />
     <TypeScriptCompile Include="scripts\Interaction\change-color.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-zoom.ts" />
+    <TypeScriptCompile Include="scripts\Interaction\change-fixed-gear.ts" />
     <TypeScriptCompile Include="scripts\Interaction\gear-drag.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamOptions.ts" />
@@ -85,8 +86,10 @@
     <TypeScriptCompile Include="scripts\Shapes\GearHole.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearHoleGenerator.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearOptions.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\GearRole.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearRotater.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamOptionsFactory.ts" />
+    <TypeScriptCompile Include="scripts\Shapes\GearType.ts" />
     <TypeScriptCompile Include="scripts\Shapes\RingGearOptionsFactory.ts" />
     <TypeScriptCompile Include="scripts\Shapes\GearOptionsFactory.ts" />
     <TypeScriptCompile Include="scripts\Shapes\HoleOptions.ts" />

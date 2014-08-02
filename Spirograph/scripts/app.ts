@@ -23,14 +23,6 @@ module Spirograph {
         // add shortcut here
     });
 
-    EventAggregator.subscribe('gearSelected', (gearSize: number, fixedOrRotating: string) => {
-
-        //alert(fixedOrRotating + ": " + gearSize.toString());
-        //gearOptions = (new Shapes.GearOptionsFactory()).create(gearSize);
-
-        console.log(fixedOrRotating + ' gear selected: ' + gearSize);
-    });
-
     Initialization.initializeGearSelections();
     Initialization.initializeColorSelections();
     Initialization.initializeHoleSelection();
