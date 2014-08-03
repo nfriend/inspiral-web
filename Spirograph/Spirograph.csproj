@@ -19,6 +19,7 @@
   <ItemGroup>
     <Content Include="favicon.ico" />
     <Content Include="Gruntfile.js" />
+    <Content Include="HowToBuild.txt" />
     <Content Include="index.html" />
     <Content Include="scripts\lib\linq.js" />
     <Content Include="styles\app.css">

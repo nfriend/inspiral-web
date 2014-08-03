@@ -6,6 +6,7 @@
     "bootstrap": "~3.x",
     "fontawesome": "4.x",
     "d3": "~3.4.11",
-    "jquery-mousewheel": "~3.1.12"
+    "jquery-mousewheel": "~3.1.12",
+    "jscrollpane": "~2.0.14"
   }
 }

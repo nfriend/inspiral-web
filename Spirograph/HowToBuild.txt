@@ -1,0 +1,10 @@
+﻿How To Build
+------------
+
+1. install Node.js
+2. install Grunt and Bower
+3. run 'npm install' and 'bower install' inside /Spirograph directory
+4. change the value '@fa-font-path' in /bower_components/fontawesome/less/variables.less from "../fonts" to "./"
+5. install WebEssentials VS plugin
+6. build and run!
+7. create a distribution build, runt 'grunt' inside the /Spirograph directory
