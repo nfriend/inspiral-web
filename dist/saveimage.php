@@ -15,15 +15,4 @@ if ($success) {
 	header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
 }
 
-foreach(glob('images/*.png') as $filename) {
-	$time = filemtime($filename);
-	$files[$time] = $filename;
-}
-ksort($files);
-
-if (count($files) > 50) {
-	$fileToDelete = array_shift($files);
-	unlink($fileToDelete);
-}
-
 ?>

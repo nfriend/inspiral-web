@@ -7,12 +7,12 @@ module Spirograph.Interaction {
         var canvas = <HTMLCanvasElement> d3.select('#spirograph-canvas').node();
         $.ajax({
             type: 'POST',
-            url: 'http://nathanfriend.com/saveimage.php',
+            url: 'saveimage.php',
             data: {
                 img: canvas.toDataURL()
             },
             success: (imagename) => {
-                location.href = "http://nathanfriend.com/getimage.php?imagename=" + imagename;
+                location.href = "getimage.php?imagename=" + imagename;
             }
         });
     });

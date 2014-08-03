@@ -8,12 +8,12 @@ var Spirograph;
             var canvas = d3.select('#spirograph-canvas').node();
             $.ajax({
                 type: 'POST',
-                url: 'http://nathanfriend.com/saveimage.php',
+                url: 'saveimage.php',
                 data: {
                     img: canvas.toDataURL()
                 },
                 success: function (imagename) {
-                    location.href = "http://nathanfriend.com/getimage.php?imagename=" + imagename;
+                    location.href = "getimage.php?imagename=" + imagename;
                 }
             });
         });
