@@ -4,6 +4,7 @@ module Spirograph.Interaction {
     'use strict';
 
     var lastMouseAngle = null,
+        lastAbsoluteMouseAngle = 0,
         rotationOffset = 0,
         previousTransformInfo: Shapes.TransformInfo = null;
 
@@ -64,22 +65,34 @@ module Spirograph.Interaction {
             lastMouseAngle = mouseAngle;
             mouseAngle += (rotationOffset * 360);
 
-            var transformInfo = rotater.rotate(rotatingGearOptions, mouseAngle, holeOptions);
+            var angleDelta = mouseAngle - lastAbsoluteMouseAngle;
+            console.log(lastAbsoluteMouseAngle, mouseAngle);
 
-            rotatingGear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
+            for (var i = lastAbsoluteMouseAngle; (angleDelta >= 0 && i <= mouseAngle) || (angleDelta < 0 && i >= mouseAngle); angleDelta >= 0 ? i++ : i--) {
 
-            if (previousTransformInfo !== null) {
-                var previousCanvasPenCoords = Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
-                var currentCanvasPenCoords = Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
+                // built in safegaurd in case strange things happen - we have no reason to ever animate more than a full rotation.
+                // we'll give it three rotations just to be safe.
+                if (i > lastAbsoluteMouseAngle + 1080 || i < lastAbsoluteMouseAngle - 1080) { break; }
 
-                ctx.beginPath();
-                ctx.moveTo(previousCanvasPenCoords.x, previousCanvasPenCoords.y);
-                ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
-                ctx.stroke();
-                ctx.closePath();
+                var transformInfo = rotater.rotate(rotatingGearOptions, i, holeOptions);
+
+                rotatingGear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
+
+                if (previousTransformInfo !== null) {
+                    var previousCanvasPenCoords = Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
+                    var currentCanvasPenCoords = Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
+
+                    ctx.beginPath();
+                    ctx.moveTo(previousCanvasPenCoords.x, previousCanvasPenCoords.y);
+                    ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+
+                previousTransformInfo = transformInfo;
             }
 
-            previousTransformInfo = transformInfo;
+            lastAbsoluteMouseAngle = mouseAngle;
 
             return false;
         };
@@ -116,11 +129,19 @@ module Spirograph.Interaction {
         });
 
         Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.RightArrow, () => {
-            moveGear(lastMouseAngle - 5);
+            moveGear(lastMouseAngle - 30);
+        });
+
+        Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.DownArrow, () => {
+            moveGear(lastMouseAngle - 30);
         });
 
         Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.LeftArrow, () => {
-            moveGear(lastMouseAngle + 5);
+            moveGear(lastMouseAngle + 30);
+        });
+
+        Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.UpArrow, () => {
+            moveGear(lastMouseAngle + 30);
         });
 
         // initialize the posiiton of the gear

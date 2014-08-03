@@ -7,8 +7,8 @@ var Spirograph;
     var svgContainer = Spirograph.Initialization.initializeSvg();
     Spirograph.Initialization.initializeZoom(canvas.node(), svgContainer.node());
 
-    var rotatingGearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(64);
-    var fixedGearOptions = (new Spirograph.Shapes.RingGearOptionsFactory(1)).create(144, 96);
+    var rotatingGearOptions = (new Spirograph.Shapes.GearOptionsFactory(1)).create(Spirograph.defaults.rotatingGearToothCount);
+    var fixedGearOptions = (new Spirograph.Shapes.RingGearOptionsFactory(1)).create(Spirograph.defaults.fixedGearOuterToothCount, Spirograph.defaults.fixedGearInnerToothCount);
     var fixedGear = Spirograph.Initialization.initializeFixedGear(svgContainer, fixedGearOptions);
     var rotatingGear = Spirograph.Initialization.initializeRotatingGear(svgContainer, rotatingGearOptions);
     var holeOptions = Spirograph.Initialization.initializeHoles(rotatingGear, rotatingGearOptions, Spirograph.defaults.holeIndex);

@@ -7,8 +7,8 @@ module Spirograph {
     var svgContainer = Initialization.initializeSvg();
     Initialization.initializeZoom(<HTMLCanvasElement>canvas.node(), <SVGElement>svgContainer.node());
 
-    var rotatingGearOptions = (new Shapes.GearOptionsFactory(1)).create(64);
-    var fixedGearOptions = (new Shapes.RingGearOptionsFactory(1)).create(144, 96);
+    var rotatingGearOptions = (new Shapes.GearOptionsFactory(1)).create(defaults.rotatingGearToothCount);
+    var fixedGearOptions = (new Shapes.RingGearOptionsFactory(1)).create(defaults.fixedGearOuterToothCount, defaults.fixedGearInnerToothCount);
     var fixedGear = Initialization.initializeFixedGear(svgContainer, fixedGearOptions);
     var rotatingGear = Initialization.initializeRotatingGear(svgContainer, rotatingGearOptions);
     var holeOptions = Initialization.initializeHoles(rotatingGear, rotatingGearOptions, defaults.holeIndex);

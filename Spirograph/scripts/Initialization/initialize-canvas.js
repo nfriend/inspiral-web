@@ -13,7 +13,7 @@ var Spirograph;
 
             var ctx = canvas.node().getContext('2d');
             ctx.lineWidth = 2;
-            ctx.lineCap = 'round';
+            ctx.lineCap = 'butt';
 
             return canvas;
         }

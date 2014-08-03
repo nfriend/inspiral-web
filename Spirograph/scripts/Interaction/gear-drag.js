@@ -4,7 +4,7 @@ var Spirograph;
     (function (Interaction) {
         'use strict';
 
-        var lastMouseAngle = null, rotationOffset = 0, previousTransformInfo = null;
+        var lastMouseAngle = null, lastAbsoluteMouseAngle = 0, rotationOffset = 0, previousTransformInfo = null;
 
         function attachDragHandlers(svgContainer, rotatingGear, canvas, rotater, rotatingGearOptions, holeOptions) {
             var ctx = canvas.getContext('2d');
@@ -60,22 +60,35 @@ var Spirograph;
                 lastMouseAngle = mouseAngle;
                 mouseAngle += (rotationOffset * 360);
 
-                var transformInfo = rotater.rotate(rotatingGearOptions, mouseAngle, holeOptions);
+                var angleDelta = mouseAngle - lastAbsoluteMouseAngle;
+                console.log(lastAbsoluteMouseAngle, mouseAngle);
 
-                rotatingGear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
+                for (var i = lastAbsoluteMouseAngle; (angleDelta >= 0 && i <= mouseAngle) || (angleDelta < 0 && i >= mouseAngle); angleDelta >= 0 ? i++ : i--) {
+                    // built in safegaurd in case strange things happen - we have no reason to ever animate more than a full rotation.
+                    // we'll give it three rotations just to be safe.
+                    if (i > lastAbsoluteMouseAngle + 1080 || i < lastAbsoluteMouseAngle - 1080) {
+                        break;
+                    }
 
-                if (previousTransformInfo !== null) {
-                    var previousCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
-                    var currentCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
+                    var transformInfo = rotater.rotate(rotatingGearOptions, i, holeOptions);
 
-                    ctx.beginPath();
-                    ctx.moveTo(previousCanvasPenCoords.x, previousCanvasPenCoords.y);
-                    ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
-                    ctx.stroke();
-                    ctx.closePath();
+                    rotatingGear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
+
+                    if (previousTransformInfo !== null) {
+                        var previousCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
+                        var currentCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
+
+                        ctx.beginPath();
+                        ctx.moveTo(previousCanvasPenCoords.x, previousCanvasPenCoords.y);
+                        ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
+                        ctx.stroke();
+                        ctx.closePath();
+                    }
+
+                    previousTransformInfo = transformInfo;
                 }
 
-                previousTransformInfo = transformInfo;
+                lastAbsoluteMouseAngle = mouseAngle;
 
                 return false;
             }
@@ -116,11 +129,19 @@ var Spirograph;
             });
 
             Interaction.KeyboardShortcutManager.add(39 /* RightArrow */, function () {
-                moveGear(lastMouseAngle - 5);
+                moveGear(lastMouseAngle - 30);
+            });
+
+            Interaction.KeyboardShortcutManager.add(40 /* DownArrow */, function () {
+                moveGear(lastMouseAngle - 30);
             });
 
             Interaction.KeyboardShortcutManager.add(37 /* LeftArrow */, function () {
-                moveGear(lastMouseAngle + 5);
+                moveGear(lastMouseAngle + 30);
+            });
+
+            Interaction.KeyboardShortcutManager.add(38 /* UpArrow */, function () {
+                moveGear(lastMouseAngle + 30);
             });
 
             // initialize the posiiton of the gear

@@ -14,7 +14,7 @@ module Spirograph.Initialization {
 
         var ctx = (<HTMLCanvasElement> canvas.node()).getContext('2d');
         ctx.lineWidth = 2;
-        ctx.lineCap = 'round';
+        ctx.lineCap = 'butt';
 
         return canvas;
     }
