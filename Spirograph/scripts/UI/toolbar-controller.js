@@ -7,9 +7,8 @@ var Spirograph;
         var $toolbarContainer = $('#toolbar-container'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), gearsAreVisible = true;
 
         $downloadButton.tooltip({
-            title: 'Download as image<br />(coming soon)',
-            placement: 'bottom',
-            html: true
+            title: 'Download as image',
+            placement: 'bottom'
         });
 
         $showHideGearsButton.tooltip({

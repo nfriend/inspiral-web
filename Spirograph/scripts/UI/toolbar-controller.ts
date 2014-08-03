@@ -11,9 +11,8 @@ module Spirograph.UI {
         gearsAreVisible = true;
 
     $downloadButton.tooltip({
-        title: 'Download as image<br />(coming soon)',
-        placement: 'bottom',
-        html: true
+        title: 'Download as image',
+        placement: 'bottom'
     });
 
     $showHideGearsButton.tooltip({
