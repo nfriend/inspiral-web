@@ -64,6 +64,10 @@ var Spirograph;
 
             Spirograph.EventAggregator.publish('gearVisibilityChange', gearsAreVisible);
         });
+
+        $downloadButton.click(function () {
+            Spirograph.EventAggregator.publish('downloadImage');
+        });
     })(Spirograph.UI || (Spirograph.UI = {}));
     var UI = Spirograph.UI;
 })(Spirograph || (Spirograph = {}));

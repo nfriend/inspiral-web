@@ -61,6 +61,7 @@
     <TypeScriptCompile Include="scripts\Interaction\change-gear-visibility.ts" />
     <TypeScriptCompile Include="scripts\Interaction\change-rotating-gear.ts" />
     <TypeScriptCompile Include="scripts\Interaction\clear-canvas.ts" />
+    <TypeScriptCompile Include="scripts\Interaction\download-image.ts" />
     <TypeScriptCompile Include="scripts\Interaction\gear-drag.ts" />
     <TypeScriptCompile Include="scripts\Interaction\remember-last-hole-selection.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
@@ -98,6 +99,8 @@
     <Content Include="styles\fontawesome-webfont.ttf" />
     <Content Include="styles\fontawesome-webfont.woff" />
     <Content Include="styles\FontAwesome.otf" />
+    <Content Include="server\getimage.php" />
+    <Content Include="server\saveimage.php" />
     <None Include="styles\_jsscrollpane-modifications.less" />
   </ItemGroup>
   <ItemGroup>

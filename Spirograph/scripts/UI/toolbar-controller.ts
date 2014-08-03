@@ -68,4 +68,8 @@ module Spirograph.UI {
 
         EventAggregator.publish('gearVisibilityChange', gearsAreVisible);
     });
+
+    $downloadButton.click(() => {
+        EventAggregator.publish('downloadImage');
+    });
 } 
