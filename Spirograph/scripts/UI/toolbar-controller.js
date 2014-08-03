@@ -45,6 +45,7 @@ var Spirograph;
         $clearButton.on('click', function (e) {
             e.stopPropagation();
             $clearButton.popover('show');
+            $clearButton.tooltip('hide');
             attachCloseAllPopoversHandler();
         });
 
