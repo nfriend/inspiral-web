@@ -1,9 +1,0 @@
-{
-  "version": 3,
-  "file": "jsscrollpane-modifications.css",
-  "sources": [
-    "jsscrollpane-modifications.less"
-  ],
-  "names": [],
-  "mappings": "AACA,iBACI;EACI,uBAAA;;AAFR,iBACI,gBAGI;EACI,uBAAA;;AALZ,iBACI,gBAGI,UAGI;EACI,uBAAA;EACA,gDAAA;;AAKZ,iBAAC,oBACG,gBACI,UACI;EACI,YAAA;;AAMhB,iBAAC,gBACG;EACI,OAAA;;AAFR,iBAAC,gBACG,gBAGI,UACI;EACI,+CAAA;EACA,kBAAA;;AAOpB,KACI,kBACI,gBACI,UACI;EACI,gDAAA;;AAKZ,KATJ,kBASK,oBACG,gBACI,UACI;EACI,YAAA;;AAMhB,KAnBJ,kBAmBK,gBACG;EACI,OAAA;;AAFR,KAnBJ,kBAmBK,gBACG,gBAGI,UACI;EACI,+CAAA;EACA,kBAAA"
-}

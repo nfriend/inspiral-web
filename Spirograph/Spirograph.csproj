@@ -27,36 +27,14 @@
     <Content Include="styles\app.min.css">
       <DependentUpon>app.css</DependentUpon>
     </Content>
-    <Content Include="styles\base.css">
-      <DependentUpon>base.less</DependentUpon>
-    </Content>
-    <Content Include="styles\base.min.css">
-      <DependentUpon>base.css</DependentUpon>
-    </Content>
-    <Content Include="styles\color-selector.css">
-      <DependentUpon>color-selector.less</DependentUpon>
-    </Content>
-    <Content Include="styles\color-selector.min.css">
-      <DependentUpon>color-selector.css</DependentUpon>
-    </Content>
-    <Content Include="styles\gear-options-selector.css">
-      <DependentUpon>gear-options-selector.less</DependentUpon>
-    </Content>
-    <Content Include="styles\gear-options-selector.min.css">
-      <DependentUpon>gear-options-selector.css</DependentUpon>
-    </Content>
-    <Content Include="styles\jsscrollpane-modifications.css">
-      <DependentUpon>jsscrollpane-modifications.less</DependentUpon>
-    </Content>
-    <Content Include="styles\jsscrollpane-modifications.min.css">
-      <DependentUpon>jsscrollpane-modifications.css</DependentUpon>
-    </Content>
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="scripts\app.ts" />
     <TypeScriptCompile Include="scripts\browser-specific.ts" />
     <TypeScriptCompile Include="scripts\defaults.ts" />
+    <TypeScriptCompile Include="scripts\definitions\bootstrap\bootstrap-tests.ts" />
+    <TypeScriptCompile Include="scripts\definitions\bootstrap\bootstrap.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\d3\d3-tests.ts" />
     <TypeScriptCompile Include="scripts\definitions\d3\d3.d.ts" />
     <TypeScriptCompile Include="scripts\definitions\d3\plugins\d3.superformula-tests.ts" />
@@ -78,7 +56,9 @@
     <TypeScriptCompile Include="scripts\Interaction\change-color.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-zoom.ts" />
     <TypeScriptCompile Include="scripts\Interaction\change-fixed-gear.ts" />
+    <TypeScriptCompile Include="scripts\Interaction\change-gear-visibility.ts" />
     <TypeScriptCompile Include="scripts\Interaction\change-rotating-gear.ts" />
+    <TypeScriptCompile Include="scripts\Interaction\clear-canvas.ts" />
     <TypeScriptCompile Include="scripts\Interaction\gear-drag.ts" />
     <TypeScriptCompile Include="scripts\Interaction\remember-last-hole-selection.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
@@ -110,11 +90,9 @@
     <TypeScriptCompile Include="scripts\UI\download-image.ts" />
     <TypeScriptCompile Include="scripts\UI\gear-options-selector.ts" />
     <TypeScriptCompile Include="scripts\UI\initialize-jscrollpane.ts" />
+    <TypeScriptCompile Include="scripts\UI\toolbar-controller.ts" />
     <TypeScriptCompile Include="scripts\Utility\utility.ts" />
-    <Content Include="styles\jsscrollpane-modifications.css.map">
-      <DependentUpon>jsscrollpane-modifications.css</DependentUpon>
-    </Content>
-    <None Include="styles\jsscrollpane-modifications.less" />
+    <None Include="styles\_jsscrollpane-modifications.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower.json" />
@@ -125,20 +103,12 @@
     </Content>
     <Content Include="scripts\definitions\d3\d3-tests.ts.tscparams" />
     <Content Include="scripts\definitions\d3\plugins\d3.superformula-tests.ts.tscparams" />
-    <Content Include="styles\gear-options-selector.less" />
-    <Content Include="styles\base.less" />
-    <Content Include="styles\gear-options-selector.css.map">
-      <DependentUpon>gear-options-selector.css</DependentUpon>
-    </Content>
-    <Content Include="styles\color-selector.less" />
-    <Content Include="styles\color-selector.css.map">
-      <DependentUpon>color-selector.css</DependentUpon>
-    </Content>
-    <Content Include="styles\base.css.map">
-      <DependentUpon>base.css</DependentUpon>
-    </Content>
+    <Content Include="styles\_gear-options-selector.less" />
+    <Content Include="styles\_base.less" />
+    <Content Include="styles\_color-selector.less" />
     <Content Include="package.json" />
     <Content Include="scripts\definitions\jscrollpane\jscrollpane.d.ts.tscparams" />
+    <Content Include="styles\_toolbar-container.less" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

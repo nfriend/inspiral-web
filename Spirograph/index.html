@@ -13,7 +13,7 @@
 
 </head>
 <body class="spirograph">
-    <a id="download-link" target="_blank">download image</a>
+    <!--<a id="download-link" target="_blank">download image</a>-->
     <p style="" id="output"></p>
 
     <div id="gear-options-background-color"></div>
@@ -31,7 +31,7 @@
     <div id="color-options-background-color"></div>
     <div id="color-selector">
         <div class="foreground-container">
-            <p class="color-changing selector-header selector-header-right">pen</p>
+            <p class="color-changing selector-header selector-header-right" style="margin-right: 17px">pen</p>
             <div class="scroll-container scroll-bar-left"></div>
         </div>
         <div class="background-container">
@@ -40,11 +40,26 @@
         </div>
     </div>
 
+    <div id="toolbar-container">
+        <button id="show-hide-gears-button" class="toolbar-button btn btn-default" data-toggle="button">
+            <i class="fa fa-2x fa-eye"></i>
+        </button>
+
+        <button id="download-button" class="toolbar-button btn btn-default">
+            <i class="fa fa-2x fa-download"></i>
+        </button>
+
+        <button id="clear-button" class="toolbar-button btn btn-default">
+            <i class="fa fa-2x fa-eraser"></i>
+        </button>
+    </div>
+
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="scripts/lib/linq.js"></script>
     <script src="bower_components/d3/d3.js"></script>
     <script src="bower_components/jquery-mousewheel/jquery.mousewheel.js"></script>
     <script src="bower_components/jscrollpane/script/jquery.jscrollpane.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script src="scripts/EventAggregator.js"></script>
     <script src="scripts/dimensions.js"></script>
@@ -60,6 +75,8 @@
     <script src="scripts/Interaction/change-fixed-gear.js"></script>
     <script src="scripts/Interaction/change-rotating-gear.js"></script>
     <script src="scripts/Interaction/remember-last-hole-selection.js"></script>
+    <script src="scripts/Interaction/clear-canvas.js"></script>
+    <script src="scripts/Interaction/change-gear-visibility.js"></script>
 
     <script src="scripts/SVG/PathBuilder.js"></script>
     <script src="scripts/SVG/PathCommand.js"></script>
@@ -91,6 +108,7 @@
     <script src="scripts/UI/color-selector.js"></script>
     <script src="scripts/UI/download-image.js"></script>
     <script src="scripts/UI/initialize-jscrollpane.js"></script>
+    <script src="scripts/UI/toolbar-controller.js"></script>
 
     <script src="scripts/Initialization/initialize-canvas.js"></script>
     <script src="scripts/Initialization/initialize-color-selections.js"></script>

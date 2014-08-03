@@ -1,9 +1,0 @@
-{
-  "version": 3,
-  "file": "base.css",
-  "sources": [
-    "base.less"
-  ],
-  "names": [],
-  "mappings": "AAcA;AAAG,CAAC;AAAS,CAAC;EACV,8BAAA;EACA,2BAAA;EACA,sBAAA;;AAGJ;EACI,aAAa,uBAAb;EACA,gBAAA"
-}
