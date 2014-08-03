@@ -115,6 +115,14 @@ var Spirograph;
                 moveGear(lastMouseAngle);
             });
 
+            Interaction.KeyboardShortcutManager.add(39 /* RightArrow */, function () {
+                moveGear(lastMouseAngle - 5);
+            });
+
+            Interaction.KeyboardShortcutManager.add(37 /* LeftArrow */, function () {
+                moveGear(lastMouseAngle + 5);
+            });
+
             // initialize the posiiton of the gear
             moveGear(0);
         }

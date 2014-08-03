@@ -14,13 +14,7 @@ var Spirograph;
     var holeOptions = Spirograph.Initialization.initializeHoles(rotatingGear, rotatingGearOptions, Spirograph.defaults.holeIndex);
     var rotater = new Spirograph.Shapes.RingGearRotater(fixedGearOptions);
 
-    //var rotater: Shapes.Rotater = new Shapes.BeamRotater(beamOptions);
-    //var rotater: Shapes.Rotater = new Shapes.GearRotater(fixedGearOptions);
     Spirograph.Interaction.attachDragHandlers(svgContainer, rotatingGear, canvas.node(), rotater, rotatingGearOptions, holeOptions);
-
-    Spirograph.Interaction.KeyboardShortcutManager.add(39 /* RightArrow */, function () {
-        // add shortcut here
-    });
 
     Spirograph.Initialization.initializeGearSelections();
     Spirograph.Initialization.initializeColorSelections();

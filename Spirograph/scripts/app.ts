@@ -14,14 +14,7 @@ module Spirograph {
     var holeOptions = Initialization.initializeHoles(rotatingGear, rotatingGearOptions, defaults.holeIndex);
     var rotater: Shapes.Rotater = new Shapes.RingGearRotater(fixedGearOptions);
 
-    //var rotater: Shapes.Rotater = new Shapes.BeamRotater(beamOptions);
-    //var rotater: Shapes.Rotater = new Shapes.GearRotater(fixedGearOptions);
-
     Interaction.attachDragHandlers(svgContainer, rotatingGear, (<HTMLCanvasElement>canvas.node()), rotater, rotatingGearOptions, holeOptions);
-
-    Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.RightArrow, () => {
-        // add shortcut here
-    });
 
     Initialization.initializeGearSelections();
     Initialization.initializeColorSelections();

@@ -115,6 +115,14 @@ module Spirograph.Interaction {
             moveGear(lastMouseAngle);
         });
 
+        Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.RightArrow, () => {
+            moveGear(lastMouseAngle - 5);
+        });
+
+        Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.LeftArrow, () => {
+            moveGear(lastMouseAngle + 5);
+        });
+
         // initialize the posiiton of the gear
         moveGear(0);
     }
