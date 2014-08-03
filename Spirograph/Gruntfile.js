@@ -41,6 +41,17 @@ module.exports = function (grunt) {
                 src: ['scripts/**'],
                 dest: '../dist/',
                 expand: true
+            },
+            fonts: {
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ['bower_components/fontawesome/fonts/**'],
+                        dest: '../dist/',
+                        filter: 'isFile'
+                    }
+                ]
             }
         },
 
@@ -84,7 +95,7 @@ module.exports = function (grunt) {
     grunt.registerTask(
         'dist',
         'Compiles all of the assets and copies the files to the dist directory',
-        ['clean:everything', 'dom_munger:dist', 'copy:favicon', 'copy:css', 'copy:scripts', 'uglify', 'htmlmin:dist', 'clean:dist']
+        ['clean:everything', 'dom_munger:dist', 'copy:favicon', 'copy:css', 'copy:scripts', 'copy:fonts', 'uglify', 'htmlmin:dist', 'clean:dist']
     );
     grunt.registerTask(
         'default',

@@ -27,6 +27,7 @@
     <Content Include="styles\app.min.css">
       <DependentUpon>app.css</DependentUpon>
     </Content>
+    <Content Include="styles\fontawesome-webfont.svg" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +93,10 @@
     <TypeScriptCompile Include="scripts\UI\initialize-jscrollpane.ts" />
     <TypeScriptCompile Include="scripts\UI\toolbar-controller.ts" />
     <TypeScriptCompile Include="scripts\Utility\utility.ts" />
+    <Content Include="styles\fontawesome-webfont.eot" />
+    <Content Include="styles\fontawesome-webfont.ttf" />
+    <Content Include="styles\fontawesome-webfont.woff" />
+    <Content Include="styles\FontAwesome.otf" />
     <None Include="styles\_jsscrollpane-modifications.less" />
   </ItemGroup>
   <ItemGroup>
