@@ -18,6 +18,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <Content Include="gallery.html" />
     <Content Include="Gruntfile.js" />
     <Content Include="HowToBuild.txt" />
     <Content Include="index.html" />
@@ -101,6 +102,7 @@
     <Content Include="styles\FontAwesome.otf" />
     <Content Include="server\getimage.php" />
     <Content Include="server\saveimage.php" />
+    <Content Include="server\getallimagenames.php" />
     <None Include="styles\_jsscrollpane-modifications.less" />
   </ItemGroup>
   <ItemGroup>

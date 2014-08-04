@@ -89,6 +89,7 @@ var Spirograph;
                 }
 
                 lastAbsoluteMouseAngle = mouseAngle;
+                console.log('lastAbsoluteMouseAngle: ' + lastAbsoluteMouseAngle);
 
                 return false;
             }
@@ -129,19 +130,19 @@ var Spirograph;
             });
 
             Interaction.KeyboardShortcutManager.add(39 /* RightArrow */, function () {
-                moveGear(lastMouseAngle - 30);
+                moveGear(lastAbsoluteMouseAngle - 29.253);
             });
 
             Interaction.KeyboardShortcutManager.add(40 /* DownArrow */, function () {
-                moveGear(lastMouseAngle - 30);
+                moveGear(lastAbsoluteMouseAngle - 29.253);
             });
 
             Interaction.KeyboardShortcutManager.add(37 /* LeftArrow */, function () {
-                moveGear(lastMouseAngle + 30);
+                moveGear(lastAbsoluteMouseAngle + 29.253);
             });
 
             Interaction.KeyboardShortcutManager.add(38 /* UpArrow */, function () {
-                moveGear(lastMouseAngle + 30);
+                moveGear(lastAbsoluteMouseAngle + 29.253);
             });
 
             // initialize the posiiton of the gear

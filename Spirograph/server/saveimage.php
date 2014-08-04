@@ -9,6 +9,19 @@ $filename = uniqid() . '.png';
 $file = UPLOAD_DIR . $filename;
 $success = file_put_contents($file, $data);
 
+$image = imagecreatefrompng($file);
+$imageWidth = imagesx($image);
+$imageHeight = imagesy($image);
+$background = imagecreatetruecolor($imageWidth, $imageHeight);
+
+imagealphablending($background, true);
+imagesavealpha($background, true);
+
+$backgroundColor = imagecolorallocate($background, $_POST['red'], $_POST['green'], $_POST['blue']);
+imagefill($background, 0, 0, $backgroundColor);
+imagecopy($background, $image, 0, 0, 0, 0, $imageWidth, $imageHeight);
+imagepng($background, $file);
+
 if ($success) {
 	print($filename);
 } else {
@@ -21,7 +34,7 @@ foreach(glob('images/*.png') as $filename) {
 }
 ksort($files);
 
-if (count($files) > 50) {
+if (count($files) > 48) {
 	$fileToDelete = array_shift($files);
 	unlink($fileToDelete);
 }
