@@ -4,11 +4,12 @@ var Spirograph;
     (function (UI) {
         'use strict';
 
-        var $toolbarContainer = $('#toolbar-container'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), gearsAreVisible = true;
+        var $toolbarContainer = $('#toolbar-container'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $galleryButton = $('#gallery-button'), gearsAreVisible = true;
 
         $downloadButton.tooltip({
-            title: 'Download as image',
-            placement: 'bottom'
+            title: 'Download and save<br />to the gallery',
+            placement: 'bottom',
+            html: true
         });
 
         $showHideGearsButton.tooltip({
@@ -18,6 +19,11 @@ var Spirograph;
 
         $clearButton.tooltip({
             title: 'Erase everything',
+            placement: 'bottom'
+        });
+
+        $galleryButton.tooltip({
+            title: 'View the gallery',
             placement: 'bottom'
         });
 
@@ -66,6 +72,14 @@ var Spirograph;
 
         $downloadButton.click(function () {
             Spirograph.EventAggregator.publish('downloadImage');
+        });
+
+        $galleryButton.click(function () {
+            // there might be a better way to do this
+            var $link = $('<a href="gallery.html" target="_blank" style="display: none;"></a>');
+            $body.append($link);
+            $link[0].click();
+            $link.remove();
         });
     })(Spirograph.UI || (Spirograph.UI = {}));
     var UI = Spirograph.UI;

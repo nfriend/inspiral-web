@@ -8,11 +8,13 @@ module Spirograph.UI {
         $body = $('body'),
         $showHideGearsButton = $('#show-hide-gears-button'),
         $downloadButton = $('#download-button'),
+        $galleryButton = $('#gallery-button'),
         gearsAreVisible = true;
 
     $downloadButton.tooltip({
-        title: 'Download as image',
-        placement: 'bottom'
+        title: 'Download and save<br />to the gallery',
+        placement: 'bottom',
+        html: true
     });
 
     $showHideGearsButton.tooltip({
@@ -23,6 +25,11 @@ module Spirograph.UI {
     $clearButton.tooltip({
         title: 'Erase everything',
         placement: 'bottom',
+    });
+
+    $galleryButton.tooltip({
+        title: 'View the gallery',
+        placement: 'bottom'
     });
 
     // closes all modals, and then removes itself
@@ -70,5 +77,13 @@ module Spirograph.UI {
 
     $downloadButton.click(() => {
         EventAggregator.publish('downloadImage');
+    });
+
+    $galleryButton.click(() => {
+        // there might be a better way to do this
+        var $link = $('<a href="gallery.html" target="_blank" style="display: none;"></a>');
+        $body.append($link);
+        $link[0].click();
+        $link.remove();
     });
 } 
