@@ -73,7 +73,11 @@
 
             function formatImagePath(imagepath) {
                 //return 'http://nathanfriend.com/inspirograph/' + imagepath
-                return imagepath
+                return imagepath;
+            }
+
+            function getThumbnail(imagepath) {
+                return imagepath.replace('.png', '_thumb.jpg');
             }
 
             $.ajax({
@@ -83,9 +87,9 @@
                 success: function (images) {
                     for (var image in images) {
                         if (images.hasOwnProperty(image)) {
-                            var row = $('<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12"></div>');
+                            var row = $('<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"></div>');
                             var link = $('<a href="' + formatImagePath(images[image].imagepath) + '" class="swipebox" title="' + formatDate(images[image].timestamp) + '">');
-                            var img = $('<img class="img-responsive" src="' + formatImagePath(images[image].imagepath) + '" alt="image">');
+                            var img = $('<img class="img-responsive" src="' + formatImagePath(getThumbnail(images[image].imagepath)) + '" alt="image">');
 
                             img.appendTo(link);
                             link.appendTo(row);
