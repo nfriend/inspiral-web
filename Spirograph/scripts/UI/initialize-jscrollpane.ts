@@ -25,7 +25,6 @@ module Spirograph.UI {
                 throttleTimeout = setTimeout(() => {
                     api.reinitialise();
                     throttleTimeout = null;
-                    console.log('getIsScrollabelV: ' + api.getIsScrollableV());
                 }, 50);
             }
         });

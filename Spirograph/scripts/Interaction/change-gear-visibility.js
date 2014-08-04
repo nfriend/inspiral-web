@@ -5,8 +5,6 @@ var Spirograph;
         'use strict';
 
         Spirograph.EventAggregator.subscribe('gearVisibilityChange', function (newVisibility) {
-            console.log(d3.selectAll('.gear.fixed, .gear.rotating').size());
-
             d3.selectAll('.gear.fixed, .gear.rotating').style('visibility', newVisibility ? 'visible' : 'hidden');
         });
     })(Spirograph.Interaction || (Spirograph.Interaction = {}));

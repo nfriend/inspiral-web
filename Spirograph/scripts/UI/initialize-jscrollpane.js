@@ -22,7 +22,6 @@ var Spirograph;
                     throttleTimeout = setTimeout(function () {
                         api.reinitialise();
                         throttleTimeout = null;
-                        console.log('getIsScrollabelV: ' + api.getIsScrollableV());
                     }, 50);
                 }
             });

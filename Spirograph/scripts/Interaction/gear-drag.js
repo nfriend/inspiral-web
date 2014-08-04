@@ -61,7 +61,6 @@ var Spirograph;
                 mouseAngle += (rotationOffset * 360);
 
                 var angleDelta = mouseAngle - lastAbsoluteMouseAngle;
-                console.log(lastAbsoluteMouseAngle, mouseAngle);
 
                 for (var i = lastAbsoluteMouseAngle; (angleDelta >= 0 && i <= mouseAngle) || (angleDelta < 0 && i >= mouseAngle); angleDelta >= 0 ? i++ : i--) {
                     // built in safegaurd in case strange things happen - we have no reason to ever animate more than a full rotation.
@@ -89,7 +88,6 @@ var Spirograph;
                 }
 
                 lastAbsoluteMouseAngle = mouseAngle;
-                console.log('lastAbsoluteMouseAngle: ' + lastAbsoluteMouseAngle);
 
                 return false;
             }

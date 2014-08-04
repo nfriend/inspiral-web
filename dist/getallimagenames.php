@@ -7,7 +7,7 @@ foreach(glob('images/*.png') as $filename) {
 		timestamp => $time
 	);
 }
-krsort($files);
+ksort($files);
 
 print json_encode($files);
 

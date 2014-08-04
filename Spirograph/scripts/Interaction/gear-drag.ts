@@ -66,7 +66,6 @@ module Spirograph.Interaction {
             mouseAngle += (rotationOffset * 360);
 
             var angleDelta = mouseAngle - lastAbsoluteMouseAngle;
-            console.log(lastAbsoluteMouseAngle, mouseAngle);
 
             for (var i = lastAbsoluteMouseAngle; (angleDelta >= 0 && i <= mouseAngle) || (angleDelta < 0 && i >= mouseAngle); angleDelta >= 0 ? i++ : i--) {
 
@@ -93,7 +92,6 @@ module Spirograph.Interaction {
             }
 
             lastAbsoluteMouseAngle = mouseAngle;
-            console.log('lastAbsoluteMouseAngle: ' + lastAbsoluteMouseAngle);
 
             return false;
         };

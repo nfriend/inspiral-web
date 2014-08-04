@@ -63,6 +63,17 @@ module.exports = function (grunt) {
                         filter: 'isFile'
                     }
                 ]
+            },
+            misc: {
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ['gallery.html'],
+                        dest: '../dist/',
+                        filter: 'isFile'
+                    }
+                ]
             }
         },
 
@@ -106,7 +117,7 @@ module.exports = function (grunt) {
     grunt.registerTask(
         'dist',
         'Compiles all of the assets and copies the files to the dist directory',
-        ['clean:everything', 'dom_munger:dist', 'copy:favicon', 'copy:css', 'copy:scripts', 'copy:fonts', 'copy:server', 'uglify', 'htmlmin:dist', 'clean:dist']
+        ['clean:everything', 'dom_munger:dist', 'copy:favicon', 'copy:css', 'copy:scripts', 'copy:fonts', 'copy:server', 'copy:misc', 'uglify', 'htmlmin:dist', 'clean:dist']
     );
     grunt.registerTask(
         'default',
