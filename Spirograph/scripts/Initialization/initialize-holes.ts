@@ -14,6 +14,10 @@ module Spirograph.Initialization {
                 .datum(hole)
                 .attr('d', Shapes.GearHole);
 
+            holeObject.on('mousedown', () => {
+                d3.event.stopPropagation();
+            });
+
             holeObject.on('click', () => {
                 d3.selectAll('.gear-hole.selected').classed('selected', false);
                 holeObject.classed('selected', true);

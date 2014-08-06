@@ -30,10 +30,17 @@ var Spirograph;
             }
 
             function updateCursorTrackerLocation() {
-                cursorTracker.attr({
-                    x2: d3.mouse(svgContainer.node())[0],
-                    y2: d3.mouse(svgContainer.node())[1]
-                });
+                if (Spirograph.browser.browser === 0 /* Chrome */) {
+                    cursorTracker.attr({
+                        x2: d3.mouse(svgContainer.node())[0] / Spirograph.scaleFactor,
+                        y2: d3.mouse(svgContainer.node())[1] / Spirograph.scaleFactor
+                    });
+                } else {
+                    cursorTracker.attr({
+                        x2: d3.mouse(svgContainer.node())[0],
+                        y2: d3.mouse(svgContainer.node())[1]
+                    });
+                }
             }
             ;
 

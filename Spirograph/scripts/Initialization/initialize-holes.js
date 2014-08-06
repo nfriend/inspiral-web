@@ -12,6 +12,10 @@ var Spirograph;
             allHoleOptions.forEach(function (hole, index) {
                 var holeObject = gear.append('path').attr('class', 'gear-hole').datum(hole).attr('d', Spirograph.Shapes.GearHole);
 
+                holeObject.on('mousedown', function () {
+                    d3.event.stopPropagation();
+                });
+
                 holeObject.on('click', function () {
                     d3.selectAll('.gear-hole.selected').classed('selected', false);
                     holeObject.classed('selected', true);

@@ -34,10 +34,18 @@ module Spirograph.Interaction {
         }
 
         function updateCursorTrackerLocation() {
-            cursorTracker.attr({
-                x2: d3.mouse(svgContainer.node())[0],
-                y2: d3.mouse(svgContainer.node())[1]
-            });
+            if (browser.browser === Browser.Chrome) {
+                cursorTracker.attr({
+                    x2: d3.mouse(svgContainer.node())[0] / scaleFactor,
+                    y2: d3.mouse(svgContainer.node())[1] / scaleFactor
+                });
+            }
+            else {
+                cursorTracker.attr({
+                    x2: d3.mouse(svgContainer.node())[0],
+                    y2: d3.mouse(svgContainer.node())[1]
+                });
+            }
         };
 
         attachHandlersToRotatingGear();
