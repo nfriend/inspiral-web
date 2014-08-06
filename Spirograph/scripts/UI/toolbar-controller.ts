@@ -76,7 +76,11 @@ module Spirograph.UI {
     });
 
     $downloadButton.click(() => {
-        EventAggregator.publish('downloadImage');
+        var icon = $downloadButton.addClass('disabled').find('i').removeClass('fa-download').addClass('fa-cog fa-spin');
+        EventAggregator.publish('downloadImage', () => {
+            icon.removeClass('fa-cog fa-spin').addClass('fa-download');
+            $downloadButton.removeClass('disabled');
+        });
     });
 
     $galleryButton.click(() => {

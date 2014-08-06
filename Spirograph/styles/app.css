@@ -8271,6 +8271,8 @@ body {
 #toolbar-container .toolbar-button {
   padding-top: 10px;
   padding-bottom: 10px;
+  width: 54px;
+  height: 54px;
 }
 .spirograph #spirograph-svg {
   margin-left: -1280px;

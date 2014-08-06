@@ -7,6 +7,8 @@ var Spirograph;
         function changeFixedGear(svgContainer, newGearType, newGearOptions) {
             d3.selectAll('.gear.fixed').remove();
 
+            var isDarkMode = $('body').is('.dark');
+
             if (newGearType == 2 /* Beam */) {
                 var shapeToMake = Spirograph.Shapes.Beam;
             } else if (newGearType == 0 /* Gear */) {
@@ -15,7 +17,7 @@ var Spirograph;
                 var shapeToMake = Spirograph.Shapes.RingGear;
             }
 
-            var fixedGear = svgContainer.append("g").attr("class", "gear ring-gear fixed color-changing").attr("transform", "translate(" + Spirograph.getSvgCenterX() + "," + Spirograph.getSvgCenterY() + ")").datum(newGearOptions).append("path").attr("d", shapeToMake);
+            var fixedGear = svgContainer.append("g").attr("class", "gear ring-gear fixed color-changing" + (isDarkMode ? ' dark' : '')).attr("transform", "translate(" + Spirograph.getSvgCenterX() + "," + Spirograph.getSvgCenterY() + ")").datum(newGearOptions).append("path").attr("d", shapeToMake);
 
             return fixedGear;
         }

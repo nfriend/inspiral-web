@@ -7,7 +7,7 @@ module Spirograph.Interaction {
         backgroundGreen = 0,
         backgroundBlue = 0;
 
-    EventAggregator.subscribe('downloadImage', () => {
+    EventAggregator.subscribe('downloadImage', (callback: () => any) => {
         var canvas = <HTMLCanvasElement> d3.select('#spirograph-canvas').node();
         $.ajax({
             type: 'POST',
@@ -19,6 +19,7 @@ module Spirograph.Interaction {
                 blue: backgroundBlue
             },
             success: (imagename) => {
+                if (callback) { callback(); }
                 location.href = "getimage.php?imagename=" + imagename;
             }
         });

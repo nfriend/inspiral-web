@@ -6,7 +6,7 @@ var Spirograph;
 
         var backgroundRed = 0, backgroundGreen = 0, backgroundBlue = 0;
 
-        Spirograph.EventAggregator.subscribe('downloadImage', function () {
+        Spirograph.EventAggregator.subscribe('downloadImage', function (callback) {
             var canvas = d3.select('#spirograph-canvas').node();
             $.ajax({
                 type: 'POST',
@@ -18,6 +18,9 @@ var Spirograph;
                     blue: backgroundBlue
                 },
                 success: function (imagename) {
+                    if (callback) {
+                        callback();
+                    }
                     location.href = "getimage.php?imagename=" + imagename;
                 }
             });

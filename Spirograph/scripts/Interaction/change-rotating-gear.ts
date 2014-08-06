@@ -7,8 +7,10 @@ module Spirograph.Interaction {
 
         d3.selectAll('.gear.rotating').remove();
 
+        var isDarkMode = $('body').is('.dark');
+
         var rotatingGear = svgContainer.append("g")
-            .attr("class", "gear rotating color-changing")
+            .attr("class", "gear rotating color-changing" + (isDarkMode ? ' dark' : ''))
             .datum(newGearOptions);
 
         rotatingGear.append("path")

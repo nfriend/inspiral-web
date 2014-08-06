@@ -71,7 +71,11 @@ var Spirograph;
         });
 
         $downloadButton.click(function () {
-            Spirograph.EventAggregator.publish('downloadImage');
+            var icon = $downloadButton.addClass('disabled').find('i').removeClass('fa-download').addClass('fa-cog fa-spin');
+            Spirograph.EventAggregator.publish('downloadImage', function () {
+                icon.removeClass('fa-cog fa-spin').addClass('fa-download');
+                $downloadButton.removeClass('disabled');
+            });
         });
 
         $galleryButton.click(function () {
