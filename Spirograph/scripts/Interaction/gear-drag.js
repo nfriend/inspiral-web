@@ -35,6 +35,10 @@ var Spirograph;
                 // otherwise we use the mouse coordinates from the d3 event
                 if (typeof angle !== 'undefined') {
                     var mouseAngle = angle;
+
+                    // get mouseAngle between -180 and 180
+                    mouseAngle = (((mouseAngle % 360) + 360) % 360);
+                    mouseAngle = mouseAngle > 180 ? -360 + mouseAngle : mouseAngle;
                 } else {
                     // chrome handles CSS3 transformed SVG elementes differently - to get
                     // accurate mouse coordinates, we need to multiple by the current scale factor
@@ -63,14 +67,7 @@ var Spirograph;
                 var angleDelta = mouseAngle - lastAbsoluteMouseAngle;
 
                 for (var i = lastAbsoluteMouseAngle; (angleDelta >= 0 && i <= mouseAngle) || (angleDelta < 0 && i >= mouseAngle); angleDelta >= 0 ? i++ : i--) {
-                    // built in safegaurd in case strange things happen - we have no reason to ever animate more than a full rotation.
-                    // we'll give it three rotations just to be safe.
-                    if (i > lastAbsoluteMouseAngle + 1080 || i < lastAbsoluteMouseAngle - 1080) {
-                        break;
-                    }
-
                     var transformInfo = rotater.rotate(rotatingGearOptions, i, holeOptions);
-
                     rotatingGear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
 
                     if (previousTransformInfo !== null) {
@@ -88,7 +85,6 @@ var Spirograph;
                 }
 
                 lastAbsoluteMouseAngle = mouseAngle;
-
                 return false;
             }
             ;

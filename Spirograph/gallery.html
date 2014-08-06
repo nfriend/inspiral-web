@@ -66,7 +66,9 @@
                 output.push(date.getDate() + ',');
                 var hours = date.getHours() % 12;
                 hours = hours === 0 ? 12 : hours;
-                output.push(hours + ':' + (date.getMinutes()));
+                var minutes = (date.getMinutes());
+                minutes = minutes < 10 ? '0' + minutes : minutes;
+                output.push(hours + ':' + minutes);
                 output.push(date.getHours() < 12 ? "AM" : "PM")
                 return output.join(' ');
             }
