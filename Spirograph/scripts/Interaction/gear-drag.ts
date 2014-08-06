@@ -9,28 +9,36 @@ module Spirograph.Interaction {
         previousTransformInfo: Shapes.TransformInfo = null;
 
     export function attachDragHandlers(svgContainer: D3.Selection, rotatingGear: D3.Selection, canvas: HTMLCanvasElement, rotater: Shapes.Rotater,
-        rotatingGearOptions: Shapes.GearOptions, holeOptions: Shapes.HoleOptions) {
+        rotatingGearOptions: Shapes.GearOptions, holeOptions: Shapes.HoleOptions, cursorTracker: D3.Selection) {
 
         var ctx = canvas.getContext('2d');
 
         function attachHandlersToRotatingGear() {
             rotatingGear.on("mousedown", function (d, i) {
+                EventAggregator.publish('dragStart');
                 rotatingGear.classed('dragging', true);
-
                 svgContainer.on("mousemove", moveGear);
-
                 svgContainer.on("mouseup", () => {
+                    EventAggregator.publish('dragEnd');
                     svgContainer.on("mousemove", null);
                     rotatingGear.classed('dragging', false);
-
-                    d3.event.preventDefault()
+                    d3.event.preventDefault();
+                    cursorTracker.style('visibility', 'hidden');
                     return false;
                 });
-
+                cursorTracker.style('visibility', 'visible');
+                updateCursorTrackerLocation();
                 d3.event.preventDefault()
                 return false;
             });
         }
+
+        function updateCursorTrackerLocation() {
+            cursorTracker.attr({
+                x2: d3.mouse(svgContainer.node())[0],
+                y2: d3.mouse(svgContainer.node())[1]
+            });
+        };
 
         attachHandlersToRotatingGear();
 
@@ -52,9 +60,10 @@ module Spirograph.Interaction {
                     var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: svgWidth, y: svgHeight });
                 }
 
+                updateCursorTrackerLocation();
                 var mouseAngle = Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
-                d3.event.preventDefault()
+                d3.event.preventDefault();
             }
 
             if (lastMouseAngle != null) {

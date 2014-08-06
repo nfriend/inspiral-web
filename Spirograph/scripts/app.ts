@@ -13,8 +13,9 @@ module Spirograph {
     var rotatingGear = Initialization.initializeRotatingGear(svgContainer, rotatingGearOptions);
     var holeOptions = Initialization.initializeHoles(rotatingGear, rotatingGearOptions, defaults.holeIndex);
     var rotater: Shapes.Rotater = new Shapes.RingGearRotater(fixedGearOptions);
+    var cursorTracker = Initialization.initializeCursorTracker(svgContainer);
 
-    Interaction.attachDragHandlers(svgContainer, rotatingGear, (<HTMLCanvasElement>canvas.node()), rotater, rotatingGearOptions, holeOptions);
+    Interaction.attachDragHandlers(svgContainer, rotatingGear, (<HTMLCanvasElement>canvas.node()), rotater, rotatingGearOptions, holeOptions, cursorTracker);
 
     Initialization.initializeGearSelections();
     Initialization.initializeColorSelections();

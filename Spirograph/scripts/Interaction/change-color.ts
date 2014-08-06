@@ -13,10 +13,11 @@ module Spirograph.Interaction {
         $('body').css('background-color', Utility.getRgbaString(r, g, b, a));
 
         if (r < 100 && g < 100 && b < 100) {
-            d3.selectAll('.color-changing, body').classed('dark', true);
+            isInDarkMode = true;
         } else {
-            d3.selectAll('.color-changing, body').classed('dark', false);
+            isInDarkMode = false
         }
+        d3.selectAll('.color-changing, body').classed('dark', isInDarkMode);
     }
 
     function injectPenColorStyleSheetChanges(color: string) {

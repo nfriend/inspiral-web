@@ -1,4 +1,4 @@
-﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
 /*
  * CSS Styles that are needed by jScrollPane for it to operate correctly.
  *
@@ -6373,7 +6373,7 @@ button.close {
     display: none !important;
   }
 }
-/*# sourceMappingURL=app.css.map */
+/*# sourceMappingURL=bootstrap.css.map */
 /*!
  *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -8099,7 +8099,7 @@ body {
   top: 0;
   height: 100%;
   width: 80px;
-  z-index: 10;
+  z-index: -20;
   background: rgba(128, 128, 128, 0.3);
 }
 #color-selector {
@@ -8215,7 +8215,7 @@ body {
   top: 0;
   height: 100%;
   width: 80px;
-  z-index: 10;
+  z-index: -20;
   background: rgba(128, 128, 128, 0.3);
 }
 /* a hack to ensure that the appearance of this control is the same 
@@ -8264,7 +8264,6 @@ body {
   height: 80px;
   width: 100%;
   padding-top: 10px;
-  /*background: @toolbar-background;*/
   z-index: 10;
   text-align: right;
 }
@@ -8273,6 +8272,10 @@ body {
   padding-bottom: 10px;
   width: 54px;
   height: 54px;
+  opacity: .8;
+}
+#toolbar-container .toolbar-button.disabled {
+  opacity: .5;
 }
 .spirograph #spirograph-svg {
   margin-left: -1280px;
@@ -8297,6 +8300,13 @@ body {
 }
 .spirograph .dark {
   color: lightgray;
+}
+.spirograph .cursor-tracker {
+  stroke: rgba(41, 22, 107, 0.3);
+  stroke-width: 3px;
+}
+.spirograph .cursor-tracker.dark {
+  stroke: rgba(199, 202, 237, 0.6);
 }
 .spirograph .gear {
   fill: black;

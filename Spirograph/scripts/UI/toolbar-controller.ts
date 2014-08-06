@@ -8,8 +8,7 @@ module Spirograph.UI {
         $body = $('body'),
         $showHideGearsButton = $('#show-hide-gears-button'),
         $downloadButton = $('#download-button'),
-        $galleryButton = $('#gallery-button'),
-        gearsAreVisible = true;
+        $galleryButton = $('#gallery-button');
 
     $downloadButton.tooltip({
         title: 'Download and save<br />to the gallery',
@@ -65,14 +64,14 @@ module Spirograph.UI {
     });
 
     $showHideGearsButton.click(() => {
-        if (gearsAreVisible) {
+        if (areGearsVisible) {
             $showHideGearsButton.find('i').removeClass('fa-eye').addClass('fa-eye-slash');
         } else {
             $showHideGearsButton.find('i').removeClass('fa-eye-slash').addClass('fa-eye');
         }
-        gearsAreVisible = !gearsAreVisible;
+        areGearsVisible = !areGearsVisible;
 
-        EventAggregator.publish('gearVisibilityChange', gearsAreVisible);
+        EventAggregator.publish('gearVisibilityChange', areGearsVisible);
     });
 
     $downloadButton.click(() => {

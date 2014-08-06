@@ -4,7 +4,7 @@ var Spirograph;
     (function (UI) {
         'use strict';
 
-        var $toolbarContainer = $('#toolbar-container'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $galleryButton = $('#gallery-button'), gearsAreVisible = true;
+        var $toolbarContainer = $('#toolbar-container'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $galleryButton = $('#gallery-button');
 
         $downloadButton.tooltip({
             title: 'Download and save<br />to the gallery',
@@ -60,14 +60,14 @@ var Spirograph;
         });
 
         $showHideGearsButton.click(function () {
-            if (gearsAreVisible) {
+            if (Spirograph.areGearsVisible) {
                 $showHideGearsButton.find('i').removeClass('fa-eye').addClass('fa-eye-slash');
             } else {
                 $showHideGearsButton.find('i').removeClass('fa-eye-slash').addClass('fa-eye');
             }
-            gearsAreVisible = !gearsAreVisible;
+            Spirograph.areGearsVisible = !Spirograph.areGearsVisible;
 
-            Spirograph.EventAggregator.publish('gearVisibilityChange', gearsAreVisible);
+            Spirograph.EventAggregator.publish('gearVisibilityChange', Spirograph.areGearsVisible);
         });
 
         $downloadButton.click(function () {

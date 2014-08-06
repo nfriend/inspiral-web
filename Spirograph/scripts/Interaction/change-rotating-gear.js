@@ -7,9 +7,7 @@ var Spirograph;
         function changeRotatingGear(svgContainer, newGearOptions) {
             d3.selectAll('.gear.rotating').remove();
 
-            var isDarkMode = $('body').is('.dark');
-
-            var rotatingGear = svgContainer.append("g").attr("class", "gear rotating color-changing" + (isDarkMode ? ' dark' : '')).datum(newGearOptions);
+            var rotatingGear = svgContainer.append("g").attr("class", "gear rotating color-changing" + (Spirograph.isInDarkMode ? ' dark' : '')).style('visibility', Spirograph.areGearsVisible ? 'visible' : 'hidden').datum(newGearOptions);
 
             rotatingGear.append("path").attr("d", Spirograph.Shapes.Gear);
 

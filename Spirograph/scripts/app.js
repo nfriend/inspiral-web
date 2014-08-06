@@ -13,8 +13,9 @@ var Spirograph;
     var rotatingGear = Spirograph.Initialization.initializeRotatingGear(svgContainer, rotatingGearOptions);
     var holeOptions = Spirograph.Initialization.initializeHoles(rotatingGear, rotatingGearOptions, Spirograph.defaults.holeIndex);
     var rotater = new Spirograph.Shapes.RingGearRotater(fixedGearOptions);
+    var cursorTracker = Spirograph.Initialization.initializeCursorTracker(svgContainer);
 
-    Spirograph.Interaction.attachDragHandlers(svgContainer, rotatingGear, canvas.node(), rotater, rotatingGearOptions, holeOptions);
+    Spirograph.Interaction.attachDragHandlers(svgContainer, rotatingGear, canvas.node(), rotater, rotatingGearOptions, holeOptions, cursorTracker);
 
     Spirograph.Initialization.initializeGearSelections();
     Spirograph.Initialization.initializeColorSelections();

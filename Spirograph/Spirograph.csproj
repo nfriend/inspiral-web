@@ -49,7 +49,9 @@
     <TypeScriptCompile Include="scripts\dimensions.ts" />
     <TypeScriptCompile Include="scripts\EventAggregator.ts" />
     <TypeScriptCompile Include="scripts\fixed-gear-types.ts" />
+    <TypeScriptCompile Include="scripts\globals.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-canvas.ts" />
+    <TypeScriptCompile Include="scripts\Initialization\initialize-cursor-tracker.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-fixed-gear.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-gear-selections.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-holes.ts" />
@@ -64,6 +66,7 @@
     <TypeScriptCompile Include="scripts\Interaction\clear-canvas.ts" />
     <TypeScriptCompile Include="scripts\Interaction\download-image.ts" />
     <TypeScriptCompile Include="scripts\Interaction\gear-drag.ts" />
+    <TypeScriptCompile Include="scripts\Interaction\lower-UI-when-dragging.ts" />
     <TypeScriptCompile Include="scripts\Interaction\remember-last-hole-selection.ts" />
     <TypeScriptCompile Include="scripts\Shapes\Beam.ts" />
     <TypeScriptCompile Include="scripts\Shapes\BeamOptions.ts" />

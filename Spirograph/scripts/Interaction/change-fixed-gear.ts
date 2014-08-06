@@ -7,8 +7,6 @@ module Spirograph.Interaction {
 
         d3.selectAll('.gear.fixed').remove();
 
-        var isDarkMode = $('body').is('.dark');
-
         if (newGearType == Shapes.GearType.Beam) {
             var shapeToMake: any = Shapes.Beam;
         } else if (newGearType == Shapes.GearType.Gear) {
@@ -18,8 +16,9 @@ module Spirograph.Interaction {
         }
 
         var fixedGear = svgContainer.append("g")
-            .attr("class", "gear ring-gear fixed color-changing" + (isDarkMode ? ' dark' : ''))
+            .attr("class", "gear ring-gear fixed color-changing" + (isInDarkMode ? ' dark' : ''))
             .attr("transform", "translate(" + getSvgCenterX() + "," + getSvgCenterY() + ")")
+            .style('visibility', areGearsVisible ? 'visible' : 'hidden')
             .datum(newGearOptions)
             .append("path")
             .attr("d", shapeToMake);

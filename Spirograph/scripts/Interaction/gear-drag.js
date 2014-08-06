@@ -6,27 +6,36 @@ var Spirograph;
 
         var lastMouseAngle = null, lastAbsoluteMouseAngle = 0, rotationOffset = 0, previousTransformInfo = null;
 
-        function attachDragHandlers(svgContainer, rotatingGear, canvas, rotater, rotatingGearOptions, holeOptions) {
+        function attachDragHandlers(svgContainer, rotatingGear, canvas, rotater, rotatingGearOptions, holeOptions, cursorTracker) {
             var ctx = canvas.getContext('2d');
 
             function attachHandlersToRotatingGear() {
                 rotatingGear.on("mousedown", function (d, i) {
+                    Spirograph.EventAggregator.publish('dragStart');
                     rotatingGear.classed('dragging', true);
-
                     svgContainer.on("mousemove", moveGear);
-
                     svgContainer.on("mouseup", function () {
+                        Spirograph.EventAggregator.publish('dragEnd');
                         svgContainer.on("mousemove", null);
                         rotatingGear.classed('dragging', false);
-
                         d3.event.preventDefault();
+                        cursorTracker.style('visibility', 'hidden');
                         return false;
                     });
-
+                    cursorTracker.style('visibility', 'visible');
+                    updateCursorTrackerLocation();
                     d3.event.preventDefault();
                     return false;
                 });
             }
+
+            function updateCursorTrackerLocation() {
+                cursorTracker.attr({
+                    x2: d3.mouse(svgContainer.node())[0],
+                    y2: d3.mouse(svgContainer.node())[1]
+                });
+            }
+            ;
 
             attachHandlersToRotatingGear();
 
@@ -48,6 +57,7 @@ var Spirograph;
                         var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight });
                     }
 
+                    updateCursorTrackerLocation();
                     var mouseAngle = Spirograph.Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
                     d3.event.preventDefault();
