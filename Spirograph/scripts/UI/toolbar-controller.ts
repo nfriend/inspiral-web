@@ -32,15 +32,15 @@ module Spirograph.UI {
     });
 
     // closes all modals, and then removes itself
-    function closeAllPopoversOnClickHandler(ev: JQueryEventObject) {
+    function closeClearButtonPopoverOnClickHandler(ev: JQueryEventObject) {
         if ($(ev.target).closest('.popover').length === 0) {
             $clearButton.popover('hide');
-            $body.off('click', closeAllPopoversOnClickHandler);
+            $body.off('click', closeClearButtonPopoverOnClickHandler);
         }
     }
 
-    function attachCloseAllPopoversHandler() {
-        $body.on('click', closeAllPopoversOnClickHandler);
+    function attachCloseClearButtonPopoverHandler() {
+        $body.on('click', closeClearButtonPopoverOnClickHandler);
     }
 
     $clearButton.popover({
@@ -55,7 +55,7 @@ module Spirograph.UI {
         e.stopPropagation();
         $clearButton.popover('show');
         $clearButton.tooltip('hide');
-        attachCloseAllPopoversHandler();
+        attachCloseClearButtonPopoverHandler();
     });
 
     $toolbarContainer.on('click', '.clear-button-confirmation', (e) => {

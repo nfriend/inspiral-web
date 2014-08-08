@@ -28,15 +28,15 @@ var Spirograph;
         });
 
         // closes all modals, and then removes itself
-        function closeAllPopoversOnClickHandler(ev) {
+        function closeClearButtonPopoverOnClickHandler(ev) {
             if ($(ev.target).closest('.popover').length === 0) {
                 $clearButton.popover('hide');
-                $body.off('click', closeAllPopoversOnClickHandler);
+                $body.off('click', closeClearButtonPopoverOnClickHandler);
             }
         }
 
-        function attachCloseAllPopoversHandler() {
-            $body.on('click', closeAllPopoversOnClickHandler);
+        function attachCloseClearButtonPopoverHandler() {
+            $body.on('click', closeClearButtonPopoverOnClickHandler);
         }
 
         $clearButton.popover({
@@ -51,7 +51,7 @@ var Spirograph;
             e.stopPropagation();
             $clearButton.popover('show');
             $clearButton.tooltip('hide');
-            attachCloseAllPopoversHandler();
+            attachCloseClearButtonPopoverHandler();
         });
 
         $toolbarContainer.on('click', '.clear-button-confirmation', function (e) {

@@ -8719,10 +8719,15 @@ body {
   border: none;
   opacity: .9;
 }
+#color-selector .foreground-container .scroll-container .color-container.color-picker.dark,
+#color-selector .background-container .scroll-container .color-container.color-picker.dark {
+  color: white;
+}
 #color-selector .foreground-container .scroll-container .color-container.color-picker i,
 #color-selector .background-container .scroll-container .color-container.color-picker i {
   position: absolute;
-  margin-left: 4px;
+  margin-left: 6px;
+  left: 0;
 }
 #color-selector .foreground-container .scroll-container .color-container.selected,
 #color-selector .background-container .scroll-container .color-container.selected {
@@ -8731,6 +8736,12 @@ body {
 #color-selector .foreground-container .scroll-container .color-container.selected .color,
 #color-selector .background-container .scroll-container .color-container.selected .color {
   border: 3px solid transparent;
+}
+.popover.left {
+  margin-top: -103px;
+}
+.popover.left .arrow {
+  margin-top: 92px;
 }
 .spectrum-color-picker-container {
   background: none;

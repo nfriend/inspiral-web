@@ -44,8 +44,20 @@ var Spirograph;
                 colorDiv.addClass('bordered');
             }
 
-            colorContainer.appendTo(container);
+            $(container).find('.color-picker').before(colorContainer);
+
+            return colorContainer;
         }
+
+        // add the custom color adder square
+        [backgroundContainer, foregroundContainer].forEach(function (container) {
+            d3.select(container).append('div').attr({
+                'class': 'color-container color-picker color-changing',
+                'color-picker': true
+            }).append('i').attr({
+                'class': 'fa fa-plus fa-2x'
+            });
+        });
 
         penColors.forEach(function (color) {
             addColorToContainer(color, foregroundContainer);
@@ -53,16 +65,6 @@ var Spirograph;
 
         backgroundColors.forEach(function (color) {
             addColorToContainer(color, backgroundContainer);
-        });
-
-        // add the custom color adder square
-        [backgroundContainer, foregroundContainer].forEach(function (container) {
-            d3.select(container).append('div').attr({
-                'class': 'color-container color-picker',
-                'color-picker': true
-            }).append('i').attr({
-                'class': 'fa fa-plus fa-2x'
-            });
         });
 
         UI.initializeCustomColorPicker();
@@ -95,11 +97,23 @@ var Spirograph;
             if (isColorPicker) {
             } else if (!isPlaceholder) {
                 $target.addClass('selected').siblings().removeClass('selected');
-                var fixedOrRotating = $target.parents('.foreground-container').length !== 0 ? 'foreground' : 'background';
+                var foregroundOrBackground = $target.parents('.foreground-container').length !== 0 ? 'foreground' : 'background';
 
-                Spirograph.EventAggregator.publish('colorSelected', $target.attr('data-r'), $target.attr('data-g'), $target.attr('data-b'), $target.attr('data-a'), fixedOrRotating);
+                Spirograph.EventAggregator.publish('colorSelected', $target.attr('data-r'), $target.attr('data-g'), $target.attr('data-b'), $target.attr('data-a'), foregroundOrBackground);
             }
         });
+
+        function addAndSelectNewColor(color, foregroundOrBackground) {
+            if (foregroundOrBackground === 'foreground') {
+                addColorToContainer(color, foregroundContainer).click();
+            } else if (foregroundOrBackground === 'background') {
+                addColorToContainer(color, backgroundContainer).click();
+                Spirograph.EventAggregator.publish('colorSelected', color.r, color.g, color.b, color.a, foregroundOrBackground);
+            } else {
+                throw 'unexpected color type: ' + foregroundOrBackground;
+            }
+        }
+        UI.addAndSelectNewColor = addAndSelectNewColor;
     })(Spirograph.UI || (Spirograph.UI = {}));
     var UI = Spirograph.UI;
 })(Spirograph || (Spirograph = {}));

@@ -108,9 +108,14 @@
                         opacity: .9;
                     }
 
+                    &.dark {
+                        color: white;
+                    }
+
                     i {
                         position: absolute;
-                        margin-left: 4px;
+                        margin-left: 6px;
+                        left: 0;
                     }
                 }
 
@@ -123,6 +128,16 @@
                 }
             }
         }
+    }
+}
+
+// we will need to find a way to be more 
+// specific if we add more modals down the road
+.popover.left {
+    margin-top: -103px;
+
+    .arrow {
+        margin-top: 92px;
     }
 }
 

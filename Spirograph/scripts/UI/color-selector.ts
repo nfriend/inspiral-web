@@ -3,7 +3,7 @@
 module Spirograph.UI {
     'use strict';
 
-    interface Color {
+    export interface Color {
         r: number;
         g: number;
         b: number;
@@ -55,8 +55,20 @@ module Spirograph.UI {
             colorDiv.addClass('bordered');
         }
 
-        colorContainer.appendTo(container);
+        $(container).find('.color-picker').before(colorContainer);
+
+        return colorContainer;
     }
+
+    // add the custom color adder square
+    [backgroundContainer, foregroundContainer].forEach((container) => {
+        d3.select(container).append('div').attr({
+            'class': 'color-container color-picker color-changing',
+            'color-picker': true
+        }).append('i').attr({
+                'class': 'fa fa-plus fa-2x'
+            });
+    });
 
     penColors.forEach((color) => {
         addColorToContainer(color, foregroundContainer);
@@ -64,16 +76,6 @@ module Spirograph.UI {
 
     backgroundColors.forEach((color) => {
         addColorToContainer(color, backgroundContainer);
-    });
-
-   // add the custom color adder square
-    [backgroundContainer, foregroundContainer].forEach((container) => {
-        d3.select(container).append('div').attr({
-            'class': 'color-container color-picker',
-            'color-picker': true
-        }).append('i').attr({
-            'class': 'fa fa-plus fa-2x'
-        });
     });
 
     initializeCustomColorPicker();
@@ -89,7 +91,7 @@ module Spirograph.UI {
         }
     }
 
- 
+
     // add an extra placeholder onto the bottom of each container for breathing room
     [backgroundContainer, foregroundContainer].forEach((container) => {
         d3.select(container).append('div').attr({
@@ -108,9 +110,20 @@ module Spirograph.UI {
 
         } else if (!isPlaceholder) {
             $target.addClass('selected').siblings().removeClass('selected');
-            var fixedOrRotating = $target.parents('.foreground-container').length !== 0 ? 'foreground' : 'background';
+            var foregroundOrBackground = $target.parents('.foreground-container').length !== 0 ? 'foreground' : 'background';
 
-            EventAggregator.publish('colorSelected', $target.attr('data-r'), $target.attr('data-g'), $target.attr('data-b'), $target.attr('data-a'), fixedOrRotating);
+            EventAggregator.publish('colorSelected', $target.attr('data-r'), $target.attr('data-g'), $target.attr('data-b'), $target.attr('data-a'), foregroundOrBackground);
         }
     });
+
+    export function addAndSelectNewColor(color: Color, foregroundOrBackground: string) {
+        if (foregroundOrBackground === 'foreground') {
+            addColorToContainer(color, foregroundContainer).click();
+        } else if (foregroundOrBackground === 'background') {
+            addColorToContainer(color, backgroundContainer).click();
+            EventAggregator.publish('colorSelected', color.r, color.g, color.b, color.a, foregroundOrBackground);
+        } else {
+            throw 'unexpected color type: ' + foregroundOrBackground;
+        }
+    }
 }
