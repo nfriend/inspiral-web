@@ -56,6 +56,7 @@
             }
 
             .color-container {
+                position: relative;
                 z-index: 10;
                 height: 35px;
                 width: 35px;
@@ -98,6 +99,21 @@
                     }
                 }
 
+                &.color-picker {
+                    text-align: center;
+                    opacity: .5;
+
+                    &:hover {
+                        border: none;
+                        opacity: .9;
+                    }
+
+                    i {
+                        position: absolute;
+                        margin-left: 4px;
+                    }
+                }
+
                 &.selected {
                     border: 3px solid #555;
 
@@ -108,6 +124,12 @@
             }
         }
     }
+}
+
+.spectrum-color-picker-container {
+    background: none;
+    border: none;
+    margin: -10px;
 }
 
 #color-options-background-color {

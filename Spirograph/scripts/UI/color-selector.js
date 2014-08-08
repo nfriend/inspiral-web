@@ -55,6 +55,18 @@ var Spirograph;
             addColorToContainer(color, backgroundContainer);
         });
 
+        // add the custom color adder square
+        [backgroundContainer, foregroundContainer].forEach(function (container) {
+            d3.select(container).append('div').attr({
+                'class': 'color-container color-picker',
+                'color-picker': true
+            }).append('i').attr({
+                'class': 'fa fa-plus fa-2x'
+            });
+        });
+
+        UI.initializeCustomColorPicker();
+
         // add placeholders to the smaller list to ensure that the lists keep the same visual height
         if (penColors.length > backgroundColors.length) {
             for (var i = 0; i < penColors.length - backgroundColors.length; i++) {
@@ -78,8 +90,10 @@ var Spirograph;
         $('#color-selector').on('click', '.color-container', function (ev) {
             var $target = $(ev.currentTarget);
             var isPlaceholder = $target.is('[placeholder]');
+            var isColorPicker = $target.is('[color-picker]');
 
-            if (!isPlaceholder) {
+            if (isColorPicker) {
+            } else if (!isPlaceholder) {
                 $target.addClass('selected').siblings().removeClass('selected');
                 var fixedOrRotating = $target.parents('.foreground-container').length !== 0 ? 'foreground' : 'background';
 
