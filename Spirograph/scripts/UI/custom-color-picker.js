@@ -45,6 +45,11 @@ var Spirograph;
                 }
 
                 attachColorPickerPopoverHandler();
+
+                $(ev.currentTarget).on('mousedown', function (innerEvent) {
+                    innerEvent.stopPropagation();
+                    return false;
+                });
             });
         }
         UI.initializeCustomColorPicker = initializeCustomColorPicker;
@@ -73,7 +78,7 @@ var Spirograph;
             var $target = $(ev.target);
             if ($target.closest('.popover').length === 0) {
                 $('.color-picker').popover('hide');
-                $body.off('click', closeColorPickerPopoverOnClickHandler);
+                $body.off('mousedown', closeColorPickerPopoverOnClickHandler);
             } else if ($target.is('.choose-color-button') || $target.closest('.choose-color-button').length !== 0) {
                 UI.addAndSelectNewColor(Spirograph.Utility.toColor(currentlySelectedColor), foregroundOrBackground);
 
@@ -85,11 +90,14 @@ var Spirograph;
 
                 // close the popover
                 $('.color-picker').popover('hide');
+
+                // stop listening for mousedown events
+                $body.off('mousedown', closeColorPickerPopoverOnClickHandler);
             }
         }
 
         function attachColorPickerPopoverHandler() {
-            $body.on('click', closeColorPickerPopoverOnClickHandler);
+            $body.on('mousedown', closeColorPickerPopoverOnClickHandler);
         }
     })(Spirograph.UI || (Spirograph.UI = {}));
     var UI = Spirograph.UI;

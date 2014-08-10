@@ -4,23 +4,33 @@ var Spirograph;
     (function (UI) {
         'use strict';
 
-        var $fixedContainer = $('#gear-options-selector .fixed-container .scroll-container'), $rotatingContainer = $('#gear-options-selector .rotating-container .scroll-container'), $backgroundContainer = $('#color-selector .background-container .scroll-container'), $foregroundContainer = $('#color-selector .foreground-container .scroll-container'), $allScrollContainers = $('.scroll-container');
+        var $fixedContainer = $('#gear-options-selector .fixed-container .scroll-container'), $rotatingContainer = $('#gear-options-selector .rotating-container .scroll-container'), $backgroundContainer = $('#color-selector .background-container .scroll-container'), $foregroundContainer = $('#color-selector .foreground-container .scroll-container'), $allScrollContainers = $('.scroll-container'), jScrollPaneOptions = {
+            mouseWheelSpeed: 16,
+            animateDuration: 1000,
+            horizontalGutter: 10,
+            verticalGutter: 0
+        };
+
+        function reinitializeAllScrollBars() {
+            setTimeout(function () {
+                $allScrollContainers.each(function (index, scrollContainer) {
+                    var api = $(scrollContainer).data('jsp');
+                    api.reinitialise(jScrollPaneOptions);
+                });
+            }, 1000);
+        }
+        UI.reinitializeAllScrollBars = reinitializeAllScrollBars;
 
         $allScrollContainers.each(function (index, scrollContainer) {
             var $scrollContainer = $(scrollContainer);
-            $scrollContainer.jScrollPane({
-                mouseWheelSpeed: 16,
-                animateDuration: 1000,
-                horizontalGutter: 10,
-                verticalGutter: 0
-            });
+            $scrollContainer.jScrollPane(jScrollPaneOptions);
 
             var api = $scrollContainer.data('jsp');
             var throttleTimeout;
             $(window).bind('resize', function () {
                 if (!throttleTimeout) {
                     throttleTimeout = setTimeout(function () {
-                        api.reinitialise();
+                        api.reinitialise(jScrollPaneOptions);
                         throttleTimeout = null;
                     }, 50);
                 }

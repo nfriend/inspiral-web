@@ -7,23 +7,33 @@ module Spirograph.UI {
         $rotatingContainer = <any>$('#gear-options-selector .rotating-container .scroll-container'),
         $backgroundContainer = <any>$('#color-selector .background-container .scroll-container'),
         $foregroundContainer = <any>$('#color-selector .foreground-container .scroll-container'),
-        $allScrollContainers = <any>$('.scroll-container')
-
-    $allScrollContainers.each((index: number, scrollContainer: Element) => {
-        var $scrollContainer = $(scrollContainer);
-        $scrollContainer.jScrollPane({
+        $allScrollContainers = <any>$('.scroll-container'),
+        jScrollPaneOptions = {
             mouseWheelSpeed: 16,
             animateDuration: 1000,
             horizontalGutter: 10,
             verticalGutter: 0
-        });
+        };
+
+    export function reinitializeAllScrollBars() {
+        setTimeout(() => {
+            $allScrollContainers.each((index: number, scrollContainer: Element) => {
+                var api: JScrollPaneApi = $(scrollContainer).data('jsp');
+                api.reinitialise(jScrollPaneOptions);
+            });
+        }, 1000);
+    }
+
+    $allScrollContainers.each((index: number, scrollContainer: Element) => {
+        var $scrollContainer = $(scrollContainer);
+        $scrollContainer.jScrollPane(jScrollPaneOptions);
 
         var api: JScrollPaneApi = $scrollContainer.data('jsp');
         var throttleTimeout;
         $(window).bind('resize', () => {
             if (!throttleTimeout) {
                 throttleTimeout = setTimeout(() => {
-                    api.reinitialise();
+                    api.reinitialise(jScrollPaneOptions);
                     throttleTimeout = null;
                 }, 50);
             }

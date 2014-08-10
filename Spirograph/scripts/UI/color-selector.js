@@ -80,13 +80,7 @@ var Spirograph;
             }
         }
 
-        // add an extra placeholder onto the bottom of each container for breathing room
-        [backgroundContainer, foregroundContainer].forEach(function (container) {
-            d3.select(container).append('div').attr({
-                'class': 'color-container placeholder',
-                'placeholder': 'true'
-            });
-        });
+        addPlaceholders();
 
         // add click events for all color options
         $('#color-selector').on('click', '.color-container', function (ev) {
@@ -103,6 +97,27 @@ var Spirograph;
             }
         });
 
+        // adds placeholders to the appropriate list in order to keep
+        // the same visual length for scrolling purposes
+        function addPlaceholders() {
+            var foregroundCount = $(foregroundContainer).find('.color-container').length, backgroundCount = $(backgroundContainer).find('.color-container').length, lengthDifference = Math.abs(foregroundCount - backgroundCount), foregroundContentPane = $(foregroundContainer).jScrollPane().data('jsp').getContentPane(), backgroundContentPane = $(backgroundContainer).jScrollPane().data('jsp').getContentPane(), smallerContentPane = foregroundCount > backgroundCount ? backgroundContentPane : foregroundContentPane;
+
+            for (var i = 0; i < lengthDifference; i++) {
+                $('<div>').addClass('color-container placeholder').prop('placeholder', 'true').appendTo(smallerContentPane);
+            }
+
+            // add one more placeholder to each list, for breathing room
+            [foregroundContentPane, backgroundContentPane].forEach(function (contentPane) {
+                $('<div>').addClass('color-container placeholder').prop('placeholder', 'true').appendTo(contentPane);
+            });
+
+            while ($(foregroundContainer).find('.placeholder').length > 1 && $(backgroundContainer).find('.placeholder').length > 1) {
+                [foregroundContentPane, backgroundContentPane].forEach(function (contentPane) {
+                    contentPane.find('.placeholder').last().remove();
+                });
+            }
+        }
+
         function addAndSelectNewColor(color, foregroundOrBackground) {
             if (foregroundOrBackground === 'foreground') {
                 addColorToContainer(color, foregroundContainer).click();
@@ -112,6 +127,9 @@ var Spirograph;
             } else {
                 throw 'unexpected color type: ' + foregroundOrBackground;
             }
+
+            addPlaceholders();
+            UI.reinitializeAllScrollBars();
         }
         UI.addAndSelectNewColor = addAndSelectNewColor;
     })(Spirograph.UI || (Spirograph.UI = {}));

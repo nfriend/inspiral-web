@@ -48,6 +48,11 @@ module Spirograph.UI {
                 }
 
                 attachColorPickerPopoverHandler();
+
+                $(ev.currentTarget).on('mousedown', (innerEvent) => {
+                    innerEvent.stopPropagation();
+                    return false;
+                });
             });
     }
 
@@ -75,7 +80,7 @@ module Spirograph.UI {
         var $target = $(ev.target);
         if ($target.closest('.popover').length === 0) {
             $('.color-picker').popover('hide');
-            $body.off('click', closeColorPickerPopoverOnClickHandler);
+            $body.off('mousedown', closeColorPickerPopoverOnClickHandler);
         } else if ($target.is('.choose-color-button') || $target.closest('.choose-color-button').length !== 0) {
             addAndSelectNewColor(Utility.toColor(currentlySelectedColor), foregroundOrBackground);
 
@@ -87,10 +92,13 @@ module Spirograph.UI {
 
             // close the popover
             $('.color-picker').popover('hide');
+
+            // stop listening for mousedown events
+            $body.off('mousedown', closeColorPickerPopoverOnClickHandler);
         }
     }
 
     function attachColorPickerPopoverHandler() {
-        $body.on('click', closeColorPickerPopoverOnClickHandler);
+        $body.on('mousedown', closeColorPickerPopoverOnClickHandler);
     }
 }

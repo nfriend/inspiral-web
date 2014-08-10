@@ -91,14 +91,7 @@ module Spirograph.UI {
         }
     }
 
-
-    // add an extra placeholder onto the bottom of each container for breathing room
-    [backgroundContainer, foregroundContainer].forEach((container) => {
-        d3.select(container).append('div').attr({
-            'class': 'color-container placeholder',
-            'placeholder': 'true'
-        });
-    });
+    addPlaceholders();
 
     // add click events for all color options
     $('#color-selector').on('click', '.color-container', (ev) => {
@@ -116,6 +109,34 @@ module Spirograph.UI {
         }
     });
 
+    // adds placeholders to the appropriate list in order to keep 
+    // the same visual length for scrolling purposes
+    function addPlaceholders() {
+
+        var foregroundCount = $(foregroundContainer).find('.color-container').length,
+            backgroundCount = $(backgroundContainer).find('.color-container').length,
+            lengthDifference = Math.abs(foregroundCount - backgroundCount),
+            foregroundContentPane = $(foregroundContainer).jScrollPane().data('jsp').getContentPane(),
+            backgroundContentPane = $(backgroundContainer).jScrollPane().data('jsp').getContentPane(),
+            smallerContentPane: JQuery = foregroundCount > backgroundCount ? backgroundContentPane : foregroundContentPane;
+
+        // first, add placeholders to the smaller list until the lists are the same size
+        for (var i = 0; i < lengthDifference; i++) {
+            $('<div>').addClass('color-container placeholder').prop('placeholder', 'true').appendTo(smallerContentPane);
+        }
+
+        // add one more placeholder to each list, for breathing room
+        [foregroundContentPane, backgroundContentPane].forEach((contentPane) => {
+            $('<div>').addClass('color-container placeholder').prop('placeholder', 'true').appendTo(contentPane);
+        });
+
+        while ($(foregroundContainer).find('.placeholder').length > 1 && $(backgroundContainer).find('.placeholder').length > 1) {
+            [foregroundContentPane, backgroundContentPane].forEach((contentPane) => {
+                contentPane.find('.placeholder').last().remove();
+            });
+        }
+    }
+
     export function addAndSelectNewColor(color: Color, foregroundOrBackground: string) {
         if (foregroundOrBackground === 'foreground') {
             addColorToContainer(color, foregroundContainer).click();
@@ -125,5 +146,8 @@ module Spirograph.UI {
         } else {
             throw 'unexpected color type: ' + foregroundOrBackground;
         }
+
+        addPlaceholders();
+        reinitializeAllScrollBars();
     }
 }
