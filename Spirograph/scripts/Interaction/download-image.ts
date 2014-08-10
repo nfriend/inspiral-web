@@ -5,7 +5,8 @@ module Spirograph.Interaction {
 
     var backgroundRed = 0,
         backgroundGreen = 0,
-        backgroundBlue = 0;
+        backgroundBlue = 0,
+        backgroundAlpha = 0;
 
     EventAggregator.subscribe('downloadImage', (callback: () => any) => {
         var canvas = <HTMLCanvasElement> d3.select('#spirograph-canvas').node();
@@ -16,7 +17,8 @@ module Spirograph.Interaction {
                 img: canvas.toDataURL(),
                 red: backgroundRed,
                 green: backgroundGreen,
-                blue: backgroundBlue
+                blue: backgroundBlue,
+                alpha: backgroundAlpha
             },
             success: (imagename) => {
                 if (callback) { callback(); }
@@ -30,6 +32,7 @@ module Spirograph.Interaction {
             backgroundRed = r;
             backgroundGreen = g;
             backgroundBlue = b;
+            backgroundAlpha = a;
         }
     });
 }  

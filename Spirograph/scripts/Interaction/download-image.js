@@ -4,7 +4,7 @@ var Spirograph;
     (function (Interaction) {
         'use strict';
 
-        var backgroundRed = 0, backgroundGreen = 0, backgroundBlue = 0;
+        var backgroundRed = 0, backgroundGreen = 0, backgroundBlue = 0, backgroundAlpha = 0;
 
         Spirograph.EventAggregator.subscribe('downloadImage', function (callback) {
             var canvas = d3.select('#spirograph-canvas').node();
@@ -15,7 +15,8 @@ var Spirograph;
                     img: canvas.toDataURL(),
                     red: backgroundRed,
                     green: backgroundGreen,
-                    blue: backgroundBlue
+                    blue: backgroundBlue,
+                    alpha: backgroundAlpha
                 },
                 success: function (imagename) {
                     if (callback) {
@@ -31,6 +32,7 @@ var Spirograph;
                 backgroundRed = r;
                 backgroundGreen = g;
                 backgroundBlue = b;
+                backgroundAlpha = a;
             }
         });
     })(Spirograph.Interaction || (Spirograph.Interaction = {}));

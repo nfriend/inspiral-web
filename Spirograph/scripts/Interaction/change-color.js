@@ -15,7 +15,7 @@ var Spirograph;
             if (typeof a === "undefined") { a = 1; }
             $('body').css('background-color', Spirograph.Utility.getRgbaString(r, g, b, a));
 
-            if (r < 100 && g < 100 && b < 100) {
+            if (a > .60 && (r < 100 && g < 100 && b < 100)) {
                 Spirograph.isInDarkMode = true;
             } else {
                 Spirograph.isInDarkMode = false;

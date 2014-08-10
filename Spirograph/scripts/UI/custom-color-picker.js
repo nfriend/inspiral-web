@@ -4,12 +4,12 @@ var Spirograph;
     (function (UI) {
         'use strict';
 
-        var $body = $('body'), currentlySelectedColor, foregroundOrBackground;
+        var $body = $('body'), currentlySelectedColor, foregroundOrBackground, lastSelectedForegroundColor = 'rgba(44,167,155,0.77)', lastSelectedBackgroundColor = 'rgba(1,36,9, 1)';
 
         function initializeCustomColorPicker() {
             $('.color-picker').popover({
                 trigger: 'manual',
-                content: '<div><div class="spectrum-color-picker" style="width:167px; height: 157px; position: relative;"></div><br /><div class="btn btn-default choose-color-button" style="width:100%"><i class="fa fa-check" style="margin-right:10px"></i>OK</div></div>',
+                content: '<div class="spectrum-color-picker-popover"><div class="spectrum-color-picker"></div><br /><div class="color-preview"></div><div class="btn btn-default choose-color-button"><i class="fa fa-check"></i>OK</div></div>',
                 title: 'Choose a color',
                 placement: 'left',
                 html: true,
@@ -33,18 +33,39 @@ var Spirograph;
                     flat: true,
                     showButtons: false,
                     containerClassName: 'spectrum-color-picker-container',
-                    move: function (color) {
-                        currentlySelectedColor = color;
-                    }
+                    move: onSpectrumMove
                 });
+
+                if (foregroundOrBackground === 'foreground') {
+                    onSpectrumMove(lastSelectedForegroundColor);
+                } else if (foregroundOrBackground === 'background') {
+                    onSpectrumMove(lastSelectedBackgroundColor);
+                } else {
+                    throw 'unexpected foreground/background identifier: ' + foregroundOrBackground;
+                }
 
                 attachColorPickerPopoverHandler();
             });
         }
         UI.initializeCustomColorPicker = initializeCustomColorPicker;
 
-        function onChange(color) {
-            console.log(color);
+        // can be called with either a spectrum Color object or a css color string
+        function onSpectrumMove(color) {
+            var colorString = color.toRgbString ? color.toRgbString() : color;
+            currentlySelectedColor = colorString;
+            $('.color-preview').css('background-color', colorString);
+            if (foregroundOrBackground === 'foreground') {
+                lastSelectedForegroundColor = colorString;
+            } else if (foregroundOrBackground === 'background') {
+                lastSelectedBackgroundColor = colorString;
+            } else {
+                throw 'unexpected foreground/background identifier: ' + foregroundOrBackground;
+            }
+
+            // if we called this manually, also make sure the spectrum control is up to date with this color
+            if (!color.toRgbString) {
+                $('.spectrum-color-picker').spectrum('set', color);
+            }
         }
 
         // closes all modals, and then removes itself
@@ -54,14 +75,7 @@ var Spirograph;
                 $('.color-picker').popover('hide');
                 $body.off('click', closeColorPickerPopoverOnClickHandler);
             } else if ($target.is('.choose-color-button') || $target.closest('.choose-color-button').length !== 0) {
-                var rgba = currentlySelectedColor ? currentlySelectedColor.toRgb() : { r: 0, g: 0, b: 0, a: 1 };
-                var newColor = {
-                    r: rgba.r,
-                    g: rgba.g,
-                    b: rgba.b,
-                    a: rgba.a
-                };
-                UI.addAndSelectNewColor(newColor, foregroundOrBackground);
+                UI.addAndSelectNewColor(Spirograph.Utility.toColor(currentlySelectedColor), foregroundOrBackground);
 
                 // make sure the scrollbars adjust for the new height
                 $('#color-selector .scroll-container').each(function (index, scrollContainer) {

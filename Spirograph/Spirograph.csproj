@@ -99,6 +99,7 @@
     <TypeScriptCompile Include="scripts\UI\gear-options-selector.ts" />
     <TypeScriptCompile Include="scripts\UI\initialize-jscrollpane.ts" />
     <TypeScriptCompile Include="scripts\UI\toolbar-controller.ts" />
+    <TypeScriptCompile Include="scripts\Utility\to-color-object.ts" />
     <TypeScriptCompile Include="scripts\Utility\utility.ts" />
     <Content Include="styles\fontawesome-webfont.eot" />
     <Content Include="styles\fontawesome-webfont.ttf" />

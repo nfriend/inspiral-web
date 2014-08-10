@@ -12,7 +12,7 @@ module Spirograph.Interaction {
     function changeBackgroundColor(r: number, g: number, b: number, a: number = 1) {
         $('body').css('background-color', Utility.getRgbaString(r, g, b, a));
 
-        if (r < 100 && g < 100 && b < 100) {
+        if (a > .60 && (r < 100 && g < 100 && b < 100)) {
             isInDarkMode = true;
         } else {
             isInDarkMode = false
