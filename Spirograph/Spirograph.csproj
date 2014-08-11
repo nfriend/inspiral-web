@@ -109,6 +109,7 @@
     <Content Include="server\saveimage.php" />
     <Content Include="server\getallimagenames.php" />
     <Content Include="server\createthumbs.php" />
+    <Content Include="styles\_help-modal.less" />
     <None Include="styles\_jsscrollpane-modifications.less" />
   </ItemGroup>
   <ItemGroup>

@@ -8458,9 +8458,36 @@ body {
   font-family: 'Open Sans', sans-serif;
   overflow: hidden;
 }
+.cleared {
+  clear: both;
+  float: none;
+}
 .btn,
 .popover {
   border-radius: 0;
+}
+.modal-content {
+  border-radius: 0;
+}
+kbd {
+  color: #000;
+  background: #eee;
+  border-style: solid;
+  border-color: #ccc #aaa #888 #bbb;
+  padding: .1em .6em;
+  border: 1px solid #ccc;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+  -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #ffffff inset;
+  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #ffffff inset;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #ffffff inset;
+  border-radius: 3px;
+  display: inline-block;
+  margin: 0 .1em;
+  text-shadow: 0 1px 0 #fff;
+  line-height: 1.4;
+  white-space: nowrap;
 }
 #gear-options-selector {
   position: absolute;
@@ -8845,6 +8872,16 @@ body {
   margin-bottom: 10px;
   border-color: #ccc;
 }
+#help-modal .column {
+  line-height: 200%;
+}
+#help-modal .column-left {
+  float: left;
+}
+#help-modal .column-right {
+  float: right;
+  text-align: right;
+}
 .spirograph #spirograph-svg {
   margin-left: -1280px;
   margin-top: -720px;
@@ -8930,18 +8967,5 @@ body {
   text-align: center;
   z-index: 10;
   cursor: pointer;
-}
-.spirograph a {
-  color: lightgray;
-}
-.spirograph a:link,
-.spirograph a:visited {
-  text-decoration: none;
-  color: lightgray;
-}
-.spirograph a:hover,
-.spirograph a:active {
-  text-decoration: none;
-  color: gray;
 }
 /*# sourceMappingURL=app.css.map */
