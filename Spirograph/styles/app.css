@@ -1,4 +1,4 @@
-﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
 /*
  * CSS Styles that are needed by jScrollPane for it to operate correctly.
  *
@@ -6373,7 +6373,7 @@ button.close {
     display: none !important;
   }
 }
-/*# sourceMappingURL=app.css.map */
+/*# sourceMappingURL=bootstrap.css.map */
 /*!
  *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -8813,26 +8813,37 @@ body {
   border-left: 8px solid rgba(150, 150, 150, 0.8);
   border-right: none;
 }
-#toolbar-container {
-  position: absolute;
-  top: 0;
+#toolbar-container-left {
+  left: 0;
+  padding-left: 90px;
+}
+#toolbar-container-right {
   right: 0;
   padding-right: 90px;
+}
+.toolbar-container {
+  position: absolute;
+  top: 0;
   height: 80px;
-  width: 100%;
   padding-top: 10px;
   z-index: 10;
   text-align: right;
 }
-#toolbar-container .toolbar-button {
+.toolbar-container .toolbar-button {
   padding-top: 10px;
   padding-bottom: 10px;
   width: 54px;
   height: 54px;
   opacity: .8;
+  margin-bottom: 5px;
 }
-#toolbar-container .toolbar-button.disabled {
+.toolbar-container .toolbar-button.disabled {
   opacity: .5;
+}
+.toolbar-container #toolbar-divider {
+  margin-top: 5px;
+  margin-bottom: 10px;
+  border-color: #ccc;
 }
 .spirograph #spirograph-svg {
   margin-left: -1280px;

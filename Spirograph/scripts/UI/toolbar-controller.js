@@ -4,27 +4,42 @@ var Spirograph;
     (function (UI) {
         'use strict';
 
-        var $toolbarContainer = $('#toolbar-container'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $galleryButton = $('#gallery-button');
+        var $toolbarContainer = $('#toolbar-container'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $galleryButton = $('#gallery-button'), $helpButton = $('#help-button');
 
         $downloadButton.tooltip({
-            title: 'Download and save<br />to the gallery',
-            placement: 'bottom',
-            html: true
+            title: 'Download image',
+            placement: 'left',
+            container: 'body'
+        });
+
+        $uploadButton.tooltip({
+            title: 'Upload to the gallery',
+            placement: 'left',
+            container: 'body'
         });
 
         $showHideGearsButton.tooltip({
             title: 'Show/hide gears',
-            placement: 'bottom'
+            placement: 'left',
+            container: 'body'
         });
 
         $clearButton.tooltip({
             title: 'Erase everything',
-            placement: 'bottom'
+            placement: 'left',
+            container: 'body'
         });
 
         $galleryButton.tooltip({
             title: 'View the gallery',
-            placement: 'bottom'
+            placement: 'left',
+            container: 'body'
+        });
+
+        $helpButton.tooltip({
+            title: 'Help/about',
+            placement: 'left',
+            container: 'body'
         });
 
         // closes all modals, and then removes itself

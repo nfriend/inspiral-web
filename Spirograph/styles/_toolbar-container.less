@@ -1,10 +1,17 @@
-﻿#toolbar-container {
-    position: absolute;
-    top: 0;
+﻿#toolbar-container-left {
+    left: 0;
+    padding-left: 90px;
+}
+
+#toolbar-container-right {
     right: 0;
     padding-right: 90px;
+}
+
+.toolbar-container {
+    position: absolute;
+    top: 0;
     height: 80px;
-    width: 100%;
     padding-top: 10px;
     z-index: 10;
     text-align: right;
@@ -15,10 +22,18 @@
         width: 54px;
         height: 54px;
         opacity: .8;
+        margin-bottom: 5px;
 
         &.disabled {
             opacity: .5;
         }
+    }
 
+    #toolbar-divider {
+        margin-top: 5px;
+        margin-bottom: 10px;
+        border-color: #ccc;
     }
 }
+
+
