@@ -3,7 +3,7 @@
 module Spirograph.UI {
     'use strict';
 
-    var $toolbarContainer = $('#toolbar-container'),
+    var $toolbarContainer = $('#toolbar-container-right'),
         $clearButton = $('#clear-button'),
         $body = $('body'),
         $showHideGearsButton = $('#show-hide-gears-button'),
@@ -64,7 +64,7 @@ module Spirograph.UI {
         trigger: 'manual',
         content: '<div class="btn btn-danger clear-button-confirmation">Yes, erase it!</div>',
         title: 'Are you sure?',
-        placement: 'bottom',
+        placement: 'left',
         html: true
     });
 
@@ -91,12 +91,13 @@ module Spirograph.UI {
         EventAggregator.publish('gearVisibilityChange', areGearsVisible);
     });
 
-    $downloadButton.click(() => {
-        var icon = $downloadButton.addClass('disabled').find('i').removeClass('fa-download').addClass('fa-cog fa-spin');
+    $downloadButton.add($uploadButton).click((ev) => {
+        var $target = $(ev.currentTarget);
+        var icon = $target.addClass('disabled').find('i').removeClass('fa-download fa-upload').addClass('fa-cog fa-spin');
         EventAggregator.publish('downloadImage', () => {
-            icon.removeClass('fa-cog fa-spin').addClass('fa-download');
-            $downloadButton.removeClass('disabled');
-        });
+            icon.removeClass('fa-cog fa-spin').addClass($target.is($downloadButton) ? 'fa-download' : 'fa-upload');
+            $target.removeClass('disabled');
+        }, $target.is($downloadButton));
     });
 
     $galleryButton.click(() => {

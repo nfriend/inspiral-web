@@ -36,6 +36,9 @@ var Spirograph;
                     move: onSpectrumMove
                 });
 
+                // add a class to the containing popover so we can isolate it for styling
+                $('.spectrum-color-picker-popover').parents('.popover').addClass('spectrum-popover');
+
                 if (foregroundOrBackground === 'foreground') {
                     onSpectrumMove(lastSelectedForegroundColor);
                 } else if (foregroundOrBackground === 'background') {

@@ -8,7 +8,7 @@ module Spirograph.Interaction {
         backgroundBlue = 0,
         backgroundAlpha = 0;
 
-    EventAggregator.subscribe('downloadImage', (callback: () => any) => {
+    EventAggregator.subscribe('downloadImage', (callback: () => any, downloadImage: boolean = false) => {
         var canvas = <HTMLCanvasElement> d3.select('#spirograph-canvas').node();
         $.ajax({
             type: 'POST',
@@ -18,11 +18,14 @@ module Spirograph.Interaction {
                 red: backgroundRed,
                 green: backgroundGreen,
                 blue: backgroundBlue,
-                alpha: backgroundAlpha
+                alpha: backgroundAlpha,
+                submitToGallery: !downloadImage
             },
             success: (imagename) => {
                 if (callback) { callback(); }
-                location.href = "getimage.php?imagename=" + imagename;
+                if (downloadImage) {
+                    location.href = "getimage.php?imagename=" + imagename;
+                }
             }
         });
     });

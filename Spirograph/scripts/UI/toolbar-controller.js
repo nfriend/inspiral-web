@@ -4,7 +4,7 @@ var Spirograph;
     (function (UI) {
         'use strict';
 
-        var $toolbarContainer = $('#toolbar-container'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $galleryButton = $('#gallery-button'), $helpButton = $('#help-button');
+        var $toolbarContainer = $('#toolbar-container-right'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $galleryButton = $('#gallery-button'), $helpButton = $('#help-button');
 
         $downloadButton.tooltip({
             title: 'Download image',
@@ -58,7 +58,7 @@ var Spirograph;
             trigger: 'manual',
             content: '<div class="btn btn-danger clear-button-confirmation">Yes, erase it!</div>',
             title: 'Are you sure?',
-            placement: 'bottom',
+            placement: 'left',
             html: true
         });
 
@@ -85,12 +85,13 @@ var Spirograph;
             Spirograph.EventAggregator.publish('gearVisibilityChange', Spirograph.areGearsVisible);
         });
 
-        $downloadButton.click(function () {
-            var icon = $downloadButton.addClass('disabled').find('i').removeClass('fa-download').addClass('fa-cog fa-spin');
+        $downloadButton.add($uploadButton).click(function (ev) {
+            var $target = $(ev.currentTarget);
+            var icon = $target.addClass('disabled').find('i').removeClass('fa-download fa-upload').addClass('fa-cog fa-spin');
             Spirograph.EventAggregator.publish('downloadImage', function () {
-                icon.removeClass('fa-cog fa-spin').addClass('fa-download');
-                $downloadButton.removeClass('disabled');
-            });
+                icon.removeClass('fa-cog fa-spin').addClass($target.is($downloadButton) ? 'fa-download' : 'fa-upload');
+                $target.removeClass('disabled');
+            }, $target.is($downloadButton));
         });
 
         $galleryButton.click(function () {

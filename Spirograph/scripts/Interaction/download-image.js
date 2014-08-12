@@ -6,7 +6,8 @@ var Spirograph;
 
         var backgroundRed = 0, backgroundGreen = 0, backgroundBlue = 0, backgroundAlpha = 0;
 
-        Spirograph.EventAggregator.subscribe('downloadImage', function (callback) {
+        Spirograph.EventAggregator.subscribe('downloadImage', function (callback, downloadImage) {
+            if (typeof downloadImage === "undefined") { downloadImage = false; }
             var canvas = d3.select('#spirograph-canvas').node();
             $.ajax({
                 type: 'POST',
@@ -16,13 +17,16 @@ var Spirograph;
                     red: backgroundRed,
                     green: backgroundGreen,
                     blue: backgroundBlue,
-                    alpha: backgroundAlpha
+                    alpha: backgroundAlpha,
+                    submitToGallery: !downloadImage
                 },
                 success: function (imagename) {
                     if (callback) {
                         callback();
                     }
-                    location.href = "getimage.php?imagename=" + imagename;
+                    if (downloadImage) {
+                        location.href = "getimage.php?imagename=" + imagename;
+                    }
                 }
             });
         });
