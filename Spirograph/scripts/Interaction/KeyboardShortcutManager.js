@@ -14,6 +14,8 @@ var Spirograph;
                 Key[Key["UpArrow"] = 38] = "UpArrow";
                 Key[Key["RightArrow"] = 39] = "RightArrow";
                 Key[Key["DownArrow"] = 40] = "DownArrow";
+                Key[Key["Comma"] = 188] = "Comma";
+                Key[Key["Period"] = 190] = "Period";
             })(KeyboardShortcutManager.Key || (KeyboardShortcutManager.Key = {}));
             var Key = KeyboardShortcutManager.Key;
             ;

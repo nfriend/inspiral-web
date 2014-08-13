@@ -14,10 +14,16 @@ var Spirograph;
         }
         Utility.toDegrees = toDegrees;
 
-        function toStandardCoords(coords, size) {
+        function toStandardCoords(coords, size, center) {
+            if (!center) {
+                var center = {
+                    x: size.x / 2,
+                    y: size.y / 2
+                };
+            }
             return {
-                x: coords.x - size.x / 2,
-                y: -1 * (coords.y - size.y / 2)
+                x: coords.x - center.x,
+                y: -1 * (coords.y - center.y)
             };
         }
         Utility.toStandardCoords = toStandardCoords;

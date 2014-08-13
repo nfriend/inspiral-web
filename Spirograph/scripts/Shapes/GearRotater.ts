@@ -12,7 +12,7 @@ module Spirograph.Shapes {
             this._fixedGearOptions = fixedGearOptions;
         }
 
-        rotate(rotatingGearOptions: GearOptions, mouseAngleAsDegrees: number, holeOptions: HoleOptions): TransformInfo {
+        rotate(rotatingGearOptions: GearOptions, mouseAngleAsDegrees: number, holeOptions: HoleOptions, toothOffset: number): TransformInfo {
             var radius = this._fixedGearOptions.radius + rotatingGearOptions.radius + this._teethBuffer;
 
             //TODO: normalize tooth height handling
@@ -29,6 +29,8 @@ module Spirograph.Shapes {
             if (rotatingGearOptions.toothCount % 2 === 0) {
                 gearRotation += (360 / rotatingGearOptions.toothCount) / 2;
             }
+
+            gearRotation += toothOffset * (-360 / rotatingGearOptions.toothCount);
 
             var penXModifer = holeOptions.positionRadius * Math.cos(Utility.toRadians(holeOptions.angle) + Utility.toRadians(gearRotation));
             var penYModifier = holeOptions.positionRadius * Math.sin(Utility.toRadians(holeOptions.angle) + Utility.toRadians(gearRotation));

@@ -11,7 +11,9 @@ module Spirograph.Interaction.KeyboardShortcutManager {
         LeftArrow = 37,
         UpArrow = 38,
         RightArrow = 39,
-        DownArrow = 40
+        DownArrow = 40,
+        Comma = 188,
+        Period = 190
     };
 
     var keydownCallbacks: { [key: number]: Array<() => any>; } = {},

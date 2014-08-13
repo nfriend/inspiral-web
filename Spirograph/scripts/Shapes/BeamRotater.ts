@@ -12,7 +12,7 @@ module Spirograph.Shapes {
             this._beamOptions = beamOptions;
         }
 
-        rotate(gearOptions: GearOptions, mouseAngleAsDegrees: number, holeOptions: HoleOptions): TransformInfo {
+        rotate(gearOptions: GearOptions, mouseAngleAsDegrees: number, holeOptions: HoleOptions, toothOffset: number): TransformInfo {
 
             // get the mouse angle into a standard -180 to 180 range
             var normalizedMouseAngleAsDegrees = (((mouseAngleAsDegrees % 360) + 360) % 360);
@@ -74,6 +74,8 @@ module Spirograph.Shapes {
             } else if (gearOptions.toothCount === 50 || gearOptions.toothCount == 30) {
                 gearRotation += (360 / gearOptions.toothCount) / 2;
             }
+
+            gearRotation += toothOffset * (-360 / gearOptions.toothCount);
 
             var penXModifer = holeOptions.positionRadius * Math.cos(Utility.toRadians(holeOptions.angle) + Utility.toRadians(gearRotation));
             var penYModifier = holeOptions.positionRadius * Math.sin(Utility.toRadians(holeOptions.angle) + Utility.toRadians(gearRotation));

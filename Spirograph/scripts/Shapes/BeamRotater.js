@@ -9,7 +9,7 @@ var Spirograph;
                 this._teethBuffer = 2;
                 this._beamOptions = beamOptions;
             }
-            BeamRotater.prototype.rotate = function (gearOptions, mouseAngleAsDegrees, holeOptions) {
+            BeamRotater.prototype.rotate = function (gearOptions, mouseAngleAsDegrees, holeOptions, toothOffset) {
                 // get the mouse angle into a standard -180 to 180 range
                 var normalizedMouseAngleAsDegrees = (((mouseAngleAsDegrees % 360) + 360) % 360);
                 normalizedMouseAngleAsDegrees = normalizedMouseAngleAsDegrees > 180 ? -360 + normalizedMouseAngleAsDegrees : normalizedMouseAngleAsDegrees;
@@ -65,6 +65,8 @@ var Spirograph;
                 } else if (gearOptions.toothCount === 50 || gearOptions.toothCount == 30) {
                     gearRotation += (360 / gearOptions.toothCount) / 2;
                 }
+
+                gearRotation += toothOffset * (-360 / gearOptions.toothCount);
 
                 var penXModifer = holeOptions.positionRadius * Math.cos(Spirograph.Utility.toRadians(holeOptions.angle) + Spirograph.Utility.toRadians(gearRotation));
                 var penYModifier = holeOptions.positionRadius * Math.sin(Spirograph.Utility.toRadians(holeOptions.angle) + Spirograph.Utility.toRadians(gearRotation));

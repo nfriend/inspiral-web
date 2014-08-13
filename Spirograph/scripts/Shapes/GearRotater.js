@@ -9,7 +9,7 @@ var Spirograph;
                 this._teethBuffer = 2;
                 this._fixedGearOptions = fixedGearOptions;
             }
-            GearRotater.prototype.rotate = function (rotatingGearOptions, mouseAngleAsDegrees, holeOptions) {
+            GearRotater.prototype.rotate = function (rotatingGearOptions, mouseAngleAsDegrees, holeOptions, toothOffset) {
                 var radius = this._fixedGearOptions.radius + rotatingGearOptions.radius + this._teethBuffer;
 
                 //TODO: normalize tooth height handling
@@ -26,6 +26,8 @@ var Spirograph;
                 if (rotatingGearOptions.toothCount % 2 === 0) {
                     gearRotation += (360 / rotatingGearOptions.toothCount) / 2;
                 }
+
+                gearRotation += toothOffset * (-360 / rotatingGearOptions.toothCount);
 
                 var penXModifer = holeOptions.positionRadius * Math.cos(Spirograph.Utility.toRadians(holeOptions.angle) + Spirograph.Utility.toRadians(gearRotation));
                 var penYModifier = holeOptions.positionRadius * Math.sin(Spirograph.Utility.toRadians(holeOptions.angle) + Spirograph.Utility.toRadians(gearRotation));

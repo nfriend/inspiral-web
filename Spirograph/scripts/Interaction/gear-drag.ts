@@ -7,7 +7,11 @@ module Spirograph.Interaction {
         lastAbsoluteMouseAngle = 0,
         rotationOffset = 0,
         previousTransformInfo: Shapes.TransformInfo = null,
-        isPenDrawing = true;
+        isPenDrawing = true,
+        isGearRotatingInPlace = false,
+        startingDragAngle: number = null,
+        initialToothOffset: number = 0,
+        toothOffset: number = 0;
 
     export function attachDragHandlers(svgContainer: D3.Selection, rotatingGear: D3.Selection, canvas: HTMLCanvasElement, rotater: Shapes.Rotater,
         rotatingGearOptions: Shapes.GearOptions, holeOptions: Shapes.HoleOptions, cursorTracker: D3.Selection) {
@@ -18,17 +22,26 @@ module Spirograph.Interaction {
             rotatingGear.on("mousedown", function (d, i) {
                 EventAggregator.publish('dragStart');
                 rotatingGear.classed('dragging', true);
-                svgContainer.on("mousemove", moveGear);
+
+                if (isGearRotatingInPlace) {
+                    svgContainer.on("mousemove", rotateGearInPlace);
+                } else {
+                    svgContainer.on("mousemove", moveGear);
+                    cursorTracker.style('visibility', 'visible');
+                    updateCursorTrackerLocation();
+                }
+
                 svgContainer.on("mouseup", () => {
                     EventAggregator.publish('dragEnd');
+                    initialToothOffset = toothOffset;
                     svgContainer.on("mousemove", null);
                     rotatingGear.classed('dragging', false);
                     d3.event.preventDefault();
                     cursorTracker.style('visibility', 'hidden');
+                    startingDragAngle = null;
                     return false;
                 });
-                cursorTracker.style('visibility', 'visible');
-                updateCursorTrackerLocation();
+
                 d3.event.preventDefault()
                 return false;
             });
@@ -52,28 +65,7 @@ module Spirograph.Interaction {
         attachHandlersToRotatingGear();
 
         function moveGear(angle?: number) {
-
-            // if an angle is passed in, we use that to position the gear
-            // otherwise we use the mouse coordinates from the d3 event
-            if (typeof angle !== 'undefined') {
-                var mouseAngle = angle;
-                // get mouseAngle between -180 and 180
-                mouseAngle = (((mouseAngle % 360) + 360) % 360);
-                mouseAngle = mouseAngle > 180 ? -360 + mouseAngle : mouseAngle;
-            } else {
-                // chrome handles CSS3 transformed SVG elementes differently - to get
-                // accurate mouse coordinates, we need to multiple by the current scale factor
-                if (browser.browser === Browser.Chrome) {
-                    var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0] / scaleFactor, y: d3.mouse(svgContainer.node())[1] / scaleFactor }, { x: svgWidth, y: svgHeight });
-                } else {
-                    var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: svgWidth, y: svgHeight });
-                }
-
-                updateCursorTrackerLocation();
-                var mouseAngle = Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
-
-                d3.event.preventDefault();
-            }
+            var mouseAngle = getAngle(angle);
 
             if (lastMouseAngle != null) {
                 if (lastMouseAngle < -90 && mouseAngle > 90) {
@@ -90,7 +82,7 @@ module Spirograph.Interaction {
 
             for (var i = lastAbsoluteMouseAngle; (angleDelta >= 0 && i <= mouseAngle) || (angleDelta < 0 && i >= mouseAngle); angleDelta >= 0 ? i++ : i--) {
 
-                var transformInfo = rotater.rotate(rotatingGearOptions, i, holeOptions);
+                var transformInfo = rotater.rotate(rotatingGearOptions, i, holeOptions, toothOffset);
                 rotatingGear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
 
                 if (previousTransformInfo !== null) {
@@ -113,6 +105,54 @@ module Spirograph.Interaction {
             return false;
         };
 
+        function rotateGearInPlace(angle?: number) {
+            if (previousTransformInfo !== null)
+                var mouseAngle = getAngle(angle, { x: previousTransformInfo.x, y: previousTransformInfo.y });
+            else {
+                var tempTransformInfo = rotater.rotate(rotatingGearOptions, lastAbsoluteMouseAngle, holeOptions, toothOffset);
+                var mouseAngle = getAngle(angle, { x: tempTransformInfo.x, y: tempTransformInfo.y });
+            }
+
+            var delta = (((mouseAngle - startingDragAngle) % 360) + 360) % 360;
+            toothOffset = (Math.floor(delta / (360 / rotatingGearOptions.toothCount)) + initialToothOffset) % rotatingGearOptions.toothCount;
+            console.log(delta, mouseAngle, startingDragAngle);
+
+            var transformInfo = rotater.rotate(rotatingGearOptions, lastAbsoluteMouseAngle, holeOptions, toothOffset);
+            rotatingGear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
+        }
+
+        // gets the normalized angle for computation, either from the mouse or from the parameter passed programatically
+        function getAngle(angle?: number, center?: { x: number; y: number }) {
+            // if an angle is passed in, we use that to position the gear
+            // otherwise we use the mouse coordinates from the d3 event
+            if (typeof angle !== 'undefined') {
+                var mouseAngle = angle;
+                // get mouseAngle between -180 and 180
+                mouseAngle = (((mouseAngle % 360) + 360) % 360);
+                mouseAngle = mouseAngle > 180 ? -360 + mouseAngle : mouseAngle;
+            } else {
+                // chrome handles CSS3 transformed SVG elementes differently - to get
+                // accurate mouse coordinates, we need to multiple by the current scale factor
+                if (browser.browser === Browser.Chrome) {
+                    var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0] / scaleFactor, y: d3.mouse(svgContainer.node())[1] / scaleFactor }, { x: svgWidth, y: svgHeight }, center);
+                } else {
+                    var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: svgWidth, y: svgHeight }, center);
+                }
+
+                updateCursorTrackerLocation();
+                var mouseAngle = Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
+
+                d3.event.preventDefault();
+            }
+
+            if (startingDragAngle === null) {
+                startingDragAngle = mouseAngle;
+            }
+
+            return mouseAngle;
+        }
+
+        //#region Subscribe to relevant EventAggregator events
         EventAggregator.subscribe('holeSelected', (hole: Shapes.HoleOptions) => {
             previousTransformInfo = null;
             holeOptions = hole;
@@ -140,10 +180,15 @@ module Spirograph.Interaction {
                 Initialization.initializeHoleSelection();
             }
 
+            toothOffset = 0;
+            initialToothOffset = 0;
+
             previousTransformInfo = null;
             moveGear(lastMouseAngle);
         });
+        //#endregion
 
+        //#region Setup keyboard shortcuts
         Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.RightArrow, () => {
             moveGear(lastAbsoluteMouseAngle - 29.253);
         });
@@ -164,9 +209,32 @@ module Spirograph.Interaction {
             isPenDrawing = false;
             previousTransformInfo = null;
         }, () => {
-            isPenDrawing = true;
-            previousTransformInfo = null;
+                isPenDrawing = true;
+                previousTransformInfo = null;
             });
+
+        Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.Ctrl, () => {
+            isGearRotatingInPlace = true;
+            previousTransformInfo = null;
+        }, () => {
+                isGearRotatingInPlace = false;
+                previousTransformInfo = null;
+            });
+
+        Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.Comma, () => {
+            startingDragAngle = 0;
+            rotateGearInPlace(360 / rotatingGearOptions.toothCount + .1);
+            initialToothOffset = toothOffset;
+            previousTransformInfo = null;
+        });
+
+        Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.Period, () => {
+            startingDragAngle = 0;
+            rotateGearInPlace(-360 / rotatingGearOptions.toothCount + .1);
+            initialToothOffset = toothOffset;
+            previousTransformInfo = null;
+        });
+        //#endregion
 
         // initialize the posiiton of the gear
         moveGear(0);
