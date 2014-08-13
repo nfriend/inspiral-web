@@ -14,21 +14,30 @@ module Spirograph.Interaction.KeyboardShortcutManager {
         DownArrow = 40
     };
 
-    var callbacks: { [key: number]: Array<() => any>; } = {};
+    var keydownCallbacks: { [key: number]: Array<() => any>; } = {},
+        keyupCallbacks: { [key: number]: Array<() => any>; } = {};
 
-    export function add(key: Key, callback: () => any) {
-        if (!(<number>key in callbacks)) {
-            callbacks[key] = new Array<() => any>();
+    export function add(key: Key, keydownCallback?: () => any, keyupCallback?: () => any) {
+        if (!(<number>key in keydownCallbacks)) {
+            keydownCallbacks[key] = new Array<() => any>();
         }
-        callbacks[key].push(callback);
+        if (!(<number>key in keyupCallbacks)) {
+            keyupCallbacks[key] = new Array<() => any>();
+        }
+
+        if (keydownCallback)    
+            keydownCallbacks[key].push(keydownCallback);
+
+        if (keyupCallback)    
+            keyupCallbacks[key].push(keyupCallback);
     }
 
     export function remove(key: Key, callback: () => any) {
         var keepGoing = true;
         while (keepGoing) {
-            var indexToRemove = callbacks[key].indexOf(callback);
+            var indexToRemove = keydownCallbacks[key].indexOf(callback);
             if (indexToRemove !== -1) {
-                callbacks[key].splice(indexToRemove, 1);
+                keydownCallbacks[key].splice(indexToRemove, 1);
             } else {
                 keepGoing = false;
             }
@@ -37,8 +46,14 @@ module Spirograph.Interaction.KeyboardShortcutManager {
 
     (() => {
         $(window).on('keydown', (e) => {
-            if (e.which in callbacks) {
-                callbacks[e.which].forEach(callback => callback());
+            if (e.which in keydownCallbacks) {
+                keydownCallbacks[e.which].forEach(callback => callback());
+            }
+        });
+
+        $(window).on('keyup', (e) => {
+            if (e.which in keyupCallbacks) {
+                keyupCallbacks[e.which].forEach(callback => callback());
             }
         });
     })();

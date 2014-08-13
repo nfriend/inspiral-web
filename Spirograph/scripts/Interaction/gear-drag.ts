@@ -6,7 +6,8 @@ module Spirograph.Interaction {
     var lastMouseAngle = null,
         lastAbsoluteMouseAngle = 0,
         rotationOffset = 0,
-        previousTransformInfo: Shapes.TransformInfo = null;
+        previousTransformInfo: Shapes.TransformInfo = null,
+        isPenDrawing = true;
 
     export function attachDragHandlers(svgContainer: D3.Selection, rotatingGear: D3.Selection, canvas: HTMLCanvasElement, rotater: Shapes.Rotater,
         rotatingGearOptions: Shapes.GearOptions, holeOptions: Shapes.HoleOptions, cursorTracker: D3.Selection) {
@@ -96,11 +97,13 @@ module Spirograph.Interaction {
                     var previousCanvasPenCoords = Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
                     var currentCanvasPenCoords = Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
 
-                    ctx.beginPath();
-                    ctx.moveTo(previousCanvasPenCoords.x, previousCanvasPenCoords.y);
-                    ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
-                    ctx.stroke();
-                    ctx.closePath();
+                    if (isPenDrawing) {
+                        ctx.beginPath();
+                        ctx.moveTo(previousCanvasPenCoords.x, previousCanvasPenCoords.y);
+                        ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
+                        ctx.stroke();
+                        ctx.closePath();
+                    }
                 }
 
                 previousTransformInfo = transformInfo;
@@ -156,6 +159,14 @@ module Spirograph.Interaction {
         Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.UpArrow, () => {
             moveGear(lastAbsoluteMouseAngle + 29.253);
         });
+
+        Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.Shift, () => {
+            isPenDrawing = false;
+            previousTransformInfo = null;
+        }, () => {
+            isPenDrawing = true;
+            previousTransformInfo = null;
+            });
 
         // initialize the posiiton of the gear
         moveGear(0);

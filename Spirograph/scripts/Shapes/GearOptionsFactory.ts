@@ -46,8 +46,8 @@ module Spirograph.Shapes {
         toothCount: 24,
         toothHeight: 10,
         holeCount: 5,
-        holeSweepAngle: 520,
-        holePositionBuffer: 8,
+        holeSweepAngle: 260,
+        holePositionBuffer: 7,
         holeRadius: 5
     };
 
@@ -56,7 +56,7 @@ module Spirograph.Shapes {
         toothCount: 30,
         toothHeight: 10,
         holeCount: 9,
-        holeSweepAngle: 520,
+        holeSweepAngle: 360,
         holePositionBuffer: 8,
         holeRadius: 5
     };
@@ -66,7 +66,7 @@ module Spirograph.Shapes {
         toothCount: 32,
         toothHeight: 10,
         holeCount: 9,
-        holeSweepAngle: 600,
+        holeSweepAngle: 360,
         holePositionBuffer: 8,
         holeRadius: 5
     };
@@ -76,7 +76,7 @@ module Spirograph.Shapes {
         toothCount: 36,
         toothHeight: 10,
         holeCount: 11,
-        holeSweepAngle: 720,
+        holeSweepAngle: 360,
         holePositionBuffer: 8,
         holeRadius: 5
     };
@@ -86,7 +86,7 @@ module Spirograph.Shapes {
         toothCount: 40,
         toothHeight: 10,
         holeCount: 13,
-        holeSweepAngle: 720,
+        holeSweepAngle: 400,
         holePositionBuffer: 8,
         holeRadius: 5
     };
@@ -96,7 +96,7 @@ module Spirograph.Shapes {
         toothCount: 45,
         toothHeight: 10,
         holeCount: 16,
-        holeSweepAngle: 720,
+        holeSweepAngle: 400,
         holePositionBuffer: 10,
         holeRadius: 5
     };
@@ -106,7 +106,7 @@ module Spirograph.Shapes {
         toothCount: 48,
         toothHeight: 10,
         holeCount: 17,
-        holeSweepAngle: 900,
+        holeSweepAngle: 400,
         holePositionBuffer: 10,
         holeRadius: 5
     };
@@ -116,7 +116,7 @@ module Spirograph.Shapes {
         toothCount: 50,
         toothHeight: 10,
         holeCount: 18,
-        holeSweepAngle: 900,
+        holeSweepAngle: 520,
         holePositionBuffer: 10,
         holeRadius: 5
     };
@@ -126,8 +126,8 @@ module Spirograph.Shapes {
         toothCount: 52,
         toothHeight: 10,
         holeCount: 19,
-        holeSweepAngle: 990,
-        holePositionBuffer: 13,
+        holeSweepAngle: 520,
+        holePositionBuffer: 10,
         holeRadius: 5
     };
 
@@ -136,8 +136,8 @@ module Spirograph.Shapes {
         toothCount: 56,
         toothHeight: 10,
         holeCount: 21,
-        holeSweepAngle: 900,
-        holePositionBuffer: 13,
+        holeSweepAngle: 520,
+        holePositionBuffer: 10,
         holeRadius: 5
     };
 
@@ -146,8 +146,8 @@ module Spirograph.Shapes {
         toothCount: 60,
         toothHeight: 10,
         holeCount: 23,
-        holeSweepAngle: 900,
-        holePositionBuffer: 15,
+        holeSweepAngle: 520,
+        holePositionBuffer: 10,
         holeRadius: 5
     };
 
@@ -156,8 +156,8 @@ module Spirograph.Shapes {
         toothCount: 63,
         toothHeight: 10,
         holeCount: 25,
-        holeSweepAngle: 900,
-        holePositionBuffer: 15,
+        holeSweepAngle: 520,
+        holePositionBuffer: 10,
         holeRadius: 5
     };
 
@@ -166,8 +166,8 @@ module Spirograph.Shapes {
         toothCount: 64,
         toothHeight: 10,
         holeCount: 25,
-        holeSweepAngle: 900,
-        holePositionBuffer: 15,
+        holeSweepAngle: 520,
+        holePositionBuffer: 10,
         holeRadius: 5
     };
 
@@ -176,8 +176,8 @@ module Spirograph.Shapes {
         toothCount: 72,
         toothHeight: 10,
         holeCount: 29,
-        holeSweepAngle: 900,
-        holePositionBuffer: 15,
+        holeSweepAngle: 600,
+        holePositionBuffer: 10,
         holeRadius: 5
     };
 
@@ -186,8 +186,8 @@ module Spirograph.Shapes {
         toothCount: 75,
         toothHeight: 10,
         holeCount: 31,
-        holeSweepAngle: 900,
-        holePositionBuffer: 15,
+        holeSweepAngle: 600,
+        holePositionBuffer: 10,
         holeRadius: 5
     };
 
@@ -196,8 +196,8 @@ module Spirograph.Shapes {
         toothCount: 80,
         toothHeight: 10,
         holeCount: 33,
-        holeSweepAngle: 900,
-        holePositionBuffer: 15,
+        holeSweepAngle: 600,
+        holePositionBuffer: 10,
         holeRadius: 5
     };
 
@@ -206,8 +206,8 @@ module Spirograph.Shapes {
         toothCount: 84,
         toothHeight: 10,
         holeCount: 35,
-        holeSweepAngle: 900,
-        holePositionBuffer: 15,
+        holeSweepAngle: 600,
+        holePositionBuffer: 10,
         holeRadius: 5
     };
 }

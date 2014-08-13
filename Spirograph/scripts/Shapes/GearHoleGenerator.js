@@ -21,20 +21,6 @@ var Spirograph;
                 var holeArcLengthDelta = (smallestArcLength + largestArcLength) / 2;
 
                 for (var i = 0; i < options.holeCount; i++) {
-                    holePositionRadius -= holePositionRadiusDelta;
-                    holeAngle += 360 * (holeArcLengthDelta / (Math.PI * 2 * holePositionRadius));
-                }
-
-                // adjust our initial guess
-                var fudgeFactor = options.holeSweepAngle / holeAngle;
-                holeArcLengthDelta *= fudgeFactor;
-                console.log("fudge factor: " + options.holeSweepAngle / holeAngle);
-
-                // reset the variables before we run through the algorithm for real
-                holeAngle = 0;
-                holePositionRadius = options.radius - options.holePositionBuffer;
-
-                for (var i = 0; i < options.holeCount; i++) {
                     returnHoleOptions.push({
                         angle: holeAngle,
                         positionRadius: holePositionRadius,

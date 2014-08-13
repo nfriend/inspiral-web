@@ -18,22 +18,30 @@ var Spirograph;
             var Key = KeyboardShortcutManager.Key;
             ;
 
-            var callbacks = {};
+            var keydownCallbacks = {}, keyupCallbacks = {};
 
-            function add(key, callback) {
-                if (!(key in callbacks)) {
-                    callbacks[key] = new Array();
+            function add(key, keydownCallback, keyupCallback) {
+                if (!(key in keydownCallbacks)) {
+                    keydownCallbacks[key] = new Array();
                 }
-                callbacks[key].push(callback);
+                if (!(key in keyupCallbacks)) {
+                    keyupCallbacks[key] = new Array();
+                }
+
+                if (keydownCallback)
+                    keydownCallbacks[key].push(keydownCallback);
+
+                if (keyupCallback)
+                    keyupCallbacks[key].push(keyupCallback);
             }
             KeyboardShortcutManager.add = add;
 
             function remove(key, callback) {
                 var keepGoing = true;
                 while (keepGoing) {
-                    var indexToRemove = callbacks[key].indexOf(callback);
+                    var indexToRemove = keydownCallbacks[key].indexOf(callback);
                     if (indexToRemove !== -1) {
-                        callbacks[key].splice(indexToRemove, 1);
+                        keydownCallbacks[key].splice(indexToRemove, 1);
                     } else {
                         keepGoing = false;
                     }
@@ -43,8 +51,16 @@ var Spirograph;
 
             (function () {
                 $(window).on('keydown', function (e) {
-                    if (e.which in callbacks) {
-                        callbacks[e.which].forEach(function (callback) {
+                    if (e.which in keydownCallbacks) {
+                        keydownCallbacks[e.which].forEach(function (callback) {
+                            return callback();
+                        });
+                    }
+                });
+
+                $(window).on('keyup', function (e) {
+                    if (e.which in keyupCallbacks) {
+                        keyupCallbacks[e.which].forEach(function (callback) {
                             return callback();
                         });
                     }

@@ -21,21 +21,21 @@ module Spirograph.Shapes {
             // average the smallest and largest arc lengths
             var holeArcLengthDelta = (smallestArcLength + largestArcLength) / 2;
 
-            // run through the algorithm, see how far we are off, and adjust the holeArcLengthDelta accordingly.
-            // not the best way to correct this, but it works fairly well.
-            for (var i = 0; i < options.holeCount; i++) {
-                holePositionRadius -= holePositionRadiusDelta;
-                holeAngle += 360 * (holeArcLengthDelta / (Math.PI * 2 * holePositionRadius));
-            }
+            //// run through the algorithm, see how far we are off, and adjust the holeArcLengthDelta accordingly.
+            //// not the best way to correct this, but it works fairly well.
+            //for (var i = 0; i < options.holeCount; i++) {
+            //    holePositionRadius -= holePositionRadiusDelta;
+            //    holeAngle += 360 * (holeArcLengthDelta / (Math.PI * 2 * holePositionRadius));
+            //}
 
-            // adjust our initial guess
-            var fudgeFactor = options.holeSweepAngle / holeAngle;
-            holeArcLengthDelta *= fudgeFactor;
-            console.log("fudge factor: " + options.holeSweepAngle / holeAngle);
+            //// adjust our initial guess
+            //var fudgeFactor = options.holeSweepAngle / holeAngle;
+            //holeArcLengthDelta *= fudgeFactor;
+            //console.log("fudge factor: " + options.holeSweepAngle / holeAngle);
 
-            // reset the variables before we run through the algorithm for real
-            holeAngle = 0;
-            holePositionRadius = options.radius - options.holePositionBuffer;
+            //// reset the variables before we run through the algorithm for real
+            //holeAngle = 0;
+            //holePositionRadius = options.radius - options.holePositionBuffer;
 
             // compute the final location of the holes
             for (var i = 0; i < options.holeCount; i++) {
