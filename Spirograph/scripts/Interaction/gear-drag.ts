@@ -113,6 +113,9 @@ module Spirograph.Interaction {
                 var mouseAngle = getAngle(angle, { x: tempTransformInfo.x, y: tempTransformInfo.y });
             }
 
+            if (startingDragAngle === null)
+                startingDragAngle = mouseAngle;
+
             var delta = (((mouseAngle - startingDragAngle) % 360) + 360) % 360;
             toothOffset = (Math.floor(delta / (360 / rotatingGearOptions.toothCount)) + initialToothOffset) % rotatingGearOptions.toothCount;
             console.log(delta, mouseAngle, startingDragAngle);
@@ -143,10 +146,6 @@ module Spirograph.Interaction {
                 var mouseAngle = Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
 
                 d3.event.preventDefault();
-            }
-
-            if (startingDragAngle === null) {
-                startingDragAngle = mouseAngle;
             }
 
             return mouseAngle;
@@ -222,14 +221,14 @@ module Spirograph.Interaction {
             });
 
         Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.Comma, () => {
-            startingDragAngle = 0;
+            startingDragAngle = null;
             rotateGearInPlace(360 / rotatingGearOptions.toothCount + .1);
             initialToothOffset = toothOffset;
             previousTransformInfo = null;
         });
 
         Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.Period, () => {
-            startingDragAngle = 0;
+            startingDragAngle = null;
             rotateGearInPlace(-360 / rotatingGearOptions.toothCount + .1);
             initialToothOffset = toothOffset;
             previousTransformInfo = null;
