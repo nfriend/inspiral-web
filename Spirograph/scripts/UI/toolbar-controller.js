@@ -9,6 +9,7 @@ var Spirograph;
         $downloadButton.tooltip({
             title: 'Download image',
             placement: 'left',
+            html: true,
             container: 'body'
         });
 
@@ -100,6 +101,35 @@ var Spirograph;
             $body.append($link);
             $link[0].click();
             $link.remove();
+        });
+
+        // prevent scrolling inside the help modal from triggering scrolling behind the modal
+        $('#help-modal').on('mousewheel', function (e) {
+            e.stopPropagation();
+        });
+
+        Spirograph.Interaction.KeyboardShortcutManager.add(112 /* F1 */, function (e) {
+            $helpButton.click();
+            e.preventDefault();
+            e.stopPropagation();
+        });
+
+        Spirograph.Interaction.KeyboardShortcutManager.add(8 /* Backspace */, function (e) {
+            if (e.ctrlKey) {
+                Spirograph.EventAggregator.publish('clearCanvas');
+            }
+        });
+
+        Spirograph.Interaction.KeyboardShortcutManager.add(71 /* G */, function () {
+            $showHideGearsButton.click();
+        });
+
+        Spirograph.Interaction.KeyboardShortcutManager.add(83 /* S */, function (e) {
+            if (e.ctrlKey) {
+                $downloadButton.click();
+                e.preventDefault();
+                return false;
+            }
         });
     })(Spirograph.UI || (Spirograph.UI = {}));
     var UI = Spirograph.UI;

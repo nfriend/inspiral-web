@@ -6,6 +6,7 @@ var Spirograph;
             'use strict';
 
             (function (Key) {
+                Key[Key["Backspace"] = 8] = "Backspace";
                 Key[Key["Enter"] = 13] = "Enter";
                 Key[Key["Shift"] = 16] = "Shift";
                 Key[Key["Ctrl"] = 17] = "Ctrl";
@@ -14,6 +15,11 @@ var Spirograph;
                 Key[Key["UpArrow"] = 38] = "UpArrow";
                 Key[Key["RightArrow"] = 39] = "RightArrow";
                 Key[Key["DownArrow"] = 40] = "DownArrow";
+                Key[Key["S"] = 83] = "S";
+                Key[Key["Y"] = 89] = "Y";
+                Key[Key["Z"] = 90] = "Z";
+                Key[Key["G"] = 71] = "G";
+                Key[Key["F1"] = 112] = "F1";
                 Key[Key["Comma"] = 188] = "Comma";
                 Key[Key["Period"] = 190] = "Period";
             })(KeyboardShortcutManager.Key || (KeyboardShortcutManager.Key = {}));
@@ -55,7 +61,7 @@ var Spirograph;
                 $(window).on('keydown', function (e) {
                     if (e.which in keydownCallbacks) {
                         keydownCallbacks[e.which].forEach(function (callback) {
-                            return callback();
+                            return callback(e);
                         });
                     }
                 });
@@ -63,7 +69,7 @@ var Spirograph;
                 $(window).on('keyup', function (e) {
                     if (e.which in keyupCallbacks) {
                         keyupCallbacks[e.which].forEach(function (callback) {
-                            return callback();
+                            return callback(e);
                         });
                     }
                 });

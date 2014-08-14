@@ -4,6 +4,7 @@ module Spirograph.Interaction.KeyboardShortcutManager {
     'use strict';
 
     export enum Key {
+        Backspace = 8,
         Enter = 13,
         Shift = 16,
         Ctrl = 17,
@@ -12,19 +13,24 @@ module Spirograph.Interaction.KeyboardShortcutManager {
         UpArrow = 38,
         RightArrow = 39,
         DownArrow = 40,
+        S = 83,
+        Y = 89,
+        Z = 90,
+        G = 71,
+        F1 = 112,
         Comma = 188,
-        Period = 190
+        Period = 190,
     };
 
-    var keydownCallbacks: { [key: number]: Array<() => any>; } = {},
-        keyupCallbacks: { [key: number]: Array<() => any>; } = {};
+    var keydownCallbacks: { [key: number]: Array<(e?: JQueryEventObject) => any>; } = {},
+        keyupCallbacks: { [key: number]: Array<(e?: JQueryEventObject) => any>; } = {};
 
-    export function add(key: Key, keydownCallback?: () => any, keyupCallback?: () => any) {
+    export function add(key: Key, keydownCallback?: (e?: JQueryEventObject) => any, keyupCallback?: () => any) {
         if (!(<number>key in keydownCallbacks)) {
-            keydownCallbacks[key] = new Array<() => any>();
+            keydownCallbacks[key] = new Array<(e?: JQueryEventObject) => any>();
         }
         if (!(<number>key in keyupCallbacks)) {
-            keyupCallbacks[key] = new Array<() => any>();
+            keyupCallbacks[key] = new Array<(e?: JQueryEventObject) => any>();
         }
 
         if (keydownCallback)    
@@ -34,7 +40,7 @@ module Spirograph.Interaction.KeyboardShortcutManager {
             keyupCallbacks[key].push(keyupCallback);
     }
 
-    export function remove(key: Key, callback: () => any) {
+    export function remove(key: Key, callback: (e?: JQueryEventObject) => any) {
         var keepGoing = true;
         while (keepGoing) {
             var indexToRemove = keydownCallbacks[key].indexOf(callback);
@@ -49,13 +55,13 @@ module Spirograph.Interaction.KeyboardShortcutManager {
     (() => {
         $(window).on('keydown', (e) => {
             if (e.which in keydownCallbacks) {
-                keydownCallbacks[e.which].forEach(callback => callback());
+                keydownCallbacks[e.which].forEach(callback => callback(e));
             }
         });
 
         $(window).on('keyup', (e) => {
             if (e.which in keyupCallbacks) {
-                keyupCallbacks[e.which].forEach(callback => callback());
+                keyupCallbacks[e.which].forEach(callback => callback(e));
             }
         });
     })();

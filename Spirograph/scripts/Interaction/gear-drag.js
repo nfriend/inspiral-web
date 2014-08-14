@@ -4,7 +4,7 @@ var Spirograph;
     (function (Interaction) {
         'use strict';
 
-        var lastMouseAngle = null, lastAbsoluteMouseAngle = 0, rotationOffset = 0, previousTransformInfo = null, isPenDrawing = true, isGearRotatingInPlace = false, startingDragAngle = null, initialToothOffset = 0, toothOffset = 0;
+        var lastMouseAngle = null, lastAbsoluteMouseAngle = 0, rotationOffset = 0, previousTransformInfo = null, startingDragAngle = null, initialToothOffset = 0, isShiftKeyPressed = false, isCtrlKeyPressed = false, toothOffset = 0, lastKeyPress = new Date(2000, 1, 1), undoKeyPressDelay = 1000;
 
         function attachDragHandlers(svgContainer, rotatingGear, canvas, rotater, rotatingGearOptions, holeOptions, cursorTracker) {
             var ctx = canvas.getContext('2d');
@@ -14,9 +14,12 @@ var Spirograph;
                     Spirograph.EventAggregator.publish('dragStart');
                     rotatingGear.classed('dragging', true);
 
-                    if (isGearRotatingInPlace) {
+                    if (d3.event.ctrlKey) {
+                        cursorTracker.style('visibility', 'hidden');
                         svgContainer.on("mousemove", rotateGearInPlace);
+                        previousTransformInfo = null;
                     } else {
+                        Interaction.snapshot(canvas);
                         svgContainer.on("mousemove", moveGear);
                         cursorTracker.style('visibility', 'visible');
                         updateCursorTrackerLocation();
@@ -79,7 +82,7 @@ var Spirograph;
                         var previousCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: previousTransformInfo.penX, y: previousTransformInfo.penY });
                         var currentCanvasPenCoords = Spirograph.Utility.svgToCanvasCoords({ x: transformInfo.penX, y: transformInfo.penY });
 
-                        if (isPenDrawing) {
+                        if ((d3.event && !d3.event.shiftKey) || !isShiftKeyPressed) {
                             ctx.beginPath();
                             ctx.moveTo(previousCanvasPenCoords.x, previousCanvasPenCoords.y);
                             ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
@@ -184,49 +187,78 @@ var Spirograph;
             //#endregion
             //#region Setup keyboard shortcuts
             Interaction.KeyboardShortcutManager.add(39 /* RightArrow */, function () {
+                checkKeypressDelayForUndo();
                 moveGear(lastAbsoluteMouseAngle - 29.253);
-            });
+            }, resetKeypressDelay);
 
             Interaction.KeyboardShortcutManager.add(40 /* DownArrow */, function () {
+                checkKeypressDelayForUndo();
                 moveGear(lastAbsoluteMouseAngle - 29.253);
-            });
+            }, resetKeypressDelay);
 
             Interaction.KeyboardShortcutManager.add(37 /* LeftArrow */, function () {
+                checkKeypressDelayForUndo();
                 moveGear(lastAbsoluteMouseAngle + 29.253);
-            });
+            }, resetKeypressDelay);
 
             Interaction.KeyboardShortcutManager.add(38 /* UpArrow */, function () {
+                checkKeypressDelayForUndo();
                 moveGear(lastAbsoluteMouseAngle + 29.253);
-            });
+            }, resetKeypressDelay);
+
+            function checkKeypressDelayForUndo() {
+                if (+new Date() - +lastKeyPress > undoKeyPressDelay) {
+                    Interaction.snapshot(canvas);
+                }
+                lastKeyPress = new Date();
+            }
+
+            function resetKeypressDelay() {
+                lastKeyPress = new Date();
+            }
 
             Interaction.KeyboardShortcutManager.add(16 /* Shift */, function () {
-                isPenDrawing = false;
-                previousTransformInfo = null;
+                isShiftKeyPressed = true;
             }, function () {
-                isPenDrawing = true;
-                previousTransformInfo = null;
+                isShiftKeyPressed = false;
             });
 
             Interaction.KeyboardShortcutManager.add(17 /* Ctrl */, function () {
-                isGearRotatingInPlace = true;
-                previousTransformInfo = null;
+                isCtrlKeyPressed = true;
             }, function () {
-                isGearRotatingInPlace = false;
-                previousTransformInfo = null;
+                isCtrlKeyPressed = false;
             });
 
             Interaction.KeyboardShortcutManager.add(188 /* Comma */, function () {
-                startingDragAngle = null;
+                startingDragAngle = 0;
                 rotateGearInPlace(360 / rotatingGearOptions.toothCount + .1);
                 initialToothOffset = toothOffset;
                 previousTransformInfo = null;
+                startingDragAngle = null;
             });
 
             Interaction.KeyboardShortcutManager.add(190 /* Period */, function () {
-                startingDragAngle = null;
+                startingDragAngle = 0;
                 rotateGearInPlace(-360 / rotatingGearOptions.toothCount + .1);
                 initialToothOffset = toothOffset;
                 previousTransformInfo = null;
+                startingDragAngle = null;
+            });
+
+            Interaction.KeyboardShortcutManager.add(90 /* Z */, function (e) {
+                if (e.ctrlKey) {
+                    if (e.shiftKey) {
+                        Interaction.redo(canvas);
+                    } else {
+                        Interaction.undo(canvas);
+                    }
+                }
+            });
+
+            Interaction.KeyboardShortcutManager.add(89 /* Y */, function (e) {
+                if (e.ctrlKey) {
+                    Interaction.redo(canvas);
+                }
             });
 
             //#endregion

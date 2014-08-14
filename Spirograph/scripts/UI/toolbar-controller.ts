@@ -15,6 +15,7 @@ module Spirograph.UI {
     $downloadButton.tooltip({
         title: 'Download image',
         placement: 'left',
+        html: true,
         container: 'body'
     });
 
@@ -106,5 +107,34 @@ module Spirograph.UI {
         $body.append($link);
         $link[0].click();
         $link.remove();
+    });
+
+    // prevent scrolling inside the help modal from triggering scrolling behind the modal
+    $('#help-modal').on('mousewheel', (e) => {
+        e.stopPropagation();
+    });
+
+    Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.F1, (e) => {
+        $helpButton.click();
+        e.preventDefault();
+        e.stopPropagation();
+    });
+
+    Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.Backspace, (e) => {
+        if (e.ctrlKey) {
+            EventAggregator.publish('clearCanvas');
+        }
+    });
+
+    Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.G, () => {
+        $showHideGearsButton.click();
+    });
+
+    Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.S, (e) => {
+        if (e.ctrlKey) {
+            $downloadButton.click();
+            e.preventDefault();
+            return false;
+        }
     });
 } 
