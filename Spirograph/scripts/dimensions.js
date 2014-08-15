@@ -5,6 +5,7 @@ var Spirograph;
 
     // when changing these variables, make sure to change
     // the element's corresponding margin in the stylesheet
+    // as well as the PHP script that creates thumbnails
     Spirograph.canvasWidth = 1568;
     Spirograph.canvasHeight = 1108;
     Spirograph.svgWidth = 2560;

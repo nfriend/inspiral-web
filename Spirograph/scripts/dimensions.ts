@@ -5,6 +5,7 @@ module Spirograph {
 
     // when changing these variables, make sure to change 
     // the element's corresponding margin in the stylesheet 
+    // as well as the PHP script that creates thumbnails
 
     export var canvasWidth = 1568;
     export var canvasHeight = 1108;
