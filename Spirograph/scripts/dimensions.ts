@@ -7,7 +7,7 @@ module Spirograph {
     // the element's corresponding margin in the stylesheet 
 
     export var canvasWidth = 1568;
-    export var canvasHeight = 1008;
+    export var canvasHeight = 1108;
     export var svgWidth = 2560;
     export var svgHeight = 1440;
 
