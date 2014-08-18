@@ -28,8 +28,8 @@ imagecopy($background, $image, 0, 0, 0, 0, $imageWidth, $imageHeight);
 imagepng($background, $file);
 
 // create a thumbnail
-$thumbnail = imagecreatetruecolor(313, 201);
-imagecopyresampled($thumbnail, $background, 0, 0, 0, 0, 313, 201, $imageWidth, $imageHeight);
+$thumbnail = imagecreatetruecolor(313, 221);
+imagecopyresampled($thumbnail, $background, 0, 0, 0, 0, 313, 221, $imageWidth, $imageHeight);
 imagejpeg($thumbnail, str_replace('.png', '_thumb.jpg', $file), 75);
 
 // send the filename back to the client

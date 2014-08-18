@@ -14,6 +14,7 @@ module Spirograph.Interaction.KeyboardShortcutManager {
         RightArrow = 39,
         DownArrow = 40,
         S = 83,
+        T = 84,
         Y = 89,
         Z = 90,
         G = 71,

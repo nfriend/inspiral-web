@@ -5,4 +5,5 @@ module Spirograph {
 
     export var isInDarkMode = false;
     export var areGearsVisible = true;
+    export var isCursorTrackerVisible = false;
 }

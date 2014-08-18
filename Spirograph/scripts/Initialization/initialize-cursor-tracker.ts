@@ -9,7 +9,8 @@ module Spirograph.Initialization {
             y1: getSvgCenterY(),
             x2: getSvgCenterX(),
             y2: getSvgCenterY(),
-            'class': 'cursor-tracker color-changing'
+            'class': 'cursor-tracker color-changing',
+            'visibility': 'hidden'
         });
     }
 }

@@ -5,5 +5,6 @@ var Spirograph;
 
     Spirograph.isInDarkMode = false;
     Spirograph.areGearsVisible = true;
+    Spirograph.isCursorTrackerVisible = false;
 })(Spirograph || (Spirograph = {}));
 //# sourceMappingURL=globals.js.map

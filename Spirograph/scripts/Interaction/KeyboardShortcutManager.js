@@ -16,6 +16,7 @@ var Spirograph;
                 Key[Key["RightArrow"] = 39] = "RightArrow";
                 Key[Key["DownArrow"] = 40] = "DownArrow";
                 Key[Key["S"] = 83] = "S";
+                Key[Key["T"] = 84] = "T";
                 Key[Key["Y"] = 89] = "Y";
                 Key[Key["Z"] = 90] = "Z";
                 Key[Key["G"] = 71] = "G";

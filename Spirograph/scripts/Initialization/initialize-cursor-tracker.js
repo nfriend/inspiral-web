@@ -10,7 +10,8 @@ var Spirograph;
                 y1: Spirograph.getSvgCenterY(),
                 x2: Spirograph.getSvgCenterX(),
                 y2: Spirograph.getSvgCenterY(),
-                'class': 'cursor-tracker color-changing'
+                'class': 'cursor-tracker color-changing',
+                'visibility': 'hidden'
             });
         }
         Initialization.initializeCursorTracker = initializeCursorTracker;

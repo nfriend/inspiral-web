@@ -4,7 +4,7 @@ module Spirograph {
     'use strict';
 
     export enum Browser {
-        Chrome, IE, Firefox, Other
+        Chrome, IE, Firefox, Safari, Other
     }
 
     // some nasty stuff to pull the browser type from the user agent string
@@ -34,6 +34,11 @@ module Spirograph {
         switch (browserInfo.browser) {
             case 'Chrome': {
                 browserType = Browser.Chrome;
+                break;
+            }
+            case 'Safari': {
+                browserType = Browser.Safari;
+                break;
             }
         }
 

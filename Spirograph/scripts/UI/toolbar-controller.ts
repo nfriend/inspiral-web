@@ -10,6 +10,7 @@ module Spirograph.UI {
         $downloadButton = $('#download-button'),
         $uploadButton = $('#upload-button'),
         $galleryButton = $('#gallery-button'),
+        $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'),
         $helpButton = $('#help-button');
 
     $downloadButton.tooltip({
@@ -20,7 +21,7 @@ module Spirograph.UI {
     });
 
     $uploadButton.tooltip({
-        title: 'Upload to the gallery',
+        title: 'Submit to the gallery',
         placement: 'left',
         container: 'body'
     });
@@ -45,6 +46,12 @@ module Spirograph.UI {
 
     $helpButton.tooltip({
         title: 'Help/about',
+        placement: 'left',
+        container: 'body'
+    });
+
+    $showHideCursorTrackerButton.tooltip({
+        title: 'Show/hide cursor tracker',
         placement: 'left',
         container: 'body'
     });
@@ -92,6 +99,11 @@ module Spirograph.UI {
         EventAggregator.publish('gearVisibilityChange', areGearsVisible);
     });
 
+    $showHideCursorTrackerButton.click(() => {
+        isCursorTrackerVisible = !isCursorTrackerVisible;
+        EventAggregator.publish('cursorTrackerVisibilityChanged', isCursorTrackerVisible);
+    });
+
     $downloadButton.add($uploadButton).click((ev) => {
         var $target = $(ev.currentTarget);
         var icon = $target.addClass('disabled').find('i').removeClass('fa-download fa-upload').addClass('fa-cog fa-spin');
@@ -136,5 +148,9 @@ module Spirograph.UI {
             e.preventDefault();
             return false;
         }
+    });
+
+    Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.T, (e) => {
+        $showHideCursorTrackerButton.click();
     });
 } 

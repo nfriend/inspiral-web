@@ -5,10 +5,14 @@ module Spirograph.Interaction {
 
     var lastMouseAngle = null,
         lastAbsoluteMouseAngle = 0,
+        dragStartMouseAngle: number = null,
         rotationOffset = 0,
         previousTransformInfo: Shapes.TransformInfo = null,
         startingDragAngle: number = null,
         initialToothOffset: number = 0,
+        center: { x: number; y: number; } = { x: 0, y: 0 },
+        initialCenter: { x: number; y: number },
+        mousemoveCounter: number = 0,
         isShiftKeyPressed = false,
         isCtrlKeyPressed = false,
         toothOffset: number = 0,
@@ -24,6 +28,9 @@ module Spirograph.Interaction {
             rotatingGear.on("mousedown", function (d, i) {
                 EventAggregator.publish('dragStart');
                 rotatingGear.classed('dragging', true);
+                setInitialCenter(lastMouseAngle);
+                mousemoveCounter = 0;
+                computeCenter(mousemoveCounter);
 
                 if ((<any>d3.event).ctrlKey) {
                     cursorTracker.style('visibility', 'hidden');
@@ -32,7 +39,10 @@ module Spirograph.Interaction {
                 } else {
                     Interaction.snapshot(canvas);
                     svgContainer.on("mousemove", moveGear);
-                    cursorTracker.style('visibility', 'visible');
+
+                    if (isCursorTrackerVisible === true) {
+                        cursorTracker.style('visibility', 'visible');
+                    }
                     updateCursorTrackerLocation();
                 }
 
@@ -55,12 +65,16 @@ module Spirograph.Interaction {
         function updateCursorTrackerLocation() {
             if (browser.browser === Browser.Chrome) {
                 cursorTracker.attr({
+                    x1: center.x,
+                    y1: center.y,
                     x2: d3.mouse(svgContainer.node())[0] / scaleFactor,
                     y2: d3.mouse(svgContainer.node())[1] / scaleFactor
                 });
             }
             else {
                 cursorTracker.attr({
+                    x1: center.x,
+                    y1: center.y,
                     x2: d3.mouse(svgContainer.node())[0],
                     y2: d3.mouse(svgContainer.node())[1]
                 });
@@ -70,7 +84,13 @@ module Spirograph.Interaction {
         attachHandlersToRotatingGear();
 
         function moveGear(angle?: number) {
-            var mouseAngle = getAngle(angle);
+
+            if (!angle && dragStartMouseAngle === null)
+                dragStartMouseAngle = mouseAngle; mousemoveCounter++;
+
+            computeCenter(mousemoveCounter);
+
+            var mouseAngle = getAngle(angle, center);
 
             if (lastMouseAngle != null) {
                 if (lastMouseAngle < -90 && mouseAngle > 90) {
@@ -139,13 +159,7 @@ module Spirograph.Interaction {
                 mouseAngle = (((mouseAngle % 360) + 360) % 360);
                 mouseAngle = mouseAngle > 180 ? -360 + mouseAngle : mouseAngle;
             } else {
-                // chrome handles CSS3 transformed SVG elementes differently - to get
-                // accurate mouse coordinates, we need to multiple by the current scale factor
-                if (browser.browser === Browser.Chrome) {
-                    var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0] / scaleFactor, y: d3.mouse(svgContainer.node())[1] / scaleFactor }, { x: svgWidth, y: svgHeight }, center);
-                } else {
-                    var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: svgWidth, y: svgHeight }, center);
-                }
+                var mouseCoords = getNormalizedMouseCoords(center);
 
                 updateCursorTrackerLocation();
                 var mouseAngle = Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
@@ -154,6 +168,38 @@ module Spirograph.Interaction {
             }
 
             return mouseAngle;
+        }
+
+        function getNormalizedMouseCoords(center?: { x: number; y: number }) {
+            // webkit handles CSS3 transformed SVG elementes differently - to get
+            // accurate mouse coordinates, we need to multiple by the current scale factor
+            if (browser.browser === Browser.Chrome || browser.browser === Browser.Safari) {
+                var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0] / scaleFactor, y: d3.mouse(svgContainer.node())[1] / scaleFactor }, { x: svgWidth, y: svgHeight }, center);
+            } else {
+                var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: svgWidth, y: svgHeight }, center);
+            }
+
+            return mouseCoords;
+        }
+
+        function setInitialCenter(angle: number) {
+            if (typeof angle === 'undefined' || angle === null) {
+                initialCenter = { x: getSvgCenterX(), y: getSvgCenterY() };
+            } else {
+                var mouseCoords = getNormalizedMouseCoords();
+                initialCenter = { x: mouseCoords.x + (-1 * Math.cos(Utility.toRadians(angle)) * 150), y: mouseCoords.y + (-1 * Math.sin(Utility.toRadians(angle)) * 150) };
+            }
+        }
+
+        function computeCenter(step: number) {
+            var offsetConstant = 150;
+            if (initialCenter && typeof step !== 'undefined' && step <= offsetConstant)
+                center = {
+                    x: Math.round((initialCenter.x / offsetConstant) * (offsetConstant - step)) + getSvgCenterX(),
+                    y: Math.round(-1 * (initialCenter.y / offsetConstant) * (offsetConstant - step)) + getSvgCenterY()
+                };
+            else
+                center = { x: getSvgCenterX(), y: getSvgCenterY() };
         }
 
         //#region Subscribe to relevant EventAggregator events

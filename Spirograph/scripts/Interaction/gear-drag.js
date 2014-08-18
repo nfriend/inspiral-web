@@ -4,7 +4,7 @@ var Spirograph;
     (function (Interaction) {
         'use strict';
 
-        var lastMouseAngle = null, lastAbsoluteMouseAngle = 0, rotationOffset = 0, previousTransformInfo = null, startingDragAngle = null, initialToothOffset = 0, isShiftKeyPressed = false, isCtrlKeyPressed = false, toothOffset = 0, lastKeyPress = new Date(2000, 1, 1), undoKeyPressDelay = 1000;
+        var lastMouseAngle = null, lastAbsoluteMouseAngle = 0, dragStartMouseAngle = null, rotationOffset = 0, previousTransformInfo = null, startingDragAngle = null, initialToothOffset = 0, center = { x: 0, y: 0 }, initialCenter, mousemoveCounter = 0, isShiftKeyPressed = false, isCtrlKeyPressed = false, toothOffset = 0, lastKeyPress = new Date(2000, 1, 1), undoKeyPressDelay = 1000;
 
         function attachDragHandlers(svgContainer, rotatingGear, canvas, rotater, rotatingGearOptions, holeOptions, cursorTracker) {
             var ctx = canvas.getContext('2d');
@@ -13,6 +13,9 @@ var Spirograph;
                 rotatingGear.on("mousedown", function (d, i) {
                     Spirograph.EventAggregator.publish('dragStart');
                     rotatingGear.classed('dragging', true);
+                    setInitialCenter(lastMouseAngle);
+                    mousemoveCounter = 0;
+                    computeCenter(mousemoveCounter);
 
                     if (d3.event.ctrlKey) {
                         cursorTracker.style('visibility', 'hidden');
@@ -21,7 +24,10 @@ var Spirograph;
                     } else {
                         Interaction.snapshot(canvas);
                         svgContainer.on("mousemove", moveGear);
-                        cursorTracker.style('visibility', 'visible');
+
+                        if (Spirograph.isCursorTrackerVisible === true) {
+                            cursorTracker.style('visibility', 'visible');
+                        }
                         updateCursorTrackerLocation();
                     }
 
@@ -44,11 +50,15 @@ var Spirograph;
             function updateCursorTrackerLocation() {
                 if (Spirograph.browser.browser === 0 /* Chrome */) {
                     cursorTracker.attr({
+                        x1: center.x,
+                        y1: center.y,
                         x2: d3.mouse(svgContainer.node())[0] / Spirograph.scaleFactor,
                         y2: d3.mouse(svgContainer.node())[1] / Spirograph.scaleFactor
                     });
                 } else {
                     cursorTracker.attr({
+                        x1: center.x,
+                        y1: center.y,
                         x2: d3.mouse(svgContainer.node())[0],
                         y2: d3.mouse(svgContainer.node())[1]
                     });
@@ -59,7 +69,13 @@ var Spirograph;
             attachHandlersToRotatingGear();
 
             function moveGear(angle) {
-                var mouseAngle = getAngle(angle);
+                if (!angle && dragStartMouseAngle === null)
+                    dragStartMouseAngle = mouseAngle;
+                mousemoveCounter++;
+
+                computeCenter(mousemoveCounter);
+
+                var mouseAngle = getAngle(angle, center);
 
                 if (lastMouseAngle != null) {
                     if (lastMouseAngle < -90 && mouseAngle > 90) {
@@ -129,13 +145,7 @@ var Spirograph;
                     mouseAngle = (((mouseAngle % 360) + 360) % 360);
                     mouseAngle = mouseAngle > 180 ? -360 + mouseAngle : mouseAngle;
                 } else {
-                    // chrome handles CSS3 transformed SVG elementes differently - to get
-                    // accurate mouse coordinates, we need to multiple by the current scale factor
-                    if (Spirograph.browser.browser === 0 /* Chrome */) {
-                        var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0] / Spirograph.scaleFactor, y: d3.mouse(svgContainer.node())[1] / Spirograph.scaleFactor }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight }, center);
-                    } else {
-                        var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight }, center);
-                    }
+                    var mouseCoords = getNormalizedMouseCoords(center);
 
                     updateCursorTrackerLocation();
                     var mouseAngle = Spirograph.Utility.toDegrees(Math.atan2(mouseCoords.y, mouseCoords.x));
@@ -144,6 +154,38 @@ var Spirograph;
                 }
 
                 return mouseAngle;
+            }
+
+            function getNormalizedMouseCoords(center) {
+                // webkit handles CSS3 transformed SVG elementes differently - to get
+                // accurate mouse coordinates, we need to multiple by the current scale factor
+                if (Spirograph.browser.browser === 0 /* Chrome */ || Spirograph.browser.browser === 3 /* Safari */) {
+                    var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0] / Spirograph.scaleFactor, y: d3.mouse(svgContainer.node())[1] / Spirograph.scaleFactor }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight }, center);
+                } else {
+                    var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight }, center);
+                }
+
+                return mouseCoords;
+            }
+
+            function setInitialCenter(angle) {
+                if (typeof angle === 'undefined' || angle === null) {
+                    initialCenter = { x: Spirograph.getSvgCenterX(), y: Spirograph.getSvgCenterY() };
+                } else {
+                    var mouseCoords = getNormalizedMouseCoords();
+                    initialCenter = { x: mouseCoords.x + (-1 * Math.cos(Spirograph.Utility.toRadians(angle)) * 150), y: mouseCoords.y + (-1 * Math.sin(Spirograph.Utility.toRadians(angle)) * 150) };
+                }
+            }
+
+            function computeCenter(step) {
+                var offsetConstant = 150;
+                if (initialCenter && typeof step !== 'undefined' && step <= offsetConstant)
+                    center = {
+                        x: Math.round((initialCenter.x / offsetConstant) * (offsetConstant - step)) + Spirograph.getSvgCenterX(),
+                        y: Math.round(-1 * (initialCenter.y / offsetConstant) * (offsetConstant - step)) + Spirograph.getSvgCenterY()
+                    };
+                else
+                    center = { x: Spirograph.getSvgCenterX(), y: Spirograph.getSvgCenterY() };
             }
 
             //#region Subscribe to relevant EventAggregator events
