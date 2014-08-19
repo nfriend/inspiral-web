@@ -99,9 +99,9 @@ var Spirograph;
 
         $downloadButton.add($uploadButton).click(function (ev) {
             var $target = $(ev.currentTarget);
-            var icon = $target.addClass('disabled').find('i').removeClass('fa-download fa-upload').addClass('fa-cog fa-spin');
+            var icon = $target.addClass('disabled').find('i').removeClass('fa-save fa-upload').addClass('fa-cog fa-spin');
             Spirograph.EventAggregator.publish('downloadImage', function () {
-                icon.removeClass('fa-cog fa-spin').addClass($target.is($downloadButton) ? 'fa-download' : 'fa-upload');
+                icon.removeClass('fa-cog fa-spin').addClass($target.is($downloadButton) ? 'fa-save' : 'fa-upload');
                 $target.removeClass('disabled');
             }, $target.is($downloadButton));
         });

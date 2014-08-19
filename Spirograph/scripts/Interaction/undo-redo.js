@@ -19,12 +19,13 @@ var Spirograph;
         Interaction.snapshot = snapshot;
 
         function goToSnapshot(canvas, snapshotIndex) {
-            var ctx = canvas.getContext('2d');
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
             var image = new Image();
-            var snapshotData = snapshots[snapshotIndex];
-            image.src = snapshotData;
-            canvas.getContext('2d').drawImage(image, 0, 0);
+            image.src = snapshots[snapshotIndex];
+            image.onload = function () {
+                var ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(image, 0, 0);
+            };
         }
         ;
 

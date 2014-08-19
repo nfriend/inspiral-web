@@ -110,15 +110,15 @@
     <Content Include="server\getallimagenames.php" />
     <Content Include="server\createthumbs.php" />
     <Content Include="styles\_help-modal.less" />
+    <Content Include="styles\app.css.map">
+      <DependentUpon>app.css</DependentUpon>
+    </Content>
     <None Include="styles\_jsscrollpane-modifications.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bower.json" />
     <Content Include=".bowerrc" />
     <Content Include="styles\app.less" />
-    <Content Include="styles\app.css.map">
-      <DependentUpon>app.css</DependentUpon>
-    </Content>
     <Content Include="scripts\definitions\d3\d3-tests.ts.tscparams" />
     <Content Include="scripts\definitions\d3\plugins\d3.superformula-tests.ts.tscparams" />
     <Content Include="styles\_gear-options-selector.less" />

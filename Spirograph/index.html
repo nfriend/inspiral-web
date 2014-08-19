@@ -80,86 +80,103 @@
                     <h4 class="modal-title" id="help-modal-label">Inspirograph Help/About</h4>
                 </div>
                 <div class="modal-body">
-                    <b>Controls and Keyboard Shortcuts</b>
-                    <br />
-                    <br />
-                    <div class="cleared"></div>
-                    <div class="column column-left">Move gear</div>
-                    <div class="column column-right">Click and drag<br />or <kbd><i class="fa fa-long-arrow-left"></i></kbd>, <kbd><i class="fa fa-long-arrow-right"></i></kbd>, <kbd><i class="fa fa-long-arrow-up"></i></kbd> and <kbd><i class="fa fa-long-arrow-down"></i></kbd></div>
-                    <div class="cleared"></div>
-                    <br />
-                    <div class="column column-left">Move gear without drawing</div>
-                    <div class="column column-right"><kbd>Shift</kbd> + click and drag<br />or <kbd>Shift</kbd> + <kbd><i class="fa fa-long-arrow-left"></i></kbd>, <kbd><i class="fa fa-long-arrow-right"></i></kbd>, <kbd><i class="fa fa-long-arrow-up"></i></kbd> or <kbd><i class="fa fa-long-arrow-down"></i></kbd></div>
-                    <div class="cleared"></div>
-                    <br />
-                    <div class="column column-left">Rotate gear in place</div>
-                    <div class="column column-right">
-                        <kbd>Ctrl</kbd> + click and drag
-                        <br />or <kbd>,</kbd> and <kbd>.</kbd>
-                    </div>
-                    <div class="cleared"></div>
-                    <br />
-                    <div class="column column-left">Undo</div>
-                    <div class="column column-right"><kbd>Ctrl</kbd> + <kbd>Z</kbd></div>
-                    <div class="cleared"></div>
-                    <br />
-                    <div class="column column-left">Redo</div>
-                    <div class="column column-right">
-                        <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd>
-                        <br />or <kbd>Ctrl</kbd> + <kbd>Y</kbd>
-                    </div>
-                    <div class="cleared"></div>
-                    <br />
-                    <div class="column column-left">Erase everything</div>
-                    <div class="column column-right"><kbd>Ctrl</kbd> + <kbd>Backspace</kbd></div>
-                    <div class="cleared"></div>
-                    <br />
-                    <div class="column column-left">Show/hide gears</div>
-                    <div class="column column-right"><kbd>G</kbd></div>
-                    <div class="cleared"></div>
-                    <br />
-                    <div class="column column-left">Show/hide cursor tracker</div>
-                    <div class="column column-right"><kbd>T</kbd></div>
-                    <div class="cleared"></div>
-                    <br />
-                    <div class="column column-left">Download image</div>
-                    <div class="column column-right"><kbd>Ctrl</kbd> + <kbd>S</kbd></div>
-                    <div class="cleared"></div>
-                    <hr />
-                    <b>About</b>
-                    <br />
-                    <br />
-                    <div>
-                        Designed and developed by Nathan Friend, with a little help from:
-                        <div class="cleared"></div>
-                        <br />
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <ul>
-                                    <li><a href="http://www.typescriptlang.org/">TypeScript</a></li>
-                                    <li><a href="http://lesscss.org/">Less</a></li>
-                                    <li><a href="http://gruntjs.com/">Grunt</a></li>
-                                    <li><a href="http://d3js.org/">D3.js</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-4">
-                                <ul>
-                                    <li><a href="http://jquery.com/">jQuery</a></li>
-                                    <li><a href="http://getbootstrap.com/">Bootstrap</a></li>
-                                    <li><a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a></li>
-                                    <li><a href="http://jscrollpane.kelvinluck.com/">jScrollPane</a></li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-4">
-                                <ul>
-                                    <li><a href="https://github.com/brandonaaron/jquery-mousewheel">jQuery Mouse Wheel</a></li>
-                                    <li><a href="http://bgrins.github.io/spectrum/">Spectrum</a></li>
-                                    <li><a href="http://brutaldesign.github.io/swipebox/">Swipebox</a></li>
-                                </ul>
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="active"><a href="#controls" role="tab" data-toggle="tab">Controls and Keyboard Shortcuts</a></li>
+                        <li><a href="#help-about" role="tab" data-toggle="tab">About Inspirograph</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="controls">
+                            <br />
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>Move gear</td>
+                                        <td>Click and drag<br />or <kbd><i class="fa fa-long-arrow-left"></i></kbd>, <kbd><i class="fa fa-long-arrow-right"></i></kbd>, <kbd><i class="fa fa-long-arrow-up"></i></kbd> and <kbd><i class="fa fa-long-arrow-down"></i></kbd></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Move gear without drawing</td>
+                                        <td><kbd>Shift</kbd> + click and drag<br />or <kbd>Shift</kbd> + <kbd><i class="fa fa-long-arrow-left"></i></kbd>, <kbd><i class="fa fa-long-arrow-right"></i></kbd>, <kbd><i class="fa fa-long-arrow-up"></i></kbd> or <kbd><i class="fa fa-long-arrow-down"></i></kbd></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rotate gear in place</td>
+                                        <td>
+                                            <kbd>Ctrl</kbd> + click and drag
+                                            <br />or <kbd>,</kbd> and <kbd>.</kbd>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Undo</td>
+                                        <td><kbd>Ctrl</kbd> + <kbd>Z</kbd></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Redo</td>
+                                        <td>
+                                            <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd>
+                                            <br />or <kbd>Ctrl</kbd> + <kbd>Y</kbd>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Erase everything</td>
+                                        <td><kbd>Ctrl</kbd> + <kbd>Backspace</kbd></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Show/hide gears</td>
+                                        <td><kbd>G</kbd></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Show/hide cursor tracker</td>
+                                        <td><kbd>T</kbd></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Download image</td>
+                                        <td><kbd>Ctrl</kbd> + <kbd>S</kbd></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                        <div class="tab-pane" id="help-about">
+                            <br />
+                            <div>
+                                Designed and developed by Nathan Friend, with a little help from:
+                                <div class="cleared"></div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <ul>
+                                            <li><a href="http://www.typescriptlang.org/" target="_blank">TypeScript</a></li>
+                                            <li><a href="http://lesscss.org/" target="_blank">Less</a></li>
+                                            <li><a href="http://gruntjs.com/" target="_blank">Grunt</a></li>
+                                            <li><a href="http://d3js.org/" target="_blank">D3.js</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <ul>
+                                            <li><a href="http://jquery.com/" target="_blank">jQuery</a></li>
+                                            <li><a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></li>
+                                            <li><a href="http://fortawesome.github.io/Font-Awesome/" target="_blank">Font Awesome</a></li>
+                                            <li><a href="http://jscrollpane.kelvinluck.com/" target="_blank">jScrollPane</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <ul>
+                                            <li><a href="https://github.com/brandonaaron/jquery-mousewheel" target="_blank">jQuery Mouse Wheel</a></li>
+                                            <li><a href="http://bgrins.github.io/spectrum/" target="_blank">Spectrum</a></li>
+                                            <li><a href="http://brutaldesign.github.io/swipebox/" target="_blank">Swipebox</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="cleared"></div>
+                                <br />
+                                Complete source can be found on Github:
+                                <a href="https://github.com/nfriend/inspirograph" target="_blank">https://github.com/nfriend/inspirograph</a>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>

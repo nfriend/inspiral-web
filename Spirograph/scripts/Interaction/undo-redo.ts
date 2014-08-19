@@ -17,15 +17,17 @@ module Spirograph.Interaction {
         }
         currentSnapshot = snapshots.length > 0 ? snapshots.length - 1 : 0;
         shouldSaveCurrentStateBeforeUndoing = true;
+
     }
 
     function goToSnapshot(canvas: HTMLCanvasElement, snapshotIndex: number) {
-        var ctx = <CanvasRenderingContext2D>canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
         var image = new Image();
-        var snapshotData = snapshots[snapshotIndex];
-        image.src = snapshotData;
-        (<CanvasRenderingContext2D>canvas.getContext('2d')).drawImage(image, 0, 0);
+        image.src = snapshots[snapshotIndex];
+        image.onload = () => {
+            var ctx = <CanvasRenderingContext2D>canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(image, 0, 0);
+        }
     };
 
     export function undo(canvas: HTMLCanvasElement) {

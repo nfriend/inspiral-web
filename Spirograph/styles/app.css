@@ -8872,14 +8872,10 @@ kbd {
   margin-bottom: 10px;
   border-color: #ccc;
 }
-#help-modal .column {
+#help-modal td {
   line-height: 200%;
 }
-#help-modal .column-left {
-  float: left;
-}
-#help-modal .column-right {
-  float: right;
+#help-modal td:nth-child(even) {
   text-align: right;
 }
 .spirograph #spirograph-svg {
