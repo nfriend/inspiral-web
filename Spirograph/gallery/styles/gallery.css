@@ -1,0 +1,30 @@
+﻿html, body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.row > div {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+h1 {
+    text-align: center;
+    color: #888;
+}
+
+.cleared {
+    clear: both;
+    float: none;
+}
+
+@media(max-width: 767px) {
+    h1 {
+        font-size: 45px;
+    }
+}
+
+@media(min-width: 768px) {
+    h1 {
+        font-size: 65px;
+    }
+}

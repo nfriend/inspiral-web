@@ -18,10 +18,21 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
-    <Content Include="gallery.html" />
+    <Content Include="gallery\favicon.ico" />
+    <Content Include="gallery\index.html" />
+    <Content Include="gallery\lib\jquery-swipebox\css\swipebox.css" />
+    <Content Include="gallery\lib\jquery-swipebox\css\swipebox.min.css" />
+    <Content Include="gallery\lib\jquery-swipebox\img\icons.png" />
+    <Content Include="gallery\lib\jquery-swipebox\img\icons.svg" />
+    <Content Include="gallery\lib\jquery-swipebox\img\loader.gif" />
+    <Content Include="gallery\lib\jquery-swipebox\js\jquery.swipebox.js" />
+    <Content Include="gallery\lib\jquery-swipebox\js\jquery.swipebox.min.js" />
+    <Content Include="gallery\scripts\gallery.js" />
+    <Content Include="gallery\styles\gallery.css" />
     <Content Include="Gruntfile.js" />
     <Content Include="HowToBuild.txt" />
     <Content Include="index.html" />
+    <Content Include="scripts\google-analytics.js" />
     <Content Include="scripts\lib\linq.js" />
     <Content Include="styles\app.css">
       <DependentUpon>app.less</DependentUpon>

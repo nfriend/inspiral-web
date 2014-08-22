@@ -115,7 +115,7 @@ module Spirograph.UI {
 
     $galleryButton.click(() => {
         // there might be a better way to do this
-        var $link = $('<a href="gallery.html" target="_blank" style="display: none;"></a>');
+        var $link = $('<a href="./gallery" target="_blank" style="display: none;"></a>');
         $body.append($link);
         $link[0].click();
         $link.remove();
