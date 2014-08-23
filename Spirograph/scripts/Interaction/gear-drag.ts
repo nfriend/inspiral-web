@@ -3,7 +3,8 @@
 module Spirograph.Interaction {
     'use strict';
 
-    var lastMouseAngle = null,
+    var body = d3.select('body'),
+        lastMouseAngle = null,
         lastAbsoluteMouseAngle = 0,
         dragStartMouseAngle: number = null,
         rotationOffset = 0,
@@ -34,11 +35,11 @@ module Spirograph.Interaction {
 
                 if ((<any>d3.event).ctrlKey) {
                     cursorTracker.style('visibility', 'hidden');
-                    svgContainer.on("mousemove", rotateGearInPlace);
+                    body.on("mousemove", rotateGearInPlace);
                     previousTransformInfo = null;
                 } else {
                     Interaction.snapshot(canvas);
-                    svgContainer.on("mousemove", moveGear);
+                    body.on("mousemove", moveGear);
 
                     if (isCursorTrackerVisible === true) {
                         cursorTracker.style('visibility', 'visible');
@@ -46,10 +47,10 @@ module Spirograph.Interaction {
                     updateCursorTrackerLocation();
                 }
 
-                svgContainer.on("mouseup", () => {
+                body.on("mouseup", () => {
                     EventAggregator.publish('dragEnd');
                     initialToothOffset = toothOffset;
-                    svgContainer.on("mousemove", null);
+                    body.on("mousemove", null);
                     rotatingGear.classed('dragging', false);
                     d3.event.preventDefault();
                     cursorTracker.style('visibility', 'hidden');
@@ -63,15 +64,23 @@ module Spirograph.Interaction {
         }
 
         function updateCursorTrackerLocation() {
-            if (browser.browser === Browser.Chrome) {
+
+
+            if (browser.browser === Browser.Chrome || browser.browser === Browser.Safari || browser.browser === Browser.Opera) {
                 cursorTracker.attr({
                     x1: center.x,
                     y1: center.y,
                     x2: d3.mouse(svgContainer.node())[0] / scaleFactor,
                     y2: d3.mouse(svgContainer.node())[1] / scaleFactor
                 });
-            }
-            else {
+            } else if (browser.browser === Browser.Firefox) {
+                cursorTracker.attr({
+                    x1: center.x,
+                    y1: center.y,
+                    x2: getSvgCenterX() + (d3.mouse(svgContainer.node())[0] - getSvgCenterX()) / scaleFactor,
+                    y2: getSvgCenterY() + (d3.mouse(svgContainer.node())[1] - getSvgCenterY()) / scaleFactor
+                });
+            } else {
                 cursorTracker.attr({
                     x1: center.x,
                     y1: center.y,
@@ -173,8 +182,14 @@ module Spirograph.Interaction {
         function getNormalizedMouseCoords(center?: { x: number; y: number }) {
             // webkit handles CSS3 transformed SVG elementes differently - to get
             // accurate mouse coordinates, we need to multiple by the current scale factor
-            if (browser.browser === Browser.Chrome || browser.browser === Browser.Safari) {
+            if (browser.browser === Browser.Chrome || browser.browser === Browser.Safari || browser.browser === Browser.Opera) {
                 var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0] / scaleFactor, y: d3.mouse(svgContainer.node())[1] / scaleFactor }, { x: svgWidth, y: svgHeight }, center);
+            } else if (browser.browser === Browser.Firefox) {
+                var mouseCoords = Utility.toStandardCoords(
+                    {
+                        x: getSvgCenterX() + (d3.mouse(svgContainer.node())[0] - getSvgCenterX()) / scaleFactor,
+                        y: getSvgCenterY() + (d3.mouse(svgContainer.node())[1] - getSvgCenterY()) / scaleFactor
+                    }, { x: svgWidth, y: svgHeight }, center);
             } else {
                 var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: svgWidth, y: svgHeight }, center);
             }

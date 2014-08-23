@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
 /*
  * CSS Styles that are needed by jScrollPane for it to operate correctly.
  *
@@ -6373,7 +6373,7 @@ button.close {
     display: none !important;
   }
 }
-/*# sourceMappingURL=bootstrap.css.map */
+/*# sourceMappingURL=app.css.map */
 /*!
  *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -8457,6 +8457,9 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
 body {
   font-family: 'Open Sans', sans-serif;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
 .cleared {
   clear: both;

@@ -4,7 +4,7 @@ var Spirograph;
     (function (Interaction) {
         'use strict';
 
-        var lastMouseAngle = null, lastAbsoluteMouseAngle = 0, dragStartMouseAngle = null, rotationOffset = 0, previousTransformInfo = null, startingDragAngle = null, initialToothOffset = 0, center = { x: 0, y: 0 }, initialCenter, mousemoveCounter = 0, isShiftKeyPressed = false, isCtrlKeyPressed = false, toothOffset = 0, lastKeyPress = new Date(2000, 1, 1), undoKeyPressDelay = 1000;
+        var body = d3.select('body'), lastMouseAngle = null, lastAbsoluteMouseAngle = 0, dragStartMouseAngle = null, rotationOffset = 0, previousTransformInfo = null, startingDragAngle = null, initialToothOffset = 0, center = { x: 0, y: 0 }, initialCenter, mousemoveCounter = 0, isShiftKeyPressed = false, isCtrlKeyPressed = false, toothOffset = 0, lastKeyPress = new Date(2000, 1, 1), undoKeyPressDelay = 1000;
 
         function attachDragHandlers(svgContainer, rotatingGear, canvas, rotater, rotatingGearOptions, holeOptions, cursorTracker) {
             var ctx = canvas.getContext('2d');
@@ -19,11 +19,11 @@ var Spirograph;
 
                     if (d3.event.ctrlKey) {
                         cursorTracker.style('visibility', 'hidden');
-                        svgContainer.on("mousemove", rotateGearInPlace);
+                        body.on("mousemove", rotateGearInPlace);
                         previousTransformInfo = null;
                     } else {
                         Interaction.snapshot(canvas);
-                        svgContainer.on("mousemove", moveGear);
+                        body.on("mousemove", moveGear);
 
                         if (Spirograph.isCursorTrackerVisible === true) {
                             cursorTracker.style('visibility', 'visible');
@@ -31,10 +31,10 @@ var Spirograph;
                         updateCursorTrackerLocation();
                     }
 
-                    svgContainer.on("mouseup", function () {
+                    body.on("mouseup", function () {
                         Spirograph.EventAggregator.publish('dragEnd');
                         initialToothOffset = toothOffset;
-                        svgContainer.on("mousemove", null);
+                        body.on("mousemove", null);
                         rotatingGear.classed('dragging', false);
                         d3.event.preventDefault();
                         cursorTracker.style('visibility', 'hidden');
@@ -48,12 +48,19 @@ var Spirograph;
             }
 
             function updateCursorTrackerLocation() {
-                if (Spirograph.browser.browser === 0 /* Chrome */) {
+                if (Spirograph.browser.browser === 0 /* Chrome */ || Spirograph.browser.browser === 3 /* Safari */ || Spirograph.browser.browser === 4 /* Opera */) {
                     cursorTracker.attr({
                         x1: center.x,
                         y1: center.y,
                         x2: d3.mouse(svgContainer.node())[0] / Spirograph.scaleFactor,
                         y2: d3.mouse(svgContainer.node())[1] / Spirograph.scaleFactor
+                    });
+                } else if (Spirograph.browser.browser === 2 /* Firefox */) {
+                    cursorTracker.attr({
+                        x1: center.x,
+                        y1: center.y,
+                        x2: Spirograph.getSvgCenterX() + (d3.mouse(svgContainer.node())[0] - Spirograph.getSvgCenterX()) / Spirograph.scaleFactor,
+                        y2: Spirograph.getSvgCenterY() + (d3.mouse(svgContainer.node())[1] - Spirograph.getSvgCenterY()) / Spirograph.scaleFactor
                     });
                 } else {
                     cursorTracker.attr({
@@ -159,8 +166,13 @@ var Spirograph;
             function getNormalizedMouseCoords(center) {
                 // webkit handles CSS3 transformed SVG elementes differently - to get
                 // accurate mouse coordinates, we need to multiple by the current scale factor
-                if (Spirograph.browser.browser === 0 /* Chrome */ || Spirograph.browser.browser === 3 /* Safari */) {
+                if (Spirograph.browser.browser === 0 /* Chrome */ || Spirograph.browser.browser === 3 /* Safari */ || Spirograph.browser.browser === 4 /* Opera */) {
                     var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0] / Spirograph.scaleFactor, y: d3.mouse(svgContainer.node())[1] / Spirograph.scaleFactor }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight }, center);
+                } else if (Spirograph.browser.browser === 2 /* Firefox */) {
+                    var mouseCoords = Spirograph.Utility.toStandardCoords({
+                        x: Spirograph.getSvgCenterX() + (d3.mouse(svgContainer.node())[0] - Spirograph.getSvgCenterX()) / Spirograph.scaleFactor,
+                        y: Spirograph.getSvgCenterY() + (d3.mouse(svgContainer.node())[1] - Spirograph.getSvgCenterY()) / Spirograph.scaleFactor
+                    }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight }, center);
                 } else {
                     var mouseCoords = Spirograph.Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: Spirograph.svgWidth, y: Spirograph.svgHeight }, center);
                 }

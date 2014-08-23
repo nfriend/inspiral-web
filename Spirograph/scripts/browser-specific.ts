@@ -4,7 +4,7 @@ module Spirograph {
     'use strict';
 
     export enum Browser {
-        Chrome, IE, Firefox, Safari, Other
+        Chrome, IE, Firefox, Safari, Opera, Other
     }
 
     // some nasty stuff to pull the browser type from the user agent string
@@ -31,7 +31,7 @@ module Spirograph {
         var browserType: Browser = Browser.Other;
         var versionNumber: number = 0;
 
-        switch (browserInfo.browser) {
+        switch (browserInfo.browser.trim()) {
             case 'Chrome': {
                 browserType = Browser.Chrome;
                 break;
@@ -40,7 +40,17 @@ module Spirograph {
                 browserType = Browser.Safari;
                 break;
             }
+            case 'Opera': {
+                browserType = Browser.Opera;
+                break;
+            }
+            case 'Firefox': {
+                browserType = Browser.Firefox;
+                break;
+            }
         }
+
+        console.log(browserInfo);
 
         versionNumber = parseFloat(browserInfo.version);
 

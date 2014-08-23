@@ -8,7 +8,8 @@ var Spirograph;
         Browser[Browser["IE"] = 1] = "IE";
         Browser[Browser["Firefox"] = 2] = "Firefox";
         Browser[Browser["Safari"] = 3] = "Safari";
-        Browser[Browser["Other"] = 4] = "Other";
+        Browser[Browser["Opera"] = 4] = "Opera";
+        Browser[Browser["Other"] = 5] = "Other";
     })(Spirograph.Browser || (Spirograph.Browser = {}));
     var Browser = Spirograph.Browser;
 
@@ -34,10 +35,10 @@ var Spirograph;
 
     // only convert to the types we need to know about throughout the app
     function convertType(browserInfo) {
-        var browserType = 4 /* Other */;
+        var browserType = 5 /* Other */;
         var versionNumber = 0;
 
-        switch (browserInfo.browser) {
+        switch (browserInfo.browser.trim()) {
             case 'Chrome': {
                 browserType = 0 /* Chrome */;
                 break;
@@ -46,7 +47,17 @@ var Spirograph;
                 browserType = 3 /* Safari */;
                 break;
             }
+            case 'Opera': {
+                browserType = 4 /* Opera */;
+                break;
+            }
+            case 'Firefox': {
+                browserType = 2 /* Firefox */;
+                break;
+            }
         }
+
+        console.log(browserInfo);
 
         versionNumber = parseFloat(browserInfo.version);
 
