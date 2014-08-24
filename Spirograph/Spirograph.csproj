@@ -17,6 +17,7 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="link-thumbnail.png" />
     <Content Include="favicon.ico" />
     <Content Include="gallery\favicon.ico" />
     <Content Include="gallery\index.html" />
