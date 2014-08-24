@@ -16,6 +16,7 @@ module Spirograph.Interaction {
         mousemoveCounter: number = 0,
         isShiftKeyPressed = false,
         isCtrlKeyPressed = false,
+        isCmdKeyPressed = false,
         toothOffset: number = 0,
         lastKeyPress = new Date(2000, 1, 1),
         undoKeyPressDelay = 1000;
@@ -33,7 +34,7 @@ module Spirograph.Interaction {
                 mousemoveCounter = 0;
                 computeCenter(mousemoveCounter);
 
-                if ((<any>d3.event).ctrlKey) {
+                if ((<any>d3.event).ctrlKey || (<any>d3.event).metaKey) {
                     cursorTracker.style('visibility', 'hidden');
                     body.on("mousemove", rotateGearInPlace);
                     previousTransformInfo = null;
@@ -314,7 +315,7 @@ module Spirograph.Interaction {
         });
 
         Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.Z, (e) => {
-            if (e.ctrlKey) {
+            if (e.ctrlKey || e.metaKey) {
                 if (e.shiftKey) {
                     Interaction.redo(canvas);
                 } else {
@@ -324,7 +325,7 @@ module Spirograph.Interaction {
         });
 
         Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.Y, (e) => {
-            if (e.ctrlKey) {
+            if (e.ctrlKey || e.metaKey) {
                 Interaction.redo(canvas);
             }
         });

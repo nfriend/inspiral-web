@@ -4,7 +4,7 @@ var Spirograph;
     (function (Interaction) {
         'use strict';
 
-        var body = d3.select('body'), lastMouseAngle = null, lastAbsoluteMouseAngle = 0, dragStartMouseAngle = null, rotationOffset = 0, previousTransformInfo = null, startingDragAngle = null, initialToothOffset = 0, center = { x: 0, y: 0 }, initialCenter, mousemoveCounter = 0, isShiftKeyPressed = false, isCtrlKeyPressed = false, toothOffset = 0, lastKeyPress = new Date(2000, 1, 1), undoKeyPressDelay = 1000;
+        var body = d3.select('body'), lastMouseAngle = null, lastAbsoluteMouseAngle = 0, dragStartMouseAngle = null, rotationOffset = 0, previousTransformInfo = null, startingDragAngle = null, initialToothOffset = 0, center = { x: 0, y: 0 }, initialCenter, mousemoveCounter = 0, isShiftKeyPressed = false, isCtrlKeyPressed = false, isCmdKeyPressed = false, toothOffset = 0, lastKeyPress = new Date(2000, 1, 1), undoKeyPressDelay = 1000;
 
         function attachDragHandlers(svgContainer, rotatingGear, canvas, rotater, rotatingGearOptions, holeOptions, cursorTracker) {
             var ctx = canvas.getContext('2d');
@@ -17,7 +17,7 @@ var Spirograph;
                     mousemoveCounter = 0;
                     computeCenter(mousemoveCounter);
 
-                    if (d3.event.ctrlKey) {
+                    if (d3.event.ctrlKey || d3.event.metaKey) {
                         cursorTracker.style('visibility', 'hidden');
                         body.on("mousemove", rotateGearInPlace);
                         previousTransformInfo = null;
@@ -300,7 +300,7 @@ var Spirograph;
             });
 
             Interaction.KeyboardShortcutManager.add(90 /* Z */, function (e) {
-                if (e.ctrlKey) {
+                if (e.ctrlKey || e.metaKey) {
                     if (e.shiftKey) {
                         Interaction.redo(canvas);
                     } else {
@@ -310,7 +310,7 @@ var Spirograph;
             });
 
             Interaction.KeyboardShortcutManager.add(89 /* Y */, function (e) {
-                if (e.ctrlKey) {
+                if (e.ctrlKey || e.metaKey) {
                     Interaction.redo(canvas);
                 }
             });

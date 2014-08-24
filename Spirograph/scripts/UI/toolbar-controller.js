@@ -126,7 +126,7 @@ var Spirograph;
         });
 
         Spirograph.Interaction.KeyboardShortcutManager.add(8 /* Backspace */, function (e) {
-            if (e.ctrlKey) {
+            if (e.ctrlKey || e.metaKey) {
                 Spirograph.EventAggregator.publish('clearCanvas');
             }
         });
@@ -136,7 +136,7 @@ var Spirograph;
         });
 
         Spirograph.Interaction.KeyboardShortcutManager.add(83 /* S */, function (e) {
-            if (e.ctrlKey) {
+            if (e.ctrlKey || e.metaKey) {
                 $downloadButton.click();
                 e.preventDefault();
                 return false;

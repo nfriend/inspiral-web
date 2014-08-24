@@ -57,8 +57,6 @@ var Spirograph;
             }
         }
 
-        console.log(browserInfo);
-
         versionNumber = parseFloat(browserInfo.version);
 
         return {

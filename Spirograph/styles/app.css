@@ -1,4 +1,4 @@
-﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
 /*
  * CSS Styles that are needed by jScrollPane for it to operate correctly.
  *
@@ -6373,7 +6373,7 @@ button.close {
     display: none !important;
   }
 }
-/*# sourceMappingURL=app.css.map */
+/*# sourceMappingURL=bootstrap.css.map */
 /*!
  *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -8454,6 +8454,9 @@ See http://bgrins.github.io/spectrum/themes/ for instructions.
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+html {
+  overflow: hidden;
+}
 body {
   font-family: 'Open Sans', sans-serif;
   overflow: hidden;
@@ -8532,7 +8535,7 @@ kbd {
   margin-left: 16px;
   margin-top: -20px;
   -moz-transform: rotate(-90deg) translate3d(0, 0, 0);
-  -ms-transform: rotate(-90deg) translate3d(0, 0, 0);
+  -ms-transform: rotate(-90deg);
   -o-transform: rotate(-90deg) translate3d(0, 0, 0);
   -webkit-transform: rotate(-90deg) translate3d(0, 0, 0);
   transform: rotate(-90deg) translate3d(0, 0, 0);
@@ -8675,7 +8678,7 @@ kbd {
   margin-right: 21px;
   margin-top: -20px;
   -moz-transform: rotate(90deg) translate3d(0, 0, 0);
-  -ms-transform: rotate(90deg) translate3d(0, 0, 0);
+  -ms-transform: rotate(90deg);
   -o-transform: rotate(90deg) translate3d(0, 0, 0);
   -webkit-transform: rotate(90deg) translate3d(0, 0, 0);
   transform: rotate(90deg) translate3d(0, 0, 0);
@@ -8880,6 +8883,17 @@ kbd {
 }
 #help-modal td:nth-child(even) {
   text-align: right;
+}
+#help-modal #mac-users {
+  color: #999;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  font-style: italic;
+}
+#help-modal #mac-users * {
+  color: #555;
+  font-style: normal;
 }
 .spirograph #spirograph-svg {
   margin-left: -1280px;

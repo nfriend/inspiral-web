@@ -69,7 +69,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
-                        src: ['gallery.html'],
+                        src: ['old-browser.html'],
                         dest: '../dist/',
                         filter: 'isFile'
                     }

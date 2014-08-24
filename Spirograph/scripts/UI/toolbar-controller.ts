@@ -133,7 +133,7 @@ module Spirograph.UI {
     });
 
     Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.Backspace, (e) => {
-        if (e.ctrlKey) {
+        if (e.ctrlKey || e.metaKey) {
             EventAggregator.publish('clearCanvas');
         }
     });
@@ -143,7 +143,7 @@ module Spirograph.UI {
     });
 
     Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.S, (e) => {
-        if (e.ctrlKey) {
+        if (e.ctrlKey || e.metaKey) {
             $downloadButton.click();
             e.preventDefault();
             return false;

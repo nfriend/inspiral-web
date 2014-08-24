@@ -32,6 +32,7 @@
     <Content Include="Gruntfile.js" />
     <Content Include="HowToBuild.txt" />
     <Content Include="index.html" />
+    <Content Include="old-browser.html" />
     <Content Include="scripts\google-analytics.js" />
     <Content Include="scripts\lib\linq.js" />
     <Content Include="styles\app.css">

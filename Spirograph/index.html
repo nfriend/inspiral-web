@@ -11,9 +11,14 @@
 
     <title>Inspirograph</title>
 
+    <!--[if lt IE 9]>
+    <script type="text/javascript">
+        window.location = "old-browser.html";
+    </script>
+    <!{endif]-->
+
 </head>
 <body class="spirograph">
-    <!--<a id="download-link" target="_blank">download image</a>-->
     <p style="" id="output"></p>
 
     <div id="gear-options-background-color"></div>
@@ -87,7 +92,7 @@
 
                     <div class="tab-content">
                         <div class="tab-pane active" id="controls">
-                            <br />
+                            <p id="mac-users">Mac users: substitute <kbd>⌘ </kbd> for <kbd>Ctrl</kbd></p>
                             <table class="table table-striped">
                                 <tbody>
                                     <tr>
