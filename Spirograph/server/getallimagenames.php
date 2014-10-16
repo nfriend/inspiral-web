@@ -9,6 +9,6 @@ foreach(glob('images/*.png') as $filename) {
 }
 ksort($files);
 
-print json_encode($files);
+print json_encode(array_slice($files, -72));
 
 ?>

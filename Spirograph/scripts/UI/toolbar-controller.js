@@ -4,7 +4,7 @@ var Spirograph;
     (function (UI) {
         'use strict';
 
-        var $toolbarContainer = $('#toolbar-container-right'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $galleryButton = $('#gallery-button'), $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'), $helpButton = $('#help-button');
+        var $toolbarContainer = $('#toolbar-container-right'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $galleryButton = $('#gallery-button'), $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'), $aboutButton = $('#about-button'), $keyboardShortcutsButton = $('#keyboard-shortcuts-button'), inTimeout = false;
 
         $downloadButton.tooltip({
             title: 'Download image',
@@ -37,8 +37,14 @@ var Spirograph;
             container: 'body'
         });
 
-        $helpButton.tooltip({
-            title: 'Help/about',
+        $aboutButton.tooltip({
+            title: 'About',
+            placement: 'left',
+            container: 'body'
+        });
+
+        $keyboardShortcutsButton.tooltip({
+            title: 'Keyboard shortcuts',
             placement: 'left',
             container: 'body'
         });
@@ -101,8 +107,20 @@ var Spirograph;
             var $target = $(ev.currentTarget);
             var icon = $target.addClass('disabled').find('i').removeClass('fa-save fa-upload').addClass('fa-cog fa-spin');
             Spirograph.EventAggregator.publish('downloadImage', function () {
-                icon.removeClass('fa-cog fa-spin').addClass($target.is($downloadButton) ? 'fa-save' : 'fa-upload');
-                $target.removeClass('disabled');
+                if ($target.is($downloadButton)) {
+                    icon.removeClass('fa-cog fa-spin').addClass('fa-save');
+                } else {
+                    icon.removeClass('fa-cog fa-spin').addClass('fa-thumbs-o-up');
+                    inTimeout = true;
+                    Spirograph.isAnythingDrawn = false;
+                    setTimeout(function () {
+                        icon.removeClass('fa-thumbs-o-up').addClass('fa-upload');
+                        if (Spirograph.isAnythingDrawn) {
+                            $target.removeClass('disabled');
+                        }
+                        inTimeout = false;
+                    }, 30000);
+                }
             }, $target.is($downloadButton));
         });
 
@@ -120,7 +138,7 @@ var Spirograph;
         });
 
         Spirograph.Interaction.KeyboardShortcutManager.add(112 /* F1 */, function (e) {
-            $helpButton.click();
+            $aboutButton.click();
             e.preventDefault();
             e.stopPropagation();
         });
@@ -145,6 +163,12 @@ var Spirograph;
 
         Spirograph.Interaction.KeyboardShortcutManager.add(84 /* T */, function (e) {
             $showHideCursorTrackerButton.click();
+        });
+
+        Spirograph.EventAggregator.subscribe('canvasDrawn', function () {
+            if (!inTimeout) {
+                $uploadButton.removeClass('disabled');
+            }
         });
     })(Spirograph.UI || (Spirograph.UI = {}));
     var UI = Spirograph.UI;

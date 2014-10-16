@@ -111,6 +111,11 @@ var Spirograph;
                             ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
                             ctx.stroke();
                             ctx.closePath();
+
+                            if (!Spirograph.isAnythingDrawn) {
+                                Spirograph.EventAggregator.publish('canvasDrawn');
+                            }
+                            Spirograph.isAnythingDrawn = true;
                         }
                     }
 

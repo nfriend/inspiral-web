@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
 /*
  * CSS Styles that are needed by jScrollPane for it to operate correctly.
  *
@@ -6373,7 +6373,7 @@ button.close {
     display: none !important;
   }
 }
-/*# sourceMappingURL=bootstrap.css.map */
+/*# sourceMappingURL=app.css.map */
 /*!
  *  Font Awesome 4.1.0 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -8878,22 +8878,30 @@ kbd {
   margin-bottom: 10px;
   border-color: #ccc;
 }
-#help-modal td {
+#about-modal td,
+#keyboard-shortcuts-modal td {
   line-height: 200%;
 }
-#help-modal td:nth-child(even) {
+#about-modal td:nth-child(even),
+#keyboard-shortcuts-modal td:nth-child(even) {
   text-align: right;
 }
-#help-modal #mac-users {
+#about-modal #mac-users,
+#keyboard-shortcuts-modal #mac-users {
   color: #999;
   margin-top: 15px;
   margin-bottom: 10px;
   margin-left: 10px;
   font-style: italic;
 }
-#help-modal #mac-users * {
+#about-modal #mac-users *,
+#keyboard-shortcuts-modal #mac-users * {
   color: #555;
   font-style: normal;
+}
+#about-modal #about-content,
+#keyboard-shortcuts-modal #about-content {
+  padding: 20px;
 }
 .spirograph #spirograph-svg {
   margin-left: -1280px;

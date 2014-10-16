@@ -130,6 +130,11 @@ module Spirograph.Interaction {
                         ctx.lineTo(currentCanvasPenCoords.x, currentCanvasPenCoords.y);
                         ctx.stroke();
                         ctx.closePath();
+
+                        if (!Spirograph.isAnythingDrawn) {
+                            EventAggregator.publish('canvasDrawn');
+                        }
+                        Spirograph.isAnythingDrawn = true;
                     }
                 }
 

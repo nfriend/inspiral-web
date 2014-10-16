@@ -11,7 +11,9 @@ module Spirograph.UI {
         $uploadButton = $('#upload-button'),
         $galleryButton = $('#gallery-button'),
         $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'),
-        $helpButton = $('#help-button');
+        $aboutButton = $('#about-button'),
+        $keyboardShortcutsButton = $('#keyboard-shortcuts-button'),
+        inTimeout = false;
 
     $downloadButton.tooltip({
         title: 'Download image',
@@ -44,8 +46,14 @@ module Spirograph.UI {
         container: 'body'
     });
 
-    $helpButton.tooltip({
-        title: 'Help/about',
+    $aboutButton.tooltip({
+        title: 'About',
+        placement: 'left',
+        container: 'body'
+    });
+
+    $keyboardShortcutsButton.tooltip({
+        title: 'Keyboard shortcuts',
         placement: 'left',
         container: 'body'
     });
@@ -108,8 +116,20 @@ module Spirograph.UI {
         var $target = $(ev.currentTarget);
         var icon = $target.addClass('disabled').find('i').removeClass('fa-save fa-upload').addClass('fa-cog fa-spin');
         EventAggregator.publish('downloadImage', () => {
-            icon.removeClass('fa-cog fa-spin').addClass($target.is($downloadButton) ? 'fa-save' : 'fa-upload');
-            $target.removeClass('disabled');
+            if ($target.is($downloadButton)) {
+                icon.removeClass('fa-cog fa-spin').addClass('fa-save');
+            } else {
+                icon.removeClass('fa-cog fa-spin').addClass('fa-thumbs-o-up');
+                inTimeout = true;
+                Spirograph.isAnythingDrawn = false;
+                setTimeout(() => {
+                    icon.removeClass('fa-thumbs-o-up').addClass('fa-upload');
+                    if (Spirograph.isAnythingDrawn) {
+                        $target.removeClass('disabled');
+                    }
+                    inTimeout = false;
+                }, 30000);
+            }
         }, $target.is($downloadButton));
     });
 
@@ -127,7 +147,7 @@ module Spirograph.UI {
     });
 
     Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.F1, (e) => {
-        $helpButton.click();
+        $aboutButton.click();
         e.preventDefault();
         e.stopPropagation();
     });
@@ -152,5 +172,11 @@ module Spirograph.UI {
 
     Interaction.KeyboardShortcutManager.add(Interaction.KeyboardShortcutManager.Key.T, (e) => {
         $showHideCursorTrackerButton.click();
+    });
+
+    EventAggregator.subscribe('canvasDrawn', () => {
+        if (!inTimeout) {
+            $uploadButton.removeClass('disabled');
+        }
     });
 } 

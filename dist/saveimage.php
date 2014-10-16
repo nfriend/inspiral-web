@@ -40,15 +40,15 @@ if ($success) {
 }
 
 // delete the oldest image if we have more images than we need
-foreach(glob('images/*.jpg') as $filename) {
-	$time = filemtime($filename);
-	$files[$time] = $filename;
-}
-ksort($files);
+//foreach(glob('images/*.jpg') as $filename) {
+//	$time = filemtime($filename);
+//	$files[$time] = $filename;
+//}
+//ksort($files);
 
-if (count($files) > 96) {
-	$fileToDelete = array_shift($files);
-	unlink($fileToDelete);
-}
+//if (count($files) > 96) {
+//	$fileToDelete = array_shift($files);
+//	unlink($fileToDelete);
+//}
 
 ?>
