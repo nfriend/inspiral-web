@@ -41,8 +41,8 @@ var QueryString = function () {
     }
 
     function formatImagePath(imagepath) {
-        //return '../' + imagepath;
-        return 'http://dev.nathanfriend.com/inspirograph/' + imagepath;
+        return '../' + imagepath;
+        //return 'http://dev.nathanfriend.com/inspirograph/' + imagepath;
     }
 
     function getThumbnail(imagepath) {
@@ -78,8 +78,8 @@ var QueryString = function () {
 
     $.ajax({
         type: 'POST',
-        //url: '../getallimagenames.php',
-        url: 'http://dev.nathanfriend.com/inspirograph/getallimagenames.php',
+        url: '../getallimagenames.php',
+        //url: 'http://dev.nathanfriend.com/inspirograph/getallimagenames.php',
         data: {
             'p': pageNumber,
             'i': itemsPerPage
