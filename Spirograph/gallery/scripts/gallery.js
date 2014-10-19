@@ -77,7 +77,7 @@ var QueryString = function () {
     }
 
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: '../getallimagenames.php',
         //url: 'http://dev.nathanfriend.com/inspirograph/getallimagenames.php',
         data: {

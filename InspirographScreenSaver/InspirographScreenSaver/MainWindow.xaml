@@ -5,7 +5,9 @@
         xmlns:transt="clr-namespace:Transitionals.Transitions;assembly=Transitionals"
         Title="Inspirograph" 
         WindowState="Maximized" WindowStyle="None" 
-        MouseDown="Window_MouseDown" Cursor="None" ResizeMode="NoResize" Background="Black">
+        MouseDown="Window_MouseDown" MouseMove="Window_MouseMove" KeyDown="Window_KeyDown"
+        Cursor="None" 
+        ResizeMode="NoResize" Background="Black">
     <Grid>
         <transc:TransitionElement x:Name="ImageContainer" >
             <transc:TransitionElement.Transition>

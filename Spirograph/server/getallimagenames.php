@@ -3,12 +3,12 @@
 $itemsPerPage = 6;
 $pageNumber = 1;
 
-if ($_POST["p"] && is_numeric($_POST["p"])) {
-  $pageNumber = $_POST["p"];  
+if ($_GET["p"] && is_numeric($_GET["p"])) {
+  $pageNumber = $_GET["p"];  
 }
 
-if ($_POST["i"] && is_numeric($_POST["i"])) {
-  $itemsPerPage = $_POST["i"];  
+if ($_GET["i"] && is_numeric($_GET["i"])) {
+  $itemsPerPage = $_GET["i"];  
 }
 
 $offset = -1 * $itemsPerPage * $pageNumber;

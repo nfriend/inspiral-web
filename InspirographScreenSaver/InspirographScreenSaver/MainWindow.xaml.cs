@@ -27,15 +27,35 @@ namespace InspirographScreenSaver
         List<ImageRecord> imageRecords = new List<ImageRecord>();
         ImageRecord currentRecord = null;
         string baseUrl = "http://nathanfriend.com/inspirograph/";
-        string getAllImagesScriptName = "getallimagenames.php";
-        int pauseDuration = 10000;
-        int transitionDuration = 2000;
+        string getAllImagesScriptName = "getallimagenames.php?i=100000";
+        int slideshowSpeed = 10000;
+        int transitionSpeed = 2000;
+        bool useTransitions = true;
+        List<TransitionName> transitionsToUse = new List<TransitionName>();
         Random random = new Random();
+        TransitionMapping transitionMapping = new TransitionMapping();
+        private int originalMouseX;
+        private int originalMouseY;
+
+        public MainWindow(SaverSettings settings)
+            : this()
+        {
+            this.slideshowSpeed = (int)(settings.SlideShowSpeed * 1000);
+            this.transitionSpeed = (int)(settings.TransitionSpeed * 1000);
+            this.transitionsToUse = settings.Transitions;
+            this.useTransitions = settings.UseTransitions;
+
+            if (transitionsToUse.Count == 0)
+                this.useTransitions = false;
+        }
 
         public MainWindow()
         {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(async (o, e) => { await initialize(); });
+
+            originalMouseX = System.Windows.Forms.Control.MousePosition.X;
+            originalMouseY = System.Windows.Forms.Control.MousePosition.Y;
         }
 
         private async Task moveToNextPicture()
@@ -45,59 +65,13 @@ namespace InspirographScreenSaver
 
             currentRecord = imageRecords[(imageRecords.IndexOf(currentRecord) + 1) % imageRecords.Count];
             string imagePath = await getImagePath(new Uri(System.IO.Path.Combine(baseUrl, currentRecord.ImagePath)), System.IO.Path.GetFileName(currentRecord.ImagePath));
-            ImageContainer.Transition = getSemiRandomTransition();
+            ImageContainer.Transition = useTransitions ? getRandomTransition() : null;
             ImageContainer.Content = new Image() { Source = new BitmapImage(new Uri(imagePath)) };
         }
 
-
-        /// <summary>
-        /// Returns one of any of the transitions that inherits from Transition
-        /// </summary>
-        /// <returns></returns>
         private Transitionals.Transition getRandomTransition()
         {
-            var types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes()).Where(x => typeof(Transitionals.Transition).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract).ToList();
-            foreach (var t in types.OrderBy(x => x.Name))
-                Console.WriteLine(t.Name);
-            int randomIndex = random.Next(0, types.Count);
-            var transition = (Transitionals.Transition)(Activator.CreateInstance(types[randomIndex]));
-
-            try { transition.Duration = new Duration(TimeSpan.FromMilliseconds(transitionDuration)); }
-            catch (NotSupportedException) { }
-
-            return transition;
-        }
-
-        /// <summary>
-        /// Returns a few of the more subtle Transitions
-        /// </summary>
-        /// <returns></returns>
-        private Transitionals.Transition getSemiRandomTransition()
-        {
-            Transition transition = null;
-            switch (random.Next(0, 5))
-            {
-                case 0:
-                    transition = new FadeAndBlurTransition();
-                    break;
-                case 1:
-                    transition = new FadeAndGrowTransition();
-                    break;
-                case 2:
-                    transition = new FadeTransition();
-                    break;
-                case 3:
-                    transition = new RollTransition();
-                    break;
-                default:
-                    transition = new TranslateTransition();
-                    break;
-            }
-            
-            try { transition.Duration = new Duration(TimeSpan.FromMilliseconds(transitionDuration)); }
-            catch (NotSupportedException) { }
-
-            return transition;
+            return (Transition)Activator.CreateInstance(transitionMapping[transitionsToUse[random.Next(0, transitionsToUse.Count)]]);
         }
 
         private async Task initialize()
@@ -107,7 +81,7 @@ namespace InspirographScreenSaver
             while (true)
             {
                 await moveToNextPicture();
-                await Task.Delay(pauseDuration);
+                await Task.Delay(slideshowSpeed);
             }
         }
 
@@ -118,12 +92,14 @@ namespace InspirographScreenSaver
             {
                 var json = await webClient.DownloadStringTaskAsync(uri);
                 Dictionary<string, dynamic> response = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(json);
-                foreach (dynamic i in response.Values.ToList())
+                foreach (dynamic i in response["images"])
                 {
                     var currentImage = JsonConvert.DeserializeObject<RawImageRecord>(i.ToString()) as RawImageRecord;
                     records.Add(new ImageRecord() { ImagePath = currentImage.ImagePath, TimeStamp = UnixTimeStampToDateTime(currentImage.TimeStamp) });
                 }
             }
+
+            records.Reverse();
 
             return records;
         }
@@ -157,6 +133,20 @@ namespace InspirographScreenSaver
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            int delta = Math.Abs(System.Windows.Forms.Control.MousePosition.X - originalMouseX) + Math.Abs(System.Windows.Forms.Control.MousePosition.Y - originalMouseY);
+            if (delta < 100)
+                return;
+            else
+                App.Current.Shutdown();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             Application.Current.Shutdown();
         }
