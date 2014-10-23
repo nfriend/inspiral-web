@@ -46,6 +46,8 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="scripts\Playback\Action.ts" />
+    <TypeScriptCompile Include="scripts\Playback\ActionRecorder.ts" />
     <TypeScriptCompile Include="scripts\app.ts" />
     <TypeScriptCompile Include="scripts\browser-specific.ts" />
     <TypeScriptCompile Include="scripts\defaults.ts" />
@@ -61,7 +63,6 @@
     <TypeScriptCompile Include="scripts\definitions\references.d.ts" />
     <TypeScriptCompile Include="scripts\dimensions.ts" />
     <TypeScriptCompile Include="scripts\EventAggregator.ts" />
-    <TypeScriptCompile Include="scripts\fixed-gear-types.ts" />
     <TypeScriptCompile Include="scripts\globals.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-canvas.ts" />
     <TypeScriptCompile Include="scripts\Initialization\initialize-cursor-tracker.ts" />
@@ -147,7 +148,6 @@
       <DependentUpon>web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
