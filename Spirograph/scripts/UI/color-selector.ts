@@ -3,14 +3,6 @@
 module Spirograph.UI {
     'use strict';
 
-    export interface Color {
-        r: number;
-        g: number;
-        b: number;
-        a: number;
-        bordered?: boolean;
-    }
-
     var containerSize = 35,
         foregroundContainer = '#color-selector .foreground-container .scroll-container',
         backgroundContainer = '#color-selector .background-container .scroll-container';

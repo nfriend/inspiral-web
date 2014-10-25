@@ -46,6 +46,7 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="scripts\state.ts" />
     <TypeScriptCompile Include="scripts\Playback\Action.ts" />
     <TypeScriptCompile Include="scripts\Playback\ActionRecorder.ts" />
     <TypeScriptCompile Include="scripts\app.ts" />
@@ -109,6 +110,7 @@
     <TypeScriptCompile Include="scripts\SVG\PathBuilder.ts" />
     <TypeScriptCompile Include="scripts\Interaction\KeyboardShortcutManager.ts" />
     <TypeScriptCompile Include="scripts\UI\color-selector.ts" />
+    <TypeScriptCompile Include="scripts\UI\Color.ts" />
     <TypeScriptCompile Include="scripts\UI\custom-color-picker.ts" />
     <TypeScriptCompile Include="scripts\UI\gear-options-selector.ts" />
     <TypeScriptCompile Include="scripts\UI\initialize-jscrollpane.ts" />

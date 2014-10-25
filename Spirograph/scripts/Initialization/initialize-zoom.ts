@@ -19,11 +19,15 @@ module Spirograph.Initialization {
                 // if we're zooming in
                 if (!(scaleFactor * zoomMultiplier > maxZoom)) {
                     scaleFactor *= zoomMultiplier;
+
+                    EventAggregator.publish('zoomed', scaleFactor);
                 }
             } else {
                 // if we're zooming out
                 if (!(scaleFactor / zoomMultiplier < minZoom)) {
                     scaleFactor /= zoomMultiplier;
+
+                    EventAggregator.publish('zoomed', scaleFactor);
                 }
             }
 

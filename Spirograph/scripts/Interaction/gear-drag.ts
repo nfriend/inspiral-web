@@ -19,6 +19,7 @@ module Spirograph.Interaction {
         isCmdKeyPressed = false,
         toothOffset: number = 0,
         lastKeyPress = new Date(2000, 1, 1),
+        rotationDirection: number = null,
         undoKeyPressDelay = 1000;
 
     export function attachDragHandlers(svgContainer: D3.Selection, rotatingGear: D3.Selection, canvas: HTMLCanvasElement, rotater: Shapes.Rotater,
@@ -141,6 +142,14 @@ module Spirograph.Interaction {
                 previousTransformInfo = transformInfo;
             }
 
+            //#region detect if we've changed directions
+            var newRotationDirection = mouseAngle - lastAbsoluteMouseAngle;
+            if (rotationDirection === null || (newRotationDirection > 0 && rotationDirection <= 0) || (newRotationDirection < 0 && rotationDirection >= 0)) {
+                rotationDirection = newRotationDirection;
+                EventAggregator.publish('rotationSwitched');
+            }
+            //#endregion
+
             lastAbsoluteMouseAngle = mouseAngle;
             return false;
         };
@@ -158,10 +167,11 @@ module Spirograph.Interaction {
 
             var delta = (((mouseAngle - startingDragAngle) % 360) + 360) % 360;
             toothOffset = (Math.floor(delta / (360 / rotatingGearOptions.toothCount)) + initialToothOffset) % rotatingGearOptions.toothCount;
-            console.log(delta, mouseAngle, startingDragAngle);
 
             var transformInfo = rotater.rotate(rotatingGearOptions, lastAbsoluteMouseAngle, holeOptions, toothOffset);
             rotatingGear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
+
+            EventAggregator.publish('toothOffsetChanged', toothOffset);
         }
 
         // gets the normalized angle for computation, either from the mouse or from the parameter passed programatically

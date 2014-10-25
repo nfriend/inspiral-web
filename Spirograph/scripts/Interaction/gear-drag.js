@@ -4,7 +4,7 @@ var Spirograph;
     (function (Interaction) {
         'use strict';
 
-        var body = d3.select('body'), lastMouseAngle = null, lastAbsoluteMouseAngle = 0, dragStartMouseAngle = null, rotationOffset = 0, previousTransformInfo = null, startingDragAngle = null, initialToothOffset = 0, center = { x: 0, y: 0 }, initialCenter, mousemoveCounter = 0, isShiftKeyPressed = false, isCtrlKeyPressed = false, isCmdKeyPressed = false, toothOffset = 0, lastKeyPress = new Date(2000, 1, 1), undoKeyPressDelay = 1000;
+        var body = d3.select('body'), lastMouseAngle = null, lastAbsoluteMouseAngle = 0, dragStartMouseAngle = null, rotationOffset = 0, previousTransformInfo = null, startingDragAngle = null, initialToothOffset = 0, center = { x: 0, y: 0 }, initialCenter, mousemoveCounter = 0, isShiftKeyPressed = false, isCtrlKeyPressed = false, isCmdKeyPressed = false, toothOffset = 0, lastKeyPress = new Date(2000, 1, 1), rotationDirection = null, undoKeyPressDelay = 1000;
 
         function attachDragHandlers(svgContainer, rotatingGear, canvas, rotater, rotatingGearOptions, holeOptions, cursorTracker) {
             var ctx = canvas.getContext('2d');
@@ -122,6 +122,14 @@ var Spirograph;
                     previousTransformInfo = transformInfo;
                 }
 
+                //#region detect if we've changed directions
+                var newRotationDirection = mouseAngle - lastAbsoluteMouseAngle;
+                if (rotationDirection === null || (newRotationDirection > 0 && rotationDirection <= 0) || (newRotationDirection < 0 && rotationDirection >= 0)) {
+                    rotationDirection = newRotationDirection;
+                    Spirograph.EventAggregator.publish('rotationSwitched');
+                }
+
+                //#endregion
                 lastAbsoluteMouseAngle = mouseAngle;
                 return false;
             }
@@ -140,10 +148,11 @@ var Spirograph;
 
                 var delta = (((mouseAngle - startingDragAngle) % 360) + 360) % 360;
                 toothOffset = (Math.floor(delta / (360 / rotatingGearOptions.toothCount)) + initialToothOffset) % rotatingGearOptions.toothCount;
-                console.log(delta, mouseAngle, startingDragAngle);
 
                 var transformInfo = rotater.rotate(rotatingGearOptions, lastAbsoluteMouseAngle, holeOptions, toothOffset);
                 rotatingGear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");
+
+                Spirograph.EventAggregator.publish('toothOffsetChanged', toothOffset);
             }
 
             // gets the normalized angle for computation, either from the mouse or from the parameter passed programatically

@@ -15,16 +15,8 @@ module Spirograph.Playback {
         ZoomLevel
     }
 
-    export interface Action {
+    export interface Action extends State {
         actionType: ActionType;
         timeStamp: Date;
-        backgroundColor: UI.Color;
-        penColor: UI.Color;
-        rotatingGearType: Shapes.GearType;
-        fixedGearType: Shapes.GearType;
-        selectedHole: number;
-        gearAngle: number;
-        toothOffset: number;
-        zoomLevel: number;
     }
 } 

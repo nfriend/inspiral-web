@@ -19,11 +19,15 @@ var Spirograph;
                     // if we're zooming in
                     if (!(Spirograph.scaleFactor * zoomMultiplier > maxZoom)) {
                         Spirograph.scaleFactor *= zoomMultiplier;
+
+                        Spirograph.EventAggregator.publish('zoomed', Spirograph.scaleFactor);
                     }
                 } else {
                     // if we're zooming out
                     if (!(Spirograph.scaleFactor / zoomMultiplier < minZoom)) {
                         Spirograph.scaleFactor /= zoomMultiplier;
+
+                        Spirograph.EventAggregator.publish('zoomed', Spirograph.scaleFactor);
                     }
                 }
 

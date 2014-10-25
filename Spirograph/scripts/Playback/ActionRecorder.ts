@@ -1,6 +1,7 @@
 ﻿/// <reference path='../definitions/references.d.ts' />
 
-module Spirograph.Playback {
+
+module Spirograph.Playback.ActionRecorder {
     'use strict';
 
     var actions: Array<Action> = [];
@@ -9,25 +10,16 @@ module Spirograph.Playback {
     var isPaused = false;
 
     export function pushNewAction(actionType: ActionType) {
-        if (isPaused) {
-            throw "Playback.pushNewAction() should not be called while recording is paused.";
-        }
+        if (isPaused) { unpauseRecording(); }
 
         clearTimeout(scheduledActionTimerID);
         scheduledActionTimerID = setTimeout(() => { pushNewAction(ActionType.Scheduled); }, scheduleDelay);
 
-        var newAction: Action = {
-            actionType: actionType,
-            backgroundColor: { r: 255, g: 0, b: 0, a: 1 },
-            fixedGearType: Shapes.GearType.Gear,
-            rotatingGearType: Shapes.GearType.RingGear,
-            gearAngle: 0,
-            penColor: { r: 0, g: 255, b: 0, a: 1 },
-            selectedHole: 3,
-            timeStamp: new Date(),
-            toothOffset: 4,
-            zoomLevel: 3
-        };
+        var currentState = jQuery.extend(true, {}, Spirograph.state);
+        var newAction: Action = currentState;
+        newAction.actionType = actionType;
+        newAction.timeStamp = new Date();
+
         actions.push(newAction);
 
         console.log('New ' + ActionType[actionType] + ' action added: ', newAction);
@@ -56,6 +48,38 @@ module Spirograph.Playback {
         actions = [];
         console.log('Action recording cleared');
     }
+
+    EventAggregator.subscribe('colorSelected', (r: number, g: number, b: number, a: number, foregroundOrBackground: string) => {
+        if (foregroundOrBackground === 'background') {
+            pushNewAction(ActionType.BackgroundColor);
+        } else {
+            pushNewAction(ActionType.PenColor);
+        }
+    });
+
+    EventAggregator.subscribe('gearSelected', (fixedOrRotating: Shapes.GearRole, gearType: Shapes.GearType, ...gearSizes: number[]) => {
+        if (fixedOrRotating === Shapes.GearRole.Fixed) {
+            pushNewAction(ActionType.FixedGearType);
+        } else {
+            pushNewAction(ActionType.RotatingGearType);
+        }
+    });
+
+    EventAggregator.subscribe('holeSelected', (hole: Shapes.HoleOptions) => {
+        pushNewAction(ActionType.SelectedHole);
+    });
+
+    EventAggregator.subscribe('zoomed', (scaleFactor: number) => {
+        pushNewAction(ActionType.ZoomLevel);
+    });
+
+    EventAggregator.subscribe('toothOffsetChanged', (toothOffset: number) => {
+        pushNewAction(ActionType.ToothOffset);
+    });
+
+    EventAggregator.subscribe('rotationSwitched', () => {
+        pushNewAction(ActionType.GearAngle);
+    });
 
     // kick off the scheduled Actions
     pushNewAction(ActionType.Scheduled);
