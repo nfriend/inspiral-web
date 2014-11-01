@@ -4,7 +4,7 @@ var Spirograph;
     (function (UI) {
         'use strict';
 
-        var $toolbarContainer = $('#toolbar-container-right'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $galleryButton = $('#gallery-button'), $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'), $aboutButton = $('#about-button'), $keyboardShortcutsButton = $('#keyboard-shortcuts-button'), inTimeout = false;
+        var $toolbarContainer = $('#toolbar-container-right'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $disabledUploadButtonPlaceholder = $('#disabled-upload-button-placeholder'), $galleryButton = $('#gallery-button'), $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'), $aboutButton = $('#about-button'), $keyboardShortcutsButton = $('#keyboard-shortcuts-button'), inTimeout = false;
 
         $downloadButton.tooltip({
             title: 'Download image',
@@ -54,6 +54,16 @@ var Spirograph;
             placement: 'left',
             container: 'body'
         });
+
+        if (!window.gallerySubmissionsAreAllowed) {
+            $uploadButton.remove();
+            $disabledUploadButtonPlaceholder.css('display', 'block');
+            $disabledUploadButtonPlaceholder.tooltip({
+                title: 'Uploading to the gallery is temporarily disabled due to heavy traffic',
+                placement: 'left',
+                container: 'body'
+            });
+        }
 
         // closes all modals, and then removes itself
         function closeClearButtonPopoverOnClickHandler(ev) {
@@ -109,6 +119,9 @@ var Spirograph;
             Spirograph.EventAggregator.publish('downloadImage', function () {
                 if ($target.is($downloadButton)) {
                     icon.removeClass('fa-cog fa-spin').addClass('fa-save');
+                    setTimeout(function () {
+                        $target.removeClass('disabled');
+                    }, 5000);
                 } else {
                     icon.removeClass('fa-cog fa-spin').addClass('fa-thumbs-o-up');
                     inTimeout = true;

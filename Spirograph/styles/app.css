@@ -8862,7 +8862,13 @@ kbd {
   z-index: 10;
   text-align: right;
 }
-.toolbar-container .toolbar-button {
+.toolbar-container #disabled-upload-button-placeholder {
+  border: 1px solid #ccc;
+  text-align: center;
+  float: left;
+}
+.toolbar-container .toolbar-button,
+.toolbar-container #disabled-upload-button-placeholder {
   padding-top: 10px;
   padding-bottom: 10px;
   width: 54px;
@@ -8870,7 +8876,8 @@ kbd {
   opacity: .8;
   margin-bottom: 5px;
 }
-.toolbar-container .toolbar-button.disabled {
+.toolbar-container .toolbar-button.disabled,
+.toolbar-container #disabled-upload-button-placeholder.disabled {
   opacity: .5;
 }
 .toolbar-container #toolbar-divider {

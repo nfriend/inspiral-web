@@ -22,6 +22,8 @@ var QueryString = function () {
     return query_string;
 }();
 
+var isDev = document.location.hostname === 'localhost' || document.location.hostname === '127.0.0.1';
+
 (function ($) {
 
     var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -41,8 +43,10 @@ var QueryString = function () {
     }
 
     function formatImagePath(imagepath) {
-        return '../' + imagepath;
-        //return 'http://dev.nathanfriend.com/inspirograph/' + imagepath;
+        if (isDev)
+            return 'http://dev.nathanfriend.com/inspirograph/' + imagepath;
+        else
+            return '../' + imagepath;
     }
 
     function getThumbnail(imagepath) {
@@ -76,10 +80,24 @@ var QueryString = function () {
         itemsPerPage = Math.round(parseInt(QueryString.i, 10));
     }
 
+    function deleteImage(imagepath) {
+        console.log('deleting ' + imagepath);
+        $.ajax({
+            type: 'GET',
+            url: isDev ? 'http://dev.nathanfriend.com/inspirograph/deleteimage.php' : '../deleteimage.php',
+            data: {
+                'imagepath': imagepath,
+            },
+            success: function (data) {
+                $('.image-thumbnail[imagepath="' + imagepath + '"]').find('img').attr('src', 'deleted.png');
+            }
+        });
+
+    }
+
     $.ajax({
         type: 'GET',
-        url: '../getallimagenames.php',
-        //url: 'http://dev.nathanfriend.com/inspirograph/getallimagenames.php',
+        url: isDev ? 'http://dev.nathanfriend.com/inspirograph/getallimagenames.php' : '../getallimagenames.php',
         data: {
             'p': pageNumber,
             'i': itemsPerPage
@@ -93,7 +111,7 @@ var QueryString = function () {
             for (var image in images) {
                 if (images.hasOwnProperty(image)) {
                     var row = $('<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"></div>');
-                    var link = $('<a href="' + formatImagePath(images[image].imagepath) + '" class="swipebox" title="' + formatDate(images[image].timestamp) + '">');
+                    var link = $('<a href="' + formatImagePath(images[image].imagepath) + '" imagepath="' + images[image].imagepath + '" class="swipebox image-thumbnail" title="' + formatDate(images[image].timestamp) + '">');
                     var img = $('<img class="img-responsive" src="' + formatImagePath(getThumbnail(images[image].imagepath)) + '" alt="' + formatDate(images[image].timestamp) + '">');
                     img.appendTo(link);
                     link.appendTo(row);
@@ -133,13 +151,25 @@ var QueryString = function () {
                 }
                 addPaginationLink('Next<span class="glyphicon glyphicon-chevron-right pagination-icon pagination-icon-right"></span>', pageNumber != pageCount, pageNumber + 1, i)
             }
+
+            if (QueryString.admin) {
+                $('.image-thumbnail').each(function () {
+                    var $that = $(this);
+                    $that.click(function () { return false; })
+                    $that.click(function () {
+                        deleteImage($that.attr('imagepath'));
+                    });
+                });
+            }
         },
         dataType: 'JSON'
     });
 
-    $('.swipebox').swipebox({
-        hideBarsDelay: 10000
-    });
+    if (!(QueryString.admin)) {
+        $('.swipebox').swipebox({
+            hideBarsDelay: 10000
+        });
+    }
 
 })(jQuery);
 

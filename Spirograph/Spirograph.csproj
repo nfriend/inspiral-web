@@ -17,6 +17,7 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="gallery\deleted.png" />
     <Content Include="link-thumbnail.png" />
     <Content Include="favicon.ico" />
     <Content Include="gallery\favicon.ico" />
@@ -34,6 +35,7 @@
     <Content Include="HowToBuild.txt" />
     <Content Include="index.html" />
     <Content Include="old-browser.html" />
+    <Content Include="are-gallery-submissions-paused.js" />
     <Content Include="scripts\google-analytics.js" />
     <Content Include="scripts\lib\linq.js" />
     <Content Include="styles\app.css">
@@ -126,6 +128,7 @@
     <Content Include="styles\app.css.map">
       <DependentUpon>app.css</DependentUpon>
     </Content>
+    <Content Include="server\deleteimage.php" />
     <None Include="styles\_jsscrollpane-modifications.less" />
   </ItemGroup>
   <ItemGroup>

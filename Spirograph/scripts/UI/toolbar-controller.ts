@@ -9,6 +9,7 @@ module Spirograph.UI {
         $showHideGearsButton = $('#show-hide-gears-button'),
         $downloadButton = $('#download-button'),
         $uploadButton = $('#upload-button'),
+        $disabledUploadButtonPlaceholder = $('#disabled-upload-button-placeholder'),
         $galleryButton = $('#gallery-button'),
         $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'),
         $aboutButton = $('#about-button'),
@@ -64,6 +65,16 @@ module Spirograph.UI {
         container: 'body'
     });
 
+    if (!(<any>window).gallerySubmissionsAreAllowed) {
+        $uploadButton.remove();
+        $disabledUploadButtonPlaceholder.css('display', 'block');
+        $disabledUploadButtonPlaceholder.tooltip({
+            title: 'Uploading to the gallery is temporarily disabled due to heavy traffic',
+            placement: 'left',
+            container: 'body'
+        });
+    }
+
     // closes all modals, and then removes itself
     function closeClearButtonPopoverOnClickHandler(ev: JQueryEventObject) {
         if ($(ev.target).closest('.popover').length === 0) {
@@ -118,6 +129,9 @@ module Spirograph.UI {
         EventAggregator.publish('downloadImage', () => {
             if ($target.is($downloadButton)) {
                 icon.removeClass('fa-cog fa-spin').addClass('fa-save');
+                setTimeout(() => {
+                    $target.removeClass('disabled');
+                }, 5000);
             } else {
                 icon.removeClass('fa-cog fa-spin').addClass('fa-thumbs-o-up');
                 inTimeout = true;

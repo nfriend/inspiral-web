@@ -158,7 +158,6 @@ module Spirograph.Interaction {
 
             var delta = (((mouseAngle - startingDragAngle) % 360) + 360) % 360;
             toothOffset = (Math.floor(delta / (360 / rotatingGearOptions.toothCount)) + initialToothOffset) % rotatingGearOptions.toothCount;
-            console.log(delta, mouseAngle, startingDragAngle);
 
             var transformInfo = rotater.rotate(rotatingGearOptions, lastAbsoluteMouseAngle, holeOptions, toothOffset);
             rotatingGear.attr("transform", "translate(" + transformInfo.x + "," + transformInfo.y + ") rotate(" + transformInfo.angle + ")");

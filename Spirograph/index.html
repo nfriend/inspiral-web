@@ -58,33 +58,36 @@
         <button id="show-hide-gears-button" class="toolbar-button btn btn-default" data-toggle="button">
             <i class="fa fa-2x fa-eye"></i>
         </button>
-        <br />
+        <div class="cleared"></div>
         <button id="clear-button" class="toolbar-button btn btn-default">
             <i class="fa fa-2x fa-eraser"></i>
         </button>
-        <br />
+        <div class="cleared"></div>
         <button id="show-hide-cursor-tracker-button" class="toolbar-button btn btn-default" data-toggle="button" style="display: none">
             <i class="fa fa-2x fa-crosshairs"></i>
         </button>
-        <br style="display:none;" />
+        <div class="cleared"></div>
         <hr id="toolbar-divider" />
         <button id="download-button" class="toolbar-button btn btn-default">
             <i class="fa fa-2x fa-save"></i>
         </button>
-        <br />
+        <div class="cleared"></div>
         <button id="upload-button" class="toolbar-button btn btn-default disabled">
             <i class="fa fa-2x fa-upload"></i>
         </button>
-        <br />
+        <div id="disabled-upload-button-placeholder" class="disabled" style="display: none;">
+            <i class="fa fa-2x fa-upload"></i>
+        </div>
+        <div class="cleared"></div>
         <button id="gallery-button" class="toolbar-button btn btn-default">
             <i class="fa fa-2x fa-th"></i>
         </button>
-        <br style="display:none;" />
+        <div class="cleared"></div>
         <hr id="toolbar-divider" />
         <button id="keyboard-shortcuts-button" class="toolbar-button btn btn-default" data-toggle="modal" data-target="#keyboard-shortcuts-modal">
             <i class="fa fa-2x fa-keyboard-o"></i>
         </button>
-        <br />
+        <div class="cleared"></div>
         <button id="about-button" class="toolbar-button btn btn-default" data-toggle="modal" data-target="#about-modal">
             <i class="fa fa-2x fa-question"></i>
         </button>
@@ -211,6 +214,8 @@
     <script src="bower_components/jscrollpane/script/jquery.jscrollpane.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/spectrum/spectrum.js"></script>
+
+    <script src="are-gallery-submissions-paused.js" class="dom_munger-ignore"></script>
 
     <script src="scripts/globals.js"></script>
     <script src="scripts/EventAggregator.js"></script>
