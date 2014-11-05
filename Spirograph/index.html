@@ -67,7 +67,7 @@
             <i class="fa fa-2x fa-crosshairs"></i>
         </button>
         <div class="cleared"></div>
-        <hr id="toolbar-divider" />
+        <hr class="toolbar-divider" />
         <button id="download-button" class="toolbar-button btn btn-default">
             <i class="fa fa-2x fa-save"></i>
         </button>
@@ -83,7 +83,7 @@
             <i class="fa fa-2x fa-th"></i>
         </button>
         <div class="cleared"></div>
-        <hr id="toolbar-divider" />
+        <hr class="toolbar-divider" />
         <button id="keyboard-shortcuts-button" class="toolbar-button btn btn-default" data-toggle="modal" data-target="#keyboard-shortcuts-modal">
             <i class="fa fa-2x fa-keyboard-o"></i>
         </button>
@@ -91,6 +91,11 @@
         <button id="about-button" class="toolbar-button btn btn-default" data-toggle="modal" data-target="#about-modal">
             <i class="fa fa-2x fa-question"></i>
         </button>
+        <div class="cleared"></div>
+        <button id="mobile-button" class="toolbar-button btn btn-default">
+            <i class="fa fa-2x fa-mobile"></i>
+        </button>
+        <div class="cleared"></div>
     </div>
 
     <!-- Modals -->
@@ -206,6 +211,8 @@
         </div>
     </div>
     <!-- /Modals -->
+
+    <script src="scripts/test-for-mobile.js"></script>
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="scripts/lib/linq.js"></script>

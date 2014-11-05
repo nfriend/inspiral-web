@@ -34,10 +34,12 @@
     <Content Include="Gruntfile.js" />
     <Content Include="HowToBuild.txt" />
     <Content Include="index.html" />
+    <Content Include="mobile.html" />
     <Content Include="old-browser.html" />
     <Content Include="are-gallery-submissions-paused.js" />
     <Content Include="scripts\google-analytics.js" />
     <Content Include="scripts\lib\linq.js" />
+    <Content Include="scripts\test-for-mobile.js" />
     <Content Include="styles\app.css">
       <DependentUpon>app.less</DependentUpon>
     </Content>
@@ -125,10 +127,10 @@
     <Content Include="server\getallimagenames.php" />
     <Content Include="server\createthumbs.php" />
     <Content Include="styles\_help-modal.less" />
+    <Content Include="server\deleteimage.php" />
     <Content Include="styles\app.css.map">
       <DependentUpon>app.css</DependentUpon>
     </Content>
-    <Content Include="server\deleteimage.php" />
     <None Include="styles\_jsscrollpane-modifications.less" />
   </ItemGroup>
   <ItemGroup>

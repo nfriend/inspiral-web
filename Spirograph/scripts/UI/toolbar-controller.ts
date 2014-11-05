@@ -14,6 +14,7 @@ module Spirograph.UI {
         $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'),
         $aboutButton = $('#about-button'),
         $keyboardShortcutsButton = $('#keyboard-shortcuts-button'),
+        $mobileButton = $('#mobile-button'),
         inTimeout = false;
 
     $downloadButton.tooltip({
@@ -63,6 +64,16 @@ module Spirograph.UI {
         title: 'Show/hide cursor tracker',
         placement: 'left',
         container: 'body'
+    });
+
+    $mobileButton.tooltip({
+        title: 'Get the app',
+        placement: 'left',
+        container: 'body'
+    });
+
+    $mobileButton.click(() => {
+        window.open('mobile.html', '_blank');
     });
 
     if (!(<any>window).gallerySubmissionsAreAllowed) {

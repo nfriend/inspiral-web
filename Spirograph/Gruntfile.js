@@ -69,7 +69,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
-                        src: ['old-browser.html', 'link-thumbnail.png', 'are-gallery-submissions-paused.js'],
+                        src: ['old-browser.html', 'link-thumbnail.png', 'are-gallery-submissions-paused.js', 'mobile.html'],
                         dest: '../dist/',
                         filter: 'isFile'
                     }
