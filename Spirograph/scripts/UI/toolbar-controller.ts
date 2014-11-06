@@ -81,21 +81,29 @@ module Spirograph.UI {
 
     //#region for testing/debugging purposes only
     $testButton.click(() => {
+
         $.ajax({
             type: 'GET',
             url: 'http://nathanfriend.com/inspirograph/getallimagenames.php',
             data: {
                 'p': 1,
-                'i': 5000
+                'i': 10000
             },
             success: function (data) {
 
                 var images = data.images;
                 var fileCount = parseInt(data.fileCount, 10) || 0;
-                var pageCount = Math.ceil(fileCount / 10000);
+                var pageCount = Math.ceil(fileCount / 1000);
 
+                var min = 2;
+                var max = 450;
+                var counter = -1;
                 for (var image in images) {
                     if (images.hasOwnProperty(image)) {
+                        counter++;
+
+                        if (counter < min || counter > max)
+                            continue;
 
                         $.ajax({
                             type: 'POST',
@@ -105,10 +113,10 @@ module Spirograph.UI {
                             },
                             url: 'https://api.imgur.com/3/image',
                             data: {
-                                type: 'base64',
+                                type: 'URL',
                                 image: 'http://nathanfriend.com/inspirograph/' + images[image].imagepath,
-                                album: Spirograph.imgurAlbumDeleteHashDev,
-                                title: Utility.convertToHumanReadableDate(new Date()),
+                                album: Spirograph.imgurAlbumDeleteHash,
+                                title: Utility.convertToHumanReadableDate(new Date(images[image].timestamp * 1000)),
                             },
                             dataType: 'json',
                             success: (e) => {
