@@ -72,10 +72,6 @@ module Spirograph.UI {
         container: 'body'
     });
 
-    $mobileButton.click(() => {
-        window.open('mobile.html', '_blank');
-    });
-
     if (!(<any>window).gallerySubmissionsAreAllowed) {
         $uploadButton.remove();
         $disabledUploadButtonPlaceholder.css('display', 'block');

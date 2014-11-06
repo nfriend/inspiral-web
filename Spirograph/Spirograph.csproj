@@ -34,7 +34,6 @@
     <Content Include="Gruntfile.js" />
     <Content Include="HowToBuild.txt" />
     <Content Include="index.html" />
-    <Content Include="mobile.html" />
     <Content Include="old-browser.html" />
     <Content Include="are-gallery-submissions-paused.js" />
     <Content Include="scripts\google-analytics.js" />

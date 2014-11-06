@@ -61,10 +61,6 @@ var Spirograph;
             container: 'body'
         });
 
-        $mobileButton.click(function () {
-            window.open('mobile.html', '_blank');
-        });
-
         if (!window.gallerySubmissionsAreAllowed) {
             $uploadButton.remove();
             $disabledUploadButtonPlaceholder.css('display', 'block');

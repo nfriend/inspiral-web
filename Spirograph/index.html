@@ -28,7 +28,6 @@
 
 </head>
 <body class="spirograph">
-    <p style="" id="output"></p>
 
     <div id="gear-options-background-color"></div>
     <div id="gear-options-selector" class="lower-during-drag">
@@ -92,13 +91,36 @@
             <i class="fa fa-2x fa-question"></i>
         </button>
         <div class="cleared"></div>
-        <button id="mobile-button" class="toolbar-button btn btn-default">
+        <button id="mobile-button" class="toolbar-button btn btn-default" data-toggle="modal" data-target="#mobile-modal">
             <i class="fa fa-2x fa-mobile"></i>
         </button>
         <div class="cleared"></div>
     </div>
 
     <!-- Modals -->
+    <div class="modal fade" id="mobile-modal" tabindex="-1" role="dialog" aria-labelledby="mobile-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="mobile-label">Inspirograph isn't mobile friendly... yet!</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="mobile-content">
+                        <p>
+                            A beautiful, ad-free Inspirograph app is in the works.
+                            Want to be notified when it's ready?
+                        </p>
+                        <strong><a href="http://eepurl.com/7Dwtv" target="_blank">Sign up here and I'll send you an email.</a></strong>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="about-modal" tabindex="-1" role="dialog" aria-labelledby="about-modal-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -212,8 +234,6 @@
     </div>
     <!-- /Modals -->
 
-    <script src="scripts/test-for-mobile.js"></script>
-
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="scripts/lib/linq.js"></script>
     <script src="bower_components/d3/d3.js"></script>
@@ -221,6 +241,8 @@
     <script src="bower_components/jscrollpane/script/jquery.jscrollpane.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/spectrum/spectrum.js"></script>
+
+    <script src="scripts/test-for-mobile.js"></script>
 
     <script src="are-gallery-submissions-paused.js" class="dom_munger-ignore"></script>
 
