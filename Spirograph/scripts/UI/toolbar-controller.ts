@@ -15,6 +15,7 @@ module Spirograph.UI {
         $aboutButton = $('#about-button'),
         $keyboardShortcutsButton = $('#keyboard-shortcuts-button'),
         $mobileButton = $('#mobile-button'),
+        $testButton = $('#test-button'),
         inTimeout = false;
 
     $downloadButton.tooltip({
@@ -71,6 +72,59 @@ module Spirograph.UI {
         placement: 'left',
         container: 'body'
     });
+
+    $testButton.tooltip({
+        title: 'Do something cool',
+        placement: 'left',
+        container: 'body'
+    });
+
+    //#region for testing/debugging purposes only
+    $testButton.click(() => {
+        $.ajax({
+            type: 'GET',
+            url: 'http://nathanfriend.com/inspirograph/getallimagenames.php',
+            data: {
+                'p': 1,
+                'i': 5000
+            },
+            success: function (data) {
+
+                var images = data.images;
+                var fileCount = parseInt(data.fileCount, 10) || 0;
+                var pageCount = Math.ceil(fileCount / 10000);
+
+                for (var image in images) {
+                    if (images.hasOwnProperty(image)) {
+
+                        $.ajax({
+                            type: 'POST',
+                            async: false,
+                            headers: {
+                                Authorization: 'Client-ID ' + Spirograph.imgurClientID
+                            },
+                            url: 'https://api.imgur.com/3/image',
+                            data: {
+                                type: 'base64',
+                                image: 'http://nathanfriend.com/inspirograph/' + images[image].imagepath,
+                                album: Spirograph.imgurAlbumDeleteHashDev,
+                                title: Utility.convertToHumanReadableDate(new Date()),
+                            },
+                            dataType: 'json',
+                            success: (e) => {
+                                console.log('successfully uploaded http://nathanfriend.com/inspirograph/' + images[image].imagepath);
+                            },
+                            error: (e) => {
+                                console.error('failed to upload ' + 'http://nathanfriend.com/inspirograph/' + images[image].imagepath);
+                            }
+                        });
+                    }
+                }
+            },
+            dataType: 'JSON'
+        });
+    });
+    //#endregion
 
     if (!(<any>window).gallerySubmissionsAreAllowed) {
         $uploadButton.remove();

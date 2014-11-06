@@ -42,4 +42,19 @@ module Spirograph.Utility {
     export function getRgbaString(r: number, g: number, b: number, a: number) {
         return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
     }
+
+    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    export function convertToHumanReadableDate(dateToConvert: Date) {
+        var output = [];
+        output.push(monthNames[dateToConvert.getMonth()]);
+        output.push(dateToConvert.getDate() + ',');
+        output.push(dateToConvert.getFullYear() + ',');
+        var hours = dateToConvert.getHours() % 12;
+        hours = hours === 0 ? 12 : hours;
+        var minutes: any = (dateToConvert.getMinutes());
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        output.push(hours + ':' + minutes);
+        output.push(dateToConvert.getHours() < 12 ? "AM" : "PM");
+        return output.join(' ');
+    }
 } 

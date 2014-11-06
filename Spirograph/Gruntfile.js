@@ -11,7 +11,11 @@ module.exports = function (grunt) {
                       { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'cssRefsWithoutPath', isPath: false },
                       { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'jsRefsWithoutPath', isPath: false }
                     ],
-                    remove: ['link:not(.dom_munger-ignore)', 'script:not(.dom_munger-ignore)'],
+                    remove: [
+                        'link:not(.dom_munger-ignore)',
+                        'script:not(.dom_munger-ignore)',
+                        '.dom_munger-remove'
+                    ],
                     append: [
                       { selector: 'head', html: '<link href="app.min.css" rel="stylesheet">' },
                       { selector: 'body', html: '<script src="app.min.js"></script>' }
@@ -69,7 +73,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
-                        src: ['old-browser.html', 'link-thumbnail.png', 'are-gallery-submissions-paused.js', 'mobile.html'],
+                        src: ['old-browser.html', 'link-thumbnail.png', 'are-gallery-submissions-paused.js'],
                         dest: '../dist/',
                         filter: 'isFile'
                     }

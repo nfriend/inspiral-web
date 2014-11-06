@@ -4,7 +4,7 @@ var Spirograph;
     (function (UI) {
         'use strict';
 
-        var $toolbarContainer = $('#toolbar-container-right'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $disabledUploadButtonPlaceholder = $('#disabled-upload-button-placeholder'), $galleryButton = $('#gallery-button'), $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'), $aboutButton = $('#about-button'), $keyboardShortcutsButton = $('#keyboard-shortcuts-button'), $mobileButton = $('#mobile-button'), inTimeout = false;
+        var $toolbarContainer = $('#toolbar-container-right'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $disabledUploadButtonPlaceholder = $('#disabled-upload-button-placeholder'), $galleryButton = $('#gallery-button'), $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'), $aboutButton = $('#about-button'), $keyboardShortcutsButton = $('#keyboard-shortcuts-button'), $mobileButton = $('#mobile-button'), $testButton = $('#test-button'), inTimeout = false;
 
         $downloadButton.tooltip({
             title: 'Download image',
@@ -61,6 +61,57 @@ var Spirograph;
             container: 'body'
         });
 
+        $testButton.tooltip({
+            title: 'Do something cool',
+            placement: 'left',
+            container: 'body'
+        });
+
+        //#region for testing/debugging purposes only
+        $testButton.click(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'http://nathanfriend.com/inspirograph/getallimagenames.php',
+                data: {
+                    'p': 1,
+                    'i': 5000
+                },
+                success: function (data) {
+                    var images = data.images;
+                    var fileCount = parseInt(data.fileCount, 10) || 0;
+                    var pageCount = Math.ceil(fileCount / 10000);
+
+                    for (var image in images) {
+                        if (images.hasOwnProperty(image)) {
+                            $.ajax({
+                                type: 'POST',
+                                async: false,
+                                headers: {
+                                    Authorization: 'Client-ID ' + Spirograph.imgurClientID
+                                },
+                                url: 'https://api.imgur.com/3/image',
+                                data: {
+                                    type: 'base64',
+                                    image: 'http://nathanfriend.com/inspirograph/' + images[image].imagepath,
+                                    album: Spirograph.imgurAlbumDeleteHashDev,
+                                    title: Spirograph.Utility.convertToHumanReadableDate(new Date())
+                                },
+                                dataType: 'json',
+                                success: function (e) {
+                                    console.log('successfully uploaded http://nathanfriend.com/inspirograph/' + images[image].imagepath);
+                                },
+                                error: function (e) {
+                                    console.error('failed to upload ' + 'http://nathanfriend.com/inspirograph/' + images[image].imagepath);
+                                }
+                            });
+                        }
+                    }
+                },
+                dataType: 'JSON'
+            });
+        });
+
+        //#endregion
         if (!window.gallerySubmissionsAreAllowed) {
             $uploadButton.remove();
             $disabledUploadButtonPlaceholder.css('display', 'block');

@@ -24,6 +24,8 @@ var QueryString = function () {
 
 var isDev = document.location.hostname === 'localhost' || document.location.hostname === '127.0.0.1';
 
+isDev = false;
+
 (function ($) {
 
     var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -42,15 +44,8 @@ var isDev = document.location.hostname === 'localhost' || document.location.host
         return output.join(' ');
     }
 
-    function formatImagePath(imagepath) {
-        if (isDev)
-            return 'http://dev.nathanfriend.com/inspirograph/' + imagepath;
-        else
-            return '../' + imagepath;
-    }
-
-    function getThumbnail(imagepath) {
-        return imagepath.replace('.png', '_thumb.jpg');
+    function getThumbnailPath(imagepath) {
+        return imagepath.replace('.jpg', 'm.jpg');
     }
 
     function addPaginationLink(text, isEnabled, p, i) {
@@ -80,16 +75,20 @@ var isDev = document.location.hostname === 'localhost' || document.location.host
         itemsPerPage = Math.round(parseInt(QueryString.i, 10));
     }
 
-    function deleteImage(imagepath) {
-        console.log('deleting ' + imagepath);
+    function deleteImage(imgurId) {
+        console.log('deleting ' + imgurId);
         $.ajax({
-            type: 'GET',
-            url: isDev ? 'http://dev.nathanfriend.com/inspirograph/deleteimage.php' : '../deleteimage.php',
-            data: {
-                'imagepath': imagepath,
+            type: 'DELETE',
+            headers: {
+                Authorization: 'Client-ID 4d93fc08cc27d37',
+            },
+            url: (isDev ? 'https://api.imgur.com/3/album/zYKofZIZqwwRrta' : 'https://api.imgur.com/3/album/splQJocFCJf7Rky') + '/remove_images?ids=' + imgurId,
+            contentType: 'text',
+            xhrFields: {
+                withCredentials: false
             },
             success: function (data) {
-                $('.image-thumbnail[imagepath="' + imagepath + '"]').find('img').attr('src', 'deleted.png');
+                $('.image-thumbnail[imgur-id="' + imgurId + '"]').find('img').attr('src', 'deleted.png');
             }
         });
 
@@ -97,26 +96,28 @@ var isDev = document.location.hostname === 'localhost' || document.location.host
 
     $.ajax({
         type: 'GET',
-        url: isDev ? 'http://dev.nathanfriend.com/inspirograph/getallimagenames.php' : '../getallimagenames.php',
-        data: {
-            'p': pageNumber,
-            'i': itemsPerPage
+        headers: {
+            Authorization: 'Client-ID 4d93fc08cc27d37'
         },
-        success: function (data) {
-
-            var images = data.images;
-            var fileCount = parseInt(data.fileCount, 10) || 0;
+        dataType: 'json',
+        url: isDev ? 'https://api.imgur.com/3/album/T6EZc/images' : 'https://api.imgur.com/3/album/2R9z5/images',
+        success: function (response) {
+            var images = response.data.reverse();
+            var fileCount = images.length
             var pageCount = Math.ceil(fileCount / itemsPerPage);
+            var startCount = (pageNumber - 1) * itemsPerPage;
 
-            for (var image in images) {
-                if (images.hasOwnProperty(image)) {
-                    var row = $('<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"></div>');
-                    var link = $('<a href="' + formatImagePath(images[image].imagepath) + '" imagepath="' + images[image].imagepath + '" class="swipebox image-thumbnail" title="' + formatDate(images[image].timestamp) + '">');
-                    var img = $('<img class="img-responsive" src="' + formatImagePath(getThumbnail(images[image].imagepath)) + '" alt="' + formatDate(images[image].timestamp) + '">');
-                    img.appendTo(link);
-                    link.appendTo(row);
-                    row.prependTo('.image-container');
-                }
+            for (var i = startCount; i < startCount + itemsPerPage; i++) {
+                if (i >= images.length)
+                    break;
+
+                var image = images[i];
+                var row = $('<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"></div>');
+                var link = $('<a href="' + image.link + '" imgur-id="' + image.id + '" class="swipebox image-thumbnail" title="' + image.title + '">');
+                var img = $('<img class="img-responsive" src="' + getThumbnailPath(image.link) + '" alt="' + image.title + '">');
+                img.appendTo(link);
+                link.appendTo(row);
+                row.prependTo('.image-container');
             }
 
             $('.image-container').children().each(function (index) {
@@ -157,7 +158,7 @@ var isDev = document.location.hostname === 'localhost' || document.location.host
                     var $that = $(this);
                     $that.click(function () { return false; })
                     $that.click(function () {
-                        deleteImage($that.attr('imagepath'));
+                        deleteImage($that.attr('imgur-id'));
                     });
                 });
             }

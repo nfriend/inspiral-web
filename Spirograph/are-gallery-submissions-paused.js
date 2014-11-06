@@ -1,4 +1,6 @@
 ﻿window.gallerySubmissionsAreAllowed = function () {
+    return true;
+
     var allowSubmissions = true;
     var currentHour = (new Date()).getUTCHours();
     if (!allowSubmissions || (currentHour > 2 && currentHour < 15))

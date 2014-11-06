@@ -49,6 +49,22 @@ var Spirograph;
             return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
         }
         Utility.getRgbaString = getRgbaString;
+
+        var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        function convertToHumanReadableDate(dateToConvert) {
+            var output = [];
+            output.push(monthNames[dateToConvert.getMonth()]);
+            output.push(dateToConvert.getDate() + ',');
+            output.push(dateToConvert.getFullYear() + ',');
+            var hours = dateToConvert.getHours() % 12;
+            hours = hours === 0 ? 12 : hours;
+            var minutes = (dateToConvert.getMinutes());
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            output.push(hours + ':' + minutes);
+            output.push(dateToConvert.getHours() < 12 ? "AM" : "PM");
+            return output.join(' ');
+        }
+        Utility.convertToHumanReadableDate = convertToHumanReadableDate;
     })(Spirograph.Utility || (Spirograph.Utility = {}));
     var Utility = Spirograph.Utility;
 })(Spirograph || (Spirograph = {}));
