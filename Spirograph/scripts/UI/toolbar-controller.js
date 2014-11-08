@@ -165,6 +165,14 @@ var Spirograph;
             }
         }
 
+        // temporary
+        $uploadButton.remove();
+        $disabledUploadButtonPlaceholder.css('display', 'block').tooltip({
+            title: 'Uploading to the gallery is temporarily disabled due to heavy traffic',
+            placement: 'left',
+            container: 'body'
+        });
+
         if (Spirograph.browser.browser === 1 /* IE */ && Spirograph.browser.version < 10) {
             //disable uploading to the gallery if IE 9 or less... for some reason it's failing
             $uploadButton.remove();
