@@ -82,9 +82,9 @@ module Spirograph.UI {
     });
 
     //#region for testing/debugging purposes only
-
-    var min = 0;
-    var max = 350;
+    /*
+    var min = 5556;
+    var max = 5556 + 200;
 
     function doStuff() {
 
@@ -121,7 +121,7 @@ module Spirograph.UI {
                             data: {
                                 type: 'URL',
                                 image: 'http://nathanfriend.com/inspirograph/' + images[image].imagepath,
-                                album: Spirograph.imgurAlbumDeleteHashDev,
+                                album: Spirograph.imgurAlbumDeleteHash,
                                 title: Utility.convertToHumanReadableDate(new Date(images[image].timestamp * 1000)),
                             },
                             dataType: 'json',
@@ -149,6 +149,7 @@ module Spirograph.UI {
             dataType: 'JSON'
         });
     }
+    */
 
     $testButton.click(() => {
         //$.ajax({
@@ -171,7 +172,7 @@ module Spirograph.UI {
         //    doStuff();
         //}, 4500000);
 
-        doStuff();
+        //doStuff();
 
     });
     //#endregion
@@ -182,6 +183,18 @@ module Spirograph.UI {
             $clearButton.popover('hide');
             $body.off('click', closeClearButtonPopoverOnClickHandler);
         }
+    }
+
+    if (browser.browser === Browser.IE && browser.version < 10) {
+        //disable uploading to the gallery if IE 9 or less... for some reason it's failing
+        $uploadButton.remove();
+        $disabledUploadButtonPlaceholder.css('display', 'block').tooltip({
+            title: 'Your browser is too old to support uploading to the gallery.  Try switching to Chrome, Firefox, or the latest version of Internet Explorer.',
+            placement: 'left',
+            container: 'body'
+        });
+
+        $galleryButton.attr('href', 'gallery/old-browser.html');
     }
 
     function attachCloseClearButtonPopoverHandler() {

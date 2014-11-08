@@ -135,7 +135,7 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
-                        src: ['gallery/deleted.png'],
+                        src: ['gallery/deleted.png', 'gallery/old-browser.html'],
                         dest: '../dist/gallery/',
                         filter: 'isFile'
                     }

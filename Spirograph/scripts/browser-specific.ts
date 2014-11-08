@@ -31,23 +31,18 @@ module Spirograph {
         var browserType: Browser = Browser.Other;
         var versionNumber: number = 0;
 
-        switch (browserInfo.browser.trim()) {
-            case 'Chrome': {
-                browserType = Browser.Chrome;
-                break;
-            }
-            case 'Safari': {
-                browserType = Browser.Safari;
-                break;
-            }
-            case 'Opera': {
-                browserType = Browser.Opera;
-                break;
-            }
-            case 'Firefox': {
-                browserType = Browser.Firefox;
-                break;
-            }
+        var browserString = browserInfo.browser.trim().toUpperCase();
+
+        if (browserString.indexOf('CHROME') !== -1) {
+            browserType = Browser.Chrome;
+        } else if (browserString.indexOf('SAFARI') !== -1) {
+            browserType = Browser.Safari;
+        } else if (browserString.indexOf('OPERA') !== -1) {
+            browserType = Browser.Opera;
+        } else if (browserString.indexOf('FIREFOX') !== -1) {
+            browserType = Browser.Firefox;
+        } else if (browserString.indexOf('IE') !== -1) {
+            browserType = Browser.IE;
         }
 
         versionNumber = parseFloat(browserInfo.version);

@@ -8887,6 +8887,9 @@ kbd {
   margin-bottom: 10px;
   border-color: #ccc;
 }
+.toolbar-container .fa-th {
+  margin-top: 4px;
+}
 #about-modal td,
 #keyboard-shortcuts-modal td,
 #mobile-modal td,

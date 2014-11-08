@@ -38,23 +38,18 @@ var Spirograph;
         var browserType = 5 /* Other */;
         var versionNumber = 0;
 
-        switch (browserInfo.browser.trim()) {
-            case 'Chrome': {
-                browserType = 0 /* Chrome */;
-                break;
-            }
-            case 'Safari': {
-                browserType = 3 /* Safari */;
-                break;
-            }
-            case 'Opera': {
-                browserType = 4 /* Opera */;
-                break;
-            }
-            case 'Firefox': {
-                browserType = 2 /* Firefox */;
-                break;
-            }
+        var browserString = browserInfo.browser.trim().toUpperCase();
+
+        if (browserString.indexOf('CHROME') !== -1) {
+            browserType = 0 /* Chrome */;
+        } else if (browserString.indexOf('SAFARI') !== -1) {
+            browserType = 3 /* Safari */;
+        } else if (browserString.indexOf('OPERA') !== -1) {
+            browserType = 4 /* Opera */;
+        } else if (browserString.indexOf('FIREFOX') !== -1) {
+            browserType = 2 /* Firefox */;
+        } else if (browserString.indexOf('IE') !== -1) {
+            browserType = 1 /* IE */;
         }
 
         versionNumber = parseFloat(browserInfo.version);

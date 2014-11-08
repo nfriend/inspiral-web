@@ -68,69 +68,74 @@ var Spirograph;
         });
 
         //#region for testing/debugging purposes only
-        var min = 0;
-        var max = 350;
-
+        /*
+        var min = 5556;
+        var max = 5556 + 200;
+        
         function doStuff() {
-            console.log('Beginning upload process for images ' + min + ' to ' + max);
-
-            $.ajax({
-                type: 'GET',
-                url: 'http://nathanfriend.com/inspirograph/getallimagenames.php',
-                data: {
-                    'p': 1,
-                    'i': 10000
-                },
-                success: function (data) {
-                    var images = data.images;
-                    var fileCount = parseInt(data.fileCount, 10) || 0;
-                    var pageCount = Math.ceil(fileCount / 1000);
-
-                    var counter = -1;
-                    for (var image in images) {
-                        if (images.hasOwnProperty(image)) {
-                            counter++;
-
-                            if (counter < min || counter > max)
-                                continue;
-
-                            $.ajax({
-                                type: 'POST',
-                                async: false,
-                                headers: {
-                                    Authorization: 'Client-ID ' + Spirograph.imgurClientID
-                                },
-                                url: 'https://api.imgur.com/3/image',
-                                data: {
-                                    type: 'URL',
-                                    image: 'http://nathanfriend.com/inspirograph/' + images[image].imagepath,
-                                    album: Spirograph.imgurAlbumDeleteHashDev,
-                                    title: Spirograph.Utility.convertToHumanReadableDate(new Date(images[image].timestamp * 1000))
-                                },
-                                dataType: 'json',
-                                success: function (e) {
-                                    console.log('successfully uploaded http://nathanfriend.com/inspirograph/' + images[image].imagepath);
-                                },
-                                error: function (e) {
-                                    console.error('failed to upload ' + 'http://nathanfriend.com/inspirograph/' + images[image].imagepath);
-                                }
-                            });
-                        }
-                    }
-
-                    console.log('Done!');
-
-                    min += 495;
-                    max += 495;
-                    //console.log('Waiting 75 mins...');
-                    //setTimeout(() => {
-                    //    doStuff();
-                    //}, 4500000);
-                },
-                dataType: 'JSON'
-            });
+        
+        console.log('Beginning upload process for images ' + min + ' to ' + max);
+        
+        $.ajax({
+        type: 'GET',
+        url: 'http://nathanfriend.com/inspirograph/getallimagenames.php',
+        data: {
+        'p': 1,
+        'i': 10000
+        },
+        success: function (data) {
+        
+        var images = data.images;
+        var fileCount = parseInt(data.fileCount, 10) || 0;
+        var pageCount = Math.ceil(fileCount / 1000);
+        
+        var counter = -1;
+        for (var image in images) {
+        if (images.hasOwnProperty(image)) {
+        counter++;
+        
+        if (counter < min || counter > max)
+        continue;
+        
+        $.ajax({
+        type: 'POST',
+        async: false,
+        headers: {
+        Authorization: 'Client-ID ' + Spirograph.imgurClientID
+        },
+        url: 'https://api.imgur.com/3/image',
+        data: {
+        type: 'URL',
+        image: 'http://nathanfriend.com/inspirograph/' + images[image].imagepath,
+        album: Spirograph.imgurAlbumDeleteHash,
+        title: Utility.convertToHumanReadableDate(new Date(images[image].timestamp * 1000)),
+        },
+        dataType: 'json',
+        success: (e) => {
+        console.log('successfully uploaded http://nathanfriend.com/inspirograph/' + images[image].imagepath);
+        },
+        error: (e) => {
+        console.error('failed to upload ' + 'http://nathanfriend.com/inspirograph/' + images[image].imagepath);
         }
-
+        });
+        }
+        }
+        
+        console.log('Done!');
+        
+        min += 495;
+        max += 495;
+        
+        //console.log('Waiting 75 mins...');
+        
+        //setTimeout(() => {
+        //    doStuff();
+        //}, 4500000);
+        },
+        dataType: 'JSON'
+        });
+        }
+        */
         $testButton.click(function () {
             //$.ajax({
             //    type: 'POST',
@@ -148,7 +153,7 @@ var Spirograph;
             //setTimeout(() => {
             //    doStuff();
             //}, 4500000);
-            doStuff();
+            //doStuff();
         });
 
         //#endregion
@@ -158,6 +163,18 @@ var Spirograph;
                 $clearButton.popover('hide');
                 $body.off('click', closeClearButtonPopoverOnClickHandler);
             }
+        }
+
+        if (Spirograph.browser.browser === 1 /* IE */ && Spirograph.browser.version < 10) {
+            //disable uploading to the gallery if IE 9 or less... for some reason it's failing
+            $uploadButton.remove();
+            $disabledUploadButtonPlaceholder.css('display', 'block').tooltip({
+                title: 'Your browser is too old to support uploading to the gallery.  Try switching to Chrome, Firefox, or the latest version of Internet Explorer.',
+                placement: 'left',
+                container: 'body'
+            });
+
+            $galleryButton.attr('href', 'gallery/old-browser.html');
         }
 
         function attachCloseClearButtonPopoverHandler() {
