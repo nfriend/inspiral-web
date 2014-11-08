@@ -157,6 +157,7 @@ $RECYCLE.BIN/
 
 # Bower dependencies
 Spirograph/bower_components/
+Spirograph/gallery/bower_components/
 
 # Node modules
 Spirograph/node_modules/
