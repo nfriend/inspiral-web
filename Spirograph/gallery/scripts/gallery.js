@@ -1,4 +1,5 @@
 ﻿var isDev = document.location.hostname === 'localhost' || document.location.hostname === '127.0.0.1' || document.location.hostname.indexOf('dev.') !== -1;
+isDev = false;
 
 (function ($) {
 
@@ -143,10 +144,11 @@
                 });
             }
         },
-        error: function(response) {
-            location.reload(true);
-        },
-        dataType: 'JSON'
+        error: function (response) {
+            setTimeout(function () {
+                location.reload(true);
+            }, 5000);
+        }
     });
 
     if (!(QueryString.admin)) {

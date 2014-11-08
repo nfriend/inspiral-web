@@ -81,101 +81,9 @@ module Spirograph.UI {
         container: 'body'
     });
 
-    //#region for testing/debugging purposes only
-    /*
-    var min = 5556;
-    var max = 5556 + 200;
-
-    function doStuff() {
-
-        console.log('Beginning upload process for images ' + min + ' to ' + max);
-
-        $.ajax({
-            type: 'GET',
-            url: 'http://nathanfriend.com/inspirograph/getallimagenames.php',
-            data: {
-                'p': 1,
-                'i': 10000
-            },
-            success: function (data) {
-
-                var images = data.images;
-                var fileCount = parseInt(data.fileCount, 10) || 0;
-                var pageCount = Math.ceil(fileCount / 1000);
-
-                var counter = -1;
-                for (var image in images) {
-                    if (images.hasOwnProperty(image)) {
-                        counter++;
-
-                        if (counter < min || counter > max)
-                            continue;
-
-                        $.ajax({
-                            type: 'POST',
-                            async: false,
-                            headers: {
-                                Authorization: 'Client-ID ' + Spirograph.imgurClientID
-                            },
-                            url: 'https://api.imgur.com/3/image',
-                            data: {
-                                type: 'URL',
-                                image: 'http://nathanfriend.com/inspirograph/' + images[image].imagepath,
-                                album: Spirograph.imgurAlbumDeleteHash,
-                                title: Utility.convertToHumanReadableDate(new Date(images[image].timestamp * 1000)),
-                            },
-                            dataType: 'json',
-                            success: (e) => {
-                                console.log('successfully uploaded http://nathanfriend.com/inspirograph/' + images[image].imagepath);
-                            },
-                            error: (e) => {
-                                console.error('failed to upload ' + 'http://nathanfriend.com/inspirograph/' + images[image].imagepath);
-                            }
-                        });
-                    }
-                }
-
-                console.log('Done!');
-
-                min += 495;
-                max += 495;
-
-                //console.log('Waiting 75 mins...');
-
-                //setTimeout(() => {
-                //    doStuff();
-                //}, 4500000);
-            },
-            dataType: 'JSON'
-        });
-    }
-    */
-
     $testButton.click(() => {
-        //$.ajax({
-        //    type: 'POST',
-        //    dataType: 'json',
-        //    headers: {
-        //        Authorization: 'Client-ID ' + Spirograph.imgurClientID
-        //    },
-        //    url: 'https://api.imgur.com/3/album/',
-        //    success: (e) => {
-        //        console.log(e);
-        //    }
-        //});
-
-        //return;
-
-        //console.log('Waiting 75 mins...');
-
-        //setTimeout(() => {
-        //    doStuff();
-        //}, 4500000);
-
-        //doStuff();
-
+        getPaginatedResults();
     });
-    //#endregion
 
     // closes all modals, and then removes itself
     function closeClearButtonPopoverOnClickHandler(ev: JQueryEventObject) {
@@ -186,12 +94,12 @@ module Spirograph.UI {
     }
 
     // temporary
-    $uploadButton.remove();
-    $disabledUploadButtonPlaceholder.css('display', 'block').tooltip({
-        title: 'Uploading to the gallery is temporarily disabled due to heavy traffic',
-        placement: 'left',
-        container: 'body'
-    });
+    //$uploadButton.remove();
+    //$disabledUploadButtonPlaceholder.css('display', 'block').tooltip({
+    //    title: 'Uploading to the gallery is temporarily disabled due to heavy traffic',
+    //    placement: 'left',
+    //    container: 'body'
+    //});
 
     if (browser.browser === Browser.IE && browser.version < 10) {
         //disable uploading to the gallery if IE 9 or less... for some reason it's failing
