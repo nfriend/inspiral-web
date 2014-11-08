@@ -8889,17 +8889,20 @@ kbd {
 }
 #about-modal td,
 #keyboard-shortcuts-modal td,
-#mobile-modal td {
+#mobile-modal td,
+#download-modal td {
   line-height: 200%;
 }
 #about-modal td:nth-child(even),
 #keyboard-shortcuts-modal td:nth-child(even),
-#mobile-modal td:nth-child(even) {
+#mobile-modal td:nth-child(even),
+#download-modal td:nth-child(even) {
   text-align: right;
 }
 #about-modal #mac-users,
 #keyboard-shortcuts-modal #mac-users,
-#mobile-modal #mac-users {
+#mobile-modal #mac-users,
+#download-modal #mac-users {
   color: #999;
   margin-top: 15px;
   margin-bottom: 10px;
@@ -8908,13 +8911,15 @@ kbd {
 }
 #about-modal #mac-users *,
 #keyboard-shortcuts-modal #mac-users *,
-#mobile-modal #mac-users * {
+#mobile-modal #mac-users *,
+#download-modal #mac-users * {
   color: #555;
   font-style: normal;
 }
 #about-modal #about-content,
 #keyboard-shortcuts-modal #about-content,
-#mobile-modal #about-content {
+#mobile-modal #about-content,
+#download-modal #about-content {
   padding: 20px;
 }
 .spirograph #spirograph-svg {

@@ -19,6 +19,9 @@
   <ItemGroup>
     <Content Include="download.html" />
     <Content Include="gallery\deleted.png" />
+    <Content Include="gallery\images\icons.png" />
+    <Content Include="gallery\images\icons.svg" />
+    <Content Include="gallery\images\loader.gif" />
     <Content Include="gallery\styles\fontawesome-webfont.svg" />
     <Content Include="gallery\scripts\format-date.js" />
     <Content Include="gallery\scripts\google-analytics.js" />
@@ -29,6 +32,7 @@
     <Content Include="gallery\styles\app.min.css">
       <DependentUpon>app.css</DependentUpon>
     </Content>
+    <Content Include="gallery\styles\swipebox-1.2.8.custom.css" />
     <Content Include="link-thumbnail.png" />
     <Content Include="favicon.ico" />
     <Content Include="gallery\favicon.ico" />
@@ -136,7 +140,7 @@
     <Content Include="server\saveimage.php" />
     <Content Include="server\getallimagenames.php" />
     <Content Include="server\createthumbs.php" />
-    <Content Include="styles\_help-modal.less" />
+    <Content Include="styles\_modals.less" />
     <Content Include="server\deleteimage.php" />
     <Content Include="styles\app.css.map">
       <DependentUpon>app.css</DependentUpon>

@@ -1,6 +1,7 @@
 ﻿@import (less) "../bower_components/swipebox/src/css/swipebox.css";
 @import (less) "../bower_components/bootstrap/dist/css/bootstrap.css";
 @import (less) '../bower_components/fontawesome/less/font-awesome.less';
+@import (less) 'swipebox-1.2.8.custom.css';
 
 html, body {
     font-family: 'Open Sans', sans-serif;
@@ -89,12 +90,16 @@ h1 {
 }
 
 #waiting-overlay {
-    top: 0;
     position: fixed;
     width: 100%;
     height: 100%;
     text-align: center;
     top: 50%;
+}
+
+#waiting-spinner {
+    color: #555;
+    margin-top: -35px;
 }
 
 .ellipsis-container {

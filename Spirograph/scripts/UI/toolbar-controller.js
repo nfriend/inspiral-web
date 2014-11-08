@@ -4,7 +4,7 @@ var Spirograph;
     (function (UI) {
         'use strict';
 
-        var $toolbarContainer = $('#toolbar-container-right'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $disabledUploadButtonPlaceholder = $('#disabled-upload-button-placeholder'), $galleryButton = $('#gallery-button'), $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'), $aboutButton = $('#about-button'), $keyboardShortcutsButton = $('#keyboard-shortcuts-button'), $mobileButton = $('#mobile-button'), $testButton = $('#test-button'), inTimeout = false;
+        var $toolbarContainer = $('#toolbar-container-right'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $disabledUploadButtonPlaceholder = $('#disabled-upload-button-placeholder'), $galleryButton = $('#gallery-button'), $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'), $aboutButton = $('#about-button'), $keyboardShortcutsButton = $('#keyboard-shortcuts-button'), $mobileButton = $('#mobile-button'), $testButton = $('#test-button'), $downloadModal = $('#download-modal'), $downloadImageLink = $('#download-image-link'), inTimeout = false;
 
         $downloadButton.tooltip({
             title: 'Download image',
@@ -205,7 +205,6 @@ var Spirograph;
             var icon = $target.addClass('disabled').find('i').removeClass('fa-save fa-upload').addClass('fa-cog fa-spin');
             Spirograph.EventAggregator.publish('downloadImage', function (imageLink) {
                 if ($target.is($downloadButton)) {
-                    console.log('imageLink: ' + imageLink);
                     if (imageLink)
                         redirectToImage(imageLink);
 
@@ -228,6 +227,10 @@ var Spirograph;
             }, $target.is($downloadButton));
         });
 
+        $downloadImageLink.click(function () {
+            $downloadModal.modal('hide');
+        });
+
         function redirectToImage(imageLink) {
             if (Spirograph.browser.browser == 0 /* Chrome */) {
                 var filetypeMatches = imageLink.match(/\.[a-zA-Z0-9]+$/);
@@ -237,13 +240,13 @@ var Spirograph;
                 }
 
                 var $link = $('<a href="' + imageLink + '" download="inspirograph' + filetype + '" style="display: none">');
+                $body.append($link);
+                $link[0].click();
+                $link.remove();
             } else {
-                var $link = $('<a href="download.html?image=' + encodeURI(imageLink) + '" target="_blank" style="display: none">');
+                $downloadImageLink.attr('href', 'download.html?image=' + encodeURI(imageLink));
+                $downloadModal.modal('show');
             }
-
-            $body.append($link);
-            $link[0].click();
-            $link.remove();
         }
         ;
 

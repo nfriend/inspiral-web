@@ -102,6 +102,89 @@
     </div>
 
     <!-- Modals -->
+    <div class="modal fade" id="keyboard-shortcuts-modal" tabindex="-1" role="dialog" aria-labelledby="keyboard-shortcuts-modal-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="keyboard-shortcuts-modal-label">Inspirograph Keyboard Shortcuts</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="mac-users">Mac users: substitute <kbd>⌘ </kbd> for <kbd>Ctrl</kbd></p>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <td>Move gear</td>
+                                <td>Click and drag<br />or <kbd><i class="fa fa-long-arrow-left"></i></kbd>, <kbd><i class="fa fa-long-arrow-right"></i></kbd>, <kbd><i class="fa fa-long-arrow-up"></i></kbd> and <kbd><i class="fa fa-long-arrow-down"></i></kbd></td>
+                            </tr>
+                            <tr>
+                                <td>Move gear without drawing</td>
+                                <td><kbd>Shift</kbd> + click and drag<br />or <kbd>Shift</kbd> + <kbd><i class="fa fa-long-arrow-left"></i></kbd>, <kbd><i class="fa fa-long-arrow-right"></i></kbd>, <kbd><i class="fa fa-long-arrow-up"></i></kbd> or <kbd><i class="fa fa-long-arrow-down"></i></kbd></td>
+                            </tr>
+                            <tr>
+                                <td>Rotate gear in place</td>
+                                <td>
+                                    <kbd>Ctrl</kbd> + click and drag
+                                    <br />or <kbd>,</kbd> and <kbd>.</kbd>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Undo</td>
+                                <td><kbd>Ctrl</kbd> + <kbd>Z</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>Redo</td>
+                                <td>
+                                    <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd>
+                                    <br />or <kbd>Ctrl</kbd> + <kbd>Y</kbd>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Erase everything</td>
+                                <td><kbd>Ctrl</kbd> + <kbd>Backspace</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>Show/hide gears</td>
+                                <td><kbd>G</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>Show/hide cursor tracker</td>
+                                <td><kbd>T</kbd></td>
+                            </tr>
+                            <tr>
+                                <td>Download image</td>
+                                <td><kbd>Ctrl</kbd> + <kbd>S</kbd></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="download-modal" tabindex="-1" role="dialog" aria-labelledby="download-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="download-label">Your Inspirograph is ready!</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="download-content">
+                        <p><a id="download-image-link" target="_blank">Click here to download your Inspirograph.</a></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="mobile-modal" tabindex="-1" role="dialog" aria-labelledby="mobile-label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -163,73 +246,12 @@
                     </div>
                     <div class="cleared"></div>
                     <br />
+                    Inspirograph gallery images are hosted by <a href="http://imgur.com/a/2R9z5" target="_blank">Imgur</a>.
+                    <div class="cleared"></div>
+                    <br />
                     Complete source can be found on Github:
                     <a href="https://github.com/nfriend/inspirograph" target="_blank">https://github.com/nfriend/inspirograph</a>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="keyboard-shortcuts-modal" tabindex="-1" role="dialog" aria-labelledby="keyboard-shortcuts-modal-label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title" id="keyboard-shortcuts-modal-label">Inspirograph Keyboard Shortcuts</h4>
-                </div>
-                <div class="modal-body">
-                    <p id="mac-users">Mac users: substitute <kbd>⌘ </kbd> for <kbd>Ctrl</kbd></p>
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <td>Move gear</td>
-                                <td>Click and drag<br />or <kbd><i class="fa fa-long-arrow-left"></i></kbd>, <kbd><i class="fa fa-long-arrow-right"></i></kbd>, <kbd><i class="fa fa-long-arrow-up"></i></kbd> and <kbd><i class="fa fa-long-arrow-down"></i></kbd></td>
-                            </tr>
-                            <tr>
-                                <td>Move gear without drawing</td>
-                                <td><kbd>Shift</kbd> + click and drag<br />or <kbd>Shift</kbd> + <kbd><i class="fa fa-long-arrow-left"></i></kbd>, <kbd><i class="fa fa-long-arrow-right"></i></kbd>, <kbd><i class="fa fa-long-arrow-up"></i></kbd> or <kbd><i class="fa fa-long-arrow-down"></i></kbd></td>
-                            </tr>
-                            <tr>
-                                <td>Rotate gear in place</td>
-                                <td>
-                                    <kbd>Ctrl</kbd> + click and drag
-                                    <br />or <kbd>,</kbd> and <kbd>.</kbd>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Undo</td>
-                                <td><kbd>Ctrl</kbd> + <kbd>Z</kbd></td>
-                            </tr>
-                            <tr>
-                                <td>Redo</td>
-                                <td>
-                                    <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Z</kbd>
-                                    <br />or <kbd>Ctrl</kbd> + <kbd>Y</kbd>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Erase everything</td>
-                                <td><kbd>Ctrl</kbd> + <kbd>Backspace</kbd></td>
-                            </tr>
-                            <tr>
-                                <td>Show/hide gears</td>
-                                <td><kbd>G</kbd></td>
-                            </tr>
-                            <tr>
-                                <td>Show/hide cursor tracker</td>
-                                <td><kbd>T</kbd></td>
-                            </tr>
-                            <tr>
-                                <td>Download image</td>
-                                <td><kbd>Ctrl</kbd> + <kbd>S</kbd></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>

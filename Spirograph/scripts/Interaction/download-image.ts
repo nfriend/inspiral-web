@@ -35,7 +35,6 @@ module Spirograph.Interaction {
 
             $.ajax({
                 type: 'POST',
-                async: browser.browser === Browser.Chrome || !downloadImage,
                 headers: {
                     Authorization: 'Client-ID ' + Spirograph.imgurClientID
                 },
@@ -48,7 +47,6 @@ module Spirograph.Interaction {
                 },
                 dataType: 'json',
                 success: (e) => {
-                    console.log(e);
                     if (callback) {
                         callback(e.data.link);
                     }

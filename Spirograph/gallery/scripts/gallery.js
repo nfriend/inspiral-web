@@ -112,8 +112,6 @@
                     i = null;
                 }
 
-                pageCount = 76;
-
                 addPaginationLink('<span class="fa fa-chevron-left pagination-icon pagination-icon-left"></span><span class="pagination-label">Previous<span>', pageNumber != 1, pageNumber - 1, i)
 
                 if (pageNumber > 5) {

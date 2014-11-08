@@ -16,6 +16,8 @@ module Spirograph.UI {
         $keyboardShortcutsButton = $('#keyboard-shortcuts-button'),
         $mobileButton = $('#mobile-button'),
         $testButton = $('#test-button'),
+        $downloadModal = $('#download-modal'),
+        $downloadImageLink = $('#download-image-link'),
         inTimeout = false;
 
     $downloadButton.tooltip({
@@ -227,7 +229,6 @@ module Spirograph.UI {
         var icon = $target.addClass('disabled').find('i').removeClass('fa-save fa-upload').addClass('fa-cog fa-spin');
         EventAggregator.publish('downloadImage', (imageLink) => {
             if ($target.is($downloadButton)) {
-                console.log('imageLink: ' + imageLink);
                 if (imageLink)
                     redirectToImage(imageLink);
 
@@ -250,6 +251,10 @@ module Spirograph.UI {
         }, $target.is($downloadButton));
     });
 
+    $downloadImageLink.click(() => {
+        $downloadModal.modal('hide');
+    });
+
     function redirectToImage(imageLink) {
         if (browser.browser == Browser.Chrome) {
             var filetypeMatches = imageLink.match(/\.[a-zA-Z0-9]+$/);
@@ -259,13 +264,13 @@ module Spirograph.UI {
             }
 
             var $link = $('<a href="' + imageLink + '" download="inspirograph' + filetype + '" style="display: none">');
+            $body.append($link);
+            $link[0].click();
+            $link.remove();
         } else {
-            var $link = $('<a href="download.html?image=' + encodeURI(imageLink) + '" target="_blank" style="display: none">');
+            $downloadImageLink.attr('href', 'download.html?image=' + encodeURI(imageLink));
+            $downloadModal.modal('show');
         }
-
-        $body.append($link);
-        $link[0].click();
-        $link.remove();
     };
 
     // prevent scrolling inside the help modal from triggering scrolling behind the modal

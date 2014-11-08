@@ -34,7 +34,6 @@ var Spirograph;
 
                 $.ajax({
                     type: 'POST',
-                    async: Spirograph.browser.browser === 0 /* Chrome */ || !downloadImage,
                     headers: {
                         Authorization: 'Client-ID ' + Spirograph.imgurClientID
                     },
@@ -47,7 +46,6 @@ var Spirograph;
                     },
                     dataType: 'json',
                     success: function (e) {
-                        console.log(e);
                         if (callback) {
                             callback(e.data.link);
                         }
