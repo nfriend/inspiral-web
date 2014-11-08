@@ -68,7 +68,12 @@ var Spirograph;
         });
 
         //#region for testing/debugging purposes only
-        $testButton.click(function () {
+        var min = 0;
+        var max = 350;
+
+        function doStuff() {
+            console.log('Beginning upload process for images ' + min + ' to ' + max);
+
             $.ajax({
                 type: 'GET',
                 url: 'http://nathanfriend.com/inspirograph/getallimagenames.php',
@@ -81,8 +86,6 @@ var Spirograph;
                     var fileCount = parseInt(data.fileCount, 10) || 0;
                     var pageCount = Math.ceil(fileCount / 1000);
 
-                    var min = 2;
-                    var max = 450;
                     var counter = -1;
                     for (var image in images) {
                         if (images.hasOwnProperty(image)) {
@@ -101,7 +104,7 @@ var Spirograph;
                                 data: {
                                     type: 'URL',
                                     image: 'http://nathanfriend.com/inspirograph/' + images[image].imagepath,
-                                    album: Spirograph.imgurAlbumDeleteHash,
+                                    album: Spirograph.imgurAlbumDeleteHashDev,
                                     title: Spirograph.Utility.convertToHumanReadableDate(new Date(images[image].timestamp * 1000))
                                 },
                                 dataType: 'json',
@@ -114,22 +117,41 @@ var Spirograph;
                             });
                         }
                     }
+
+                    console.log('Done!');
+
+                    min += 495;
+                    max += 495;
+                    //console.log('Waiting 75 mins...');
+                    //setTimeout(() => {
+                    //    doStuff();
+                    //}, 4500000);
                 },
                 dataType: 'JSON'
             });
+        }
+
+        $testButton.click(function () {
+            //$.ajax({
+            //    type: 'POST',
+            //    dataType: 'json',
+            //    headers: {
+            //        Authorization: 'Client-ID ' + Spirograph.imgurClientID
+            //    },
+            //    url: 'https://api.imgur.com/3/album/',
+            //    success: (e) => {
+            //        console.log(e);
+            //    }
+            //});
+            //return;
+            //console.log('Waiting 75 mins...');
+            //setTimeout(() => {
+            //    doStuff();
+            //}, 4500000);
+            doStuff();
         });
 
         //#endregion
-        if (!window.gallerySubmissionsAreAllowed) {
-            $uploadButton.remove();
-            $disabledUploadButtonPlaceholder.css('display', 'block');
-            $disabledUploadButtonPlaceholder.tooltip({
-                title: 'Uploading to the gallery is temporarily disabled due to heavy traffic',
-                placement: 'left',
-                container: 'body'
-            });
-        }
-
         // closes all modals, and then removes itself
         function closeClearButtonPopoverOnClickHandler(ev) {
             if ($(ev.target).closest('.popover').length === 0) {
@@ -181,8 +203,12 @@ var Spirograph;
         $downloadButton.add($uploadButton).click(function (ev) {
             var $target = $(ev.currentTarget);
             var icon = $target.addClass('disabled').find('i').removeClass('fa-save fa-upload').addClass('fa-cog fa-spin');
-            Spirograph.EventAggregator.publish('downloadImage', function () {
+            Spirograph.EventAggregator.publish('downloadImage', function (imageLink) {
                 if ($target.is($downloadButton)) {
+                    console.log('imageLink: ' + imageLink);
+                    if (imageLink)
+                        redirectToImage(imageLink);
+
                     icon.removeClass('fa-cog fa-spin').addClass('fa-save');
                     setTimeout(function () {
                         $target.removeClass('disabled');
@@ -202,13 +228,24 @@ var Spirograph;
             }, $target.is($downloadButton));
         });
 
-        $galleryButton.click(function () {
-            // there might be a better way to do this
-            var $link = $('<a href="./gallery" target="_blank" style="display: none;"></a>');
+        function redirectToImage(imageLink) {
+            if (Spirograph.browser.browser == 0 /* Chrome */) {
+                var filetypeMatches = imageLink.match(/\.[a-zA-Z0-9]+$/);
+                var filetype = '.jpg';
+                if (filetypeMatches.length > 0) {
+                    filetype = filetypeMatches[0];
+                }
+
+                var $link = $('<a href="' + imageLink + '" download="inspirograph' + filetype + '" style="display: none">');
+            } else {
+                var $link = $('<a href="download.html?image=' + encodeURI(imageLink) + '" target="_blank" style="display: none">');
+            }
+
             $body.append($link);
             $link[0].click();
             $link.remove();
-        });
+        }
+        ;
 
         // prevent scrolling inside the help modal from triggering scrolling behind the modal
         $('#help-modal').on('mousewheel', function (e) {

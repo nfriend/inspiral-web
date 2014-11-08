@@ -1,0 +1,105 @@
+﻿@import (less) "../bower_components/swipebox/src/css/swipebox.css";
+@import (less) "../bower_components/bootstrap/dist/css/bootstrap.css";
+@import (less) '../bower_components/fontawesome/less/font-awesome.less';
+
+html, body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.row > div {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+h1 {
+    text-align: center;
+    color: #888;
+}
+
+.cleared {
+    clear: both;
+    float: none;
+}
+
+@media(max-width: 767px) {
+    h1 {
+        font-size: 45px;
+    }
+}
+
+@media(min-width: 768px) {
+    h1 {
+        font-size: 65px;
+    }
+}
+
+.center-helper {
+    float: right;
+    right: 50%;
+    position: relative;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.pagination-container {
+    float: right;
+    right: -50%;
+    position: relative;
+}
+
+.pagination-link {
+    float: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+
+    .btn {
+        border-radius: 0;
+        font-size: 1.4em;
+        background: lightgray;
+        border-color: #bbb;
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+        min-width: 45px;
+
+        .pagination-label {
+            padding-left: 6px;
+            padding-right: 6px;
+        }
+
+        &[disabled] {
+            background: #eee;
+        }
+
+        &:hover {
+            background: #555;
+            color: lightgray;
+        }
+
+        .pagination-icon-left {
+            margin-left: 10px;
+            margin-right: 4px;
+        }
+
+        .pagination-icon-right {
+            margin-right: 10px;
+            margin-left: 4px;
+        }
+    }
+}
+
+#waiting-overlay {
+    top: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    top: 50%;
+}
+
+.ellipsis-container {
+    margin-left: 10px;
+    float: left;
+    margin-top: 10px;
+    color: #bbb;
+}

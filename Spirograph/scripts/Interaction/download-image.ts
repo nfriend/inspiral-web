@@ -8,33 +8,7 @@ module Spirograph.Interaction {
         backgroundBlue = 0,
         backgroundAlpha = 0;
 
-    EventAggregator.subscribe('downloadImage', (callback: () => any, downloadImage: boolean = false) => {
-
-        uploadImage();
-
-        //var canvas = <HTMLCanvasElement> d3.select('#spirograph-canvas').node();
-
-        //$.ajax({
-        //    type: 'POST',
-        //    url: 'saveimage.php',
-        //    data: {
-        //        img: canvas.toDataURL(),
-        //        red: backgroundRed,
-        //        green: backgroundGreen,
-        //        blue: backgroundBlue,
-        //        alpha: backgroundAlpha,
-        //        submitToGallery: !downloadImage
-        //    },
-        //    success: (imagename) => {
-        //        if (callback) { callback(); }
-        //        if (downloadImage) {
-        //            location.href = "getimage.php?imagename=" + imagename;
-        //        }
-        //    }
-        //});
-    });
-
-    function uploadImage() {
+    EventAggregator.subscribe('downloadImage', (callback: (any) => any, downloadImage: boolean = false) => {
         var canvas = <HTMLCanvasElement> d3.select('#spirograph-canvas').node();
 
         var tempCanvas = <HTMLCanvasElement>($('<canvas width="' + canvas.width + '" height="' + canvas.height + '">')[0]);
@@ -52,8 +26,16 @@ module Spirograph.Interaction {
                 var imageData = tempCanvas.toDataURL().split(',')[1];
             }
 
+            var album: string;
+            if (Spirograph.isDev) {
+                album = downloadImage ? imgurDownloadAlbumDeleteHashDev : imgurAlbumDeleteHashDev;
+            } else {
+                album = downloadImage ? imgurDownloadAlbumDeleteHash : imgurAlbumDeleteHash;
+            }
+
             $.ajax({
                 type: 'POST',
+                async: browser.browser === Browser.Chrome || !downloadImage,
                 headers: {
                     Authorization: 'Client-ID ' + Spirograph.imgurClientID
                 },
@@ -61,19 +43,22 @@ module Spirograph.Interaction {
                 data: {
                     type: 'base64',
                     image: imageData,
-                    album: Spirograph.imgurAlbumDeleteHash,
+                    album: album,
                     title: Utility.convertToHumanReadableDate(new Date()),
                 },
                 dataType: 'json',
                 success: (e) => {
-                    console.log('it worked!!', e);
+                    console.log(e);
+                    if (callback) {
+                        callback(e.data.link);
+                    }
                 },
                 error: (e) => {
-                    console.log('didn\'t work', e);
+                    console.error('Unable to upload image to the gallery!');
                 }
             });
         };
-    }
+    });
 
     EventAggregator.subscribe('colorSelected', (r: number, g: number, b: number, a: number, foregroundOrBackground: string) => {
         if (foregroundOrBackground === 'background') {

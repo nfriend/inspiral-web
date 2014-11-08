@@ -8,29 +8,6 @@ var Spirograph;
 
         Spirograph.EventAggregator.subscribe('downloadImage', function (callback, downloadImage) {
             if (typeof downloadImage === "undefined") { downloadImage = false; }
-            uploadImage();
-            //var canvas = <HTMLCanvasElement> d3.select('#spirograph-canvas').node();
-            //$.ajax({
-            //    type: 'POST',
-            //    url: 'saveimage.php',
-            //    data: {
-            //        img: canvas.toDataURL(),
-            //        red: backgroundRed,
-            //        green: backgroundGreen,
-            //        blue: backgroundBlue,
-            //        alpha: backgroundAlpha,
-            //        submitToGallery: !downloadImage
-            //    },
-            //    success: (imagename) => {
-            //        if (callback) { callback(); }
-            //        if (downloadImage) {
-            //            location.href = "getimage.php?imagename=" + imagename;
-            //        }
-            //    }
-            //});
-        });
-
-        function uploadImage() {
             var canvas = d3.select('#spirograph-canvas').node();
 
             var tempCanvas = ($('<canvas width="' + canvas.width + '" height="' + canvas.height + '">')[0]);
@@ -48,8 +25,16 @@ var Spirograph;
                     var imageData = tempCanvas.toDataURL().split(',')[1];
                 }
 
+                var album;
+                if (Spirograph.isDev) {
+                    album = downloadImage ? Spirograph.imgurDownloadAlbumDeleteHashDev : Spirograph.imgurAlbumDeleteHashDev;
+                } else {
+                    album = downloadImage ? Spirograph.imgurDownloadAlbumDeleteHash : Spirograph.imgurAlbumDeleteHash;
+                }
+
                 $.ajax({
                     type: 'POST',
+                    async: Spirograph.browser.browser === 0 /* Chrome */ || !downloadImage,
                     headers: {
                         Authorization: 'Client-ID ' + Spirograph.imgurClientID
                     },
@@ -57,19 +42,22 @@ var Spirograph;
                     data: {
                         type: 'base64',
                         image: imageData,
-                        album: Spirograph.imgurAlbumDeleteHash,
+                        album: album,
                         title: Spirograph.Utility.convertToHumanReadableDate(new Date())
                     },
                     dataType: 'json',
                     success: function (e) {
-                        console.log('it worked!!', e);
+                        console.log(e);
+                        if (callback) {
+                            callback(e.data.link);
+                        }
                     },
                     error: function (e) {
-                        console.log('didn\'t work', e);
+                        console.error('Unable to upload image to the gallery!');
                     }
                 });
             };
-        }
+        });
 
         Spirograph.EventAggregator.subscribe('colorSelected', function (r, g, b, a, foregroundOrBackground) {
             if (foregroundOrBackground === 'background') {

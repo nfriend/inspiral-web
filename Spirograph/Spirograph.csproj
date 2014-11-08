@@ -17,25 +17,36 @@
     <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="download.html" />
     <Content Include="gallery\deleted.png" />
+    <Content Include="gallery\styles\fontawesome-webfont.svg" />
+    <Content Include="gallery\scripts\format-date.js" />
+    <Content Include="gallery\scripts\google-analytics.js" />
+    <Content Include="gallery\scripts\query-string.js" />
+    <Content Include="gallery\styles\app.css">
+      <DependentUpon>app.less</DependentUpon>
+    </Content>
+    <Content Include="gallery\styles\app.min.css">
+      <DependentUpon>app.css</DependentUpon>
+    </Content>
     <Content Include="link-thumbnail.png" />
     <Content Include="favicon.ico" />
     <Content Include="gallery\favicon.ico" />
     <Content Include="gallery\index.html" />
-    <Content Include="gallery\lib\jquery-swipebox\css\swipebox.css" />
-    <Content Include="gallery\lib\jquery-swipebox\css\swipebox.min.css" />
-    <Content Include="gallery\lib\jquery-swipebox\img\icons.png" />
-    <Content Include="gallery\lib\jquery-swipebox\img\icons.svg" />
-    <Content Include="gallery\lib\jquery-swipebox\img\loader.gif" />
-    <Content Include="gallery\lib\jquery-swipebox\js\jquery.swipebox.js" />
-    <Content Include="gallery\lib\jquery-swipebox\js\jquery.swipebox.min.js" />
     <Content Include="gallery\scripts\gallery.js" />
-    <Content Include="gallery\styles\gallery.css" />
+    <Content Include="gallery\styles\app.css.map">
+      <DependentUpon>app.css</DependentUpon>
+    </Content>
+    <Content Include="gallery\.bowerrc" />
+    <Content Include="gallery\styles\fontawesome-webfont.eot" />
+    <Content Include="gallery\styles\fontawesome-webfont.ttf" />
+    <Content Include="gallery\styles\fontawesome-webfont.woff" />
+    <Content Include="gallery\styles\FontAwesome.otf" />
+    <None Include="gallery\styles\app.less" />
     <Content Include="Gruntfile.js" />
     <Content Include="HowToBuild.txt" />
     <Content Include="index.html" />
     <Content Include="old-browser.html" />
-    <Content Include="are-gallery-submissions-paused.js" />
     <Content Include="scripts\google-analytics.js" />
     <Content Include="scripts\lib\linq.js" />
     <Content Include="scripts\test-for-mobile.js" />

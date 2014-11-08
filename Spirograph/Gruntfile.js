@@ -3,13 +3,13 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         dom_munger: {
-            dist: {
+            main: {
                 options: {
                     read: [
-                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'cssRefs', isPath: true },
-                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'jsRefs', isPath: true },
-                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'cssRefsWithoutPath', isPath: false },
-                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'jsRefsWithoutPath', isPath: false }
+                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'mainCssRefs', isPath: true },
+                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'mainJsRefs', isPath: true },
+                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'mainCssRefsWithoutPath', isPath: false },
+                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'mainJsRefsWithoutPath', isPath: false }
                     ],
                     remove: [
                         'link:not(.dom_munger-ignore)',
@@ -24,6 +24,28 @@ module.exports = function (grunt) {
                 cwd: '.',
                 src: 'index.html',
                 dest: '../dist/index.html'
+            },
+            gallery: {
+                options: {
+                    read: [
+                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'galleryCssRefs', isPath: true },
+                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'galleryJsRefs', isPath: true },
+                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'galleryCssRefsWithoutPath', isPath: false },
+                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'galleryJsRefsWithoutPath', isPath: false }
+                    ],
+                    remove: [
+                        'link:not(.dom_munger-ignore)',
+                        'script:not(.dom_munger-ignore)',
+                        '.dom_munger-remove'
+                    ],
+                    append: [
+                      { selector: 'head', html: '<link href="app.min.css" rel="stylesheet">' },
+                      { selector: 'body', html: '<script src="app.min.js"></script>' }
+                    ]
+                },
+                cwd: '.',
+                src: './gallery/index.html',
+                dest: '../dist/gallery/index.html'
             }
         },
 
@@ -34,25 +56,48 @@ module.exports = function (grunt) {
                 dest: '../dist/',
                 expand: false
             },
-            css: {
+            mainCss: {
                 cwd: '.',
                 src: ['styles/app.min.css'],
                 dest: '../dist/app.min.css',
                 expand: false
             },
-            scripts: {
+            galleryCss: {
+                cwd: '.',
+                src: ['gallery/styles/app.min.css'],
+                dest: '../dist/gallery/app.min.css',
+                expand: false
+            },
+            mainScripts: {
                 cwd: '.',
                 src: ['scripts/**'],
                 dest: '../dist/',
                 expand: true
             },
-            fonts: {
+            galleryScripts: {
+                cwd: '.',
+                src: ['/galleryscripts/**'],
+                dest: '../dist/gallery/',
+                expand: true
+            },
+            mainFonts: {
                 files: [
                     {
                         expand: true,
                         flatten: true,
                         src: ['bower_components/fontawesome/fonts/**'],
                         dest: '../dist/',
+                        filter: 'isFile'
+                    }
+                ]
+            },
+            galleryFonts: {
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ['gallery/bower_components/fontawesome/fonts/**'],
+                        dest: '../dist/gallery',
                         filter: 'isFile'
                     }
                 ]
@@ -73,18 +118,9 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
-                        src: ['old-browser.html', 'link-thumbnail.png', 'are-gallery-submissions-paused.js'],
+                        src: ['old-browser.html', 'link-thumbnail.png', 'download.html'],
                         dest: '../dist/',
                         filter: 'isFile'
-                    }
-                ]
-            },
-            gallery: {
-                files: [
-                    {
-                        expand: true,
-                        src: ['gallery/**'],
-                        dest: '../dist/',
                     }
                 ]
             }
@@ -101,12 +137,12 @@ module.exports = function (grunt) {
             },
             dist: {
                 force: true,
-                src: ['../dist/scripts']
+                src: ['../dist/scripts', '../dist/gallery/scripts']
             }
         },
 
         htmlmin: {
-            dist: {
+            main: {
                 options: {
                     removeComments: true,
                     collapseWhitespace: true
@@ -115,14 +151,40 @@ module.exports = function (grunt) {
                 cwd: '.',
                 src: ['../dist/index.html'],
                 dest: '../dist/'
+            },
+            gallery: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true
+                },
+                expand: true,
+                cwd: '.',
+                src: ['../dist/gallery/index.html'],
+                dest: '../dist/'
             }
         },
 
         uglify: {
-            dist: {
+            main: {
                 cwd: '.',
-                src: '<%= dom_munger.data.jsRefsWithoutPath %>',
+                src: '<%= dom_munger.data.mainJsRefsWithoutPath %>',
                 dest: '../dist/app.min.js'
+            },
+            gallery: {
+                cwd: '.',
+                src: '<%= dom_munger.data.galleryJsRefs %>',
+                dest: '../dist/gallery/app.min.js'
+            }
+        },
+
+        fontAwesomeVars: {
+            main: {
+                variablesLessPath: 'bower_components/fontawesome/less/variables.less',
+                fontPath: './'
+            },
+            gallery: {
+                variablesLessPath: 'gallery/bower_components/fontawesome/less/variables.less',
+                fontPath: './'
             }
         }
     });
@@ -130,7 +192,8 @@ module.exports = function (grunt) {
     grunt.registerTask(
         'dist',
         'Compiles all of the assets and copies the files to the dist directory',
-        ['clean:everything', 'dom_munger:dist', 'copy:favicon', 'copy:css', 'copy:scripts', 'copy:fonts', 'copy:server', 'copy:misc', 'copy:gallery', 'uglify', 'htmlmin:dist', 'clean:dist']
+        ['clean:everything', /*'fontAwesomeVars:main', 'fontAwesomeVars:gallery',*/ 'dom_munger:main', 'dom_munger:gallery', 'copy:favicon', 'copy:mainCss', 'copy:galleryCss', 'copy:mainScripts',
+            'copy:galleryScripts', 'copy:galleryFonts', 'copy:mainFonts', 'copy:server', 'copy:misc', 'uglify:main', 'uglify:gallery', 'htmlmin:main', 'htmlmin:gallery', 'clean:dist']
     );
     grunt.registerTask(
         'default',
@@ -143,4 +206,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-dom-munger');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
+    grunt.loadNpmTasks('grunt-font-awesome-vars');
 };

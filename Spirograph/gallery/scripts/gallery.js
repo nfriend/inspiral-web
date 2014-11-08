@@ -1,54 +1,12 @@
-﻿// from http://stackoverflow.com/a/979995/1063392
-var QueryString = function () {
-    // This function is anonymous, is executed immediately and 
-    // the return value is assigned to QueryString!
-    var query_string = {};
-    var query = window.location.search.substring(1);
-    var vars = query.split("&");
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split("=");
-        // If first entry with this name
-        if (typeof query_string[pair[0]] === "undefined") {
-            query_string[pair[0]] = pair[1];
-            // If second entry with this name
-        } else if (typeof query_string[pair[0]] === "string") {
-            var arr = [query_string[pair[0]], pair[1]];
-            query_string[pair[0]] = arr;
-            // If third or later entry with this name
-        } else {
-            query_string[pair[0]].push(pair[1]);
-        }
-    }
-    return query_string;
-}();
-
-var isDev = document.location.hostname === 'localhost' || document.location.hostname === '127.0.0.1';
-
-isDev = false;
+﻿var isDev = document.location.hostname === 'localhost' || document.location.hostname === '127.0.0.1' || document.location.hostname.indexOf('dev.') !== -1;
 
 (function ($) {
 
-    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    function formatDate(unixTimestamp) {
-        var date = new Date(unixTimestamp * 1000);
-        var output = [];
-        output.push(monthNames[date.getMonth()])
-        output.push(date.getDate() + ',');
-        var hours = date.getHours() % 12;
-        hours = hours === 0 ? 12 : hours;
-        var minutes = (date.getMinutes());
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        output.push(hours + ':' + minutes);
-        output.push(date.getHours() < 12 ? "AM" : "PM")
-        return output.join(' ');
-    }
-
     function getThumbnailPath(imagepath) {
-        return imagepath.replace('.jpg', 'm.jpg');
+        return imagepath.replace('.jpg', 'm.jpg').replace('.png', 'm.png').replace('.JPG', 'm.JPG').replace('.PNG', 'm.PNG');
     }
 
-    function addPaginationLink(text, isEnabled, p, i) {
+    function addPaginationLink(text, isEnabled, p, i, addEllipsis) {
         var $paginationLinkContainer = $('<div class="pagination-link">');
         var href = './?p=' + p;
         if (i) {
@@ -63,6 +21,12 @@ isDev = false;
 
         $paginationLinkContainer.html($paginationLinkElement)
         $('.pagination-container').append($paginationLinkContainer);
+
+        if (addEllipsis === 1) {
+            $paginationLinkContainer.after('<div class="ellipsis-container"><i class="fa fa-ellipsis-h fa-2x"></i></div>');
+        } else if (addEllipsis === -1) {
+            $paginationLinkContainer.before('<div class="ellipsis-container"><i class="fa fa-ellipsis-h fa-2x"></i></div>');
+        }
     }
 
     var pageNumber = 1;
@@ -91,7 +55,6 @@ isDev = false;
                 $('.image-thumbnail[imgur-id="' + imgurId + '"]').find('img').attr('src', 'deleted.png');
             }
         });
-
     }
 
     $.ajax({
@@ -102,6 +65,9 @@ isDev = false;
         dataType: 'json',
         url: isDev ? 'https://api.imgur.com/3/album/T6EZc/images' : 'https://api.imgur.com/3/album/2R9z5/images',
         success: function (response) {
+
+            $('#waiting-overlay').hide();
+
             var images = response.data.reverse();
             var fileCount = images.length
             var pageCount = Math.ceil(fileCount / itemsPerPage);
@@ -117,7 +83,7 @@ isDev = false;
                 var img = $('<img class="img-responsive" src="' + getThumbnailPath(image.link) + '" alt="' + image.title + '">');
                 img.appendTo(link);
                 link.appendTo(row);
-                row.prependTo('.image-container');
+                row.appendTo('.image-container');
             }
 
             $('.image-container').children().each(function (index) {
@@ -146,11 +112,27 @@ isDev = false;
                     i = null;
                 }
 
-                addPaginationLink('<span class="glyphicon glyphicon-chevron-left pagination-icon pagination-icon-left"></span>Previous', pageNumber != 1, pageNumber - 1, i)
+                pageCount = 76;
+
+                addPaginationLink('<span class="fa fa-chevron-left pagination-icon pagination-icon-left"></span><span class="pagination-label">Previous<span>', pageNumber != 1, pageNumber - 1, i)
+
+                if (pageNumber > 5) {
+                    addPaginationLink(1, true, 1, i, 1);
+                }
+
                 for (var j = 1; j <= pageCount; j++) {
+
+                    if (Math.abs(j - pageNumber) > 4)
+                        continue;
+
                     addPaginationLink(j, pageNumber != j, j, i)
                 }
-                addPaginationLink('Next<span class="glyphicon glyphicon-chevron-right pagination-icon pagination-icon-right"></span>', pageNumber != pageCount, pageNumber + 1, i)
+
+                if (pageNumber <= pageCount - 5)
+                    addPaginationLink(pageCount, true, pageCount, i, -1);
+
+                addPaginationLink('<span class="pagination-label">Next</span><span class="fa fa-chevron-right pagination-icon pagination-icon-right"></span>', pageNumber != pageCount, pageNumber + 1, i)
+
             }
 
             if (QueryString.admin) {
@@ -162,6 +144,9 @@ isDev = false;
                     });
                 });
             }
+        },
+        error: function(response) {
+            location.reload(true);
         },
         dataType: 'JSON'
     });

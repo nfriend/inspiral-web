@@ -80,7 +80,13 @@ module Spirograph.UI {
     });
 
     //#region for testing/debugging purposes only
-    $testButton.click(() => {
+
+    var min = 0;
+    var max = 350;
+
+    function doStuff() {
+
+        console.log('Beginning upload process for images ' + min + ' to ' + max);
 
         $.ajax({
             type: 'GET',
@@ -95,8 +101,6 @@ module Spirograph.UI {
                 var fileCount = parseInt(data.fileCount, 10) || 0;
                 var pageCount = Math.ceil(fileCount / 1000);
 
-                var min = 2;
-                var max = 450;
                 var counter = -1;
                 for (var image in images) {
                     if (images.hasOwnProperty(image)) {
@@ -115,7 +119,7 @@ module Spirograph.UI {
                             data: {
                                 type: 'URL',
                                 image: 'http://nathanfriend.com/inspirograph/' + images[image].imagepath,
-                                album: Spirograph.imgurAlbumDeleteHash,
+                                album: Spirograph.imgurAlbumDeleteHashDev,
                                 title: Utility.convertToHumanReadableDate(new Date(images[image].timestamp * 1000)),
                             },
                             dataType: 'json',
@@ -128,21 +132,47 @@ module Spirograph.UI {
                         });
                     }
                 }
+
+                console.log('Done!');
+
+                min += 495;
+                max += 495;
+
+                //console.log('Waiting 75 mins...');
+
+                //setTimeout(() => {
+                //    doStuff();
+                //}, 4500000);
             },
             dataType: 'JSON'
         });
+    }
+
+    $testButton.click(() => {
+        //$.ajax({
+        //    type: 'POST',
+        //    dataType: 'json',
+        //    headers: {
+        //        Authorization: 'Client-ID ' + Spirograph.imgurClientID
+        //    },
+        //    url: 'https://api.imgur.com/3/album/',
+        //    success: (e) => {
+        //        console.log(e);
+        //    }
+        //});
+
+        //return;
+
+        //console.log('Waiting 75 mins...');
+
+        //setTimeout(() => {
+        //    doStuff();
+        //}, 4500000);
+
+        doStuff();
+
     });
     //#endregion
-
-    if (!(<any>window).gallerySubmissionsAreAllowed) {
-        $uploadButton.remove();
-        $disabledUploadButtonPlaceholder.css('display', 'block');
-        $disabledUploadButtonPlaceholder.tooltip({
-            title: 'Uploading to the gallery is temporarily disabled due to heavy traffic',
-            placement: 'left',
-            container: 'body'
-        });
-    }
 
     // closes all modals, and then removes itself
     function closeClearButtonPopoverOnClickHandler(ev: JQueryEventObject) {
@@ -195,8 +225,12 @@ module Spirograph.UI {
     $downloadButton.add($uploadButton).click((ev) => {
         var $target = $(ev.currentTarget);
         var icon = $target.addClass('disabled').find('i').removeClass('fa-save fa-upload').addClass('fa-cog fa-spin');
-        EventAggregator.publish('downloadImage', () => {
+        EventAggregator.publish('downloadImage', (imageLink) => {
             if ($target.is($downloadButton)) {
+                console.log('imageLink: ' + imageLink);
+                if (imageLink)
+                    redirectToImage(imageLink);
+
                 icon.removeClass('fa-cog fa-spin').addClass('fa-save');
                 setTimeout(() => {
                     $target.removeClass('disabled');
@@ -216,13 +250,23 @@ module Spirograph.UI {
         }, $target.is($downloadButton));
     });
 
-    $galleryButton.click(() => {
-        // there might be a better way to do this
-        var $link = $('<a href="./gallery" target="_blank" style="display: none;"></a>');
+    function redirectToImage(imageLink) {
+        if (browser.browser == Browser.Chrome) {
+            var filetypeMatches = imageLink.match(/\.[a-zA-Z0-9]+$/);
+            var filetype = '.jpg';
+            if (filetypeMatches.length > 0) {
+                filetype = filetypeMatches[0];
+            }
+
+            var $link = $('<a href="' + imageLink + '" download="inspirograph' + filetype + '" style="display: none">');
+        } else {
+            var $link = $('<a href="download.html?image=' + encodeURI(imageLink) + '" target="_blank" style="display: none">');
+        }
+
         $body.append($link);
         $link[0].click();
         $link.remove();
-    });
+    };
 
     // prevent scrolling inside the help modal from triggering scrolling behind the modal
     $('#help-modal').on('mousewheel', (e) => {
