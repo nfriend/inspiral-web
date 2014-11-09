@@ -68,7 +68,7 @@ var Spirograph;
         });
 
         $testButton.click(function () {
-            UI.getPaginatedResults();
+            UI.copyAllCurrentImagesToDB();
         });
 
         // closes all modals, and then removes itself

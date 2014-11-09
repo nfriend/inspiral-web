@@ -8,8 +8,8 @@ module Spirograph {
     export var isCursorTrackerVisible = false;
     export var isAnythingDrawn = false;
 
-    //export var isDev = document.location.hostname === 'localhost' || document.location.hostname === '127.0.0.1' || document.location.hostname.indexOf('dev.') !== -1;
-    export var isDev = false;
+    export var isDev = document.location.hostname === 'localhost' || document.location.hostname === '127.0.0.1' || document.location.hostname.indexOf('dev.') !== -1;
+    //export var isDev = false;
 
     export var imgurClientID = '4d93fc08cc27d37';
 

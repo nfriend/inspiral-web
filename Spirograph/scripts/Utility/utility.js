@@ -65,6 +65,12 @@ var Spirograph;
             return output.join(' ');
         }
         Utility.convertToHumanReadableDate = convertToHumanReadableDate;
+
+        // from http://stackoverflow.com/a/11150727/1063392
+        function convertToMysqlFriendlyString(date) {
+            return date.getUTCFullYear() + '-' + ('00' + (date.getUTCMonth() + 1)).slice(-2) + '-' + ('00' + date.getUTCDate()).slice(-2) + ' ' + ('00' + date.getUTCHours()).slice(-2) + ':' + ('00' + date.getUTCMinutes()).slice(-2) + ':' + ('00' + date.getUTCSeconds()).slice(-2);
+        }
+        Utility.convertToMysqlFriendlyString = convertToMysqlFriendlyString;
     })(Spirograph.Utility || (Spirograph.Utility = {}));
     var Utility = Spirograph.Utility;
 })(Spirograph || (Spirograph = {}));

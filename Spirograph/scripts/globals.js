@@ -8,9 +8,9 @@ var Spirograph;
     Spirograph.isCursorTrackerVisible = false;
     Spirograph.isAnythingDrawn = false;
 
-    //export var isDev = document.location.hostname === 'localhost' || document.location.hostname === '127.0.0.1' || document.location.hostname.indexOf('dev.') !== -1;
-    Spirograph.isDev = false;
+    Spirograph.isDev = document.location.hostname === 'localhost' || document.location.hostname === '127.0.0.1' || document.location.hostname.indexOf('dev.') !== -1;
 
+    //export var isDev = false;
     Spirograph.imgurClientID = '4d93fc08cc27d37';
 
     // the main gallery

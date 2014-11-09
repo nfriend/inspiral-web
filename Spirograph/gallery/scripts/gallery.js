@@ -1,5 +1,4 @@
 ﻿var isDev = document.location.hostname === 'localhost' || document.location.hostname === '127.0.0.1' || document.location.hostname.indexOf('dev.') !== -1;
-isDev = false;
 
 (function ($) {
 
@@ -43,14 +42,10 @@ isDev = false;
     function deleteImage(imgurId) {
         console.log('deleting ' + imgurId);
         $.ajax({
-            type: 'DELETE',
-            headers: {
-                Authorization: 'Client-ID 4d93fc08cc27d37',
-            },
-            url: (isDev ? 'https://api.imgur.com/3/album/zYKofZIZqwwRrta' : 'https://api.imgur.com/3/album/splQJocFCJf7Rky') + '/remove_images?ids=' + imgurId,
-            contentType: 'text',
-            xhrFields: {
-                withCredentials: false
+            type: 'POST',
+            url: isDev ? 'http://dev.nathanfriend.com/inspirograph/deleteimage.php' : '../deleteimage.php',
+            data: {
+                imgur_id: imgurId
             },
             success: function (data) {
                 $('.image-thumbnail[imgur-id="' + imgurId + '"]').find('img').attr('src', 'deleted.png');
@@ -59,18 +54,15 @@ isDev = false;
     }
 
     $.ajax({
-        type: 'GET',
-        headers: {
-            Authorization: 'Client-ID 4d93fc08cc27d37'
-        },
+        type: 'POST',
         dataType: 'json',
-        url: isDev ? 'https://api.imgur.com/3/album/T6EZc/images' : 'https://api.imgur.com/3/album/2R9z5/images',
+        url: (isDev ? 'http://dev.nathanfriend.com/inspirograph/getimages.php' : '../getimages.php') + '?page=' + (pageNumber - 1) + '&perPage=' + itemsPerPage,
         success: function (response) {
 
             $('#waiting-overlay').hide();
 
-            var images = response.data.reverse();
-            var fileCount = images.length
+            var images = response.images;
+            var fileCount = response.imageCount;
             var pageCount = Math.ceil(fileCount / itemsPerPage);
             var startCount = (pageNumber - 1) * itemsPerPage;
 
@@ -80,7 +72,7 @@ isDev = false;
 
                 var image = images[i];
                 var row = $('<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"></div>');
-                var link = $('<a href="' + image.link + '" imgur-id="' + image.id + '" class="swipebox image-thumbnail" title="' + image.title + '">');
+                var link = $('<a href="' + image.link + '" imgur-id="' + image.imgur_id + '" class="swipebox image-thumbnail" title="' + image.title + '">');
                 var img = $('<img class="img-responsive" src="' + getThumbnailPath(image.link) + '" alt="' + image.title + '">');
                 img.appendTo(link);
                 link.appendTo(row);

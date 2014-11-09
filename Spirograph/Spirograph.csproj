@@ -138,15 +138,13 @@
     <Content Include="styles\fontawesome-webfont.ttf" />
     <Content Include="styles\fontawesome-webfont.woff" />
     <Content Include="styles\FontAwesome.otf" />
-    <Content Include="server\getimage.php" />
-    <Content Include="server\saveimage.php" />
-    <Content Include="server\getallimagenames.php" />
-    <Content Include="server\createthumbs.php" />
     <Content Include="styles\_modals.less" />
-    <Content Include="server\deleteimage.php" />
     <Content Include="styles\app.css.map">
       <DependentUpon>app.css</DependentUpon>
     </Content>
+    <Content Include="server\getimages.php" />
+    <Content Include="server\saveimage.php" />
+    <Content Include="server\deleteimage.php" />
     <None Include="styles\_jsscrollpane-modifications.less" />
   </ItemGroup>
   <ItemGroup>

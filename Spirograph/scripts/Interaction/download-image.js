@@ -45,9 +45,29 @@ var Spirograph;
                         title: Spirograph.Utility.convertToHumanReadableDate(new Date())
                     },
                     dataType: 'json',
-                    success: function (e) {
-                        if (callback) {
-                            callback(e.data.link);
+                    success: function (response) {
+                        if (!downloadImage) {
+                            var image = response.data;
+                            image.datetime = Spirograph.Utility.convertToMysqlFriendlyString(new Date(image.datetime * 1000));
+                            image.imgur_id = image.id;
+
+                            $.ajax({
+                                type: 'POST',
+                                url: Spirograph.isDev ? 'http://dev.nathanfriend.com/inspirograph/saveimage.php' : 'saveimage.php',
+                                data: image,
+                                success: function (response) {
+                                    if (callback) {
+                                        callback(image.link);
+                                    }
+                                },
+                                error: function (response) {
+                                    console.log(response);
+                                }
+                            });
+                        } else {
+                            if (callback) {
+                                callback(response.data.link);
+                            }
                         }
                     },
                     error: function (e) {

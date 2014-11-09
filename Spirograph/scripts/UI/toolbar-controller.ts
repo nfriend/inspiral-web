@@ -82,7 +82,7 @@ module Spirograph.UI {
     });
 
     $testButton.click(() => {
-        getPaginatedResults();
+        copyAllCurrentImagesToDB();
     });
 
     // closes all modals, and then removes itself

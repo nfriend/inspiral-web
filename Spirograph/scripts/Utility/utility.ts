@@ -31,7 +31,7 @@ module Spirograph.Utility {
         }
     }
 
-    export function getAverage(values: Array<number>) {
+    export function getAverage(values: Array<number>) : number {
         var total = 0;
         values.forEach(v => {
             total += v;
@@ -39,12 +39,12 @@ module Spirograph.Utility {
         return total / values.length;
     }
 
-    export function getRgbaString(r: number, g: number, b: number, a: number) {
+    export function getRgbaString(r: number, g: number, b: number, a: number) : string {
         return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')';
     }
 
     var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    export function convertToHumanReadableDate(dateToConvert: Date) {
+    export function convertToHumanReadableDate(dateToConvert: Date) : string {
         var output = [];
         output.push(monthNames[dateToConvert.getMonth()]);
         output.push(dateToConvert.getDate() + ',');
@@ -56,5 +56,15 @@ module Spirograph.Utility {
         output.push(hours + ':' + minutes);
         output.push(dateToConvert.getHours() < 12 ? "AM" : "PM");
         return output.join(' ');
+    }
+
+    // from http://stackoverflow.com/a/11150727/1063392
+    export function convertToMysqlFriendlyString(date: Date) : string {
+        return date.getUTCFullYear() + '-' +
+        ('00' + (date.getUTCMonth() + 1)).slice(-2) + '-' +
+        ('00' + date.getUTCDate()).slice(-2) + ' ' +
+        ('00' + date.getUTCHours()).slice(-2) + ':' +
+        ('00' + date.getUTCMinutes()).slice(-2) + ':' +
+        ('00' + date.getUTCSeconds()).slice(-2);
     }
 } 
