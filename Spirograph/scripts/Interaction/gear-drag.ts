@@ -27,7 +27,7 @@ module Spirograph.Interaction {
         var ctx = canvas.getContext('2d');
 
         function attachHandlersToRotatingGear() {
-            rotatingGear.on("mousedown", function (d, i) {
+            var rotatingGearOnStart = (d, i) => {
                 EventAggregator.publish('dragStart');
                 rotatingGear.classed('dragging', true);
                 setInitialCenter(lastMouseAngle);
@@ -37,10 +37,12 @@ module Spirograph.Interaction {
                 if ((<any>d3.event).ctrlKey || (<any>d3.event).metaKey) {
                     cursorTracker.style('visibility', 'hidden');
                     body.on("mousemove", rotateGearInPlace);
+                    body.on("touchmove", rotateGearInPlace);
                     previousTransformInfo = null;
                 } else {
                     Interaction.snapshot(canvas);
                     body.on("mousemove", moveGear);
+                    body.on("touchmove", moveGear);
 
                     if (isCursorTrackerVisible === true) {
                         cursorTracker.style('visibility', 'visible');
@@ -48,20 +50,27 @@ module Spirograph.Interaction {
                     updateCursorTrackerLocation();
                 }
 
-                body.on("mouseup", () => {
+                var bodyOnEnd = () => {
                     EventAggregator.publish('dragEnd');
                     initialToothOffset = toothOffset;
                     body.on("mousemove", null);
+                    body.on("touchmove", null);
                     rotatingGear.classed('dragging', false);
                     d3.event.preventDefault();
                     cursorTracker.style('visibility', 'hidden');
                     startingDragAngle = null;
                     return false;
-                });
+                }
+
+                body.on("mouseup", bodyOnEnd);
+                body.on("touchend", bodyOnEnd);
 
                 d3.event.preventDefault()
                 return false;
-            });
+            }
+
+            rotatingGear.on("mousedown", rotatingGearOnStart);
+            rotatingGear.on("touchstart", rotatingGearOnStart);
         }
 
         function updateCursorTrackerLocation() {
