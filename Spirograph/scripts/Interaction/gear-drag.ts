@@ -28,6 +28,9 @@ module Spirograph.Interaction {
 
         function attachHandlersToRotatingGear() {
             var rotatingGearOnStart = (d, i) => {
+
+                $('#output').html('X: ' + d3.touches(svgContainer.node())[0][0] + ', Y: ' + d3.touches(svgContainer.node())[0][1] + '<br />touchstart');
+
                 EventAggregator.publish('dragStart');
                 rotatingGear.classed('dragging', true);
                 setInitialCenter(lastMouseAngle);
@@ -36,12 +39,12 @@ module Spirograph.Interaction {
 
                 if ((<any>d3.event).ctrlKey || (<any>d3.event).metaKey) {
                     cursorTracker.style('visibility', 'hidden');
-                    body.on("mousemove", rotateGearInPlace);
+                    //body.on("mousemove", rotateGearInPlace);
                     body.on("touchmove", rotateGearInPlace);
                     previousTransformInfo = null;
                 } else {
                     Interaction.snapshot(canvas);
-                    body.on("mousemove", moveGear);
+                    //body.on("mousemove", moveGear);
                     body.on("touchmove", moveGear);
 
                     if (isCursorTrackerVisible === true) {
@@ -51,9 +54,15 @@ module Spirograph.Interaction {
                 }
 
                 var bodyOnEnd = () => {
+
+                    try {
+                        $('#output').html('X: ' + d3.touches(svgContainer.node())[0][0] + ', Y: ' + d3.touches(svgContainer.node())[0][1] + '<br />touchend');
+                    } catch (errorssss) {
+                        console.log('other stuffz');
+                    }
                     EventAggregator.publish('dragEnd');
                     initialToothOffset = toothOffset;
-                    body.on("mousemove", null);
+                    //body.on("mousemove", null);
                     body.on("touchmove", null);
                     rotatingGear.classed('dragging', false);
                     d3.event.preventDefault();
@@ -62,40 +71,40 @@ module Spirograph.Interaction {
                     return false;
                 }
 
-                body.on("mouseup", bodyOnEnd);
+                //body.on("mouseup", bodyOnEnd);
                 body.on("touchend", bodyOnEnd);
 
                 d3.event.preventDefault()
                 return false;
             }
 
-            rotatingGear.on("mousedown", rotatingGearOnStart);
+            //rotatingGear.on("mousedown", rotatingGearOnStart);
             rotatingGear.on("touchstart", rotatingGearOnStart);
         }
 
         function updateCursorTrackerLocation() {
-
+            var isTouch = d3.touches(svgContainer.node()).length !== 0;
 
             if (browser.browser === Browser.Chrome || browser.browser === Browser.Safari || browser.browser === Browser.Opera) {
                 cursorTracker.attr({
                     x1: center.x,
                     y1: center.y,
-                    x2: d3.mouse(svgContainer.node())[0] / scaleFactor,
-                    y2: d3.mouse(svgContainer.node())[1] / scaleFactor
+                    x2: isTouch ? d3.touches(svgContainer.node())[0][0] / scaleFactor : d3.mouse(svgContainer.node())[0] / scaleFactor,
+                    y2: isTouch ? d3.touches(svgContainer.node())[0][1] / scaleFactor : d3.mouse(svgContainer.node())[1] / scaleFactor
                 });
             } else if (browser.browser === Browser.Firefox) {
                 cursorTracker.attr({
                     x1: center.x,
                     y1: center.y,
-                    x2: getSvgCenterX() + (d3.mouse(svgContainer.node())[0] - getSvgCenterX()) / scaleFactor,
-                    y2: getSvgCenterY() + (d3.mouse(svgContainer.node())[1] - getSvgCenterY()) / scaleFactor
+                    x2: getSvgCenterX() + ((isTouch ? d3.touches(svgContainer.node())[0][0] : d3.mouse(svgContainer.node())[0]) - getSvgCenterX()) / scaleFactor,
+                    y2: getSvgCenterY() + ((isTouch ? d3.touches(svgContainer.node())[0][1] : d3.mouse(svgContainer.node())[1]) - getSvgCenterY()) / scaleFactor
                 });
             } else {
                 cursorTracker.attr({
                     x1: center.x,
                     y1: center.y,
-                    x2: d3.mouse(svgContainer.node())[0],
-                    y2: d3.mouse(svgContainer.node())[1]
+                    x2: isTouch ? d3.touches(svgContainer.node())[0][0] : d3.mouse(svgContainer.node())[0],
+                    y2: isTouch ? d3.touches(svgContainer.node())[0][1] : d3.mouse(svgContainer.node())[1]
                 });
             }
         };
@@ -103,6 +112,14 @@ module Spirograph.Interaction {
         attachHandlersToRotatingGear();
 
         function moveGear(angle?: number) {
+
+            if (d3.event) d3.event.preventDefault();
+
+            try {
+                $('#output').html('X: ' + d3.touches(svgContainer.node())[0][0] + ', Y: ' + d3.touches(svgContainer.node())[0][1] + '<br />touchmove');
+            } catch (errorssss) {
+                console.log('initiliaztion stuff');
+            }
 
             if (!angle && dragStartMouseAngle === null)
                 dragStartMouseAngle = mouseAngle; mousemoveCounter++;
@@ -194,18 +211,24 @@ module Spirograph.Interaction {
         }
 
         function getNormalizedMouseCoords(center?: { x: number; y: number }) {
+            var isTouch = d3.touches(svgContainer.node()).length !== 0;
+            var d3EventCoords = {
+                x: isTouch ? d3.touches(svgContainer.node())[0][0] : d3.mouse(svgContainer.node())[0],
+                y: isTouch ? d3.touches(svgContainer.node())[0][1] : d3.mouse(svgContainer.node())[1],
+            };
+
             // webkit handles CSS3 transformed SVG elementes differently - to get
             // accurate mouse coordinates, we need to multiple by the current scale factor
             if (browser.browser === Browser.Chrome || browser.browser === Browser.Safari || browser.browser === Browser.Opera) {
-                var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0] / scaleFactor, y: d3.mouse(svgContainer.node())[1] / scaleFactor }, { x: svgWidth, y: svgHeight }, center);
+                var mouseCoords = Utility.toStandardCoords({ x: d3EventCoords.x / scaleFactor, y: d3EventCoords.y / scaleFactor }, { x: svgWidth, y: svgHeight }, center);
             } else if (browser.browser === Browser.Firefox) {
                 var mouseCoords = Utility.toStandardCoords(
                     {
-                        x: getSvgCenterX() + (d3.mouse(svgContainer.node())[0] - getSvgCenterX()) / scaleFactor,
-                        y: getSvgCenterY() + (d3.mouse(svgContainer.node())[1] - getSvgCenterY()) / scaleFactor
+                        x: getSvgCenterX() + (d3EventCoords.x - getSvgCenterX()) / scaleFactor,
+                        y: getSvgCenterY() + (d3EventCoords.y - getSvgCenterY()) / scaleFactor
                     }, { x: svgWidth, y: svgHeight }, center);
             } else {
-                var mouseCoords = Utility.toStandardCoords({ x: d3.mouse(svgContainer.node())[0], y: d3.mouse(svgContainer.node())[1] }, { x: svgWidth, y: svgHeight }, center);
+                var mouseCoords = Utility.toStandardCoords({ x: d3EventCoords.x, y: d3EventCoords.y }, { x: svgWidth, y: svgHeight }, center);
             }
 
             return mouseCoords;

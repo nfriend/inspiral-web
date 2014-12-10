@@ -3,7 +3,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head prefix="og: http://ogp.me/ns#">
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <meta property="og:type" content="website" />
@@ -28,6 +28,9 @@
 
 </head>
 <body class="spirograph">
+
+    <div id="output" style="position: fixed; top: 0; width: 100%; pointer-events: none; z-index: 1000; opacity:.6; background: white; text-align:center; font-size: 2em;">
+    </div>
 
     <div id="gear-options-background-color"></div>
     <div id="gear-options-selector" class="lower-during-drag">
