@@ -4,7 +4,7 @@ var Spirograph;
     (function (UI) {
         'use strict';
 
-        var $toolbarContainer = $('#toolbar-container-right'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $disabledUploadButtonPlaceholder = $('#disabled-upload-button-placeholder'), $galleryButton = $('#gallery-button'), $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'), $aboutButton = $('#about-button'), $keyboardShortcutsButton = $('#keyboard-shortcuts-button'), $mobileButton = $('#mobile-button'), $testButton = $('#test-button'), $downloadModal = $('#download-modal'), $downloadImageLink = $('#download-image-link'), inTimeout = false;
+        var $toolbarContainer = $('#toolbar-container-right'), $clearButton = $('#clear-button'), $body = $('body'), $showHideGearsButton = $('#show-hide-gears-button'), $downloadButton = $('#download-button'), $uploadButton = $('#upload-button'), $disabledUploadButtonPlaceholder = $('#disabled-upload-button-placeholder'), $galleryButton = $('#gallery-button'), $showHideCursorTrackerButton = $('#show-hide-cursor-tracker-button'), $aboutButton = $('#about-button'), $keyboardShortcutsButton = $('#keyboard-shortcuts-button'), $mobileButton = $('#mobile-button'), $realThingButton = $('#real-thing-button'), $testButton = $('#test-button'), $downloadModal = $('#download-modal'), $downloadImageLink = $('#download-image-link'), inTimeout = false;
 
         $downloadButton.tooltip({
             title: 'Download image',
@@ -57,6 +57,12 @@ var Spirograph;
 
         $mobileButton.tooltip({
             title: 'Get the app',
+            placement: 'left',
+            container: 'body'
+        });
+
+        $realThingButton.tooltip({
+            title: 'Get the real thing',
             placement: 'left',
             container: 'body'
         });
