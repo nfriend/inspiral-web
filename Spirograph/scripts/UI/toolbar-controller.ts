@@ -15,6 +15,7 @@ module Spirograph.UI {
         $aboutButton = $('#about-button'),
         $keyboardShortcutsButton = $('#keyboard-shortcuts-button'),
         $mobileButton = $('#mobile-button'),
+        $realThingButton = $('#real-thing-button'),
         $testButton = $('#test-button'),
         $downloadModal = $('#download-modal'),
         $downloadImageLink = $('#download-image-link'),
@@ -71,6 +72,12 @@ module Spirograph.UI {
 
     $mobileButton.tooltip({
         title: 'Get the app',
+        placement: 'left',
+        container: 'body'
+    });
+
+    $realThingButton.tooltip({
+        title: 'Get the real thing',
         placement: 'left',
         container: 'body'
     });
