@@ -46,6 +46,7 @@
     <Content Include="gallery\styles\fontawesome-webfont.ttf" />
     <Content Include="gallery\styles\fontawesome-webfont.woff" />
     <Content Include="gallery\styles\FontAwesome.otf" />
+    <Content Include="gallery\bower.json" />
     <None Include="gallery\styles\app.less" />
     <Content Include="Gruntfile.js" />
     <Content Include="HowToBuild.txt" />
