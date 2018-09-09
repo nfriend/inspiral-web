@@ -2,7 +2,7 @@
 $imgur_id = $_POST["imgur_id"];
 
 if ($imgur_id) {
-  $mysqli = new mysqli("localhost", "inspirographer", "", "inspirograph");
+  $mysqli = new mysqli("mysql", "inspirographer", "inspiropass", "inspirograph");
 
   if ($mysqli->connect_errno) {
     http_response_code(500);

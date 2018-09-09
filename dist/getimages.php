@@ -1,8 +1,8 @@
 <?php
-$page = isset($_POST["page"]) ? $_POST["page"] : null;
-$perPage = isset($_POST["perPage"]) ? $_POST["perPage"] : null;
+$page = isset($_REQUEST["page"]) ? $_REQUEST["page"] : null;
+$perPage = isset($_REQUEST["perPage"]) ? $_REQUEST["perPage"] : null;
 
-$mysqli = new mysqli("localhost", "inspirographer", "", "inspirograph");
+$mysqli = new mysqli("mysql", "inspirographer", "inspiropass", "inspirograph");
 
 if ($mysqli->connect_errno) {
   http_response_code(500);
