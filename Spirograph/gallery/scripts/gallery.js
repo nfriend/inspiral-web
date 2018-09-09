@@ -66,9 +66,11 @@
             var pageCount = Math.ceil(fileCount / itemsPerPage);
             var startCount = (pageNumber - 1) * itemsPerPage;
 
-            for (var i = startCount; i < startCount + itemsPerPage; i++) {
-                if (i >= images.length)
-                    break;
+            for (var i = 0; i < images.length; i++) {
+
+            // for (var i = startCount; i < startCount + itemsPerPage; i++) {
+            //     if (i >= images.length)
+            //         break;
 
                 var image = images[i];
                 var row = $('<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6"></div>');
