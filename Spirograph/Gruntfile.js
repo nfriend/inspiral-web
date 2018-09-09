@@ -6,10 +6,10 @@ module.exports = function (grunt) {
             main: {
                 options: {
                     read: [
-                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'mainCssRefs' },
-                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'mainJsRefs' },
-                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'mainCssRefsWithoutPath' },
-                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'mainJsRefsWithoutPath' }
+                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'mainCssRefs', isPath: true },
+                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'mainJsRefs', isPath: true },
+                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'mainCssRefsWithoutPath', isPath: true },
+                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'mainJsRefsWithoutPath', isPath: true }
                     ],
                     remove: [
                         'link:not(.dom_munger-ignore)',
@@ -28,10 +28,10 @@ module.exports = function (grunt) {
             gallery: {
                 options: {
                     read: [
-                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'galleryCssRefs' },
-                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'galleryJsRefs' },
-                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'galleryCssRefsWithoutPath' },
-                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'galleryJsRefsWithoutPath' }
+                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'galleryCssRefs', isPath: true },
+                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'galleryJsRefs', isPath: true },
+                      { selector: 'link:not(.dom_munger-ignore)', attribute: 'href', writeto: 'galleryCssRefsWithoutPath', isPath: true },
+                      { selector: 'script:not(.dom_munger-ignore)', attribute: 'src', writeto: 'galleryJsRefsWithoutPath', isPath: true }
                     ],
                     remove: [
                         'link:not(.dom_munger-ignore)',
@@ -76,8 +76,8 @@ module.exports = function (grunt) {
             },
             galleryScripts: {
                 cwd: '.',
-                src: ['/galleryscripts/**'],
-                dest: '../dist/gallery/',
+                src: ['gallery/scripts/**'],
+                dest: '../dist/',
                 expand: true
             },
             galleryImages: {

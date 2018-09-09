@@ -1,7 +1,7 @@
 {
   "name": "@nathanfriend/inspirograph",
   "description": "The build artifacts from Inspirograph - all files necessary to run Inspirograph on a web server",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
