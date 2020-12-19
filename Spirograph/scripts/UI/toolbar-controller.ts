@@ -192,21 +192,8 @@ module Spirograph.UI {
     });
 
     function redirectToImage(imageLink) {
-        if (browser.browser == Browser.Chrome) {
-            var filetypeMatches = imageLink.match(/\.[a-zA-Z0-9]+$/);
-            var filetype = '.jpg';
-            if (filetypeMatches.length > 0) {
-                filetype = filetypeMatches[0];
-            }
-
-            var $link = $('<a href="' + imageLink + '" download="inspirograph' + filetype + '" style="display: none">');
-            $body.append($link);
-            $link[0].click();
-            $link.remove();
-        } else {
-            $downloadImageLink.attr('href', 'download.html?image=' + encodeURI(imageLink));
-            $downloadModal.modal('show');
-        }
+        $downloadImageLink.attr('href', 'download.html?image=' + encodeURI(imageLink));
+        $downloadModal.modal('show');
     };
 
     // prevent scrolling inside the help modal from triggering scrolling behind the modal

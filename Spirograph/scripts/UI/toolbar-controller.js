@@ -176,21 +176,8 @@ var Spirograph;
         });
 
         function redirectToImage(imageLink) {
-            if (Spirograph.browser.browser == 0 /* Chrome */) {
-                var filetypeMatches = imageLink.match(/\.[a-zA-Z0-9]+$/);
-                var filetype = '.jpg';
-                if (filetypeMatches.length > 0) {
-                    filetype = filetypeMatches[0];
-                }
-
-                var $link = $('<a href="' + imageLink + '" download="inspirograph' + filetype + '" style="display: none">');
-                $body.append($link);
-                $link[0].click();
-                $link.remove();
-            } else {
-                $downloadImageLink.attr('href', 'download.html?image=' + encodeURI(imageLink));
-                $downloadModal.modal('show');
-            }
+            $downloadImageLink.attr('href', 'download.html?image=' + encodeURI(imageLink));
+            $downloadModal.modal('show');
         }
         ;
 
