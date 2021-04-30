@@ -10,7 +10,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "bower": "~0.9.2",
+    "bower": "~1.8.9",
     "grunt": "~0.4.1",
     "grunt-contrib-clean": "^0.5.0",
     "grunt-contrib-copy": "^0.5.0",
