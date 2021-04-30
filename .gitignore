@@ -156,8 +156,8 @@ $RECYCLE.BIN/
 .DS_Store
 
 # Bower dependencies
-Spirograph/bower_components/
-Spirograph/gallery/bower_components/
+InspiralWeb/bower_components/
+InspiralWeb/gallery/bower_components/
 
 # Node modules
-Spirograph/node_modules/
+InspiralWeb/node_modules/

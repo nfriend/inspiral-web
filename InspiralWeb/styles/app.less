@@ -1,0 +1,121 @@
+﻿@import (less) '../bower_components/jscrollpane/style/jquery.jscrollpane.css';
+@import (less) '../bower_components/bootstrap/dist/css/bootstrap.css';
+@import (less) '../bower_components/fontawesome/less/font-awesome.less';
+@import (less) '../bower_components/spectrum/spectrum.css';
+@import "_base.less";
+@import "_gear-options-selector.less";
+@import "_color-selector.less";
+@import "_jsscrollpane-modifications.less";
+@import "_toolbar-container.less";
+@import "_modals.less";
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+
+.inspiral-web {
+
+    #inspiral-web-svg {
+        margin-left: 2560px / -2;
+        margin-top: 1440px / -2;
+        width: 2560px;
+        height: 1440px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
+
+    #inspiral-web-canvas {
+        margin-left: 1568px / -2;
+        margin-top: 1108px / -2;
+        width: 1568px;
+        height: 1108px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+    }
+
+    #inspiral-web-svg {
+        margin-left: -1 * (1568 / 2) + 'px';
+    }
+
+    .dark {
+        color: lightgray;
+    }
+
+    .cursor-tracker {
+        stroke: rgba(41,22,107,.3);
+        stroke-width: 3px;
+
+        &.dark {
+            stroke: rgba(199,202,237, .6);
+        }
+    }
+
+    .gear {
+        fill: black;
+        fill-opacity: 0.2;
+        stroke: #2b2b2b;
+        fill-rule: evenodd;
+
+        &.dark {
+            stroke: #d5d5d5;
+            fill-rule: evenodd;
+            fill: white;
+            fill-opacity: .3;
+        }
+
+        &.fixed {
+            fill-opacity: 0.3;
+
+            &.dark {
+                fill-opacity: 0.5;
+            }
+        }
+
+        .gear-hole {
+            fill: transparent;
+            stroke: transparent;
+            stroke-width: 10px;
+            fill-opacity: 1;
+
+            &.selected {
+                stroke-width: 0;
+
+                &:hover {
+                    fill-opacity: 1;
+                }
+            }
+
+            &:hover {
+                fill-opacity: .9;
+                stroke-opacity: .9;
+            }
+        }
+
+        &.dragging {
+            .gear-hole {
+                &:hover {
+                    fill: transparent;
+                    stroke: transparent;
+                }
+            }
+        }
+    }
+
+    #output {
+        position: absolute;
+        z-index: -10;
+        color: gray;
+        margin: 20px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    #download-link {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        z-index: 10;
+        cursor: pointer;
+    }
+}
