@@ -97,6 +97,12 @@ module.exports = function (grunt) {
                     }
                 ]
             },
+            mainImages: {
+                cwd: '.',
+                src: ['images/**'],
+                dest: '../dist/',
+                expand: true
+            },
             galleryFonts: {
                 files: [
                     {
@@ -221,7 +227,7 @@ module.exports = function (grunt) {
         'dist',
         'Compiles all of the assets and copies the files to the dist directory',
         ['clean:everything', /*'fontAwesomeVars:main', 'fontAwesomeVars:gallery',*/ 'dom_munger:main', 'dom_munger:gallery', 'copy:favicon', 'copy:mainCss', 'copy:galleryCss', 'copy:mainScripts',
-            'copy:galleryScripts', 'copy:galleryImages', 'copy:galleryFonts', 'copy:mainFonts', 'copy:server', 'copy:mainMisc', 'copy:galleryMisc', 'copy:packageJson', 'uglify:main', 'uglify:gallery', 'htmlmin:main', 'htmlmin:gallery', 'clean:dist']
+            'copy:galleryScripts', 'copy:galleryImages', 'copy:galleryFonts', 'copy:mainFonts', 'copy:mainImages', 'copy:server', 'copy:mainMisc', 'copy:galleryMisc', 'copy:packageJson', 'uglify:main', 'uglify:gallery', 'htmlmin:main', 'htmlmin:gallery', 'clean:dist']
     );
     grunt.registerTask(
         'default',

@@ -6,10 +6,14 @@ Written in TypeScript, using D3.js.
 
 ## Building
 
-1. install Node.js a. note: this project only seems to build correctly with
-   version 5 and lower, due to this issue:
-   https://github.com/cgross/grunt-dom-munger/issues/42. Removing the `isPath`
-   parameter makes the build produce incorrect results.
+1. install Node.js
+   - ~~note: this project only seems to build correctly with version 5 and
+     lower, due to this
+     issue:https://github.com/cgross/grunt-dom-munger/issues/42. Removing the
+     `isPath` parameter makes the build produce incorrect results.~~ a. I got
+     around this issue by hacking in [this
+     PR](https://github.com/cgross/grunt-dom-munger/pull/45/files) in
+     `InspiralWeb/node_modules/grunt-dom-munger/tasks/dom_munger.js`
 1. install Grunt and Bower
 1. run `npm install` and `bower install` inside `InspiralWeb/` directory
 1. run `bower install` inside the `InspiralWeb/gallery` directory

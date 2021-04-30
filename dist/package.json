@@ -1,17 +1,26 @@
 {
-  "name": "@nathanfriend/inspirograph",
-  "description": "The build artifacts from Inspirograph - all files necessary to run Inspirograph on a web server",
+  "name": "@nathanfriend/inspiral-web",
+  "description": "The build artifacts from Inspiral Web - all files necessary to run Inspiral Web on a web server",
   "version": "1.2.2",
+  "scripts": {
+    "build-scripts": "tsc",
+    "build-styles:main": "lessc -x styles/app.less styles/app.min.css",
+    "build-styles:gallery": "lessc -x gallery/styles/app.less gallery/styles/app.min.css",
+    "build": "npm run build-scripts && npm run build-styles:main && npm run build-styles:gallery"
+  },
   "dependencies": {},
   "devDependencies": {
-    "grunt": "~0.4.1",
     "bower": "~0.9.2",
-    "grunt-contrib-copy": "^0.5.0",
+    "grunt": "~0.4.1",
     "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-copy": "^0.5.0",
+    "grunt-contrib-htmlmin": "^0.3.0",
+    "grunt-contrib-less": "^3.0.0",
     "grunt-contrib-uglify": "^0.5.1",
     "grunt-dom-munger": "^3.4.0",
-    "grunt-contrib-htmlmin": "^0.3.0",
-    "grunt-font-awesome-vars": "^1.0.1"
+    "grunt-font-awesome-vars": "^1.0.1",
+    "less": "4.1.1",
+    "typescript": "4.2.4"
   },
   "engines": {
     "node": ">=0.8.0"
